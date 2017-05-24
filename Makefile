@@ -59,7 +59,7 @@ install:
 	cp ./students/programs/* $(PATH_TO_STUDENT)/programs
 	cp -r ./students/savedGames/* $(PATH_TO_STUDENT)/savedGames
 	cp -r ./students/launchers/* $(PATH_TO_STUDENT)/launchers
-	cp ./README $(PATH_TO_STUDENT)/
+	cp ./README.md $(PATH_TO_STUDENT)/
 	echo 'export PATH="$(PATH_TO_PYRAT)/core":$$PATH' >> $(PATH_TO_BASHRC)
 	echo 'export PATH="$(PATH_TO_PYRAT)/players":$$PATH' >> $(PATH_TO_BASHRC)
 	echo 'export PATH="$(PATH_TO_CHROMEDRIVER)":$$PATH' >> $(PATH_TO_BASHRC)
