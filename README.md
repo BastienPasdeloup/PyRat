@@ -21,24 +21,24 @@ The course contents is available at this address:<br />https://hub.imt-atlantiqu
 
 # Install
 
-## Standard installation procedure
+### Standard installation procedure
 
 Installation of the PyRat software can be done directly using `pip`.
 Do not clone or download the repository.
 Instead please follow the following instructions:
 
-1a) First, make sure that Git is installed.
+1) First, make sure that Git is installed.
     Check the instructions corresponding to your operating system [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 
-2a) Install the PyRat software using the following command:<br />`python -m pip install --user git+https://github.com/BastienPasdeloup/PyRat.git`
+2) Install the PyRat software using the following command:<br />`python -m pip install --user git+https://github.com/BastienPasdeloup/PyRat.git`
 
-## Alternate installation procedure without installing Git
+### Alternate installation procedure without installing Git
 
 If you do not wish to install Git, you can follow these instructions instead:
 
-1b) Click on the green "<> Code" button on top of this page, and click on "Download ZIP".
+1) Click on the green "<> Code" button on top of this page, and click on "Download ZIP".
 
-2b) Extract the downloaded archive and navigate (using the `cd` command if on Linux/OSX or `dir` command if on Windows) there in a terminal.
+2) Extract the downloaded archive and navigate (using the `cd` command if on Linux/OSX or `dir` command if on Windows) there in a terminal.
     Then, run the following command:<br />`python -m pip install .`
 
 # Setup your workspace
