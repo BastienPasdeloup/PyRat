@@ -38,14 +38,14 @@ If you do not wish to install Git, you can follow these instructions instead of 
 
 1) Click on the green **`<> Code`** button on top of this page, and click on "Download ZIP".
 
-2) Extract the downloaded archive and navigate (using the `cd` command if on Linux/OSX or `dir` command if on Windows) there in a terminal.
+2) Extract the downloaded archive and navigate (using the `cd` command for Linux/MacOS, or `dir` command for Windows) there in a terminal.
     Then, run the following command:<br />`python -m pip install .`
 
 # Setup your workspace
 
 Whatever installation method you chose, now follow the following instructions to prepare your PyRat workspace:
 
-3) Open a terminal and navigate (using the `cd` command if on Linux/OSX or `dir` command if on Windows) to the directory where you want to create your PyRat workspace.
+3) Open a terminal and navigate (using the `cd` command for Linux/MacOS, or `dir` command for Windows) to the directory where you want to create your PyRat workspace.
 
 4) Then, run the following command to create a PyRat workspace in the current directory:<br />`python -c "import pyrat; pyrat.create_workspace('.')"`
 
