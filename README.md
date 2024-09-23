@@ -53,7 +53,7 @@ Whatever installation method you chose, now follow the following instructions to
 
 # Check installation
 
-Once installed, please head to the course website, and [follow instructions to start your first PyRat game](http://localhost:1313/ueinfo-fise1a/s5/project/session1/practical/#12-----the-pyrat-workspace).
+Once installed, please head to the course website, and [follow instructions to start your first PyRat game](https://hub.imt-atlantique.fr/ueinfo-fise1a/s5/project/session1/practical/index.html#12-----the-pyrat-workspace).
 
 <!-- ##################################################################################################################################################### -->
 <!-- ##################################################################################################################################################### -->
