@@ -65,8 +65,8 @@ class Player (abc.ABC):
         """
 
         # Debug
-        assert isinstance(name, (str, type(None))) # Type check for the name
-        assert isinstance(skin, PlayerSkin) # Type check for the skin
+        assert isinstance(name, (str, type(None))), "Argument 'name' must be a string or None (if None, we take the name of the class)"
+        assert isinstance(skin, PlayerSkin), "Argument 'skin' must be of type 'pyrat.PlayerSkin'"
 
         # Private attributes
         self.__name = name if name is not None else self.__class__.__name__
@@ -149,8 +149,8 @@ class Player (abc.ABC):
         """
 
         # Debug
-        assert isinstance(maze, Maze) # Type check for the maze
-        assert isinstance(game_state, GameState) # Type check for the game state
+        assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
+        assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
 
         # By default, this method does nothing unless implemented in the child classes
         pass
@@ -176,8 +176,8 @@ class Player (abc.ABC):
         """
 
         # Debug
-        assert isinstance(maze, Maze) # Type check for the maze
-        assert isinstance(game_state, GameState) # Type check for the game state
+        assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
+        assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
 
         # This method must be implemented in the child classes
         # By default we raise an error
@@ -205,10 +205,10 @@ class Player (abc.ABC):
         """
 
         # Debug
-        assert isinstance(maze, Maze) # Type check for the maze
-        assert isinstance(game_state, GameState) # Type check for the game state
-        assert isinstance(stats, dict) # Type check for the stats
-        assert all(isinstance(key, str) for key in stats.keys()) # Type check for the keys of the stats
+        assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
+        assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
+        assert isinstance(stats, dict), "Argument 'stats' must be a dictionary"
+        assert all(isinstance(key, str) for key in stats.keys()), "All keys of 'stats' must be strings"
 
         # By default, this method does nothing unless implemented in the child classes
         pass

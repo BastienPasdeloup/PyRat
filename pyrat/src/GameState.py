@@ -99,7 +99,7 @@ class GameState ():
         """
 
         # Debug
-        assert self.__player_locations or caller_file() in pyrat_files() # The object has been initialized by the game engine, or the method is called by the engine
+        assert self.__player_locations or caller_file() in pyrat_files(), "Cannot access player locations before the game has started"
 
         # Return the attribute
         return self.__player_locations
@@ -119,7 +119,7 @@ class GameState ():
         """
 
         # Debug
-        assert self.__player_locations or caller_file() in pyrat_files() # The object has been initialized by the game engine, or the method is called by the engine
+        assert self.__player_locations or caller_file() in pyrat_files(), "Cannot access player scores before the game has started"
 
         # Return the attribute
         return self.__score_per_player
@@ -139,7 +139,7 @@ class GameState ():
         """
 
         # Debug
-        assert self.__player_locations or caller_file() in pyrat_files() # The object has been initialized by the game engine, or the method is called by the engine
+        assert self.__player_locations or caller_file() in pyrat_files(), "Cannot access muds before the game has started"
 
         # Return the attribute
         return self.__muds
@@ -159,7 +159,7 @@ class GameState ():
         """
 
         # Debug
-        assert self.__player_locations or caller_file() in pyrat_files() # The object has been initialized by the game engine, or the method is called by the engine
+        assert self.__player_locations or caller_file() in pyrat_files(), "Cannot access teams before the game has started"
 
         # Return the attribute
         return self.__teams
@@ -179,7 +179,7 @@ class GameState ():
         """
 
         # Debug
-        assert self.__player_locations or caller_file() in pyrat_files() # The object has been initialized by the game engine, or the method is called by the engine
+        assert self.__player_locations or caller_file() in pyrat_files(), "Cannot access cheese before the game has started"
 
         # Return the attribute
         return self.__cheese
@@ -199,7 +199,7 @@ class GameState ():
         """
 
         # Debug
-        assert self.__player_locations or caller_file() in pyrat_files() # The object has been initialized by the game engine, or the method is called by the engine
+        assert self.__player_locations or caller_file() in pyrat_files(), "Cannot access turn before the game has started"
 
         # Return the attribute
         return self.__turn
@@ -221,7 +221,7 @@ class GameState ():
         """
 
         # Debug
-        assert caller_file() in pyrat_files() # The method is called by the engine
+        assert caller_file() in pyrat_files(), "Cannot set the turn outside of the game"
 
         # Set the attribute
         self.__turn = value
@@ -244,8 +244,8 @@ class GameState ():
         """
 
         # Debug
-        assert isinstance(name, str) # Type check for the name
-        assert name in self.muds # Check that the player exists
+        assert isinstance(name, str), "Argument 'name' must be a string"
+        assert name in self.muds, "Player '%s' is not in the game" % name
 
         # Get whether the player is currently crossing mud
         in_mud = self.muds[name]["target"] is not None

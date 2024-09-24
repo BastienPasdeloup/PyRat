@@ -86,11 +86,11 @@ class Maze (Graph, abc.ABC):
         super().__init__(*args, **kwargs)
         
         # Debug
-        assert isinstance(width, (Integral, type(None))) # Type check for width
-        assert isinstance(height, (Integral, type(None))) # Type check for height
-        assert width is None or width > 0 # Width is positive
-        assert height is None or height > 0 # Height is positive
-        assert (width is None and height is None) or width * height >= 2 # The maze has at least two vertices
+        assert isinstance(width, (Integral, type(None))), "Argument 'width' must be an integer or None"
+        assert isinstance(height, (Integral, type(None))), "Argument 'height' must be an integer or None"
+        assert width is None or width > 0, "Width must be positive"
+        assert height is None or height > 0, "Height must be positive"
+        assert (width is None and height is None) or width * height >= 2, "The maze must have at least 2 cells"
 
         # Protected attributes
         self._width = width
@@ -139,7 +139,7 @@ class Maze (Graph, abc.ABC):
         """
 
         # Debug
-        assert isinstance(self._width, Integral) # Width has been set or inferred previously
+        assert isinstance(self._width, Integral), "Width has not yet been set or inferred"
 
         # Return the attribute
         return self._width
@@ -159,7 +159,7 @@ class Maze (Graph, abc.ABC):
         """
 
         # Debug
-        assert isinstance(self._height, Integral) # Height has been set or inferred previously
+        assert isinstance(self._height, Integral), "Height has not yet been set or inferred"
 
         # Return the attribute
         return self._height
@@ -184,7 +184,7 @@ class Maze (Graph, abc.ABC):
         """
         
         # Debug
-        assert isinstance(index, Integral) # Type check for index
+        assert isinstance(index, Integral), "Argument 'index' must be an integer"
 
         # Conversion
         row = index // self.width
@@ -210,8 +210,8 @@ class Maze (Graph, abc.ABC):
         """
         
         # Debug
-        assert isinstance(row, Integral) # Type check for row
-        assert isinstance(col, Integral) # Type check for col
+        assert isinstance(row, Integral), "Argument 'row' must be an integer"
+        assert isinstance(col, Integral), "Argument 'col' must be an integer"
 
         # Conversion
         index = row * self.width + col
@@ -235,8 +235,8 @@ class Maze (Graph, abc.ABC):
         """
         
         # Debug
-        assert isinstance(row, Integral) # Type check for row
-        assert isinstance(col, Integral) # Type check for col
+        assert isinstance(row, Integral), "Argument 'row' must be an integer"
+        assert isinstance(col, Integral), "Argument 'col' must be an integer"
 
         # Check if the cell exists
         exists = 0 <= row < self.height and 0 <= col < self.width and self.rc_to_i(row, col) in self.vertices
@@ -258,7 +258,7 @@ class Maze (Graph, abc.ABC):
         """
         
         # Debug
-        assert isinstance(index, Integral) # Type check for index
+        assert isinstance(index, Integral), "Argument 'index' must be an integer"
 
         # Check if the cell exists
         exists = index in self.vertices
@@ -283,10 +283,10 @@ class Maze (Graph, abc.ABC):
         """
         
         # Debug
-        assert isinstance(vertex_1, Integral) # Type check for vertex_1
-        assert isinstance(vertex_2, Integral) # Type check for vertex_2
-        assert self.i_exists(vertex_1) # Vertex 1 is in the maze
-        assert self.i_exists(vertex_2) # Vertex 2 is in the maze
+        assert isinstance(vertex_1, Integral), "Argument 'vertex_1' must be an integer"
+        assert isinstance(vertex_2, Integral), "Argument 'vertex_2' must be an integer"
+        assert self.i_exists(vertex_1), "Vertex 1 is not in the maze"
+        assert self.i_exists(vertex_2), "Vertex 2 is not in the maze"
 
         # Get coordinates
         row_1, col_1 = self.i_to_rc(vertex_1)
@@ -316,7 +316,7 @@ class Maze (Graph, abc.ABC):
         """
         
         # Debug
-        assert isinstance(vertex, Integral) # Type check for vertex
+        assert isinstance(vertex, Integral), "Argument 'vertex' must be an integer"
 
         # Add vertex to the graph using the parent's method
         super().add_vertex(vertex)
@@ -345,12 +345,12 @@ class Maze (Graph, abc.ABC):
         """
         
         # Debug
-        assert isinstance(vertex_1, Integral) # Type check for vertex_1
-        assert isinstance(vertex_2, Integral) # Type check for vertex_2
-        assert isinstance(weight, Integral) # Type check for weight
-        assert self.i_exists(vertex_1) # Vertex 1 is in the maze
-        assert self.i_exists(vertex_2) # Vertex 2 is in the maze
-        assert self.coords_difference(vertex_1, vertex_2) in [(0, 1), (0, -1), (1, 0), (-1, 0)] # Vertices are adjacent on the grid
+        assert isinstance(vertex_1, Integral), "Argument 'vertex_1' must be an integer"
+        assert isinstance(vertex_2, Integral), "Argument 'vertex_2' must be an integer"
+        assert isinstance(weight, Integral), "Argument 'weight' must be an integer"
+        assert self.i_exists(vertex_1), "Vertex 1 is not in the maze"
+        assert self.i_exists(vertex_2), "Vertex 2 is not in the maze"
+        assert self.coords_difference(vertex_1, vertex_2) in [(0, 1), (0, -1), (1, 0), (-1, 0)], "Vertices are not adjacent"
 
         # If the symmetric edge already exists, we do not add it
         if self.has_edge(vertex_2, vertex_1):
@@ -375,7 +375,7 @@ class Maze (Graph, abc.ABC):
         """
         
         # Debug
-        assert "numpy" in globals() # Numpy is available
+        assert "numpy" in globals(), "Numpy is not available"
 
         # Create the adjacency matrix
         adjacency_matrix = numpy.zeros((self.width * self.height, self.width * self.height), dtype=int)
@@ -400,7 +400,7 @@ class Maze (Graph, abc.ABC):
         """
         
         # Debug
-        assert "torch" in globals() # Torch is available
+        assert "torch" in globals(), "Torch is not available"
 
         # Create the adjacency matrix
         adjacency_matrix = torch.zeros((self.width * self.height, self.width * self.height), dtype=torch.int)
@@ -427,10 +427,10 @@ class Maze (Graph, abc.ABC):
         """
 
         # Debug
-        assert isinstance(source, Integral) # Type check for source
-        assert isinstance(target, Integral) # Type check for target
-        assert self.i_exists(source) # Source is in the maze
-        assert self.i_exists(target) # Target is in the maze
+        assert isinstance(source, Integral), "Argument 'source' must be an integer"
+        assert isinstance(target, Integral), "Argument 'target' must be an integer"
+        assert self.i_exists(source), "Source is not in the maze"
+        assert self.i_exists(target), "Target is not in the maze"
 
         # Get the coordinates difference
         difference = self.coords_difference(source, target)
@@ -466,10 +466,10 @@ class Maze (Graph, abc.ABC):
         """
 
         # Debug
-        assert isinstance(locations, list) # Type check for locations
-        assert all(isinstance(location, Integral) for location in locations) # Type check for each location
-        assert all(self.i_exists(location) for location in locations) # All locations are in the maze
-        assert None not in [self.locations_to_action(locations[i], locations[i+1]) for i in range(len(locations) - 1)] # All moves are possible
+        assert isinstance(locations, list), "Argument 'locations' must be a list"
+        assert all(isinstance(location, Integral) for location in locations), "All elements of 'locations' must be integers"
+        assert all(self.i_exists(location) for location in locations), "Some locations are not in the maze"
+        assert None not in [self.locations_to_action(locations[i], locations[i+1]) for i in range(len(locations) - 1)], "Some moves are impossible"
 
         # Get the actions
         actions = [self.locations_to_action(locations[i], locations[i+1]) for i in range(len(locations) - 1)]

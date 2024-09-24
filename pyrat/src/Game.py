@@ -41,6 +41,7 @@ from pyrat.src.RenderingEngine import RenderingEngine
 from pyrat.src.ShellRenderingEngine import ShellRenderingEngine
 from pyrat.src.PygameRenderingEngine import PygameRenderingEngine
 from pyrat.src.enums import RenderMode, GameMode, Action, StartingLocation, PlayerSkin, RandomMazeAlgorithm
+from pyrat.src.utils import is_valid_directory
 
 #####################################################################################################################################################
 ###################################################################### CLASSES ######################################################################
@@ -161,28 +162,31 @@ class Game ():
         """
         
         # Debug
-        assert isinstance(random_seed, (Integral, type(None))) # Type check for random_seed
-        assert isinstance(random_seed_maze, (Integral, type(None))) # Type check for random_seed_maze
-        assert isinstance(random_seed_cheese, (Integral, type(None))) # Type check for random_seed_cheese
-        assert isinstance(random_seed_players, (Integral, type(None))) # Type check for random_seed_players
-        assert random_seed is None or (random_seed is not None and 0 <= random_seed < sys.maxsize) # Random seed should be a positive integer
-        assert random_seed_maze is None or (random_seed_maze is not None and 0 <= random_seed_maze < sys.maxsize) # Random seed should be a positive integer
-        assert random_seed_cheese is None or (random_seed_cheese is not None and 0 <= random_seed_cheese < sys.maxsize) # Random seed should be a positive integer
-        assert random_seed_players is None or (random_seed_players is not None and 0 <= random_seed_players < sys.maxsize) # Random seed should be a positive integer
-        assert random_seed is None or (random_seed is not None and all([param is None for param in [random_seed_maze, random_seed_cheese, random_seed_players]])) # If random_seed is set, other random seeds should not be set
-        assert isinstance(render_mode, (RenderMode, type(None))) # Type check for render_mode
-        assert isinstance(turn_time, (Number, type(None))) # Type check for render_simplified
-        assert turn_time is None or turn_time >= 0 # Turn time should be non-negative
-        assert isinstance(preprocessing_time, (Number, type(None))) # Type check for preprocessing_time
-        assert preprocessing_time is None or preprocessing_time >= 0 # Preprocessing time should be non-negative
-        assert isinstance(game_mode, (GameMode, type(None))) # Type check for game_mode
-        assert isinstance(continue_on_error, (bool, type(None))) # Type check for continue_on_error
-        assert not(game_mode == GameMode.SEQUENTIAL and render_mode == RenderMode.GUI) # Sequential mode is not compatible with GUI rendering
-        assert fixed_maze is None or (fixed_maze is not None and all(param is None for param in [random_seed_maze, random_maze_algorithm, maze_width, maze_height, cell_percentage, wall_percentage, mud_percentage, mud_range])) # Fixed maze should be given if and only if no other maze description is given
-        assert fixed_cheese is None or (fixed_cheese is not None and all(param is None for param in [random_seed_cheese, nb_cheese])) # Fixed cheese should be given if and only if no other cheese description is given
-        assert game_mode is None or game_mode != GameMode.SIMULATION or (game_mode == GameMode.SIMULATION and all([param is None for param in [render_mode, preprocessing_time, turn_time]])) # Simulation mode will enforce some parameters
-        assert render_mode is None or render_mode == RenderMode.GUI or (render_mode != RenderMode.GUI and all([param is None for param in [trace_length, gui_speed, fullscreen]])) # Some parameters can only be set when rendering as GUI
-        assert isinstance(random_maze_algorithm, (RandomMazeAlgorithm, type(None))) # Type check for random_maze_algorithm
+        assert isinstance(random_seed, (Integral, type(None))), "Argument 'random_seed' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED' is used)"
+        assert isinstance(random_seed_maze, (Integral, type(None))), "Argument 'random_seed_maze' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED_MAZE' is used)"
+        assert isinstance(random_seed_cheese, (Integral, type(None))), "Argument 'random_seed_cheese' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED_CHEESE' is used)"
+        assert isinstance(random_seed_players, (Integral, type(None))), "Argument 'random_seed_players' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED_PLAYERS' is used)"
+        assert random_seed is None or (random_seed is not None and 0 <= random_seed < sys.maxsize), "Argument 'random_seed' should be non-negative"
+        assert random_seed_maze is None or (random_seed_maze is not None and 0 <= random_seed_maze < sys.maxsize), "Argument 'random_seed_maze' should be a positive integer"
+        assert random_seed_cheese is None or (random_seed_cheese is not None and 0 <= random_seed_cheese < sys.maxsize), "Argument 'random_seed_cheese' should be a positive integer"
+        assert random_seed_players is None or (random_seed_players is not None and 0 <= random_seed_players < sys.maxsize), "Argument 'random_seed_players' should be a positive integer"
+        assert random_seed is None or (random_seed is not None and all([param is None for param in [random_seed_maze, random_seed_cheese, random_seed_players]])), "Argument 'random_seed' should be given if and only if no other random seed is given"
+        assert isinstance(render_mode, (RenderMode, type(None))), "Argument 'render_mode' must be of type 'pyrat.RenderMode' or None (if so, default value 'Game.DEFAULT_RENDER_MODE' is used)"
+        assert isinstance(turn_time, (Number, type(None))), "Argument 'turn_time' must be a real number or None (if so, default value 'Game.DEFAULT_TURN_TIME' is used)"
+        assert turn_time is None or turn_time >= 0, "Argument 'turn_time' should be non-negative"
+        assert isinstance(preprocessing_time, (Number, type(None))), "Argument 'preprocessing_time' must be a real number or None (if so, default value 'Game.DEFAULT_PREPROCESSING_TIME' is used)"
+        assert preprocessing_time is None or preprocessing_time >= 0, "Argument 'preprocessing_time' should be non-negative"
+        assert isinstance(game_mode, (GameMode, type(None))), "Argument 'game_mode' must be of type 'pyrat.GameMode' or None (if so, default value 'Game.DEFAULT_GAME_MODE' is used)"
+        assert isinstance(continue_on_error, (bool, type(None))), "Argument 'continue_on_error' must be a boolean or None (if so, default value 'Game.DEFAULT_CONTINUE_ON_ERROR' is used)"
+        assert not(game_mode == GameMode.SEQUENTIAL and render_mode == RenderMode.GUI), "Cannot render GUI in sequential mode"
+        assert fixed_maze is None or (fixed_maze is not None and all(param is None for param in [random_seed_maze, random_maze_algorithm, maze_width, maze_height, cell_percentage, wall_percentage, mud_percentage, mud_range])), "Argument 'fixed_maze' should be given if and only if no other maze description is given"
+        assert fixed_cheese is None or (fixed_cheese is not None and all(param is None for param in [random_seed_cheese, nb_cheese])), "Argument 'fixed_cheese' should be given if and only if no other cheese description is given"
+        assert game_mode is None or game_mode != GameMode.SIMULATION or (game_mode == GameMode.SIMULATION and all([param is None for param in [render_mode, preprocessing_time, turn_time]])), "Some parameters should be set when running in simulation mode"
+        assert render_mode is None or render_mode == RenderMode.GUI or (render_mode != RenderMode.GUI and all([param is None for param in [trace_length, gui_speed, fullscreen]])), "Some parameters should be set only when rendering in GUI mode"
+        assert isinstance(random_maze_algorithm, (RandomMazeAlgorithm, type(None))), "Argument 'random_maze_algorithm' must be of type 'pyrat.RandomMazeAlgorithm' or None (if so, default value 'Game.DEFAULT_RANDOM_MAZE_ALGORITHM' is used)"
+        assert isinstance(save_game, (bool, type(None))), "Argument 'save_game' must be a boolean or None (if so, default value 'Game.DEFAULT_SAVE_GAME' is used)"
+        assert isinstance(save_path, (str, type(None))), "Argument 'save_path' must be a string or None (if so, default value 'Game.DEFAULT_SAVE_PATH' is used)"
+        assert save_path is None or is_valid_directory(save_path), "Argument 'save_path' must be a valid directory"
 
         # Store given parameters or default values
         self.__random_seed = random_seed if random_seed is not None else Game.DEFAULT_RANDOM_SEED
@@ -321,12 +325,12 @@ class Game ():
         """
 
         # Debug
-        assert isinstance(player, Player) # Type check for player
-        assert isinstance(team, str) # Type check for team
-        assert isinstance(location, (StartingLocation, Integral)) # Type check for location
-        assert location in list(StartingLocation) or (isinstance(location, Integral) and 0 <= location < self.__maze.height * self.__maze.width) # Type check for location
-        assert player.name not in self.__player_traces # Player name should be unique
-        assert not (location == StartingLocation.SAME and len(self.__players) == 0) # Location cannot be SAME if no player was added before
+        assert isinstance(player, Player), "Argument 'player' must be of type 'pyrat.Player'"
+        assert isinstance(team, str), "Argument 'team' must be a string"
+        assert isinstance(location, (StartingLocation, Integral)), "Argument 'location' must be of type 'pyrat.StartingLocation' or an integer, corresponding to the index of the cell where the player should start"
+        assert location in list(StartingLocation) or (isinstance(location, Integral) and self.__maze.i_exists(location)), "Argument 'location' must be a valid index of the maze or a value of the 'pyrat.StartingLocation' enumeration"
+        assert player.name not in self.__player_traces, "Player '%s' was already added to the game" % player.name
+        assert not (location == StartingLocation.SAME and len(self.__players) == 0), "Cannot start player '%s' at the same location as the previous player if no player was added before" % player.name
 
         # Set initial location
         self.__players_asked_location.append(location)
@@ -387,7 +391,7 @@ class Game ():
         """
         
         # Debug
-        assert isinstance(keep_players, bool) # Type check for keep_players
+        assert isinstance(keep_players, bool), "Argument 'keep_players' must be a boolean"
 
         # Set random seeds for the game
         self.__game_random_seed_maze = self.__random_seed if self.__random_seed is not None else self.__random_seed_maze if self.__random_seed_maze is not None else random.randint(0, sys.maxsize - 1)
@@ -400,16 +404,16 @@ class Game ():
         self.__actions_history = {}
         
         # Initialize the maze
-        if self.__random_maze_algorithm == RandomMazeAlgorithm.UNIFORM_HOLES:
+        if isinstance(self.__fixed_maze, dict):
+            self.__maze = MazeFromDict(self.__fixed_maze)
+        elif self.__fixed_maze is not None:
+            self.__maze = MazeFromMatrix(self.__fixed_maze)
+        elif self.__random_maze_algorithm == RandomMazeAlgorithm.UNIFORM_HOLES:
             self.__maze = UniformHolesRandomMaze(self.__cell_percentage, self.__wall_percentage, self.__mud_percentage, self.__mud_range, self.__game_random_seed_maze, self.__maze_width, self.__maze_height)
         elif self.__random_maze_algorithm == RandomMazeAlgorithm.HOLES_ON_SIDE:
             self.__maze = HolesOnSideRandomMaze(self.__cell_percentage, self.__wall_percentage, self.__mud_percentage, self.__mud_range, self.__game_random_seed_maze, self.__maze_width, self.__maze_height)
         elif self.__random_maze_algorithm == RandomMazeAlgorithm.BIG_HOLES:
             self.__maze = BigHolesRandomMaze(self.__cell_percentage, self.__wall_percentage, self.__mud_percentage, self.__mud_range, self.__game_random_seed_maze, self.__maze_width, self.__maze_height)
-        elif isinstance(self.__fixed_maze, dict):
-            self.__maze = MazeFromDict(self.__fixed_maze)
-        else:
-            self.__maze = MazeFromMatrix(self.__fixed_maze)
 
         # Initialize the rendering engine
         if self.__render_mode in [RenderMode.ASCII, RenderMode.ANSI]:
@@ -449,8 +453,8 @@ class Game ():
         """
         
         # Debug
-        assert len(self.__players) > 0 # At least 1 player
-        assert self.__reset_called # Game was reset
+        assert len(self.__players) > 0, "No player was added to the game"
+        assert self.__reset_called, "The game was not reset before starting"
 
         # We catch exceptions that may happen during the game
         try:
@@ -462,17 +466,18 @@ class Game ():
             stats = {"players": {}, "turns": -1}
             for player in self.__players:
                 stats["players"][player.name] = {"score": 0,
-                                                    "preprocessing_duration": None,
-                                                    "turn_durations": [],
-                                                    "actions": {Action.NOTHING.value: 0,
-                                                                Action.NORTH.value: 0,
-                                                                Action.EAST.value: 0,
-                                                                Action.SOUTH.value: 0,
-                                                                Action.WEST.value: 0,
-                                                                "mud": 0,
-                                                                "error": 0,
-                                                                "miss": 0,
-                                                                "wall" : 0}}
+                                                 "preprocessing_duration": None,
+                                                 "turn_durations": [],
+                                                 "team": [team for team in self.__initial_game_state.teams if player.name in self.__initial_game_state.teams[team]][0],
+                                                 "actions": {Action.NOTHING.value: 0,
+                                                             Action.NORTH.value: 0,
+                                                             Action.EAST.value: 0,
+                                                             Action.SOUTH.value: 0,
+                                                             Action.WEST.value: 0,
+                                                             "mud": 0,
+                                                             "error": 0,
+                                                             "miss": 0,
+                                                             "wall" : 0}}
             
             # In multiprocessing mode, prepare processes
             maze_per_player = {player.name: copy.deepcopy(self.__maze) for player in self.__players}
@@ -496,9 +501,9 @@ class Game ():
                         waiter_processes[player.name]["process"].start()
 
             # Add cheese
-            game_state = copy.deepcopy(self.__initial_game_state)
             available_cells = [i for i in self.__maze.vertices if i not in self.__initial_game_state.player_locations.values()]
-            game_state.cheese.extend(self.__distribute_cheese(available_cells))
+            self.__initial_game_state.cheese.extend(self.__distribute_cheese(available_cells))
+            game_state = copy.deepcopy(self.__initial_game_state)
             
             # Initial rendering of the maze
             self.__rendering_engine.render(self.__players, self.__maze, game_state)
@@ -624,9 +629,7 @@ class Game ():
         """
 
         # Debug
-        assert isinstance(game_crashed, bool) # Type check for game_crashed
-        assert isinstance(self.__save_game, bool) # Type check for self.__save_game
-        assert isinstance(self.__save_path, str) # Type check for self.__save_path
+        assert isinstance(game_crashed, bool), "Argument 'game_crashed' must be a boolean"
 
         # We save the game if asked
         if self.__save_game and not game_crashed:
@@ -647,7 +650,7 @@ class Game ():
                                             "skin": "{SKIN_" + player.skin.name + "}",
                                             "team": [team for team in self.__initial_game_state.teams if player.name in self.__initial_game_state.teams[team]][0],
                                             "location": self.__initial_game_state.player_locations[player.name],
-                                            "actions": "{ACTIONS}"})
+                                            "actions": "{ACTIONS_" + player.name + "}"})
 
             # Create the players' file, forcing players to their initial locations
             output_file_name = os.path.join(self.__save_path, datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S_%f.ipynb"))
@@ -658,7 +661,8 @@ class Game ():
                 save_template = save_template.replace("'{GAME_MODE}'", "GameMode.SYNCHRONOUS")
                 for skin in PlayerSkin:
                     save_template = save_template.replace("'{SKIN_" + skin.name + "}'", "PlayerSkin." + skin.name)
-                save_template = save_template.replace("'{ACTIONS}'", "[" + ", ".join("Action." + action.name for action in self.__actions_history[player.name]) + "]")
+                for player in self.__players:
+                    save_template = save_template.replace("'{ACTIONS_" + player.name + "}'", "[" + ", ".join("Action." + action.name for action in self.__actions_history[player.name]) + "]")
                 with open(output_file_name, "w") as output_file:
                     print(save_template, file=output_file)
 
@@ -683,10 +687,10 @@ class Game ():
         """
 
         # Debug
-        assert isinstance(game_state, GameState) # Type check for game_state
-        assert isinstance(actions, dict) # Type check for actions
-        assert all(player_name in [player.name for player in self.__players] for player_name in actions) # Type check for actions
-        assert all(action in Action for action in actions.values()) # All actions are valid
+        assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
+        assert isinstance(actions, dict), "Argument 'actions' must be a dictionary"
+        assert all(player_name in [player.name for player in self.__players] for player_name in actions), "All players must be in the game"
+        assert all(action in Action for action in actions.values()), "All actions must be of type 'pyrat.Action'"
 
         # Initialize new game state
         new_game_state = copy.deepcopy(game_state)
@@ -754,20 +758,20 @@ class Game ():
         """
         
         # Debug
-        assert isinstance(available_cells, list) # Type check for available_cells
-        assert all([isinstance(cell, Integral) for cell in available_cells]) # Type check for available_cells
-        assert all([self.__maze.i_exists(cell) for cell in available_cells]) # Type check for available_cells
+        assert isinstance(available_cells, list), "Argument 'available_cells' must be a list"
+        assert all([isinstance(cell, Integral) for cell in available_cells]), "All elements of 'available_cells' must be integers"
+        assert all([self.__maze.i_exists(cell) for cell in available_cells]), "All elements of 'available_cells' must be valid indices of the maze"
 
         # If we ask for a fixed list of cheese, we use it
         if self.__fixed_cheese is not None:
             
             # Debug
-            assert isinstance(self.__fixed_cheese, list) # Type check for fixed_cheese
-            assert all([isinstance(cell, Integral) for cell in self.__fixed_cheese]) # Type check for fixed_cheese
-            assert len(set(self.__fixed_cheese)) == len(self.__fixed_cheese) # Only distinct cheese
-            assert len(available_cells) >= len(self.__fixed_cheese) # Enough space for cheese
-            assert all([self.__maze.i_exists(cell) for cell in self.__fixed_cheese]) # Only on existing cells
-            assert all([cell in available_cells for cell in self.__fixed_cheese]) # Only on available cells
+            assert isinstance(self.__fixed_cheese, list), "Attribute '__fixed_cheese' must be a list"
+            assert all([isinstance(cell, Integral) for cell in self.__fixed_cheese]), "All elements of '__fixed_cheese' must be integers"
+            assert len(set(self.__fixed_cheese)) == len(self.__fixed_cheese), "All elements of '__fixed_cheese' must be unique"
+            assert len(available_cells) >= len(self.__fixed_cheese), "Not enough available cells to place the fixed cheese"
+            assert all([self.__maze.i_exists(cell) for cell in self.__fixed_cheese]), "All elements of '__fixed_cheese' must be valid indices of the maze"
+            assert all([cell in available_cells for cell in self.__fixed_cheese]), "All elements of '__fixed_cheese' must be in 'available_cells'"
 
             # Place the cheese
             cheese = copy.deepcopy(self.__fixed_cheese)
@@ -776,9 +780,9 @@ class Game ():
         else:
             
             # Debug
-            assert isinstance(self.__nb_cheese, Integral) # Type check for nb_cheese
-            assert self.__nb_cheese > 0 # At least one cheese
-            assert len(available_cells) >= self.__nb_cheese # Enough space for cheese
+            assert isinstance(self.__nb_cheese, Integral), "Attribute '__nb_cheese' must be an integer"
+            assert self.__nb_cheese > 0, "Attribute '__nb_cheese' must be positive"
+            assert len(available_cells) >= self.__nb_cheese, "Not enough available cells to place the cheese"
 
             # Place the cheese randomly
             rng = random.Random(self.__game_random_seed_cheese)
@@ -825,17 +829,17 @@ def _player_process_function ( player:                  Player,
     """
 
     # Debug
-    assert isinstance(player, Player) # Type check for player
-    assert isinstance(maze, Maze) # Type check for maze
-    assert isinstance(input_queue, (mpmanagers.BaseProxy, type(None))) # Type check for input_queue
-    assert isinstance(output_queue, (mpmanagers.BaseProxy, type(None))) # Type check for output_queue
-    assert isinstance(turn_start_synchronizer, (mpmanagers.BarrierProxy, type(None))) # Type check for turn_start_synchronizer
-    assert isinstance(turn_timeout_lock, (mpmanagers.AcquirerProxy, type(None))) # Type check for turn_timeout_lock
-    assert isinstance(turn_end_synchronizer, (mpmanagers.BarrierProxy, type(None))) # Type check for turn_end_synchronizer
-    assert isinstance(game_state, (GameState, type(None))) # Type check for game_state
-    assert isinstance(final_stats, (dict, type(None))) # Type check for final_stats
-    assert final_stats is None or all(isinstance(key, str) for key in final_stats) # Type check for final_stats
-    assert (input_queue is None and output_queue is None and turn_start_synchronizer is None and turn_timeout_lock is None and turn_end_synchronizer is None) ^ (game_state is None and final_stats is None) # Either multiprocessing or sequential
+    assert isinstance(player, Player), "Argument 'player' must be of type 'pyrat.Player'"
+    assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
+    assert isinstance(input_queue, (mpmanagers.BaseProxy, type(None))), "Argument 'input_queue' must be of type 'multiprocessing.Queue' or None"
+    assert isinstance(output_queue, (mpmanagers.BaseProxy, type(None))), "Argument 'output_queue' must be of type 'multiprocessing.Queue' or None"
+    assert isinstance(turn_start_synchronizer, (mpmanagers.BarrierProxy, type(None))), "Argument 'turn_start_synchronizer' must be of type 'multiprocessing.Barrier' or None"
+    assert isinstance(turn_timeout_lock, (mpmanagers.AcquirerProxy, type(None))), "Argument 'turn_timeout_lock' must be of type 'multiprocessing.Lock' or None"
+    assert isinstance(turn_end_synchronizer, (mpmanagers.BarrierProxy, type(None))), "Argument 'turn_end_synchronizer' must be of type 'multiprocessing.Barrier' or None"
+    assert isinstance(game_state, (GameState, type(None))), "Argument 'game_state' must be of type 'pyrat.GameState' or None"
+    assert isinstance(final_stats, (dict, type(None))), "Argument 'final_stats' must be of type 'dict' or None"
+    assert final_stats is None or all(isinstance(key, str) for key in final_stats), "Keys of 'final_stats' must be strings"
+    assert (input_queue is None and output_queue is None and turn_start_synchronizer is None and turn_timeout_lock is None and turn_end_synchronizer is None) ^ (game_state is None and final_stats is None), "Some arguments are for multiprocessing mode, and others for sequential mode"
     
     # We catch exceptions that may happen during the game
     use_multiprocessing = input_queue is not None
@@ -926,6 +930,10 @@ def _waiter_process_function ( input_queue:             multiprocessing.Queue,
         Out:
             * None.
     """
+
+    # Debug
+    assert isinstance(input_queue, mpmanagers.QueueProxy), "Argument 'input_queue' must be of type 'multiprocessing.Queue'"
+    assert isinstance(turn_start_synchronizer, mpmanagers.BarrierProxy), "Argument 'turn_start_synchronizer' must be of type 'multiprocessing.Barrier'"
 
     # We catch exceptions that may happen during the game
     try:

@@ -55,7 +55,7 @@ class RenderingEngine ():
         """
 
         # Debug
-        assert isinstance(render_simplified, bool) # Type check for render_simplified
+        assert isinstance(render_simplified, bool), "Argument 'render_simplified' must be a boolean"
 
         # Protected attributes
         self._render_simplified = render_simplified
@@ -83,10 +83,10 @@ class RenderingEngine ():
         """
 
         # Debug
-        assert isinstance(players, list) # Type check for players
-        assert all(isinstance(player, Player) for player in players)
-        assert isinstance(maze, Maze)
-        assert isinstance(game_state, GameState)
+        assert isinstance(players, list), "Argument 'players' must be a list"
+        assert all(isinstance(player, Player) for player in players), "All elements of 'players' must be of type 'pyrat.Player'"
+        assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
+        assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
 
         # Nothing to do
         pass

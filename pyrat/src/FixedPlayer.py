@@ -64,8 +64,8 @@ class FixedPlayer (Player):
         super().__init__(*args, **kwargs)
 
         # Debug
-        assert isinstance(actions, list) # Type check for actions
-        assert all(action in Action for action in actions) # Check that all actions are valid
+        assert isinstance(actions, list), "Argument 'actions' must be a list"
+        assert all(action in Action for action in actions), "All elements of 'actions' must be of type 'pyrat.Action'"
 
         # Private attributes
         self.__actions = actions

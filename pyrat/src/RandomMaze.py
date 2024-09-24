@@ -79,20 +79,20 @@ class RandomMaze (Maze, abc.ABC):
         super().__init__(*args, **kwargs)
         
         # Debug
-        assert isinstance(cell_percentage, Number) # Type check for cell_percentage
-        assert isinstance(wall_percentage, Number) # Type check for wall_percentage
-        assert isinstance(mud_percentage, Number) # Type check for mud_percentage
-        assert isinstance(mud_range, (type(None), tuple, list)) # Type check for mud_range
-        assert isinstance(random_seed, (Integral, type(None))) # Type check for random_seed
-        assert random_seed is None or 0 <= random_seed < sys.maxsize # random_seed is a valid seed
-        assert (mud_percentage > 0.0 and len(mud_range) == 2) or mud_percentage == 0.0 # Mud range is an interval of 2 elements
-        assert mud_range is None or isinstance(mud_range[0], Integral) # Type check for mud_range[0]
-        assert mud_range is None or isinstance(mud_range[1], Integral) # Type check for mud_range[1]
-        assert 0.0 <= cell_percentage <= 100.0 # cell_percentage is a percentage
-        assert 0.0 <= wall_percentage <= 100.0 # wall_percentage is a percentage
-        assert 0.0 <= mud_percentage <= 100.0 # mud_percentage is a percentage
-        assert mud_range is None or 1 < mud_range[0] <= mud_range[1] # mud_range is a valid interval with minimum value 1
-        assert int(self.width * self.height * cell_percentage / 100) > 1 # At least two vertices
+        assert isinstance(cell_percentage, Number), "Argument 'cell_percentage' must be a real number"
+        assert isinstance(wall_percentage, Number), "Argument 'wall_percentage' must be a real number"
+        assert isinstance(mud_percentage, Number), "Argument 'mud_percentage' must be a real number"
+        assert isinstance(mud_range, (type(None), tuple, list)), "Argument 'mud_range' must be a tuple, a list, or None"
+        assert isinstance(random_seed, (Integral, type(None))), "Argument 'random_seed' must be an integer or None"
+        assert random_seed is None or 0 <= random_seed < sys.maxsize, "Argument 'random_seed' must be a positive integer or None"
+        assert (mud_percentage > 0.0 and len(mud_range) == 2) or mud_percentage == 0.0, "Argument 'mud_range' must be specified if 'mud_percentage' is not 0.0"
+        assert mud_range is None or isinstance(mud_range[0], Integral), "Argument 'mud_range' must be a tuple of integers"
+        assert mud_range is None or isinstance(mud_range[1], Integral), "Argument 'mud_range' must be a tuple of integers"
+        assert 0.0 <= cell_percentage <= 100.0, "Argument 'cell_percentage' must be a percentage"
+        assert 0.0 <= wall_percentage <= 100.0, "Argument 'wall_percentage' must be a percentage"
+        assert 0.0 <= mud_percentage <= 100.0, "Argument 'mud_percentage' must be a percentage"
+        assert mud_range is None or 1 < mud_range[0] <= mud_range[1], "Argument 'mud_range' must be a valid interval with minimum value at least 2"
+        assert int(self.width * self.height * cell_percentage / 100) > 1, "The maze must have at least two vertices"
 
         # Protected attributes
         self._target_nb_vertices = int(self.width * self.height * cell_percentage / 100)

@@ -67,15 +67,15 @@ class MazeFromDict (Maze):
         super().__init__(*args, **kwargs)
 
         # Debug
-        assert isinstance(description, dict) # Type check for description
-        assert all(isinstance(vertex, Integral) for vertex in description) # Type check for description
-        assert all(isinstance(neighbor, Integral) for vertex in description for neighbor in description[vertex]) # Type check for description
-        assert all(isinstance(description[vertex][neighbor], Integral) for vertex in description for neighbor in description[vertex]) # Type check for description
-        assert len(description) > 1 # The maze has at least two vertices
-        assert all(len(description[vertex]) > 0 for vertex in description) # All vertices are connected to at least one neighbor
-        assert all(vertex in description[neighbor] for vertex in description for neighbor in description[vertex]) # The graph is symmetric
-        assert all(description[vertex][neighbor] == description[neighbor][vertex] for vertex in description for neighbor in description[vertex]) # Weights are symmetric
-        assert all(description[vertex][neighbor] > 0 for vertex in description for neighbor in description[vertex]) # Weights are positive
+        assert isinstance(description, dict), "Argument 'description' must be a dictionary"
+        assert all(isinstance(vertex, Integral) for vertex in description), "All keys of 'description' must be integers"
+        assert all(isinstance(neighbor, Integral) for vertex in description for neighbor in description[vertex]), "All keys of subdictionaries of 'description' must be integers"
+        assert all(isinstance(description[vertex][neighbor], Integral) for vertex in description for neighbor in description[vertex]), "All values of subdictionaries of 'description' must be integers"
+        assert len(description) > 1, "The maze must have at least two vertices"
+        assert all(len(description[vertex]) > 0 for vertex in description), "All vertices must have at least one neighbor"
+        assert all(vertex in description[neighbor] for vertex in description for neighbor in description[vertex]), "The maze must be symmetric"
+        assert all(description[vertex][neighbor] == description[neighbor][vertex] for vertex in description for neighbor in description[vertex]), "The maze must have symmetric weights"
+        assert all(description[vertex][neighbor] > 0 for vertex in description for neighbor in description[vertex]), "All weights must be positive"
 
         # Private attributes
         self.__description = description

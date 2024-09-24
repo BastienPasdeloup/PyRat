@@ -68,14 +68,14 @@ class MazeFromMatrix (Maze):
         super().__init__(*args, **kwargs)
 
         # Debug
-        assert str(type(description)) in ["<class 'numpy.ndarray'>", "<class 'torch.Tensor'>"] # Check that the description is a numpy ndarray or a torch tensor
-        assert len(description.shape) == 2 # Check that the description is a matrix
-        assert description.shape[0] == description.shape[1] # Check that the matrix is square
-        assert description.shape[0] > 1 # The maze has at least two vertices
-        assert all(isinstance(weight, Integral) for weight in description.flatten().tolist()) # Weights are integers
-        assert (description == description.T).all() # Check that the matrix is symmetric
-        assert (description >= 0).all() # Check that the weights are non-negative
-        assert (description > 0).any() # Check that the maze has at least one edge
+        assert str(type(description)) in ["<class 'numpy.ndarray'>", "<class 'torch.Tensor'>"], "Argument 'description' must be a numpy.ndarray or a torch.Tensor"
+        assert len(description.shape) == 2, "Argument 'description' must be a 2D matrix"
+        assert description.shape[0] == description.shape[1], "Argument 'description' must be a square matrix"
+        assert description.shape[0] > 1, "The maze must have at least two vertices"
+        assert all(isinstance(weight, Integral) for weight in description.flatten().tolist()), "All entries of 'description' must be integers"
+        assert (description == description.T).all(), "Argument 'description' must be a symmetric matrix"
+        assert (description >= 0).all(), "All entries of 'description' must be non-negative"
+        assert (description > 0).any(), "The maze must have at least one edge"
 
         # Private attributes
         self.__description = description

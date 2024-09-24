@@ -191,8 +191,8 @@ class Graph ():
         """
         
         # Debug
-        assert isinstance(vertex, Hashable) # Type check for vertex
-        assert vertex not in self.__adjacency # Vertex is not already in the graph
+        assert isinstance(vertex, Hashable), "Argument 'vertex' must be hashable"
+        assert vertex not in self.__adjacency, "Vertex already in the graph"
 
         # Add vertex to the adjacency matrix
         self.__adjacency[vertex] = {}
@@ -221,14 +221,14 @@ class Graph ():
         """
         
         # Debug
-        assert isinstance(vertex_1, Hashable) # Type check for vertex_1
-        assert isinstance(vertex_2, Hashable) # Type check for vertex_2
-        assert isinstance(weight, Number) # Type check for weight
-        assert isinstance(symmetric, bool) # Type check for symmetric
-        assert vertex_1 in self.__adjacency # Vertex 1 is in the graph
-        assert vertex_2 in self.__adjacency # Vertex 2 is in the graph
-        assert not self.has_edge(vertex_1, vertex_2) # Edge does not already exist
-        assert not (symmetric and self.has_edge(vertex_2, vertex_1)) # Symmetric edge does not already exist if asked
+        assert isinstance(vertex_1, Hashable), "Argument 'vertex_1' must be hashable"
+        assert isinstance(vertex_2, Hashable), "Argument 'vertex_2' must be hashable"
+        assert isinstance(weight, Number), "Argument 'weight' must be a real number"
+        assert isinstance(symmetric, bool), "Argument 'symmetric' must be a boolean"
+        assert vertex_1 in self.__adjacency, "Vertex 1 not in the graph"
+        assert vertex_2 in self.__adjacency, "Vertex 2 not in the graph"
+        assert not self.has_edge(vertex_1, vertex_2), "Edge already exists"
+        assert not (symmetric and self.has_edge(vertex_2, vertex_1)), "Symmetric edge already exists"
 
         # Add edge to the adjacency dictionary
         self.__adjacency[vertex_1][vertex_2] = weight
@@ -251,8 +251,8 @@ class Graph ():
         """
         
         # Debug
-        assert isinstance(vertex, Hashable) # Type check for vertex
-        assert vertex in self.__adjacency # Vertex is in the graph
+        assert isinstance(vertex, Hashable), "Argument 'vertex' must be hashable"
+        assert vertex in self.__adjacency, "Vertex not in the graph"
 
         # Get neighbors
         neighbors = list(self.__adjacency[vertex].keys())
@@ -276,11 +276,11 @@ class Graph ():
         """
         
         # Debug
-        assert isinstance(vertex_1, Hashable) # Type check for vertex_1
-        assert isinstance(vertex_2, Hashable) # Type check for vertex_2
-        assert vertex_1 in self.__adjacency # Vertex 1 is in the graph
-        assert vertex_2 in self.__adjacency # Vertex 2 is in the graph
-        assert self.has_edge(vertex_1, vertex_2) # Edge exists
+        assert isinstance(vertex_1, Hashable), "Argument 'vertex_1' must be hashable"
+        assert isinstance(vertex_2, Hashable), "Argument 'vertex_2' must be hashable"
+        assert vertex_1 in self.__adjacency, "Vertex 1 not in the graph"
+        assert vertex_2 in self.__adjacency, "Vertex 2 not in the graph"
+        assert self.has_edge(vertex_1, vertex_2), "Edge does not exist"
 
         # Get weight
         weight = self.__adjacency[vertex_1][vertex_2]
@@ -318,7 +318,7 @@ class Graph ():
         """
         
         # Debug
-        assert "numpy" in globals() # Numpy is available
+        assert "numpy" in globals(), "Numpy is not available"
 
         # Create the adjacency matrix
         adjacency_matrix = numpy.zeros((self.nb_vertices, self.nb_vertices), dtype=int)
@@ -343,7 +343,7 @@ class Graph ():
         """
         
         # Debug
-        assert "torch" in globals() # Torch is available
+        assert "torch" in globals(), "Torch is not available"
 
         # Create the adjacency matrix
         adjacency_matrix = torch.zeros((self.nb_vertices, self.nb_vertices), dtype=int)
@@ -370,8 +370,8 @@ class Graph ():
         """
         
         # Debug
-        assert isinstance(vertex, Hashable) # Type check for vertex
-        assert vertex in self.__adjacency # Vertex is in the graph
+        assert isinstance(vertex, Hashable), "Argument 'vertex' must be hashable"
+        assert vertex in self.__adjacency, "Vertex not in the graph"
 
         # Remove the vertex and connections to it
         for neighbor in self.__adjacency[vertex]:
@@ -398,13 +398,13 @@ class Graph ():
         """
         
         # Debug
-        assert isinstance(vertex_1, Hashable) # Type check for vertex_1
-        assert isinstance(vertex_2, Hashable) # Type check for vertex_2
-        assert isinstance(symmetric, bool) # Type check for symmetric
-        assert vertex_1 in self.__adjacency # Vertex 1 is in the graph
-        assert vertex_2 in self.__adjacency # Vertex 2 is in the graph
-        assert self.has_edge(vertex_1, vertex_2) # Edge exists
-        assert (not symmetric) or (symmetric and self.edge_is_symmetric(vertex_1, vertex_2)) # If symmetric, the edge exists
+        assert isinstance(vertex_1, Hashable), "Argument 'vertex_1' must be hashable"
+        assert isinstance(vertex_2, Hashable), "Argument 'vertex_2' must be hashable"
+        assert isinstance(symmetric, bool), "Argument 'symmetric' must be a boolean"
+        assert vertex_1 in self.__adjacency, "Vertex 1 not in the graph"
+        assert vertex_2 in self.__adjacency, "Vertex 2 not in the graph"
+        assert self.has_edge(vertex_1, vertex_2), "Edge does not exist"
+        assert (not symmetric) or (symmetric and self.edge_is_symmetric(vertex_1, vertex_2)), "Symmetric edge does not exist"
 
         # Remove edge and symmetric
         del self.__adjacency[vertex_1][vertex_2]
@@ -426,7 +426,7 @@ class Graph ():
         """
         
         # Debug
-        assert self.nb_vertices > 0 # The graph has at least one vertex
+        assert self.nb_vertices > 0, "Graph is empty"
 
         # Create a list of visited vertices
         vertices = list(self.vertices)
@@ -462,8 +462,8 @@ class Graph ():
         """
         
         # Debug
-        assert random_seed is None or isinstance(random_seed, Integral) # Type check for random_seed
-        assert random_seed is None or 0 <= random_seed < sys.maxsize # random_seed is a valid seed
+        assert random_seed is None or isinstance(random_seed, Integral), "Argument 'random_seed' must be an integer"
+        assert random_seed is None or 0 <= random_seed < sys.maxsize, "Argument 'random_seed' must be non-negative"
 
         # Initialize a random number generator
         rng = random.Random(random_seed)
@@ -513,10 +513,10 @@ class Graph ():
         """
 
         # Debug
-        assert isinstance(vertex_1, Hashable) # Type check for vertex_1
-        assert isinstance(vertex_2, Hashable) # Type check for vertex_2
-        assert vertex_1 in self.__adjacency # Vertex 1 is in the graph
-        assert vertex_2 in self.__adjacency # Vertex 2 is in the graph
+        assert isinstance(vertex_1, Hashable), "Argument 'vertex_1' must be hashable"
+        assert isinstance(vertex_2, Hashable), "Argument 'vertex_2' must be hashable"
+        assert vertex_1 in self.__adjacency, "Vertex 1 not in the graph"
+        assert vertex_2 in self.__adjacency, "Vertex 2 not in the graph"
 
         # Check whether the edge exists
         edge_exists = vertex_2 in self.get_neighbors(vertex_1)
@@ -540,11 +540,11 @@ class Graph ():
         """
 
         # Debug
-        assert isinstance(vertex_1, Hashable) # Type check for vertex_1
-        assert isinstance(vertex_2, Hashable) # Type check for vertex_2
-        assert vertex_1 in self.__adjacency # Vertex 1 is in the graph
-        assert vertex_2 in self.__adjacency # Vertex 2 is in the graph
-        assert self.has_edge(vertex_1, vertex_2)
+        assert isinstance(vertex_1, Hashable), "Argument 'vertex_1' must be hashable"
+        assert isinstance(vertex_2, Hashable), "Argument 'vertex_2' must be hashable"
+        assert vertex_1 in self.__adjacency, "Vertex 1 not in the graph"
+        assert vertex_2 in self.__adjacency, "Vertex 2 not in the graph"
+        assert self.has_edge(vertex_1, vertex_2), "Edge does not exist"
 
         # Check whether the edge is symmetric
         symmetric = self.has_edge(vertex_2, vertex_1)

@@ -71,7 +71,7 @@ class ShellRenderingEngine (RenderingEngine):
         super().__init__(*args, **kwargs)
 
         # Debug
-        assert isinstance(use_colors, bool) # Type check for the use of colors
+        assert isinstance(use_colors, bool), "Argument 'use_colors' must be a boolean"
 
         # Private attributes
         self.__use_colors = use_colors
@@ -101,10 +101,10 @@ class ShellRenderingEngine (RenderingEngine):
         """
 
         # Debug
-        assert isinstance(players, list) # Type check for the players
-        assert all(isinstance(player, Player) for player in players) # Type check for the players
-        assert isinstance(maze, Maze) # Type check for the maze
-        assert isinstance(game_state, GameState) # Type check for the game state
+        assert isinstance(players, list), "Argument 'players' must be a list"
+        assert all(isinstance(player, Player) for player in players), "All elements of 'players' must be of type 'pyrat.Player'"
+        assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
+        assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
 
         # Dimensions
         max_weight = max([maze.get_weight(*edge) for edge in maze.edges])
@@ -236,9 +236,9 @@ class ShellRenderingEngine (RenderingEngine):
         """
 
         # Debug
-        assert isinstance(text, str) # Type check for the text
-        assert isinstance(colorization, str) # Type check for the colorization
-        assert isinstance(alternate_text, (str, type(None))) # Type check for the alternate text
+        assert isinstance(text, str), "Argument 'text' must be a string"
+        assert isinstance(colorization, str), "Argument 'colorization' must be a string"
+        assert isinstance(alternate_text, (str, type(None))), "Argument 'alternate_text' must be a string or None"
 
         # If we don't use colors, we return the correct text
         if not self.__use_colors:
@@ -270,7 +270,7 @@ class ShellRenderingEngine (RenderingEngine):
         """
 
         # Debug
-        assert isinstance(text, str) # Type check for the text
+        assert isinstance(text, str), "Argument 'text' must be a string"
 
         # Return the length of the text without the colorization
         text_length = len(re.sub(r"[\u001B\u009B][\[\]()#;?]*((([a-zA-Z\d]*(;[-a-zA-Z\d\/#&.:=?%@~_]*)*)?\u0007)|((\d{1,4}(?:;\d{0,4})*)?[\dA-PR-TZcf-ntqry=><~]))", "", text))

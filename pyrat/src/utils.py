@@ -15,6 +15,7 @@
 
 # External imports
 from typing import *
+import pyfakefs.fake_filesystem_unittest
 from typing_extensions import *
 from numbers import *
 import os
@@ -23,6 +24,7 @@ import inspect
 import pdoc
 import pathlib
 import sys
+import pyfakefs
 
 #####################################################################################################################################################
 ##################################################################### FUNCTIONS #####################################################################
@@ -41,7 +43,8 @@ def create_workspace ( target_directory: str
     """
 
     # Debug
-    assert isinstance(target_directory, str) # Type check for target_directory
+    assert isinstance(target_directory, str), "Argument 'target_directory' must be a string"
+    assert is_valid_directory(os.path.join(target_directory, "pyrat_workspace")), "Workspace directory cannot be created"
 
     # Copy the template workspace into the current directory if not already existing
     source_workspace = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "workspace")
@@ -64,7 +67,8 @@ def generate_documentation ( workspace_directory: str
     """
     
     # Debug
-    assert isinstance(workspace_directory, str) # Type check for workspace_directory
+    assert isinstance(workspace_directory, str), "Argument 'workspace_directory' must be a string"
+    assert is_valid_directory(os.path.join(workspace_directory, "doc")), "Doc directory cannot be created"
 
     # Process paths
     target_directory = pathlib.Path(os.path.join(workspace_directory, "doc"))
@@ -78,36 +82,69 @@ def generate_documentation ( workspace_directory: str
 
 #####################################################################################################################################################
 
-def caller_file () -> str:
+def caller_file () -> pathlib.Path:
 
     """
-        Returns the name of the file from which the caller of this function was called.
+        Returns the path to the file from which the caller of this function was called.
         In:
             * None.
         Out:
-            * caller: The name of the file from which the caller of this function was called.
+            * file_path: The path to the file from which the caller of this function was called.
     """
 
-    # Check stack to get the name
+    # Check stack to get the file name
     caller = inspect.currentframe().f_back.f_back.f_code.co_filename
-    return caller
+    file_path = pathlib.Path(caller)
+    return file_path
 
 #####################################################################################################################################################
 
-def pyrat_files () -> List[str]:
+def pyrat_files () -> List[pathlib.Path]:
 
     """
-        Returns the list of all the files in the PyRat library.
+        Returns the list of all the paths to files in the PyRat library.
         In:
             * None.
         Out:
-            * files: The list of all the files in the PyRat library.
+            * file_paths: The list of all the paths to files in the PyRat library.
     """
 
     # Get the list of all the files in the PyRat library
     pyrat_path = os.path.dirname(os.path.realpath(__file__))
-    files = [os.path.join(pyrat_path, file) for file in os.listdir(pyrat_path) if file.endswith(".py")]
-    return files
+    file_paths = [pathlib.Path(os.path.join(pyrat_path, file)) for file in os.listdir(pyrat_path) if file.endswith(".py")]
+    return file_paths
+
+#####################################################################################################################################################
+
+def is_valid_directory ( directory: str
+                       ) ->         bool:
+
+    """
+        Checks if a directory exists or can be created, without actually creating it.
+        In:
+            * directory: The directory to check.
+        Out:
+            * valid: True if the directory can be created, False otherwise.
+    """
+
+    # Debug
+    assert isinstance(directory, str), "Argument 'directory' must be a string"
+
+    # Initialize the fake filesystem
+    valid = False
+    with pyfakefs.fake_filesystem_unittest.Patcher() as patcher:
+        fs = patcher.fs
+        directory_path = pathlib.Path(directory)
+        
+        # Try to create the directory in the fake filesystem
+        try:
+            fs.makedirs(directory_path, exist_ok=True)
+            valid = True
+        except:
+            pass
+    
+    # Done
+    return valid
 
 #####################################################################################################################################################
 #####################################################################################################################################################

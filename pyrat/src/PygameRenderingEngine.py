@@ -81,11 +81,11 @@ class PygameRenderingEngine (RenderingEngine):
         super().__init__(*args, **kwargs)
 
         # Debug
-        assert isinstance(fullscreen, bool) # Type check for fullscreen
-        assert isinstance(trace_length, Integral) # Type check for trace_length
-        assert isinstance(gui_speed, Number) # Type check for gui_speed
-        assert trace_length >= 0 # trace_length must be positive
-        assert gui_speed > 0 # gui_speed must be positive
+        assert isinstance(fullscreen, bool), "Argument 'fullscreen' must be a boolean"
+        assert isinstance(trace_length, Integral), "Argument 'trace_length' must be an integer"
+        assert isinstance(gui_speed, Number), "Argument 'gui_speed' must be a real number"
+        assert trace_length >= 0, "Argument 'trace_length' must be positive"
+        assert gui_speed > 0, "Argument 'gui_speed' must be positive"
 
         # Private attributes
         self.__fullscreen = fullscreen
@@ -119,10 +119,10 @@ class PygameRenderingEngine (RenderingEngine):
         """
 
         # Debug
-        assert isinstance(players, list) # Type check for players
-        assert all(isinstance(player, Player) for player in players) # Type check for players
-        assert isinstance(maze, Maze) # Type check for maze
-        assert isinstance(game_state, GameState) # Type check for game_state
+        assert isinstance(players, list), "Argument 'players' must be a list"
+        assert all(isinstance(player, Player) for player in players), "All elements of 'players' must be of type 'pyrat.Player'"
+        assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
+        assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
 
         # Initialize the GUI in a different process at turn 0
         if game_state.turn == 0:
@@ -191,18 +191,18 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
     """
 
     # Debug
-    assert isinstance(gui_initialized_synchronizer, multiprocessing.managers.BarrierProxy) # Type check for gui_initialized_synchronizer
-    assert isinstance(gui_queue, multiprocessing.managers.BaseProxy) # Type check for gui_queue
-    assert isinstance(maze, Maze) # Type check for maze
-    assert isinstance(initial_game_state, GameState) # Type check for initial_game_state
-    assert isinstance(players, list) # Type check for players
-    assert all(isinstance(player, Player) for player in players) # Type check for players
-    assert isinstance(fullscreen, bool) # Type check for fullscreen
-    assert isinstance(render_simplified, bool) # Type check for render_simplified
-    assert isinstance(trace_length, Integral) # Type check for trace_length
-    assert isinstance(gui_speed, Number) # Type check for gui_speed
-    assert trace_length >= 0 # trace_length must be positive
-    assert gui_speed > 0.0 # gui_speed must be positive
+    assert isinstance(gui_initialized_synchronizer, multiprocessing.managers.BarrierProxy), "Argument 'gui_initialized_synchronizer' must be a multiprocessing.Barrier"
+    assert isinstance(gui_queue, multiprocessing.managers.BaseProxy), "Argument 'gui_queue' must be a multiprocessing.Queue"
+    assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
+    assert isinstance(initial_game_state, GameState), "Argument 'initial_game_state' must be of type 'pyrat.GameState'"
+    assert isinstance(players, list), "Argument 'players' must be a list"
+    assert all(isinstance(player, Player) for player in players), "All elements of 'players' must be of type 'pyrat.Player'"
+    assert isinstance(fullscreen, bool), "Argument 'fullscreen' must be a boolean"
+    assert isinstance(render_simplified, bool), "Argument 'render_simplified' must be a boolean"
+    assert isinstance(trace_length, Integral), "Argument 'trace_length' must be an integer"
+    assert isinstance(gui_speed, Number), "Argument 'gui_speed' must be a real number"
+    assert trace_length >= 0, "Argument 'trace_length' must be positive"
+    assert gui_speed > 0.0, "Argument 'gui_speed' must be positive"
 
     # We catch exceptions that may happen during the game
     try:
