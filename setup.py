@@ -40,7 +40,8 @@ setuptools.setup \
                                      "tqdm",
                                      "typing_extensions",
                                      "matplotlib",
-                                     "pdoc"],
+                                     "pdoc",
+                                     "pyfakefs"],
     extras_require =                {"numpy": ["numpy"],
                                      "torch": ["torch"]}
 )
