@@ -932,7 +932,7 @@ def _waiter_process_function ( input_queue:             multiprocessing.Queue,
     """
 
     # Debug
-    assert isinstance(input_queue, mpmanagers.QueueProxy), "Argument 'input_queue' must be of type 'multiprocessing.Queue'"
+    assert isinstance(input_queue, mpmanagers.BaseProxy), "Argument 'input_queue' must be of type 'multiprocessing.Queue'"
     assert isinstance(turn_start_synchronizer, mpmanagers.BarrierProxy), "Argument 'turn_start_synchronizer' must be of type 'multiprocessing.Barrier'"
 
     # We catch exceptions that may happen during the game
