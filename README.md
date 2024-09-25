@@ -15,7 +15,7 @@
 
 <div align="center">
 
-# PyRat
+# PyRat
 
 <br />
 
