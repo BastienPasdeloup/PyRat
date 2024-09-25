@@ -11,14 +11,13 @@
 <!-- ###################################################################### CONTENTS ##################################################################### -->
 <!-- ##################################################################################################################################################### -->
 
-<img align="left" height="140px" src="pyrat/gui/drawings/pyrat.png" />
+<img align="left" height="200px" src="pyrat/gui/drawings/pyrat.png" />
 
 <div style="text-align: center;">
 
 # PyRat
 
-This repository contains the software used in the \
-computer science course at IMT Atlantique.
+<p style="text-align:center;">This repository contains the software used in the<br />computer science course at IMT Atlantique.</p>
 
 The course contents is available at this address: \
 https://hub.imt-atlantique.fr/ueinfo-fise1a/.
