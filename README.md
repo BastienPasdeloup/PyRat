@@ -13,7 +13,7 @@
 
 <img align="left" width="120px" src="pyrat/gui/drawings/pyrat.png" />
 
-# PyRat
+<h1 style="text-align: center;">PyRat</h1>
 
 This repository contains the software used in the computer science course at IMT Atlantique.
 
