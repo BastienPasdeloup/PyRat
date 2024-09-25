@@ -28,15 +28,15 @@ https://hub.imt-atlantique.fr/ueinfo-fise1a/.
 </div>
 <br />
 
-# 1 — Install
+# Install
 
-### 1.1 — Standard installation procedure
+### Standard installation procedure
 
 Installation of the PyRat software can be done directly using `pip`. \
 Do not clone or download the repository. \
 Instead, please follow the following instructions:
 
-1) First, make sure that Git is installed. \
+1) First, make sure that Git is installed (or use the alternate procedure below). \
    Check the instructions corresponding to your operating system [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 
 2) Install the PyRat software using the following command:
@@ -44,7 +44,7 @@ Instead, please follow the following instructions:
    - **Linux** – `pip install --user git+https://github.com/BastienPasdeloup/PyRat.git`
    - **MacOS** – `pip install --user git+https://github.com/BastienPasdeloup/PyRat.git`
 
-### 1.2 — Alternate installation procedure without installing Git
+### Alternate installation procedure without installing Git
 
 If you do not wish to install Git, you can follow these instructions instead of those above:
 
@@ -56,7 +56,7 @@ If you do not wish to install Git, you can follow these instructions instead of 
    - **Linux** – `pip install .`
    - **MacOS** – `pip install .`
 
-# 2 — Setup your workspace
+# Setup your workspace
 
 Whatever installation method you chose, now follow the following instructions to prepare your PyRat workspace:
 
@@ -72,7 +72,7 @@ Whatever installation method you chose, now follow the following instructions to
    - **Linux** – `python3 -c "import pyrat; pyrat.generate_documentation('pyrat_workspace')"`
    - **MacOS** – `python3 -c "import pyrat; pyrat.generate_documentation('pyrat_workspace')"`
 
-# 3 — Check installation
+# Check installation
 
 Once installed, please head to the course website, and [follow instructions to start your first PyRat game](https://hub.imt-atlantique.fr/ueinfo-fise1a/s5/project/session1/practical/index.html#12-----the-pyrat-workspace).
 
