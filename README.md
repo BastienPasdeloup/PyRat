@@ -13,15 +13,19 @@
 
 <img align="left" width="120px" src="pyrat/gui/drawings/pyrat.png" />
 
-<h1 style="text-align: center;">PyRat</h1>
+<center>
+# PyRat
 
-This repository contains the software used in the computer science course at IMT Atlantique.
+This repository contains the software used in the \
+computer science course at IMT Atlantique.
 
-The course contents is available at this address:<br />https://hub.imt-atlantique.fr/ueinfo-fise1a/.
+The course contents is available at this address: \
+https://hub.imt-atlantique.fr/ueinfo-fise1a/.
+</center>
 
-# Install
+# 1 — Install
 
-### Standard installation procedure
+### 1.1 — Standard installation procedure
 
 Installation of the PyRat software can be done directly using `pip`. \
 Do not clone or download the repository. \
@@ -35,7 +39,7 @@ Instead, please follow the following instructions:
    - **Linux** – `pip install --user git+https://github.com/BastienPasdeloup/PyRat.git`
    - **MacOS** – `pip install --user git+https://github.com/BastienPasdeloup/PyRat.git`
 
-### Alternate installation procedure without installing Git
+### 1.2 — Alternate installation procedure without installing Git
 
 If you do not wish to install Git, you can follow these instructions instead of those above:
 
@@ -47,7 +51,7 @@ If you do not wish to install Git, you can follow these instructions instead of 
    - **Linux** – `pip install .`
    - **MacOS** – `pip install .`
 
-# Setup your workspace
+# 2 — Setup your workspace
 
 Whatever installation method you chose, now follow the following instructions to prepare your PyRat workspace:
 
@@ -63,7 +67,7 @@ Whatever installation method you chose, now follow the following instructions to
    - **Linux** – `python3 -c "import pyrat; pyrat.generate_documentation('pyrat_workspace')"`
    - **MacOS** – `python3 -c "import pyrat; pyrat.generate_documentation('pyrat_workspace')"`
 
-# Check installation
+# 3 — Check installation
 
 Once installed, please head to the course website, and [follow instructions to start your first PyRat game](https://hub.imt-atlantique.fr/ueinfo-fise1a/s5/project/session1/practical/index.html#12-----the-pyrat-workspace).
 
