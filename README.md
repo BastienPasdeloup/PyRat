@@ -14,13 +14,9 @@
 <img align="left" width="120px" src="pyrat/gui/drawings/pyrat.png" />
 
 <center>
-# PyRat
-
-This repository contains the software used in the \
-computer science course at IMT Atlantique.
-
-The course contents is available at this address: \
-https://hub.imt-atlantique.fr/ueinfo-fise1a/.
+    <h1>PyRat</h1>
+    <p>This repository contains the software used in the<br />computer science course at IMT Atlantique.</p>
+    <p>The course contents is available at this address:<br />https://hub.imt-atlantique.fr/ueinfo-fise1a/.</p>
 </center>
 
 # 1 — Install
