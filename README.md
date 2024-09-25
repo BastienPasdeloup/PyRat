@@ -11,17 +11,12 @@
 <!-- ###################################################################### CONTENTS ##################################################################### -->
 <!-- ##################################################################################################################################################### -->
 
-<img align="left" height="200px" src="pyrat/gui/drawings/pyrat.png" />
+<img align="left" height="220px" src="pyrat/gui/drawings/pyrat.png" />
 
 <div style="text-align: center;">
-
-# PyRat
-
-<p style="text-align:center;">This repository contains the software used in the<br />computer science course at IMT Atlantique.</p>
-
-The course contents is available at this address: \
-https://hub.imt-atlantique.fr/ueinfo-fise1a/.
-
+    <h1 style="border: 0;">PyRat</h1>
+    <p style="text-align:center;">This repository contains the software used in the<br />computer science course at IMT Atlantique.</p>
+    <p style="text-align:center;">The course contents is available at this address:<br /><a href="https://hub.imt-atlantique.fr/ueinfo-fise1a/">https://hub.imt-atlantique.fr/ueinfo-fise1a/</a>.</p>
 </div>
 
 # 1 — Install
