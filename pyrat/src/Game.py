@@ -354,7 +354,6 @@ class Game ():
         if self.__maze.i_exists(corrected_location):
             self.__initial_game_state.player_locations[player.name] = corrected_location
         else:
-            print("Warning: Player '%s' cannot start at unreachable location %d, starting at closest cell (using Euclidean distance)" % (player.name, corrected_location), file=sys.stderr)
             valid_cells = self.__maze.vertices
             distances = [math.dist(self.__maze.i_to_rc(corrected_location), self.__maze.i_to_rc(cell)) for cell in valid_cells]
             _, argmin_distance = min((val, idx) for (idx, val) in enumerate(distances))
