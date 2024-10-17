@@ -123,7 +123,7 @@ class ShellRenderingEngine (RenderingEngine):
 
         # Game elements
         ground = self.__colorize(" ", colored.bg(ground_color))
-        wall = self.__colorize("▉", colored.bg(ground_color) + colored.fg(wall_color))
+        wall = self.__colorize(" ", colored.bg(wall_color) + colored.fg(wall_color), "▉")
         cheese = self.__colorize("▲", colored.bg(ground_color) + colored.fg(cheese_color))
         mud_horizontal = self.__colorize("━", colored.bg(ground_color) + colored.fg(mud_color))
         mud_vertical = self.__colorize("┃", colored.bg(ground_color) + colored.fg(mud_color))
