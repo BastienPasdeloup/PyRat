@@ -55,7 +55,6 @@ class PygameRenderingEngine (RenderingEngine):
     def __init__ ( self:         Self,
                    fullscreen:   bool = False,
                    trace_length: Integral = 0,
-                   gui_speed:    Number = 1.0,
                    *args:        Any,
                    **kwargs:     Any
                  ) ->            Self:
@@ -70,7 +69,6 @@ class PygameRenderingEngine (RenderingEngine):
                 * self:         Reference to the current object.
                 * fullscreen:   Indicates if the GUI should be fullscreen.
                 * trace_length: Length of the trace to display.
-                * gui_speed:    Speed of the GUI.
                 * args:         Arguments to pass to the parent constructor.
                 * kwargs:       Keyword arguments to pass to the parent constructor.
             Out:
@@ -83,14 +81,11 @@ class PygameRenderingEngine (RenderingEngine):
         # Debug
         assert isinstance(fullscreen, bool), "Argument 'fullscreen' must be a boolean"
         assert isinstance(trace_length, Integral), "Argument 'trace_length' must be an integer"
-        assert isinstance(gui_speed, Number), "Argument 'gui_speed' must be a real number"
         assert trace_length >= 0, "Argument 'trace_length' must be positive"
-        assert gui_speed > 0, "Argument 'gui_speed' must be positive"
 
         # Private attributes
         self.__fullscreen = fullscreen
         self.__trace_length = trace_length
-        self.__gui_speed = gui_speed
         self.__gui_process = None
         self.__gui_queue = None
 
@@ -130,7 +125,7 @@ class PygameRenderingEngine (RenderingEngine):
             # Initialize the GUI process
             gui_initialized_synchronizer = multiprocessing.Manager().Barrier(2)
             self.__gui_queue = multiprocessing.Manager().Queue()
-            self.__gui_process = multiprocessing.Process(target=_gui_process_function, args=(gui_initialized_synchronizer, self.__gui_queue, maze, game_state, players, self.__fullscreen, self._render_simplified, self.__trace_length, self.__gui_speed))
+            self.__gui_process = multiprocessing.Process(target=_gui_process_function, args=(gui_initialized_synchronizer, self.__gui_queue, maze, game_state, players, self.__fullscreen, self._render_simplified, self.__trace_length, self._rendering_speed))
             self.__gui_process.start()
             gui_initialized_synchronizer.wait()
         
@@ -169,7 +164,7 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
                             fullscreen:                   bool,
                             render_simplified:            bool,
                             trace_length:                 Integral,
-                            gui_speed:                    Number
+                            rendering_speed:              Number
                           ) ->                            None:
     
     """
@@ -185,7 +180,7 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
             * fullscreen:                   Indicates if the GUI should be fullscreen.
             * render_simplified:            Indicates if the GUI should be simplified.
             * trace_length:                 Length of the trace to display.
-            * gui_speed:                    Speed of the GUI.
+            * rendering_speed:              Speed at which the game should be rendered.
         Out:
             * None.
     """
@@ -200,9 +195,9 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
     assert isinstance(fullscreen, bool), "Argument 'fullscreen' must be a boolean"
     assert isinstance(render_simplified, bool), "Argument 'render_simplified' must be a boolean"
     assert isinstance(trace_length, Integral), "Argument 'trace_length' must be an integer"
-    assert isinstance(gui_speed, Number), "Argument 'gui_speed' must be a real number"
+    assert isinstance(rendering_speed, Number), "Argument 'rendering_speed' must be a real number"
     assert trace_length >= 0, "Argument 'trace_length' must be positive"
-    assert gui_speed > 0.0, "Argument 'gui_speed' must be positive"
+    assert rendering_speed > 0.0, "Argument 'rendering_speed' must be positive"
 
     # We catch exceptions that may happen during the game
     try:
@@ -280,7 +275,7 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
         cheese_score_border_color = (100, 100, 100)
         cheese_score_border_width = 1
         trace_size = wall_size // 2
-        animation_steps = int(max(cell_size / gui_speed, 1))
+        animation_steps = int(max(cell_size / rendering_speed, 1))
         animation_time = 0.01
         medal_size = min(avatars_x_offset, maze_y_offset) * 2
         icon_size = 50

@@ -83,9 +83,10 @@ class Game ():
     DEFAULT_FIXED_CHEESE = None
     DEFAULT_RENDER_MODE = RenderMode.GUI
     DEFAULT_RENDER_SIMPLIFIED = False
-    DEFAULT_GUI_SPEED = 1.0
+    DEFAULT_RENDERING_SPEED = 1.0
     DEFAULT_TRACE_LENGTH = 0
     DEFAULT_FULLSCREEN = False
+    DEFAULT_CLEAR_SHELL_EACH_TURN = True
     DEFAULT_SAVE_PATH = "."
     DEFAULT_SAVE_GAME = False
     DEFAULT_PREPROCESSING_TIME = 3.0
@@ -115,9 +116,10 @@ class Game ():
                    random_maze_algorithm: Optional[RandomMazeAlgorithm] = None,
                    render_mode:           Optional[RenderMode] = None,
                    render_simplified:     Optional[bool] = None,
-                   gui_speed:             Optional[Number] = None,
+                   rendering_speed:       Optional[Number] = None,
                    trace_length:          Optional[Integral] = None,
                    fullscreen:            Optional[bool] = None,
+                   clear_shell_each_turn: Optional[bool] = None,
                    save_path:             Optional[str] = None,
                    save_game:             Optional[bool] = None,
                    preprocessing_time:    Optional[Number] = None,
@@ -149,9 +151,10 @@ class Game ():
                 * fixed_cheese:          Fixed list of cheese.
                 * render_mode:           Method to display the game.
                 * render_simplified:     If the maze is rendered, hides some elements that are not essential.
-                * gui_speed:             When rendering as GUI, controls the speed of the game (GUI rendering only).
+                * rendering_speed:       When rendering as GUI or in the shell, controls the speed of the game (when rendering only).
                 * trace_length:          Maximum length of the trace to display when players are moving (GUI rendering only).
                 * fullscreen:            Renders the game in fullscreen mode (GUI rendering only).
+                * clear_shell_each_turn: Clears the shell each turn (shell rendering only).
                 * save_path:             Path where games are saved.
                 * save_game:             Indicates if the game should be saved.
                 * preprocessing_time:    Time given to the players before the game starts.
@@ -183,7 +186,9 @@ class Game ():
         assert fixed_maze is None or (fixed_maze is not None and all(param is None for param in [random_seed_maze, random_maze_algorithm, maze_width, maze_height, cell_percentage, wall_percentage, mud_percentage, mud_range])), "Argument 'fixed_maze' should be given if and only if no other maze description is given"
         assert fixed_cheese is None or (fixed_cheese is not None and all(param is None for param in [random_seed_cheese, nb_cheese])), "Argument 'fixed_cheese' should be given if and only if no other cheese description is given"
         assert game_mode is None or game_mode != GameMode.SIMULATION or (game_mode == GameMode.SIMULATION and all([param is None for param in [render_mode, preprocessing_time, turn_time]])), "Some parameters should be set when running in simulation mode"
-        assert render_mode is None or render_mode == RenderMode.GUI or (render_mode != RenderMode.GUI and all([param is None for param in [trace_length, gui_speed, fullscreen]])), "Some parameters should be set only when rendering in GUI mode"
+        assert not(render_mode != RenderMode.GUI and any([param is not None for param in [trace_length, fullscreen]])), "Some parameters should be set only when rendering in GUI mode"
+        assert not(render_mode not in [RenderMode.ASCII, RenderMode.ANSI] and clear_shell_each_turn is not None), "Parameter 'clear_shell_each_turn' should be set only when rendering in shell mode"
+        assert not(render_mode == RenderMode.NO_RENDERING and rendering_speed is not None), "Parameter 'rendering_speed' should be set only when rendering in GUI or shell mode"
         assert isinstance(random_maze_algorithm, (RandomMazeAlgorithm, type(None))), "Argument 'random_maze_algorithm' must be of type 'pyrat.RandomMazeAlgorithm' or None (if so, default value 'Game.DEFAULT_RANDOM_MAZE_ALGORITHM' is used)"
         assert isinstance(save_game, (bool, type(None))), "Argument 'save_game' must be a boolean or None (if so, default value 'Game.DEFAULT_SAVE_GAME' is used)"
         assert isinstance(save_path, (str, type(None))), "Argument 'save_path' must be a string or None (if so, default value 'Game.DEFAULT_SAVE_PATH' is used)"
@@ -206,9 +211,10 @@ class Game ():
         self.__fixed_cheese = fixed_cheese if fixed_cheese is not None else Game.DEFAULT_FIXED_CHEESE
         self.__render_mode = render_mode if render_mode is not None else Game.DEFAULT_RENDER_MODE
         self.__render_simplified = render_simplified if render_simplified is not None else Game.DEFAULT_RENDER_SIMPLIFIED
-        self.__gui_speed = gui_speed if gui_speed is not None else Game.DEFAULT_GUI_SPEED
+        self.__rendering_speed = rendering_speed if rendering_speed is not None else Game.DEFAULT_RENDERING_SPEED
         self.__trace_length = trace_length if trace_length is not None else Game.DEFAULT_TRACE_LENGTH
         self.__fullscreen = fullscreen if fullscreen is not None else Game.DEFAULT_FULLSCREEN
+        self.__clear_shell_each_turn = clear_shell_each_turn if clear_shell_each_turn is not None else Game.DEFAULT_CLEAR_SHELL_EACH_TURN
         self.__save_path = save_path if save_path is not None else Game.DEFAULT_SAVE_PATH
         self.__save_game = save_game if save_game is not None else Game.DEFAULT_SAVE_GAME
         self.__preprocessing_time = preprocessing_time if preprocessing_time is not None else Game.DEFAULT_PREPROCESSING_TIME
@@ -275,9 +281,10 @@ class Game ():
         string += "|  Fixed cheese: {}\n".format(self.__fixed_cheese)
         string += "|  Render mode: {}\n".format(self.__render_mode)
         string += "|  Render simplified: {}\n".format(self.__render_simplified)
-        string += "|  GUI speed: {}\n".format(self.__gui_speed)
+        string += "|  Rendering speed: {}\n".format(self.__rendering_speed)
         string += "|  Trace length: {}\n".format(self.__trace_length)
         string += "|  Fullscreen: {}\n".format(self.__fullscreen)
+        string += "|  Clear shell each turn: {}\n".format(self.__clear_shell_each_turn)
         string += "|  Save path: {}\n".format(self.__save_path)
         string += "|  Save game: {}\n".format(self.__save_game)
         string += "|  Preprocessing time: {}\n".format(self.__preprocessing_time)
@@ -423,9 +430,9 @@ class Game ():
         # Initialize the rendering engine
         if self.__render_mode in [RenderMode.ASCII, RenderMode.ANSI]:
             use_colors = self.__render_mode == RenderMode.ANSI
-            self.__rendering_engine = ShellRenderingEngine(use_colors, self.__render_simplified)
+            self.__rendering_engine = ShellRenderingEngine(use_colors, self.__clear_shell_each_turn, self.__rendering_speed, self.__render_simplified)
         elif self.__render_mode == RenderMode.GUI:
-            self.__rendering_engine = PygameRenderingEngine(self.__fullscreen, self.__trace_length, self.__gui_speed, self.__render_simplified)
+            self.__rendering_engine = PygameRenderingEngine(self.__fullscreen, self.__trace_length, self.__rendering_speed, self.__render_simplified)
         elif self.__render_mode == RenderMode.NO_RENDERING:
             self.__rendering_engine = RenderingEngine(self.__render_simplified)
         

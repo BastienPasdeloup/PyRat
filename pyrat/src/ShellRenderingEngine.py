@@ -21,6 +21,9 @@ import colored
 import re
 import math
 import sys
+import platform
+import os
+import time
 
 # PyRat imports
 from pyrat.src.RenderingEngine import RenderingEngine
@@ -46,11 +49,12 @@ class ShellRenderingEngine (RenderingEngine):
     #                                                               MAGIC METHODS                                                               #
     #############################################################################################################################################
 
-    def __init__ ( self:       Self,
-                   use_colors: bool = True,
-                   *args:      Any,
-                   **kwargs:   Any
-                 ) ->          Self:
+    def __init__ ( self:            Self,
+                   use_colors:      bool = True,
+                   clear_each_turn: bool = True,
+                   *args:           Any,
+                   **kwargs:        Any
+                 ) ->               Self:
 
         """
             This function is the constructor of the class.
@@ -59,10 +63,11 @@ class ShellRenderingEngine (RenderingEngine):
             Arguments *args and **kwargs are used to pass arguments to the parent constructor.
             This is useful not to declare again all the parent's attributes in the child class.
             In:
-                * self:       Reference to the current object.
-                * use_colors: Boolean indicating whether the rendering engine should use colors or not.
-                * args:       Arguments to pass to the parent constructor.
-                * kwargs:     Keyword arguments to pass to the parent constructor.
+                * self:            Reference to the current object.
+                * use_colors:      Boolean indicating whether the rendering engine should use colors or not.
+                * clear_each_turn: Boolean indicating whether the rendering engine should clear the screen each turn.
+                * args:            Arguments to pass to the parent constructor.
+                * kwargs:          Keyword arguments to pass to the parent constructor.
             Out:
                 * A new instance of the class.
         """
@@ -72,9 +77,11 @@ class ShellRenderingEngine (RenderingEngine):
 
         # Debug
         assert isinstance(use_colors, bool), "Argument 'use_colors' must be a boolean"
+        assert isinstance(clear_each_turn, bool), "Argument 'clear_each_turn' must be a boolean"
 
         # Private attributes
         self.__use_colors = use_colors
+        self.__clear_each_turn = clear_each_turn
 
     #############################################################################################################################################
     #                                                               PUBLIC METHODS                                                              #
@@ -140,15 +147,12 @@ class ShellRenderingEngine (RenderingEngine):
         player_names = {player.name: self.__colorize(player.name + mud_indicator(player.name), colored.bg(ground_color) + ("" if len(teams) == 1 else colored.fg(9 + ["team" if player.name in team else 0 for team in game_state.teams.values()].index("team")))) for player in players}
         
         # Game info
-        environment_str = "" if self.__use_colors else "\n"
-        environment_str += "Game over" if game_state.game_over() else "Starting turn %d" % game_state.turn if game_state.turn > 0 else "Initial configuration"
+        environment_str = "Game over" if game_state.game_over() else "Starting turn %d" % game_state.turn if game_state.turn > 0 else "Initial configuration"
         team_scores = game_state.get_score_per_team()
-        scores_str = ""
         for team in game_state.teams:
-            scores_str += "\n" + score_cheese * int(team_scores[team]) + score_half_cheese * math.ceil(team_scores[team] - int(team_scores[team]))
-            scores_str += "[" + teams[team] + "] " if len(teams) > 1 or len(team) > 0 else ""
-            scores_str += " + ".join(["%s (%s)" % (player_in_team, str(round(game_state.score_per_player[player_in_team], 3)).rstrip('0').rstrip('.') if game_state.score_per_player[player_in_team] > 0 else "0") for player_in_team in game_state.teams[team]])
-        environment_str += scores_str
+            environment_str += "\n" + score_cheese * int(team_scores[team]) + score_half_cheese * math.ceil(team_scores[team] - int(team_scores[team]))
+            environment_str += "[" + teams[team] + "] " if len(teams) > 1 or len(team) > 0 else ""
+            environment_str += " + ".join(["%s (%s)" % (player_in_team, str(round(game_state.score_per_player[player_in_team], 3)).rstrip('0').rstrip('.') if game_state.score_per_player[player_in_team] > 0 else "0") for player_in_team in game_state.teams[team]])
 
         # Consider cells in lexicographic order
         environment_str += "\n" + wall * (maze.width * (cell_width + 1) + 1)
@@ -215,14 +219,38 @@ class ShellRenderingEngine (RenderingEngine):
                     environment_str += mud_horizontal * (cell_width - self.__colored_len(cell_contents)) + wall
         
         # Render
-        if self.__use_colors:
-            nb_rows = 1 + len(environment_str.splitlines())
-            nb_cols = 1 + (cell_width + 1) * maze.width
-            print("\x1b[8;%d;%dt" % (nb_rows, nb_cols), file=sys.stderr)
-        print(environment_str, file=sys.stderr)
+        if self.__clear_each_turn:
+            self.__clear_output()
+        print(environment_str, file=sys.stderr, flush=True)
+
+        # Wait a bit
+        sleep_time = 1.0 / self._rendering_speed
+        time.sleep(sleep_time)
         
     #############################################################################################################################################
     #                                                              PRIVATE METHODS                                                              #
+    #############################################################################################################################################
+
+    def __clear_output ( self: Self
+                       ) ->    None:
+
+        """
+            This method clears the output of the console.
+            In:
+                * self: Reference to the current object.
+            Out:
+                * None.
+        """
+
+        # If in a Jupyter environment
+        if "ipykernel" in sys.modules:
+            from IPython.display import clear_output
+            clear_output(wait=True)
+
+        # If in a standard environment
+        else:
+            os.system("cls" if platform.system() == "Windows" else "clear")
+
     #############################################################################################################################################
 
     def __colorize ( self:           Self,

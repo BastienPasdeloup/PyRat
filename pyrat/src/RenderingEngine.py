@@ -40,6 +40,7 @@ class RenderingEngine ():
     #############################################################################################################################################
 
     def __init__ ( self:              Self,
+                   rendering_speed:   Number = 1.0,
                    render_simplified: bool = False
                  ) ->                 Self:
 
@@ -49,6 +50,7 @@ class RenderingEngine ():
             This is where you should define the attributes of the object and set their initial values.
             In:
                 * self:              Reference to the current object.
+                * rendering_speed:   Speed at which the game should be rendered.
                 * render_simplified: Whether to render the simplified version of the game.
             Out:
                 * A new instance of the class.
@@ -56,9 +58,12 @@ class RenderingEngine ():
 
         # Debug
         assert isinstance(render_simplified, bool), "Argument 'render_simplified' must be a boolean"
+        assert isinstance(rendering_speed, Number), "Argument 'gui_speed' must be a real number"
+        assert rendering_speed > 0.0, "Argument 'gui_speed' must be positive"
 
         # Protected attributes
         self._render_simplified = render_simplified
+        self._rendering_speed = rendering_speed
         
     #############################################################################################################################################
     #                                                               PUBLIC METHODS                                                              #
