@@ -113,23 +113,31 @@ class ShellRenderingEngine (RenderingEngine):
         max_cell_number_len = len(str(maze.width * maze.height - 1))
         cell_width = max(max_player_name_len, max_weight_len, max_cell_number_len + 1) + 2
         
+        # Colors
+        wall_color = "white"
+        ground_color = "grey_23"
+        cheese_color = "yellow_1"
+        mud_color = "orange_1"
+        path_color = "white"
+        number_color = "magenta"
+
         # Game elements
-        wall = self.__colorize(" ", colored.bg("light_gray"), "#")
-        ground = self.__colorize(" ", colored.bg("grey_23"))
-        cheese = self.__colorize("▲", colored.bg("grey_23") + colored.fg("yellow_1"))
-        mud_horizontal = self.__colorize("ⴾ", colored.bg("grey_23") + colored.fg("orange_4b"))
-        mud_vertical = self.__colorize("ⵘ", colored.bg("grey_23") + colored.fg("orange_4b"))
-        mud_value = lambda number: self.__colorize(str(number), colored.bg("grey_23") + colored.fg("orange_4b"))
-        path_horizontal = self.__colorize("⋅", colored.bg("grey_23") + colored.fg("orange_4b"))
-        path_vertical = self.__colorize("ⵗ", colored.bg("grey_23") + colored.fg("orange_4b"))
-        cell_number = lambda number: self.__colorize(str(number), colored.bg("grey_23") + colored.fg("magenta"))
-        score_cheese = self.__colorize("▲ ", colored.fg("yellow_1"))
-        score_half_cheese = self.__colorize("△ ", colored.fg("yellow_1"))
+        ground = self.__colorize(" ", colored.bg(ground_color))
+        wall = self.__colorize("▉", colored.bg(ground_color) + colored.fg(wall_color))
+        cheese = self.__colorize("▲", colored.bg(ground_color) + colored.fg(cheese_color))
+        mud_horizontal = self.__colorize("━", colored.bg(ground_color) + colored.fg(mud_color))
+        mud_vertical = self.__colorize("┃", colored.bg(ground_color) + colored.fg(mud_color))
+        mud_value = lambda number: self.__colorize(str(number), colored.bg(ground_color) + colored.fg(mud_color))
+        path_horizontal = self.__colorize("╌", colored.bg(ground_color) + colored.fg(path_color))
+        path_vertical = self.__colorize("┆", colored.bg(ground_color) + colored.fg(path_color))
+        cell_number = lambda number: self.__colorize(str(number), colored.bg(ground_color) + colored.fg(number_color))
+        score_cheese = self.__colorize("▲ ", colored.fg(cheese_color))
+        score_half_cheese = self.__colorize("△ ", colored.fg(cheese_color))
         
         # Player/team elements
         teams = {team: self.__colorize(team, colored.fg(9 + list(game_state.teams.keys()).index(team))) for team in game_state.teams}
-        mud_indicator = lambda player_name: " (" + ("⬇" if maze.coords_difference(game_state.muds[player_name]["target"], game_state.player_locations[player_name]) == (1, 0) else "⬆" if maze.coords_difference(game_state.muds[player_name]["target"], game_state.player_locations[player_name]) == (-1, 0) else "➡" if maze.coords_difference(game_state.muds[player_name]["target"], game_state.player_locations[player_name]) == (0, 1) else "⬅") + " " + str(game_state.muds[player_name]["count"]) + ")" if game_state.muds[player_name]["count"] > 0 else ""
-        player_names = {player.name: self.__colorize(player.name + mud_indicator(player.name), colored.bg("grey_23") + colored.fg(9 + ["team" if player.name in team else 0 for team in game_state.teams.values()].index("team"))) for player in players}
+        mud_indicator = lambda player_name: " (" + ("⬇" if maze.coords_difference(game_state.muds[player_name]["target"], game_state.player_locations[player_name]) == (-1, 0) else "⬆" if maze.coords_difference(game_state.muds[player_name]["target"], game_state.player_locations[player_name]) == (1, 0) else "➡" if maze.coords_difference(game_state.muds[player_name]["target"], game_state.player_locations[player_name]) == (0, 1) else "⬅") + " " + str(game_state.muds[player_name]["count"]) + ")" if game_state.muds[player_name]["count"] > 0 else ""
+        player_names = {player.name: self.__colorize(player.name + mud_indicator(player.name), colored.bg(ground_color) + ("" if len(teams) == 1 else colored.fg(9 + ["team" if player.name in team else 0 for team in game_state.teams.values()].index("team")))) for player in players}
         
         # Game info
         environment_str = "" if self.__use_colors else "\n"
