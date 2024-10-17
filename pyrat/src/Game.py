@@ -90,7 +90,8 @@ class Game ():
     DEFAULT_SAVE_GAME = False
     DEFAULT_PREPROCESSING_TIME = 3.0
     DEFAULT_TURN_TIME = 0.1
-    DEFAULT_GAME_MODE = GameMode.STANDARD
+    DEFAULT_GAME_MODE_SINGLE_TEAM = GameMode.SEQUENTIAL
+    DEFAULT_GAME_MODE_MULTI_TEAM = GameMode.MATCH
     DEFAULT_CONTINUE_ON_ERROR = False
     
     #############################################################################################################################################
@@ -176,7 +177,7 @@ class Game ():
         assert turn_time is None or turn_time >= 0, "Argument 'turn_time' should be non-negative"
         assert isinstance(preprocessing_time, (Number, type(None))), "Argument 'preprocessing_time' must be a real number or None (if so, default value 'Game.DEFAULT_PREPROCESSING_TIME' is used)"
         assert preprocessing_time is None or preprocessing_time >= 0, "Argument 'preprocessing_time' should be non-negative"
-        assert isinstance(game_mode, (GameMode, type(None))), "Argument 'game_mode' must be of type 'pyrat.GameMode' or None (if so, default value 'Game.DEFAULT_GAME_MODE' is used)"
+        assert isinstance(game_mode, (GameMode, type(None))), "Argument 'game_mode' must be of type 'pyrat.GameMode' or None (if so, default value 'Game.DEFAULT_GAME_MODE_SINGLE' or 'Game.DEFAULT_GAME_MODE_MULTI' is used)"
         assert isinstance(continue_on_error, (bool, type(None))), "Argument 'continue_on_error' must be a boolean or None (if so, default value 'Game.DEFAULT_CONTINUE_ON_ERROR' is used)"
         assert not(game_mode == GameMode.SEQUENTIAL and render_mode == RenderMode.GUI), "Cannot render GUI in sequential mode"
         assert fixed_maze is None or (fixed_maze is not None and all(param is None for param in [random_seed_maze, random_maze_algorithm, maze_width, maze_height, cell_percentage, wall_percentage, mud_percentage, mud_range])), "Argument 'fixed_maze' should be given if and only if no other maze description is given"
@@ -212,11 +213,14 @@ class Game ():
         self.__save_game = save_game if save_game is not None else Game.DEFAULT_SAVE_GAME
         self.__preprocessing_time = preprocessing_time if preprocessing_time is not None else Game.DEFAULT_PREPROCESSING_TIME
         self.__turn_time = turn_time if turn_time is not None else Game.DEFAULT_TURN_TIME
-        self.__game_mode = game_mode if game_mode is not None else Game.DEFAULT_GAME_MODE
         self.__continue_on_error = continue_on_error if continue_on_error is not None else Game.DEFAULT_CONTINUE_ON_ERROR
+        
+        # We will set the game mode later, as it depends on the number of players
+        self.__asked_game_mode = game_mode
+        self.__game_mode = game_mode
 
         # If the game is in simulation mode, we enforce some parameters
-        if self.__game_mode == GameMode.SIMULATION:
+        if self.__asked_game_mode == GameMode.SIMULATION:
             self.__preprocessing_time = 0.0
             self.__turn_time = 0.0
             self.__render_mode = RenderMode.NO_RENDERING
@@ -398,9 +402,11 @@ class Game ():
         self.__game_random_seed_players = self.__random_seed if self.__random_seed is not None else self.__random_seed_players if self.__random_seed_players is not None else random.randint(0, sys.maxsize - 1)
         self.__players_rng = random.Random(self.__game_random_seed_players)
         
-        # Reset game analysis elements
+        # Reset game elements
         self.__player_traces = {}
         self.__actions_history = {}
+        if not self.__asked_game_mode:
+            self.__game_mode = None
         
         # Initialize the maze
         if isinstance(self.__fixed_maze, dict):
@@ -458,6 +464,10 @@ class Game ():
         # We catch exceptions that may happen during the game
         try:
         
+            # Set the game mode if needed
+            if self.__game_mode is None:
+                self.__game_mode = Game.DEFAULT_GAME_MODE_SINGLE_TEAM if len(self.__initial_game_state.teams) == 1 else Game.DEFAULT_GAME_MODE_MULTI_TEAM
+
             # Mark the game as not reset
             self.__reset_called = False
 
@@ -480,7 +490,7 @@ class Game ():
             
             # In multiprocessing mode, prepare processes
             maze_per_player = {player.name: copy.deepcopy(self.__maze) for player in self.__players}
-            if self.__game_mode in [GameMode.STANDARD, GameMode.SYNCHRONOUS]:
+            if self.__game_mode in [GameMode.MATCH, GameMode.SYNCHRONOUS]:
 
                 # Create a process per player
                 turn_start_synchronizer = multiprocessing.Manager().Barrier(len(self.__players) + 1)
@@ -491,8 +501,8 @@ class Game ():
                     player_processes[player.name]["process"] = multiprocessing.Process(target=_player_process_function, args=(player, maze_per_player[player.name], player_processes[player.name]["input_queue"], player_processes[player.name]["output_queue"], turn_start_synchronizer, turn_timeout_lock, player_processes[player.name]["turn_end_synchronizer"], None, None,))
                     player_processes[player.name]["process"].start()
 
-                # If playing in standard mode, we create processs to wait instead of missing players
-                if self.__game_mode == GameMode.STANDARD:
+                # If playing in match mode, we create processs to wait instead of missing players
+                if self.__game_mode == GameMode.MATCH:
                     waiter_processes = {}
                     for player in self.__players:
                         waiter_processes[player.name] = {"process": None, "input_queue": multiprocessing.Manager().Queue()}
@@ -520,14 +530,14 @@ class Game ():
                 for ready_player in players_ready:
                     final_stats = copy.deepcopy(stats) if game_state.game_over() else {}
                     player_game_state = copy.deepcopy(game_state)
-                    if self.__game_mode in [GameMode.STANDARD, GameMode.SYNCHRONOUS]:
+                    if self.__game_mode in [GameMode.MATCH, GameMode.SYNCHRONOUS]:
                         player_processes[ready_player.name]["input_queue"].put((player_game_state, final_stats))
                     else:
                         turn_actions[ready_player.name], game_phases[ready_player.name], durations[ready_player.name] = _player_process_function(ready_player, maze_per_player[ready_player.name], None, None, None, None, None, player_game_state, final_stats)
                 
                 # In multiprocessing mode, we for everybody to receive data to start
                 # In sequential mode, decisions are already received at this point
-                if self.__game_mode in [GameMode.STANDARD, GameMode.SYNCHRONOUS]:
+                if self.__game_mode in [GameMode.MATCH, GameMode.SYNCHRONOUS]:
                     turn_start_synchronizer.wait()
 
                 # Wait a bit
@@ -540,8 +550,8 @@ class Game ():
                         player_processes[player.name]["turn_end_synchronizer"].wait()
                         turn_actions[player.name], game_phases[player.name], durations[player.name] = player_processes[player.name]["output_queue"].get()
 
-                # In standard mode, we block the possibility to return an action and check who answered in time
-                elif self.__game_mode == GameMode.STANDARD:
+                # In match mode, we block the possibility to return an action and check who answered in time
+                elif self.__game_mode == GameMode.MATCH:
 
                     # Wait at least for those in mud
                     for player in self.__players:
@@ -562,7 +572,7 @@ class Game ():
                 for player in self.__players:
                     if game_phases[player.name] == "postprocessing":
                         players_running[player.name] = False
-                    if self.__game_mode == GameMode.STANDARD and (game_phases[player.name] == "postprocessing" or turn_actions[player.name] == "miss"):
+                    if self.__game_mode == GameMode.MATCH and (game_phases[player.name] == "postprocessing" or turn_actions[player.name] == "miss"):
                         waiter_processes[player.name]["input_queue"].put(True)
                     else:
                         players_ready.append(player)
@@ -657,7 +667,7 @@ class Game ():
                 save_template = save_template_file.read()
                 save_template = save_template.replace("{PLAYERS}", str(player_descriptions).replace("}, ", "},\\n                       "))
                 save_template = save_template.replace("{CONFIG}", str(config).replace(", '", ",\\n          '"))
-                save_template = save_template.replace("'{GAME_MODE}'", "GameMode.SYNCHRONOUS")
+                save_template = save_template.replace("'{GAME_MODE}'", "GameMode.SEQUENTIAL")
                 for skin in PlayerSkin:
                     save_template = save_template.replace("'{SKIN_" + skin.name + "}'", "PlayerSkin." + skin.name)
                 for player in self.__players:

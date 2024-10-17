@@ -63,13 +63,13 @@ class GameMode (enum.Enum):
     """
         This enumeration defines all accepted game modes.
         Values:
-            * STANDARD:    Players have their own process and play simultaneously, with timeouts that can be missed.
+            * MATCH:       Players have their own process and play simultaneously, with timeouts that can be missed (default in multi-team games).
             * SYNCHRONOUS: Players have their own process and play simultaneously, but actions are applied when all players are ready.
-            * SEQUENTIAL:  All players are asked for a decision, and then actions are applied simultaneously, but there is no multiprocessing.
+            * SEQUENTIAL:  All players are asked for a decision, and then actions are applied simultaneously, but there is no multiprocessing (default in single-team games).
             * SIMULATION:  The game is run as fast as possible, i.e., there is no rendering, no multiprocessing, and no timeouts.
     """
 
-    STANDARD = "standard"
+    MATCH = "match"
     SYNCHRONOUS = "synchronous"
     SEQUENTIAL = "sequential"
     SIMULATION = "simulation"

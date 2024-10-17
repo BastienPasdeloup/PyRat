@@ -11,7 +11,7 @@
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
 
-# Standard imports
+# External imports
 import setuptools
 
 #####################################################################################################################################################
@@ -22,14 +22,14 @@ import setuptools
 setuptools.setup \
 (
     name =                          "PyRat",
-    version =                       "5.6.0",
+    version =                       "5.7.0",
     author =                        "Bastien Pasdeloup",
     author_email =                  "bastien.pasdeloup@imt-atlantique.fr",
     description =                   "PyRat softare used in the computer science at IMT Atlantique",
     long_description =              open("README.md", "r", encoding="utf-8").read(),
     long_description_content_type = "text/markdown",
     url =                           "https://github.com/BastienPasdeloup/PyRat",
-    project_urls =                  {"Course" : "https://info.gitlab-pages.imt-atlantique.fr/"},
+    project_urls =                  {"Course" : "https://hub.imt-atlantique.fr/ueinfo-fise1a/"},
     license =                       "MIT",
     packages =                      setuptools.find_packages(),
     include_package_data =          True,
