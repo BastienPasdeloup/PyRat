@@ -85,7 +85,7 @@ class RandomMaze (Maze, abc.ABC):
         assert isinstance(mud_range, (type(None), tuple, list)), "Argument 'mud_range' must be a tuple, a list, or None"
         assert isinstance(random_seed, (Integral, type(None))), "Argument 'random_seed' must be an integer or None"
         assert random_seed is None or 0 <= random_seed < sys.maxsize, "Argument 'random_seed' must be a positive integer or None"
-        assert (mud_percentage > 0.0 and len(mud_range) == 2) or mud_percentage == 0.0, "Argument 'mud_range' must be specified if 'mud_percentage' is not 0.0"
+        assert (mud_percentage > 0.0 and mud_range is not None and len(mud_range) == 2) or mud_percentage == 0.0, "Argument 'mud_range' must be specified if 'mud_percentage' is not 0.0"
         assert mud_range is None or isinstance(mud_range[0], Integral), "Argument 'mud_range' must be a tuple of integers"
         assert mud_range is None or isinstance(mud_range[1], Integral), "Argument 'mud_range' must be a tuple of integers"
         assert 0.0 <= cell_percentage <= 100.0, "Argument 'cell_percentage' must be a percentage"
