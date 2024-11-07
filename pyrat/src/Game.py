@@ -110,7 +110,7 @@ class Game ():
                    wall_percentage:       Optional[Number] = None,
                    mud_percentage:        Optional[Number] = None,
                    mud_range:             Optional[Tuple[Integral, Integral]] = None,
-                   fixed_maze:            Optional[Union[Dict[Integral, Dict[Integral, Integral]], Any]] = None,
+                   fixed_maze:            Optional[Union[Maze, Dict[Integral, Dict[Integral, Integral]], Any]] = None,
                    nb_cheese:             Optional[Integral] = None,
                    fixed_cheese:          Optional[List[Integral]] = None,
                    random_maze_algorithm: Optional[RandomMazeAlgorithm] = None,
@@ -145,7 +145,7 @@ class Game ():
                 * wall_percentage:       Percentage of walls in the maze, 0%% being an empty maze, and 100%% being the maximum number of walls that keep the maze connected.
                 * mud_percentage:        Percentage of pairs of adjacent cells that are separated by mud in the maze.
                 * mud_range:             Interval of turns needed to cross mud.
-                * fixed_maze:            Fixed maze in any PyRat accepted representation (dictionary, numpy.ndarray or torch.tensor).
+                * fixed_maze:            Fixed maze in any PyRat accepted representation (Maze, dictionary, numpy.ndarray or torch.tensor).
                 * random_maze_algorithm: Algorithm to generate the maze.
                 * nb_cheese:             Number of pieces of cheese in the maze.
                 * fixed_cheese:          Fixed list of cheese.
@@ -416,7 +416,9 @@ class Game ():
             self.__game_mode = None
         
         # Initialize the maze
-        if isinstance(self.__fixed_maze, dict):
+        if isinstance(self.__fixed_maze, Maze):
+            self.__maze = copy.deepcopy(self.__fixed_maze)
+        elif isinstance(self.__fixed_maze, dict):
             self.__maze = MazeFromDict(self.__fixed_maze)
         elif self.__fixed_maze is not None:
             self.__maze = MazeFromMatrix(self.__fixed_maze)
