@@ -436,7 +436,7 @@ class Game ():
         elif self.__render_mode == RenderMode.GUI:
             self.__rendering_engine = PygameRenderingEngine(self.__fullscreen, self.__trace_length, self.__rendering_speed, self.__render_simplified)
         elif self.__render_mode == RenderMode.NO_RENDERING:
-            self.__rendering_engine = RenderingEngine(self.__render_simplified)
+            self.__rendering_engine = RenderingEngine(self.__rendering_speed, self.__render_simplified)
         
         # Initialize the game state
         previous_initial_state = copy.deepcopy(self.__initial_game_state)
