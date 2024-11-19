@@ -22,7 +22,7 @@ import setuptools
 setuptools.setup \
 (
     name =                          "PyRat",
-    version =                       "5.7.3",
+    version =                       "5.7.4",
     author =                        "Bastien Pasdeloup",
     author_email =                  "bastien.pasdeloup@imt-atlantique.fr",
     description =                   "PyRat softare used in the computer science at IMT Atlantique",
