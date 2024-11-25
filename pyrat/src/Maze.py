@@ -64,7 +64,7 @@ class Maze (Graph, abc.ABC):
                    height:   Optional[Integral] = None,
                    *args:    Any,
                    **kwargs: Any
-                 ) ->        Self:
+                 ) ->        None:
 
         """
             This function is the constructor of the class.
@@ -79,7 +79,7 @@ class Maze (Graph, abc.ABC):
                 * args:   Arguments to pass to the parent constructor.
                 * kwargs: Keyword arguments to pass to the parent constructor.
             Out:
-                * A new instance of the class.
+                * A new instance of the class (we indicate None as return type per convention, see PEP-484).
         """
 
         # Inherit from parent class

@@ -42,7 +42,7 @@ class RenderingEngine ():
     def __init__ ( self:              Self,
                    rendering_speed:   Number = 1.0,
                    render_simplified: bool = False
-                 ) ->                 Self:
+                 ) ->                 None:
 
         """
             This function is the constructor of the class.
@@ -53,7 +53,7 @@ class RenderingEngine ():
                 * rendering_speed:   Speed at which the game should be rendered.
                 * render_simplified: Whether to render the simplified version of the game.
             Out:
-                * A new instance of the class.
+                * A new instance of the class (we indicate None as return type per convention, see PEP-484).
         """
 
         # Debug

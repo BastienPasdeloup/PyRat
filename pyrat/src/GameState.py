@@ -38,7 +38,7 @@ class GameState ():
     #############################################################################################################################################
 
     def __init__ ( self: Self,
-                 ) ->    Self:
+                 ) ->    None:
 
         """
             This function is the constructor of the class.
@@ -47,7 +47,7 @@ class GameState ():
             In:
                 * self: Reference to the current object.
             Out:
-                * A new instance of the class.
+                * A new instance of the class (we indicate None as return type per convention, see PEP-484).
         """
 
         # Private attributes

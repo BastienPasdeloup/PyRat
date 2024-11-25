@@ -126,7 +126,7 @@ class Game ():
                    turn_time:             Optional[Number] = None,
                    game_mode:             Optional[GameMode] = None,
                    continue_on_error:     Optional[bool] = None
-                 ) ->                     Self:
+                 ) ->                     None:
 
         """
             This function is the constructor of the class.
@@ -162,7 +162,7 @@ class Game ():
                 * game_mode:             Indicates if players play concurrently, wait for each other, or if multiprocessing is disabled.
                 * continue_on_error:     If a player crashes, continues the game anyway.
             Out:
-                * A new instance of the class.
+                * A new instance of the class (we indicate None as return type per convention, see PEP-484).
         """
         
         # Debug

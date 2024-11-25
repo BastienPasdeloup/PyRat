@@ -50,7 +50,7 @@ class Player (abc.ABC):
     def __init__ ( self: Self,
                    name: Optional[str] = None,
                    skin: PlayerSkin = PlayerSkin.RAT
-                 ) ->    Self:
+                 ) ->    None:
 
         """
             This function is the constructor of the class.
@@ -61,7 +61,7 @@ class Player (abc.ABC):
                 * name: Name of the player (if None, we take the name of the class).
                 * skin: Skin of the player.
             Out:
-                * A new instance of the class.
+                * A new instance of the class (we indicate None as return type per convention, see PEP-484).
         """
 
         # Debug
