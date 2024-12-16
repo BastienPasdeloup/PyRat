@@ -374,8 +374,9 @@ class Graph ():
         assert vertex in self.__adjacency, "Vertex not in the graph"
 
         # Remove the vertex and connections to it
-        for neighbor in self.__adjacency[vertex]:
-            del self.__adjacency[neighbor][vertex]
+        for neighbor in self.__adjacency:
+            if vertex in self.__adjacency[neighbor]:
+                del self.__adjacency[neighbor][vertex]
         del self.__adjacency[vertex]
         
     #############################################################################################################################################
