@@ -4,8 +4,20 @@
 
 """
     This file contains useful elements to define a particular player.
-    In order to use this player, you need to instanciate it and add it to a game.
-    Please refer to example games to see how to do it properly.
+    In particular, it defines three methods that you can redefine to implement your own player:
+        - `preprocessing`: This method is called once at the beginning of the game.
+        - `turn`: This method is called at each turn of the game and must return an action to perform.
+        - `postprocessing`: This method is called once at the end of the game.
+    You can also redefine the constructor to initialize your player.
+    You can also add other methods to your player, to use them in any of the three methods above.
+    You can also add attributes to your player, to store information that you want to use.
+
+    When creating a new player from this template, you should:
+        - Rename the class to something more meaningful.
+        - Rename the file to match the class name (e.g., `MyPlayer.py`).
+        - Change the docstring to describe your player.
+    You can also remove the `preprocessing` and `postprocessing` methods if you don't need them.
+    The `turn` method is mandatory, so you must keep it.
 """
 
 #####################################################################################################################################################

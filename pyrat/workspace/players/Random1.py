@@ -3,9 +3,10 @@
 #####################################################################################################################################################
 
 """
-    This file contains useful elements to define a particular player.
-    In order to use this player, you need to instanciate it and add it to a game.
-    Please refer to example games to see how to do it properly.
+    This file contains the description of a player that performs random actions.
+    It is meant to be used as a library, and not to be executed directly.
+    Please import this file from a game script using the following syntax:
+        from players.Random1 import Random1
 """
 
 #####################################################################################################################################################

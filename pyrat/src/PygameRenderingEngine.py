@@ -792,6 +792,7 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
                 pass
             
         # Quit PyGame
+        pygame.display.quit()
         pygame.quit()
         
     # Ignore
