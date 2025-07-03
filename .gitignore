@@ -2,8 +2,8 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-#   This file allows avoiding synchronization of some file types with the git repository.
-#   I used a standard one found here: https://github.com/github/gitignore/blob/main/Python.gitignore.
+# This file allows avoiding synchronization of some file types with the git repository.
+# I used a standard one found here: https://github.com/github/gitignore/blob/main/Python.gitignore.
 
 #####################################################################################################################################################
 ###################################################################### CONTENTS #####################################################################

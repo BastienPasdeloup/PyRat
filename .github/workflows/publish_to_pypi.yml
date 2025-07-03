@@ -2,16 +2,40 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-# This program is needed for an automatic installation of the PyRat software.
-# It details the directories that do not contain Python modules but should be downloaded for a proper install.
+# This is a needed workflow file for the PyRat software.
+# It allows the automatic publication of the package on PyPI when a new version is tagged in the git repository.
 
 #####################################################################################################################################################
 ###################################################################### CONTENTS #####################################################################
 #####################################################################################################################################################
 
-graft pyrat/gui
-graft pyrat/workspace
-graft pyrat/src
+name: Publish Python package
 
-#####################################################################################################################################################
-#####################################################################################################################################################
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install build tools
+      run: |
+        python -m pip install --upgrade build twine
+
+    - name: Build package
+      run: python -m build
+
+    - name: Publish package to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.PYPI_API_TOKEN }}

@@ -1,0 +1,51 @@
+#####################################################################################################################################################
+######################################################################## INFO #######################################################################
+#####################################################################################################################################################
+
+# This program is needed for an automatic installation of the PyRat software.
+# Please refer to the README.md file for more information.
+
+#####################################################################################################################################################
+###################################################################### CONTENTS #####################################################################
+#####################################################################################################################################################
+
+[project]
+name         = "PyRat"
+version      = "6.0.0"
+description  = "PyRat software used in the computer science at IMT Atlantique"
+readme       = "README.md"
+license      = {file = "LICENSE"}
+authors      = [{name = "Bastien Pasdeloup", email = "bastien.pasdeloup@imt-atlantique.fr"}]
+dependencies = ["pygame",
+                "colored",
+                "distinctipy",
+                "scipy",
+                "tqdm",
+                "typing_extensions",
+                "matplotlib",
+                "pdoc",
+                "pyfakefs"]
+
+[project.urls]
+Homepage = "https://github.com/BastienPasdeloup/PyRat"
+PyPI     = "https://pypi.org/project/pyrat/"
+Course   = "https://hub.imt-atlantique.fr/ueinfo-fise1a/"
+
+[project.optional-dependencies]
+numpy = ["numpy"]
+torch = ["torch"]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+"*" = ["*.md",
+       "LICENSE",
+       "MANIFEST.in"]
+
+[build-system]
+requires      = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+#####################################################################################################################################################
+#####################################################################################################################################################
