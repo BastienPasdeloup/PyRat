@@ -10,7 +10,7 @@
 #####################################################################################################################################################
 
 [project]
-name         = "PyRat"
+name         = "pyrat-game"
 version      = "6.0.0"
 description  = "PyRat software used in the computer science at IMT Atlantique"
 readme       = "README.md"
