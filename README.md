@@ -11,22 +11,12 @@
 <!-- ###################################################################### CONTENTS ##################################################################### -->
 <!-- ##################################################################################################################################################### -->
 
-<img align="left" height="250px" src="https://hub.imt-atlantique.fr/ueinfo-fise1a/images/s5/project/pyrat.png" />
-
 <div align="center">
-
-# PyRat
-
-<br />
-
-This repository contains the software used in the \
-computer science course at IMT Atlantique.
-
-The course contents is available at this address: \
-https://hub.imt-atlantique.fr/ueinfo-fise1a/.
+    
+| <img height="250px" src="https://hub.imt-atlantique.fr/ueinfo-fise1a/images/s5/project/pyrat.png" /> | <h1>PyRat</h1><p>This repository contains the software used in the<br />computer science course at IMT Atlantique.</p><p>The course contents is available at this address:<br /><a>https://hub.imt-atlantique.fr/ueinfo-fise1a/</a>.</p> |
+|-|-|
 
 </div>
-<br />
 
 # 1 – Prerequisites
 
@@ -43,7 +33,6 @@ https://hub.imt-atlantique.fr/ueinfo-fise1a/.
 
 Installation of the PyRat software can be done directly using `pip`. \
 To do so, follow steps:
-
 1) Open a terminal.
 2) Activate your virtual environment (change `path_to_venv` to the actual path):
    - **Linux:** `source path_to_venv/bin/activate`.
@@ -53,7 +42,6 @@ To do so, follow steps:
 3) Install PyRat through `pip` as follows: `pip install pyrat-game`.
 
 You should see something like this:
-
 ```text
 Downloading pyrat_game-6.0.0-py3-none-any.whl (4.2 MB)
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.2/4.2 MB 9.6 MB/s eta 0:00:00
@@ -66,7 +54,6 @@ Successfully installed pyrat-game-6.0.0
 We are now going to create a workspace for PyRat. \
 This is a directory that contains minimal working examples to get started. \
 To do so, follow these steps:
-
 1) Open a terminal, and navigate (use the `cd` command) to the directory where you want to create your PyRat workspace.
 2) Activate your virtual environment where PyRat is installed (see above).
 3) Run the following command:
@@ -76,7 +63,6 @@ To do so, follow these steps:
    - **Windows (PowerShell):** `python -c "import pyrat; pyrat.create_workspace('.')"`
 
 You should see something like this:
-
 ```text
 Workspace created in /path/to/pyrat_workspace`
 Workspace added to Python path
@@ -86,14 +72,12 @@ Workspace added to Python path
 
 Now, we are going to verify that PyRat works properly. \
 To do so, follow these steps:
-
 1) Open VSCode, and add your `pyrat_workspace` directory in your VSCode workspace.
 2) Open the file `sample_game.py` in directory `pyrat_workspace/games/`.
 3) Make sure VSCode is using your virtual environment where PyRat is installed.
 3) Run `sample_game.py`.
 
 You should see something like this:
-
 <img src="https://hub.imt-atlantique.fr/ueinfo-fise1a/images/s5/project/pyrat_interface.png" />
 
 # 5 – Troubleshooting
