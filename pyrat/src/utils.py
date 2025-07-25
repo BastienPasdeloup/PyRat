@@ -51,12 +51,14 @@ def create_workspace ( target_directory: str
     source_workspace = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "workspace")
     target_workspace = os.path.abspath(os.path.join(target_directory, "pyrat_workspace"))
     shutil.copytree(source_workspace, target_workspace, ignore=shutil.ignore_patterns('__pycache__'))
+    print(f"Workspace created in {target_workspace}", file=sys.stderr)
 
     # Permanently add the workspace to path
     site_packages = site.getusersitepackages()
     pth_file = os.path.join(site_packages, "pyrat_workspace_path.pth")
     with open(pth_file, "w") as f:
         f.write(target_workspace + "\n")
+    print(f"Workspace added to Python path", file=sys.stderr)
 
 #####################################################################################################################################################
 

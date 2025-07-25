@@ -11,8 +11,8 @@
 
 [project]
 name         = "pyrat-game"
-version      = "6.0.0"
-description  = "PyRat software used in the computer science at IMT Atlantique"
+version      = "6.0.1"
+description  = "PyRat software used in the computer science course at IMT Atlantique"
 readme       = "README.md"
 license      = {file = "LICENSE"}
 authors      = [{name = "Bastien Pasdeloup", email = "bastien.pasdeloup@imt-atlantique.fr"}]
@@ -28,8 +28,8 @@ dependencies = ["pygame",
 
 [project.urls]
 Homepage = "https://github.com/BastienPasdeloup/PyRat"
-PyPI     = "https://pypi.org/project/pyrat-game/"
-Course   = "https://hub.imt-atlantique.fr/ueinfo-fise1a/"
+PyPI     = "https://pypi.org/project/pyrat-game"
+Course   = "https://hub.imt-atlantique.fr/ueinfo-fise1a"
 
 [project.optional-dependencies]
 numpy = ["numpy"]

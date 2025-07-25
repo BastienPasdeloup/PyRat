@@ -11,7 +11,7 @@
 <!-- ###################################################################### CONTENTS ##################################################################### -->
 <!-- ##################################################################################################################################################### -->
 
-<img align="left" height="250px" src="pyrat/gui/drawings/pyrat.png" />
+<img align="left" height="250px" src="https://github.com/BastienPasdeloup/PyRat/blob/master/pyrat/gui/drawings/pyrat.png" />
 
 <div align="center">
 
@@ -28,53 +28,73 @@ https://hub.imt-atlantique.fr/ueinfo-fise1a/.
 </div>
 <br />
 
-# Install
+# 1 – Prerequisites
 
-### Standard installation procedure
+- This installation procedure assumes that you have basic knowledge about shell manipulation.
+
+- Also, it assumes that you have already created a virtual environment where to install PyRat.
+  If not, please do this first as described in the [official documentation](https://docs.python.org/3/library/venv.html).
+
+- Finally, we will test PyRat installation using Visual Studio Code (VSCode), as this is the main tool we use in the associated course.
+  Please make sure it is already installed, or install it from the [official website](https://code.visualstudio.com/).
+  Note that you can use a different tool if you want, but we just provide indications for that one here.
+
+# 2 – Install the PyRat package
 
 Installation of the PyRat software can be done directly using `pip`. \
-Do not clone or download the repository. \
-Instead, please follow the following instructions:
+To do so, follow steps:
 
-1) First, make sure that Git is installed (or use the alternate procedure below). \
-   Check the instructions corresponding to your operating system [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+1) Open a terminal.
+2) Activate your virtual environment (change `path_to_venv` to the actual path):
+   - **Linux** – `source path_to_venv/bin/activate`.
+   - **MacOS** – `source path_to_venv/bin/activate"`.
+   - **Windows (cmd)** – `path_to_venv\Scripts\activate.bat`.
+   - **Windows (PowerShell)** – `path_to_venv\Scripts\Activate.ps1`.
+3) Install PyRat through `pip` as follows: `pip install pyrat-game`.
 
-2) Install the PyRat software using the following command:
-   - **Windows** – `python -m pip install --user git+https://github.com/BastienPasdeloup/PyRat.git`
-   - **Linux** – `pip install --user git+https://github.com/BastienPasdeloup/PyRat.git`
-   - **MacOS** – `pip install --user git+https://github.com/BastienPasdeloup/PyRat.git`
+You should see something like this:
 
-### Alternate installation procedure without installing Git
+```bash
+Downloading pyrat_game-6.0.0-py3-none-any.whl (4.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.2/4.2 MB 9.6 MB/s eta 0:00:00
+Installing collected packages: pyrat-game
+Successfully installed pyrat-game-6.0.0
+```
 
-If you do not wish to install Git, you can follow these instructions instead of those above:
+# 3 – Setup your PyRat workspace
 
-1) Click on the green **`<> Code`** button on top of this page, and click on "Download ZIP".
+We are now going to create a workspace for PyRat. \
+This is a directory that contains minimal working examples to get started. \
+To do so, follow these steps:
 
-2) Extract the downloaded archive and navigate (using the `cd` command) there in a terminal.
-   Then, run the following command:
-   - **Windows** – `python -m pip install .`
-   - **Linux** – `pip install .`
-   - **MacOS** – `pip install .`
-
-# Setup your workspace
-
-Whatever installation method you chose, now follow the following instructions to prepare your PyRat workspace:
-
-3) Open a terminal and navigate (using the `cd` command) to the directory where you want to create your PyRat workspace.
-
-4) Then, run the following command to create a PyRat workspace in the current directory:
-   - **Windows** – `python -c "import pyrat; pyrat.create_workspace('.')"`
+1) Open a terminal, and navigate (use the `cd` command) to the directory where you want to create your PyRat workspace.
+2) Activate your virtual environment where PyRat is installed (see above).
+3) Run the following command:
    - **Linux** – `python3 -c "import pyrat; pyrat.create_workspace('.')"`
    - **MacOS** – `python3 -c "import pyrat; pyrat.create_workspace('.')"`
+   - **Windows (cmd)** – `python -c "import pyrat; pyrat.create_workspace('.')"`
+   - **Windows (PowerShell)** – `python -c "import pyrat; pyrat.create_workspace('.')"`
 
-5) Finally, run the following command to generate the PyRat documentation:
-   - **Windows** – `python -c "import pyrat; pyrat.generate_documentation('pyrat_workspace')"`
-   - **Linux** – `python3 -c "import pyrat; pyrat.generate_documentation('pyrat_workspace')"`
-   - **MacOS** – `python3 -c "import pyrat; pyrat.generate_documentation('pyrat_workspace')"`
+You should see something like this:
 
-# Check installation
+```bash
+Workspace created in /path/to/pyrat_workspace`
+Workspace added to Python path
+```
 
-Once installed, please head to the course website, and [follow instructions to start your first PyRat game](https://hub.imt-atlantique.fr/ueinfo-fise1a/s5/project/session1/practical/index.html#12-----the-pyrat-workspace).
+# 4 – Check your installation
+
+Now, we are going to verify that PyRat works properly. \
+To do so, follow these steps:
+
+1) Open VSCode, and add your `pyrat_workspace` directory in your VSCode workspace.
+2) Open the file `sample_game.py` in directory `pyrat_workspace/games/`.
+3) Make sure VSCode is using your virtual environment where PyRat is installed.
+3) Run `sample_game.py`.
+
+You should see something like this:
+
+<img src="https://hub.imt-atlantique.fr/ueinfo-fise1a/images/s5/project/pyrat_interface.png" />
 
 <!-- ##################################################################################################################################################### -->
 <!-- ##################################################################################################################################################### -->
