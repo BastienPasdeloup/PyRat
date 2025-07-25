@@ -11,7 +11,7 @@
 <!-- ###################################################################### CONTENTS ##################################################################### -->
 <!-- ##################################################################################################################################################### -->
 
-<img align="left" height="250px" src="https://github.com/BastienPasdeloup/PyRat/blob/master/pyrat/gui/drawings/pyrat.png" />
+<img align="left" height="250px" src="https://hub.imt-atlantique.fr/ueinfo-fise1a/images/s5/project/pyrat.png" />
 
 <div align="center">
 
