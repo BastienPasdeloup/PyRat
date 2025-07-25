@@ -46,15 +46,15 @@ To do so, follow steps:
 
 1) Open a terminal.
 2) Activate your virtual environment (change `path_to_venv` to the actual path):
-   - **Linux** – `source path_to_venv/bin/activate`.
-   - **MacOS** – `source path_to_venv/bin/activate"`.
-   - **Windows (cmd)** – `path_to_venv\Scripts\activate.bat`.
-   - **Windows (PowerShell)** – `path_to_venv\Scripts\Activate.ps1`.
+   - **Linux:** `source path_to_venv/bin/activate`.
+   - **MacOS:** `source path_to_venv/bin/activate"`.
+   - **Windows (cmd):** `path_to_venv\Scripts\activate.bat`.
+   - **Windows (PowerShell):** `path_to_venv\Scripts\Activate.ps1`.
 3) Install PyRat through `pip` as follows: `pip install pyrat-game`.
 
 You should see something like this:
 
-```bash
+```text
 Downloading pyrat_game-6.0.0-py3-none-any.whl (4.2 MB)
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.2/4.2 MB 9.6 MB/s eta 0:00:00
 Installing collected packages: pyrat-game
@@ -70,14 +70,14 @@ To do so, follow these steps:
 1) Open a terminal, and navigate (use the `cd` command) to the directory where you want to create your PyRat workspace.
 2) Activate your virtual environment where PyRat is installed (see above).
 3) Run the following command:
-   - **Linux** – `python3 -c "import pyrat; pyrat.create_workspace('.')"`
-   - **MacOS** – `python3 -c "import pyrat; pyrat.create_workspace('.')"`
-   - **Windows (cmd)** – `python -c "import pyrat; pyrat.create_workspace('.')"`
-   - **Windows (PowerShell)** – `python -c "import pyrat; pyrat.create_workspace('.')"`
+   - **Linux:** `python3 -c "import pyrat; pyrat.create_workspace('.')"`
+   - **MacOS:** `python3 -c "import pyrat; pyrat.create_workspace('.')"`
+   - **Windows (cmd):** `python -c "import pyrat; pyrat.create_workspace('.')"`
+   - **Windows (PowerShell):** `python -c "import pyrat; pyrat.create_workspace('.')"`
 
 You should see something like this:
 
-```bash
+```text
 Workspace created in /path/to/pyrat_workspace`
 Workspace added to Python path
 ```
@@ -95,6 +95,16 @@ To do so, follow these steps:
 You should see something like this:
 
 <img src="https://hub.imt-atlantique.fr/ueinfo-fise1a/images/s5/project/pyrat_interface.png" />
+
+# 5 – Troubleshooting
+
+- In case of a problem, please check the existing [GitHub issues](https://github.com/BastienPasdeloup/PyRat/issues) first.
+
+- If the problem persists, you can add an issue of your own.
+
+- For students at IMT Atlantique, you can also ask your questions on the [Discord server](https://discord.gg/eMnFArZ8ht) of the course.
+
+- Finally, you can contact [Bastien Pasdeloup](mailto:bastien.pasdeloup@imt-atlantique.fr) directly.
 
 <!-- ##################################################################################################################################################### -->
 <!-- ##################################################################################################################################################### -->
