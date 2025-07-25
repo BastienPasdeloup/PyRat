@@ -12,10 +12,19 @@
 <!-- ##################################################################################################################################################### -->
 
 <div align="center">
-    
-| <img height="250px" src="https://hub.imt-atlantique.fr/ueinfo-fise1a/images/s5/project/pyrat.png" /> | <h1>PyRat</h1><p>This repository contains the software used in the<br />computer science course at IMT Atlantique.</p><p>The course contents is available at this address:<br /><a>https://hub.imt-atlantique.fr/ueinfo-fise1a/</a>.</p> |
-|-|-|
-
+    <table>
+        <tr>
+            <td align="center">
+                <img height="250px" src="https://hub.imt-atlantique.fr/ueinfo-fise1a/images/s5/project/pyrat.png">
+            </td>
+            <td align="center">
+                <h1>PyRat</h1>
+                <p>This repository contains the software used in the<br>computer science course at IMT Atlantique.</p>
+                <br />
+                <p>The course contents is available at this address:<br><a rel="nofollow"></a><a href="https://hub.imt-atlantique.fr/ueinfo-fise1a/" rel="nofollow">https://hub.imt-atlantique.fr/ueinfo-fise1a/</a>.</p>
+            </td>
+        </tr>
+    </table>
 </div>
 
 # 1 – Prerequisites
