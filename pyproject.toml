@@ -36,7 +36,6 @@ Course        = "https://hub.imt-atlantique.fr/ueinfo-fise1a"
 [project.optional-dependencies]
 numpy = ["numpy"]
 torch = ["torch"]
-docs = ["sphinx", "sphinx-autodoc-typehints", "furo"]
 
 [tool.setuptools]
 include-package-data = true
