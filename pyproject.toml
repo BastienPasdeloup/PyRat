@@ -11,7 +11,7 @@
 
 [project]
 name         = "pyrat-game"
-version      = "6.0.6"
+version      = "6.0.7"
 description  = "PyRat software used in the computer science course at IMT Atlantique"
 readme       = "README.md"
 license      = {text = "MIT"}
@@ -27,13 +27,16 @@ dependencies = ["pygame",
                 "pyfakefs"]
 
 [project.urls]
-Homepage = "https://github.com/BastienPasdeloup/PyRat"
-PyPI     = "https://pypi.org/project/pyrat-game"
-Course   = "https://hub.imt-atlantique.fr/ueinfo-fise1a"
+Homepage      = "https://github.com/BastienPasdeloup/PyRat"
+Documentation = "https://bastienpasdeloup.github.io/PyRat/"
+Issues        = "https://github.com/BastienPasdeloup/PyRat/issues"
+PyPI          = "https://pypi.org/project/pyrat-game"
+Course        = "https://hub.imt-atlantique.fr/ueinfo-fise1a"
 
 [project.optional-dependencies]
 numpy = ["numpy"]
 torch = ["torch"]
+docs = ["sphinx", "sphinx-autodoc-typehints", "furo"]
 
 [tool.setuptools]
 include-package-data = true
