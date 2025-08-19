@@ -88,6 +88,7 @@ To do so, follow these steps:
 3) Run `sample_game.py`.
 
 You should see something like this:
+
 <img src="https://hub.imt-atlantique.fr/ueinfo-fise1a/images/s5/project/pyrat_interface.png" />
 
 # 5 – Troubleshooting
