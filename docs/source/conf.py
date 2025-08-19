@@ -5,9 +5,9 @@
 
 import os
 import sys
-
-# Ajouter le chemin vers le module pyrat
 sys.path.insert(0, os.path.abspath("../../pyrat/src"))
+sys.path.insert(0, os.path.abspath("../../pyrat/workspace/games"))
+sys.path.insert(0, os.path.abspath("../../pyrat/workspace/players"))
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information

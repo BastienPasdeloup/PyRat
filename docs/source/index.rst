@@ -3,12 +3,21 @@ PyRat Documentation
 
 Overview
 --------
+
 PyRat is a teaching-oriented Python software developed at IMT Atlantique.
 
-API Reference
--------------
+PyRat API
+---------
+
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
-   modules
+   pyrat/index
+
+Workspace API
+-------------
+
+.. toctree::
+   :maxdepth: 3
+
+   workspace/index

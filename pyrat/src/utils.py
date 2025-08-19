@@ -121,7 +121,7 @@ def pyrat_files () -> List[pathlib.Path]:
     Returns the list of all the paths to files in the PyRat library.
 
     Returns:
-        * file_paths: The list of all the paths to files in the PyRat library.
+        The list of all the paths to files in the PyRat library.
     """
 
     # Get the list of all the files in the PyRat library

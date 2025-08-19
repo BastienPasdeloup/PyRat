@@ -2,7 +2,7 @@ PyRat
 =====
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 99
 
    BigHolesRandomMaze
    FixedPlayer
@@ -14,10 +14,11 @@ PyRat
    MazeFromDict
    MazeFromMatrix
    Player
-   PygameRenderingEngine
+   PyGameRenderingEngine
    RandomMaze
    RenderingEngine
    ShellRenderingEngine
    UniformHolesRandomMaze
    enums
+   sample_game
    utils

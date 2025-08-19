@@ -113,9 +113,9 @@ class Player (abc.ABC):
                        ) ->          None:
 
         """
-        This method can optionally be implemented in the child classes.
-        It is called once at the end of the game.
-        It is not timed, and can be used to perform cleanup, analyze the completed game, train models, etc.
+        This method is called once at the end of the game.
+        It can be used to perform any cleanup that is needed after the game ends.
+        It is not timed, and can be used to analyze the completed game, train models, etc.
 
         Args:
             maze:       An object representing the maze in which the player plays.
@@ -140,10 +140,10 @@ class Player (abc.ABC):
                       ) ->          None:
         
         """
-        This method can optionally be implemented in the child classes.
-        It is called once at the beginning of the game.
-        It is typically given more time than the turn function, to perform complex computations.
-        This time is set in the ``Game`` class using the ``preprocessing_time`` attribute.
+        This method is called once at the beginning of the game.
+        It can be used to initialize attributes or to perform any other setup that is needed before the game starts.
+        It typically is given more computational resources than the ``turn()`` method.
+        Therefore, it is a good place to perform any heavy computations that are needed for the player to function correctly.
 
         Args:
             maze:       An object representing the maze in which the player plays.
@@ -168,15 +168,17 @@ class Player (abc.ABC):
         """
         (This method is abstract and must be implemented in the subclasses.)
 
-        Called at each turn of the game.
-        Returns an action to perform, chosen from the possible actions defined in the ``Action`` enumeration.
+        This method is called at each turn of the game.
+        It returns an action to perform among the possible actions, defined in the ``Action`` enumeration.
+        It is generally given less computational resources than the ``preprocessing()`` method.
+        Therefore, you should limit the amount of computations you perform in this method to those that require real-time information.
 
         Args:
             maze:       An object representing the maze in which the player plays.
             game_state: An object representing the state of the game.
 
         Returns:
-            An action to perform, chosen from the possible actions defined in the ``Action`` enumeration.
+            One of the possible action, defined in the ``Action`` enumeration.
 
         Raises:
             NotImplementedError: If the method is not implemented in the subclass.

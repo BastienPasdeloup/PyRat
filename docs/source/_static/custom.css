@@ -12,16 +12,17 @@
     font-style: italic;
 }
 
-.main .method { 
+.main .method,
+.main .class:not(:first-of-type),
+.main .function:not(:first-of-type) {
     margin-top: 2em;
     padding-top: 2em;
     border-top: 1px solid #ddd;
 }
 
-.main .class:not(:first-of-type) {
-    margin-top: 2em;
-    padding-top: 2em;
-    border-top: 1px solid #ddd;
+.main dt.field-odd,
+.main dt.field-even {
+    text-decoration: underline;
 }
 
 .main p {
