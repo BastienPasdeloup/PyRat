@@ -7,7 +7,7 @@ import os
 import sys
 
 # Ajouter le chemin vers le module pyrat
-sys.path.insert(0, os.path.abspath("../../pyrat"))
+sys.path.insert(0, os.path.abspath(".."))
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -15,12 +15,6 @@ sys.path.insert(0, os.path.abspath("../../pyrat"))
 project = 'PyRat'
 copyright = '2025, Bastien Pasdeloup & IMT Atlantique'
 author = 'Bastien Pasdeloup'
-
-import os
-import sys
-
-# Ajouter le chemin vers le module pyrat
-sys.path.insert(0, os.path.abspath("../../pyrat/src"))
 
 
 # -- General configuration ---------------------------------------------------
