@@ -7,6 +7,14 @@
 # Please import necessary elements using the following syntax:
 #     from pyrat import <element_name>
 
+"""
+This module provides a game state that is a snapshot of the game at a given time.
+At each turn, the game creates a new instance of this class.
+It gives an overview of scores, locations, available cheese, who is currently crossing mud, etc.
+It also provides a few useful functions to determine who is currently leading, etc.
+This game state is then provided to players so that they can make decisions based on the current state of the game.
+"""
+
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
@@ -29,6 +37,7 @@ class GameState ():
     A game state is a snapshot of the game at a given time.
     It gives an overview of scores, locations, available cheese, who is currently crossing mud, etc.
     It also provides a few useful functions to determine who is currently leading, etc.
+    Objects of this class are created each turn, so manually changing the attributes will not allow you to cheat :)
     """
 
     #############################################################################################################################################
@@ -40,7 +49,17 @@ class GameState ():
 
         """
         Initializes a new instance of the class.
-        Objects of this class are created each turn, so manually changing the attributes will not allow you to cheat :)
+        
+        This constructor defines some public attributes that are used to store the state of the game.
+        You can access these attributes to get information about the game state.
+
+        Accessible attributes are:
+            * ``player_locations``: Dictionary of player names and their current locations.
+            * ``score_per_player``: Dictionary of player names and their current scores.
+            * ``muds``: Dictionary of players currently crossing mud, with their target cell and the number of turns left to reach it.
+            * ``teams``: Dictionary of team names and their members.
+            * ``cheese``: List of cheese locations.
+            * ``turn``: Current turn number (starting from 0).
         """
 
         # Public attributes
@@ -57,7 +76,7 @@ class GameState ():
                 ) ->    str:
 
         """
-        Returns a string representation of the GameState object.
+        Returns a string representation of the object.
         
         Returns:
             String representation of the object.
@@ -88,7 +107,7 @@ class GameState ():
             name: Name of the player.
 
         Returns:
-            True if the player is currently crossing mud, False otherwise.
+            ``True`` if the player is currently crossing mud, ``False`` otherwise.
         """
 
         # Debug
@@ -125,7 +144,7 @@ class GameState ():
         The game is over when there is no more cheese or when no team can catch up anymore.
 
         Returns:
-            True if the game is over, False otherwise.
+            ``True`` if the game is over, ``False`` otherwise.
         """
 
         # The game is over when there is no more cheese

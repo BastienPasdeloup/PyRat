@@ -2,10 +2,16 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-# This file contains the description of a player that performs random actions.
+# This file is part of the PyRat library.
+# It describes a player that can be used in a PyRat game.
 # It is meant to be used as a library, and not to be executed directly.
 # Please import this file from a game script using the following syntax:
 #     from players.Random1 import Random1
+
+"""
+This module provides a player that performs random actions in a PyRat game.
+It is a simple player that does not take into account the maze structure.
+"""
 
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
@@ -27,9 +33,11 @@ from pyrat import Player, Maze, GameState, Action
 class Random1 (Player):
 
     """
-        This player controls a PyRat character by performing random actions.
-        More precisely, at each turn, a random choice among all possible actions is selected.
-        Note that this doesn't take into account the structure of the maze.
+    *(This class inherits from* ``Player`` *).*
+
+    This player controls a PyRat character by performing random actions.
+    More precisely, at each turn, a random choice among all possible actions is selected.
+    Note that this doesn't take into account the structure of the maze.
     """
 
     #############################################################################################################################################
@@ -42,17 +50,13 @@ class Random1 (Player):
                  ) ->        None:
 
         """
-            This function is the constructor of the class.
-            When an object is instantiated, this method is called to initialize the object.
-            This is where you should define the attributes of the object and set their initial values.
-            Arguments *args and **kwargs are used to pass arguments to the parent constructor.
-            This is useful not to declare again all the parent's attributes in the child class.
-            In:
-                * self:   Reference to the current object.
-                * args:   Arguments to pass to the parent constructor.
-                * kwargs: Keyword arguments to pass to the parent constructor.
-            Out:
-                * A new instance of the class (we indicate None as return type per convention, see PEP-484).
+        Initializes a new instance of the class.
+        Here, the constructor is only used to initialize the player.
+        It transmits the arguments to the parent constructor, which is responsible for initializing the name and the skin of the player.
+
+        Args:
+            args:   Arguments to pass to the parent constructor.
+            kwargs: Keyword arguments to pass to the parent constructor.
         """
 
         # Inherit from parent class
@@ -69,15 +73,17 @@ class Random1 (Player):
              ) ->          Action:
 
         """
-            This method redefines the abstract method of the parent class.
-            It is called at each turn of the game.
-            It returns an action to perform among the possible actions, defined in the Action enumeration.
-            In:
-                * self:       Reference to the current object.
-                * maze:       An object representing the maze in which the player plays.
-                * game_state: An object representing the state of the game.
-            Out:
-                * action: One of the possible actions.
+        *(This method redefines the method of the parent class with the same name).*
+
+        It is called at each turn of the game.
+        It returns an action to perform among the possible actions, defined in the ``Action`` enumeration.
+
+        Args:
+            maze:       An object representing the maze in which the player plays.
+            game_state: An object representing the state of the game.
+        
+        Returns:
+            One of the possible actions.
         """
 
         # Return an action
@@ -92,12 +98,11 @@ class Random1 (Player):
                          ) ->    Action:
 
         """
-            This method returns an action to perform among the possible actions, defined in the Action enumeration.
-            Here, the action is chosen randomly.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * action: One of the possible actions.
+        This method returns an action to perform among the possible actions, defined in the ``Action`` enumeration.
+        Here, the action is chosen randomly.
+
+        Returns:
+            One of the possible actions.
         """
 
         # Choose a random action to perform

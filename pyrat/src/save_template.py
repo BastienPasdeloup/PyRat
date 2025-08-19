@@ -3,9 +3,17 @@
 #####################################################################################################################################################
 
 # This file is part of the PyRat library.
-# It is meant to be used as a library, and not to be executed directly.
+# It describes a script that creates a PyRat game.
 # Please import necessary elements using the following syntax:
 #     from pyrat import <element_name>
+#     from players import <player_name>
+
+"""
+This script was generated from a template.
+It is a replay of a previously recorded game.
+Actions are stored in a list, and the game is played by executing these actions in order.
+No complex logic is implemented, as the actions are predefined.
+"""
 
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################

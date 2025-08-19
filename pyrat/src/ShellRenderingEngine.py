@@ -7,6 +7,11 @@
 # Please import necessary elements using the following syntax:
 #     from pyrat import <element_name>
 
+"""
+This module provides a rendering engine using the shell.
+It will print the game state to the console using ASCII characters and ANSI escape codes for colors.
+"""
+
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
@@ -36,11 +41,10 @@ from pyrat.src.GameState import GameState
 class ShellRenderingEngine (RenderingEngine):
 
     """
-        This class inherits from the RenderingEngine class.
-        Therefore, it has the attributes and methods defined in the RenderingEngine class in addition to the ones defined below.
-
-        An ASCII rendering engine is a rendering engine that can render a PyRat game in ASCII.
-        It also supports ANSI escape codes to colorize the rendering.
+    *(This class inherits from* ``RenderingEngine`` *).*
+    
+    An ASCII rendering engine is a rendering engine that can render a PyRat game in ASCII.
+    It also supports ANSI escape codes to colorize the rendering.
     """
 
     #############################################################################################################################################
@@ -55,15 +59,13 @@ class ShellRenderingEngine (RenderingEngine):
                  ) ->               None:
 
         """
-            Initializes a new instance of the class.
-            In:
-                * self:            Reference to the current object.
-                * use_colors:      Boolean indicating whether the rendering engine should use colors or not.
-                * clear_each_turn: Boolean indicating whether the rendering engine should clear the screen each turn.
-                * args:            Arguments to pass to the parent constructor.
-                * kwargs:          Keyword arguments to pass to the parent constructor.
-            Out:
-                * A new instance of the class (we indicate None as return type per convention, see PEP-484).
+        Initializes a new instance of the class.
+        
+        Args:
+            use_colors:      Boolean indicating whether the rendering engine should use colors or not.
+            clear_each_turn: Boolean indicating whether the rendering engine should clear the screen each turn.
+            args:            Arguments to pass to the parent constructor.
+            kwargs:          Keyword arguments to pass to the parent constructor.
         """
 
         # Inherit from parent class
@@ -89,16 +91,15 @@ class ShellRenderingEngine (RenderingEngine):
                ) ->          None:
         
         """
-            This method redefines the method of the parent class.
-            This function renders the game to show its current state.
-            It does so by creating a string representing the game state and printing it.
-            In:
-                * self:       Reference to the current object.
-                * players:    Players of the game.
-                * maze:       Maze of the game.
-                * game_state: State of the game.
-            Out:
-                * None.
+        *(This method redefines the method of the parent class with the same name).*
+        
+        This function renders the game to show its current state.
+        It does so by creating a string representing the game state and printing it.
+        
+        Args:
+            players:    Players of the game.
+            maze:       Maze of the game.
+            game_state: State of the game.
         """
 
         # Debug
@@ -110,7 +111,7 @@ class ShellRenderingEngine (RenderingEngine):
         # Dimensions
         max_weight = max([maze.get_weight(*edge) for edge in maze.get_edges()])
         max_weight_len = len(str(max_weight))
-        max_player_name_len = max([len(player.name) for player in players]) + (max_weight_len + 5 if max_weight > 1 else 0)
+        max_player_name_len = max([len(player.get_name()) for player in players]) + (max_weight_len + 5 if max_weight > 1 else 0)
         max_cell_number_len = len(str(maze.get_width() * maze.get_height() - 1))
         cell_width = max(max_player_name_len, max_weight_len, max_cell_number_len + 1) + 2
         
@@ -138,7 +139,7 @@ class ShellRenderingEngine (RenderingEngine):
         # Player/team elements
         teams = {team: self.__colorize(team, colored.fg(9 + list(game_state.teams.keys()).index(team))) for team in game_state.teams}
         mud_indicator = lambda player_name: " (" + ("⬇" if maze.coords_difference(game_state.muds[player_name]["target"], game_state.player_locations[player_name]) == (-1, 0) else "⬆" if maze.coords_difference(game_state.muds[player_name]["target"], game_state.player_locations[player_name]) == (1, 0) else "➡" if maze.coords_difference(game_state.muds[player_name]["target"], game_state.player_locations[player_name]) == (0, 1) else "⬅") + " " + str(game_state.muds[player_name]["count"]) + ")" if game_state.muds[player_name]["count"] > 0 else ""
-        player_names = {player.name: self.__colorize(player.name + mud_indicator(player.name), colored.bg(ground_color) + ("" if len(teams) == 1 else colored.fg(9 + ["team" if player.name in team else 0 for team in game_state.teams.values()].index("team")))) for player in players}
+        player_names = {player.get_name(): self.__colorize(player.get_name() + mud_indicator(player.get_name()), colored.bg(ground_color) + ("" if len(teams) == 1 else colored.fg(9 + ["team" if player.get_name() in team else 0 for team in game_state.teams.values()].index("team")))) for player in players}
         
         # Game info
         environment_str = "Game over" if game_state.game_over() else "Starting turn %d" % game_state.turn if game_state.turn > 0 else "Initial configuration"
@@ -151,7 +152,7 @@ class ShellRenderingEngine (RenderingEngine):
         # Consider cells in lexicographic order
         environment_str += "\n" + wall * (maze.get_width() * (cell_width + 1) + 1)
         for row in range(maze.get_height()):
-            players_in_row = [game_state.player_locations[player.name] for player in players if maze.i_to_rc(game_state.player_locations[player.name])[0] == row]
+            players_in_row = [game_state.player_locations[player.get_name()] for player in players if maze.i_to_rc(game_state.player_locations[player.get_name()])[0] == row]
             cell_height = max([players_in_row.count(cell) for cell in players_in_row] + [max_weight_len]) + 2
             environment_str += "\n"
             for subrow in range(cell_height):
@@ -159,7 +160,7 @@ class ShellRenderingEngine (RenderingEngine):
                 for col in range(maze.get_width()):
                     
                     # Check cell contents
-                    players_in_cell = [player.name for player in players if game_state.player_locations[player.name] == maze.rc_to_i(row, col)]
+                    players_in_cell = [player.get_name() for player in players if game_state.player_locations[player.get_name()] == maze.rc_to_i(row, col)]
                     cheese_in_cell = maze.rc_to_i(row, col) in game_state.cheese
 
                     # Find subrow contents (nothing, cell number, cheese, trace, player)
@@ -229,11 +230,8 @@ class ShellRenderingEngine (RenderingEngine):
                        ) ->    None:
 
         """
-            This method clears the output of the console.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * None.
+        This method clears the output of the console.
+        It works in both Jupyter and standard environments.
         """
 
         # If in a Jupyter environment
@@ -247,6 +245,29 @@ class ShellRenderingEngine (RenderingEngine):
 
     #############################################################################################################################################
 
+    def __colored_len ( self: Self,
+                        text: str
+                      ) ->    Integral:
+        
+        """
+        This method returns the true ``len`` of a color-formated string.
+
+        Args:
+            text: Text to measure.
+        
+        Returns:
+            The length of the text.
+        """
+
+        # Debug
+        assert isinstance(text, str), "Argument 'text' must be a string"
+
+        # Return the length of the text without the colorization
+        text_length = len(re.sub(r"[\u001B\u009B][\[\]()#;?]*((([a-zA-Z\d]*(;[-a-zA-Z\d\/#&.:=?%@~_]*)*)?\u0007)|((\d{1,4}(?:;\d{0,4})*)?[\dA-PR-TZcf-ntqry=><~]))", "", text))
+        return text_length
+    
+    #############################################################################################################################################
+
     def __colorize ( self:           Self,
                      text:           str,
                      colorization:   str,
@@ -254,15 +275,16 @@ class ShellRenderingEngine (RenderingEngine):
                    ) ->              str:
         
         """
-            This method colorizes a text.
-            It does so by adding the colorization to the text and resetting the colorization at the end of the text.
-            In:
-                * self:           Reference to the current object.
-                * text:           Text to colorize.
-                * colorization:   Colorization to use.
-                * alternate_text: Alternate text to use if we don't use colors and the provided text does not fit.
-            Out:
-                * colorized_text: Colorized text.
+        This method colorizes a text.
+        It does so by adding the colorization to the text and resetting the colorization at the end of the text.
+        
+        Args:
+            text:           Text to colorize.
+            colorization:   Colorization to use.
+            alternate_text: Alternate text to use if we don't use colors and the provided text does not fit.
+        
+        Returns:
+            The colorized text.
         """
 
         # Debug
@@ -283,28 +305,6 @@ class ShellRenderingEngine (RenderingEngine):
 
         # Return the colorized (or not) text
         return colorized_text
-    
-    #############################################################################################################################################
-
-    def __colored_len ( self: Self,
-                        text: str
-                      ) ->    Integral:
-        
-        """
-            This method returns the true len of a color-formated string.
-            In:
-                * self: Reference to the current object.
-                * text: Text to measure.
-            Out:
-                * text_length: Length of the text.
-        """
-
-        # Debug
-        assert isinstance(text, str), "Argument 'text' must be a string"
-
-        # Return the length of the text without the colorization
-        text_length = len(re.sub(r"[\u001B\u009B][\[\]()#;?]*((([a-zA-Z\d]*(;[-a-zA-Z\d\/#&.:=?%@~_]*)*)?\u0007)|((\d{1,4}(?:;\d{0,4})*)?[\dA-PR-TZcf-ntqry=><~]))", "", text))
-        return text_length
     
 #####################################################################################################################################################
 #####################################################################################################################################################

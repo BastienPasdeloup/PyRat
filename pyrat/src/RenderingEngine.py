@@ -7,6 +7,12 @@
 # Please import necessary elements using the following syntax:
 #     from pyrat import <element_name>
 
+"""
+This module provides a rendering engine for the PyRat game.
+It defines the base class for rendering engines, which can be used to render the game in different ways.
+The default implementation does nothing, but subclasses can override the `render` method to provide custom rendering logic.
+"""
+
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
@@ -28,9 +34,9 @@ from pyrat.src.GameState import GameState
 class RenderingEngine ():
 
     """
-        A rendering engine is an object that can render a PyRat game.
-        By defaut, this engine renders nothing, which is a valid rendering mode for a PyRat game.
-        Inherit from this class to create a rendering engine that does something.
+    A rendering engine is an object that can render a PyRat game.
+    By default, this engine renders nothing, which is a valid rendering mode for a PyRat game.
+    Inherit from this class to create a rendering engine that does something.
     """
 
     #############################################################################################################################################
@@ -43,13 +49,11 @@ class RenderingEngine ():
                  ) ->                 None:
 
         """
-            Initializes a new instance of the class.
-            In:
-                * self:              Reference to the current object.
-                * rendering_speed:   Speed at which the game should be rendered.
-                * render_simplified: Whether to render the simplified version of the game.
-            Out:
-                * A new instance of the class (we indicate None as return type per convention, see PEP-484).
+        Initializes a new instance of the class.
+        
+        Args:
+            rendering_speed:   Speed at which the game should be rendered.
+            render_simplified: Whether to render the simplified version of the game.
         """
 
         # Debug
@@ -65,6 +69,19 @@ class RenderingEngine ():
     #                                                               PUBLIC METHODS                                                              #
     #############################################################################################################################################
 
+    def end ( self: Self,
+            ) ->    None:
+        
+        """
+        This method does nothing.
+        Redefine it in the child classes to do something when the game ends if needed.
+        """
+
+        # Nothing to do
+        pass
+
+    #############################################################################################################################################
+    
     def render ( self:       Self,
                  players:    List[Player],
                  maze:       Maze,
@@ -72,15 +89,13 @@ class RenderingEngine ():
                ) ->          None:
         
         """
-            This method does nothing.
-            Redefine it in the child classes to render the game somehow.
-            In:
-                * self:       Reference to the current object.
-                * players:    PLayers of the game.
-                * maze:       Maze of the game.
-                * game_state: State of the game.
-            Out:
-                * None.
+        This method does nothing.
+        Redefine it in the child classes to render the game somehow.
+
+        Args:
+            players:    Players of the game.
+            maze:       Maze of the game.
+            game_state: State of the game.
         """
 
         # Debug
@@ -88,23 +103,6 @@ class RenderingEngine ():
         assert all(isinstance(player, Player) for player in players), "All elements of 'players' must be of type 'pyrat.Player'"
         assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
         assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
-
-        # Nothing to do
-        pass
-
-    #############################################################################################################################################
-
-    def end ( self: Self,
-            ) ->    None:
-        
-        """
-            This method does nothing.
-            Redefine it in the child classes to do something when the game ends if needed.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * None.
-        """
 
         # Nothing to do
         pass

@@ -7,6 +7,12 @@
 # Please import necessary elements using the following syntax:
 #     from pyrat import <element_name>
 
+"""
+This module provides utility functions for the PyRat library.
+It includes functions to create a workspace, get the caller file, get PyRat files, and check if a directory is valid.
+Except for the ``create_workspace()`` function, which is meant to be called just at the beginning of a PyRat project, all other functions are mostly for internal use.
+"""
+
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
@@ -28,16 +34,32 @@ import site
 ##################################################################### FUNCTIONS #####################################################################
 #####################################################################################################################################################
 
+def caller_file () -> pathlib.Path:
+
+    """
+    Returns the path to the file from which the caller of this function was called.
+
+    Returns:
+        The path to the file from which the caller of this function was called.
+    """
+
+    # Check stack to get the file name
+    caller = inspect.currentframe().f_back.f_back.f_code.co_filename
+    file_path = pathlib.Path(caller)
+    return file_path
+
+#####################################################################################################################################################
+
 def create_workspace ( target_directory: str
                      ) ->                None:
 
     """
-        Creates all the directories for a clean student workspace.
-        Also creates a few default programs to start with.
-        In:
-            * target_directory: The directory in which to create the workspace.
-        Out:
-            * None.
+    Creates all the directories for a clean student workspace.
+    Also creates a few default programs to start with.
+    This function also takes care of adding the workspace to the Python path so that it can be used directly.
+    
+    Args:
+        target_directory: The directory in which to create the workspace.
     """
 
     # Debug
@@ -59,49 +81,17 @@ def create_workspace ( target_directory: str
 
 #####################################################################################################################################################
 
-def caller_file () -> pathlib.Path:
-
-    """
-        Returns the path to the file from which the caller of this function was called.
-        In:
-            * None.
-        Out:
-            * file_path: The path to the file from which the caller of this function was called.
-    """
-
-    # Check stack to get the file name
-    caller = inspect.currentframe().f_back.f_back.f_code.co_filename
-    file_path = pathlib.Path(caller)
-    return file_path
-
-#####################################################################################################################################################
-
-def pyrat_files () -> List[pathlib.Path]:
-
-    """
-        Returns the list of all the paths to files in the PyRat library.
-        In:
-            * None.
-        Out:
-            * file_paths: The list of all the paths to files in the PyRat library.
-    """
-
-    # Get the list of all the files in the PyRat library
-    pyrat_path = os.path.dirname(os.path.realpath(__file__))
-    file_paths = [pathlib.Path(os.path.join(pyrat_path, file)) for file in os.listdir(pyrat_path) if file.endswith(".py")]
-    return file_paths
-
-#####################################################################################################################################################
-
 def is_valid_directory ( directory: str
                        ) ->         bool:
 
     """
-        Checks if a directory exists or can be created, without actually creating it.
-        In:
-            * directory: The directory to check.
-        Out:
-            * valid: True if the directory can be created, False otherwise.
+    Checks if a directory exists or can be created, without actually creating it.
+
+    Args:
+        directory: The directory to check.
+    
+    Returns:
+        ``True`` if the directory can be created, ``False`` otherwise.
     """
 
     # Debug
@@ -122,6 +112,22 @@ def is_valid_directory ( directory: str
     
     # Done
     return valid
+
+#####################################################################################################################################################
+
+def pyrat_files () -> List[pathlib.Path]:
+
+    """
+    Returns the list of all the paths to files in the PyRat library.
+
+    Returns:
+        * file_paths: The list of all the paths to files in the PyRat library.
+    """
+
+    # Get the list of all the files in the PyRat library
+    pyrat_path = os.path.dirname(os.path.realpath(__file__))
+    file_paths = [pathlib.Path(os.path.join(pyrat_path, file)) for file in os.listdir(pyrat_path) if file.endswith(".py")]
+    return file_paths
 
 #####################################################################################################################################################
 #####################################################################################################################################################

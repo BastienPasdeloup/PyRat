@@ -7,6 +7,13 @@
 # Please import necessary elements using the following syntax:
 #     from pyrat import <element_name>
 
+"""
+This module provides a maze that is created from a fixed description as a dictionary.
+It extends ``Maze`` to create a specific type of maze with a fixed structure.
+This class is especially useful to allow exporting a maze to a file, and then reusing it later.
+It is also useful to test a player on a fixed maze.
+"""
+
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
@@ -27,9 +34,8 @@ from pyrat.src.Maze import Maze
 class MazeFromDict (Maze):
 
     """
-    This class inherits from the Maze class.
-    Therefore, it has the attributes and methods defined in the Maze class in addition to the ones defined below.
-
+    *(This class inherits from* ``Maze`` *).*
+    
     This is a maze that is created from a fixed description as a dictionary, where keys are cell indices.
     Associated values are dictionaries, where keys are neighbors of the corresponding cell, and values are the weights of the corresponding edges.
     This class is especially useful to allow exporting a maze to a file, and then reusing it later.
@@ -84,7 +90,8 @@ class MazeFromDict (Maze):
                      ) ->    None:
 
         """
-        This method redefines the abstract method of the parent class.
+        *(This method redefines the method of the parent class with the same name).*
+
         Creates a maze from the description provided at initialization.
         """
         

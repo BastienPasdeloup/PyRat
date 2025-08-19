@@ -7,6 +7,12 @@
 # Please import necessary elements using the following syntax:
 #     from pyrat import <element_name>
 
+"""
+This module provides the main game loop and manages the game state.
+It initializes the game with the specified parameters, manages players, and handles the game rendering.
+It is the core of the PyRat game engine, allowing players to interact with the maze and each other.
+"""
+
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
@@ -50,13 +56,16 @@ class Game ():
     """
     A game is a class that allows to play a game of PyRat.
     It is initialized with the parameters of the game.
-    Players should then be added to the game using the add_player method.
-    Finally, the start method should be called to start the game.
+    Players should then be added to the game using the ``add_player()`` method.
+    Finally, the ``start()`` method should be called to start the game.
     Once the game is over, it will provide statistics about the game.
+
     Set your own parameters to define interesting objectives for the players.
+    However, make sure that parameters make sense together.
+    For instance, you cannot set a number of cheese that is larger than the number of cells in the maze.
 
     To ease creating games, we provide a set of default parameters.
-    These are used when the parameters are not set in the constructor.
+    These are used when the parameters are not set in the constructor:
     """
 
     DEFAULT_RANDOM_SEED = None
@@ -125,32 +134,32 @@ class Game ():
         Any unset parameter will be set to its default value defined in the class.
 
         Args:
-            random_seed:           Global random seed for all elements, or None for a random value.
-            random_seed_maze:      Random seed for maze generation, or None for a random value.
-            random_seed_cheese:    Random seed for cheese distribution, or None for a random value.
-            random_seed_players:   Random seed for initial player locations, or None for a random value.
+            random_seed:           Global random seed for all elements, or ``None`` for a random value.
+            random_seed_maze:      Random seed for maze generation, or ``None`` for a random value.
+            random_seed_cheese:    Random seed for cheese distribution, or ``None`` for a random value.
+            random_seed_players:   Random seed for initial player locations, or ``None`` for a random value.
             maze_width:            Width of the maze (number of cells).
             maze_height:           Height of the maze (number of cells).
             cell_percentage:       Percentage of accessible cells in the maze (0% = useless maze, 100% = full rectangle).
             wall_percentage:       Percentage of walls in the maze (0% = empty, 100% = max walls while connected).
             mud_percentage:        Percentage of adjacent cell pairs separated by mud.
             mud_range:             Interval of turns needed to cross mud.
-            fixed_maze:            Fixed maze in any PyRat-accepted representation (Maze, dict, numpy.ndarray, or torch.tensor).
+            fixed_maze:            Fixed maze in any PyRat-accepted representation (``Maze``, ``dict``, ``numpy.ndarray``, or ``torch.tensor``).
             random_maze_algorithm: Algorithm to generate the maze.
             nb_cheese:             Number of pieces of cheese in the maze.
             fixed_cheese:          Fixed list of cheese locations.
             render_mode:           Method to display the game.
-            render_simplified:     If True, hides non-essential elements in rendering.
+            render_simplified:     If ``True``, hides non-essential elements in rendering.
             rendering_speed:       Controls the speed of the game when rendering.
             trace_length:          Maximum trace length to display (GUI rendering only).
-            fullscreen:            If True, renders the game in fullscreen (GUI only).
-            clear_shell_each_turn: If True, clears the shell each turn (shell rendering only).
+            fullscreen:            If ``True``, renders the game in fullscreen (GUI only).
+            clear_shell_each_turn: If ``True``, clears the shell each turn (shell rendering only).
             save_path:             Path where games are saved.
-            save_game:             If True, saves the game.
+            save_game:             If ``True``, saves the game.
             preprocessing_time:    Time given to players before the game starts.
             turn_time:             Time after which players miss a turn.
             game_mode:             Indicates concurrency mode for players.
-            continue_on_error:     If True, continues the game if a player crashes.
+            continue_on_error:     If ``True``, continues the game if a player crashes.
         """
         
         # Debug
@@ -291,11 +300,15 @@ class Game ():
         
         """
         Adds a player to the game.
+        In a PyRat game, players are identified by their name, which should be unique.
+        If a player with the same name is added, an error will be raised.
+
+        If the target location is not reachable (if there is a hole), the player will be placed at the closest reachable location.
 
         Args:
             player:   Player to add.
             team:     Team of the player.
-            location: Initial location of the player (fixed index or value of the StartingLocation enumeration).
+            location: Initial location of the player (fixed index or value of the ``StartingLocation`` enumeration).
         """
 
         # Debug
@@ -303,8 +316,8 @@ class Game ():
         assert isinstance(team, str), "Argument 'team' must be a string"
         assert isinstance(location, (StartingLocation, Integral)), "Argument 'location' must be of type 'pyrat.StartingLocation' or an integer, corresponding to the index of the cell where the player should start"
         assert location in list(StartingLocation) or (isinstance(location, Integral) and self.__maze.i_exists(location)), "Argument 'location' must be a valid index of the maze or a value of the 'pyrat.StartingLocation' enumeration"
-        assert player.name not in self.__player_traces, "Player '%s' was already added to the game" % player.name
-        assert not (location == StartingLocation.SAME and len(self.__players) == 0), "Cannot start player '%s' at the same location as the previous player if no player was added before" % player.name
+        assert player.get_name() not in self.__player_traces, "Player '%s' was already added to the game" % player.get_name()
+        assert not (location == StartingLocation.SAME and len(self.__players) == 0), "Cannot start player '%s' at the same location as the previous player if no player was added before" % player.get_name()
 
         # Set initial location
         self.__players_asked_location.append(location)
@@ -326,26 +339,26 @@ class Game ():
         
         # If the location is not reachable, we choose the closest reachable location
         if self.__maze.i_exists(corrected_location):
-            self.__initial_game_state.player_locations[player.name] = corrected_location
+            self.__initial_game_state.player_locations[player.get_name()] = corrected_location
         else:
             valid_cells = self.__maze.get_vertices()
             distances = [math.dist(self.__maze.i_to_rc(corrected_location), self.__maze.i_to_rc(cell)) for cell in valid_cells]
             _, argmin_distance = min((val, idx) for (idx, val) in enumerate(distances))
-            self.__initial_game_state.player_locations[player.name] = valid_cells[argmin_distance]
+            self.__initial_game_state.player_locations[player.get_name()] = valid_cells[argmin_distance]
 
         # Append to team
         if team not in self.__initial_game_state.teams:
             self.__initial_game_state.teams[team] = []
-        self.__initial_game_state.teams[team].append(player.name)
+        self.__initial_game_state.teams[team].append(player.get_name())
 
         # Initialize other elements of game state
-        self.__initial_game_state.score_per_player[player.name] = 0
-        self.__initial_game_state.muds[player.name] = {"target": None, "count": 0}
+        self.__initial_game_state.score_per_player[player.get_name()] = 0
+        self.__initial_game_state.muds[player.get_name()] = {"target": None, "count": 0}
 
         # Other attributes
         self.__players.append(player)
-        self.__player_traces[player.name] = []
-        self.__actions_history[player.name] = []
+        self.__player_traces[player.get_name()] = []
+        self.__actions_history[player.get_name()] = []
         
     #############################################################################################################################################
     
@@ -373,7 +386,7 @@ class Game ():
         Resets the game to its initial state.
         
         Args:
-            keep_players: If True, keeps the players in the game, otherwise removes them.
+            keep_players: If ``True``, keeps the players in the game, otherwise removes them.
         """
         
         # Debug
@@ -423,7 +436,7 @@ class Game ():
             player = self.__players.pop(0)
             player_asked_location = self.__players_asked_location.pop(0)
             if keep_players:
-                player_team = [team for team in previous_initial_state.teams if player.name in previous_initial_state.teams[team]][0]
+                player_team = [team for team in previous_initial_state.teams if player.get_name() in previous_initial_state.teams[team]][0]
                 self.add_player(player, player_team, player_asked_location)
 
         # Indicate that the game was reset
@@ -458,22 +471,22 @@ class Game ():
             # Initialize stats
             stats = {"players": {}, "turns": -1}
             for player in self.__players:
-                stats["players"][player.name] = {"score": 0,
-                                                 "preprocessing_duration": None,
-                                                 "turn_durations": [],
-                                                 "team": [team for team in self.__initial_game_state.teams if player.name in self.__initial_game_state.teams[team]][0],
-                                                 "actions": {Action.NOTHING.value: 0,
-                                                             Action.NORTH.value: 0,
-                                                             Action.EAST.value: 0,
-                                                             Action.SOUTH.value: 0,
-                                                             Action.WEST.value: 0,
-                                                             "mud": 0,
-                                                             "error": 0,
-                                                             "miss": 0,
-                                                             "wall" : 0}}
+                stats["players"][player.get_name()] = {"score": 0,
+                                                       "preprocessing_duration": None,
+                                                       "turn_durations": [],
+                                                       "team": [team for team in self.__initial_game_state.teams if player.get_name() in self.__initial_game_state.teams[team]][0],
+                                                       "actions": {Action.NOTHING.value: 0,
+                                                                   Action.NORTH.value: 0,
+                                                                   Action.EAST.value: 0,
+                                                                   Action.SOUTH.value: 0,
+                                                                   Action.WEST.value: 0,
+                                                                   "mud": 0,
+                                                                   "error": 0,
+                                                                   "miss": 0,
+                                                                   "wall" : 0}}
             
             # In multiprocessing mode, prepare processes
-            maze_per_player = {player.name: copy.deepcopy(self.__maze) for player in self.__players}
+            maze_per_player = {player.get_name(): copy.deepcopy(self.__maze) for player in self.__players}
             if self.__game_mode in [GameMode.MATCH, GameMode.SYNCHRONOUS]:
 
                 # Create a process per player
@@ -481,17 +494,17 @@ class Game ():
                 turn_timeout_lock = multiprocessing.Manager().Lock()
                 player_processes = {}
                 for player in self.__players:
-                    player_processes[player.name] = {"process": None, "input_queue": multiprocessing.Manager().Queue(), "output_queue": multiprocessing.Manager().Queue(), "turn_end_synchronizer": multiprocessing.Manager().Barrier(2)}
-                    player_processes[player.name]["process"] = multiprocessing.Process(target=_player_process_function, args=(player, maze_per_player[player.name], player_processes[player.name]["input_queue"], player_processes[player.name]["output_queue"], turn_start_synchronizer, turn_timeout_lock, player_processes[player.name]["turn_end_synchronizer"], None, None,))
-                    player_processes[player.name]["process"].start()
+                    player_processes[player.get_name()] = {"process": None, "input_queue": multiprocessing.Manager().Queue(), "output_queue": multiprocessing.Manager().Queue(), "turn_end_synchronizer": multiprocessing.Manager().Barrier(2)}
+                    player_processes[player.get_name()]["process"] = multiprocessing.Process(target=_player_process_function, args=(player, maze_per_player[player.get_name()], player_processes[player.get_name()]["input_queue"], player_processes[player.get_name()]["output_queue"], turn_start_synchronizer, turn_timeout_lock, player_processes[player.get_name()]["turn_end_synchronizer"], None, None,))
+                    player_processes[player.get_name()]["process"].start()
 
                 # If playing in match mode, we create processs to wait instead of missing players
                 if self.__game_mode == GameMode.MATCH:
                     waiter_processes = {}
                     for player in self.__players:
-                        waiter_processes[player.name] = {"process": None, "input_queue": multiprocessing.Manager().Queue()}
-                        waiter_processes[player.name]["process"] = multiprocessing.Process(target=_waiter_process_function, args=(waiter_processes[player.name]["input_queue"], turn_start_synchronizer,))
-                        waiter_processes[player.name]["process"].start()
+                        waiter_processes[player.get_name()] = {"process": None, "input_queue": multiprocessing.Manager().Queue()}
+                        waiter_processes[player.get_name()]["process"] = multiprocessing.Process(target=_waiter_process_function, args=(waiter_processes[player.get_name()]["input_queue"], turn_start_synchronizer,))
+                        waiter_processes[player.get_name()]["process"].start()
 
             # Add cheese
             available_cells = [i for i in self.__maze.get_vertices() if i not in self.__initial_game_state.player_locations.values()]
@@ -503,21 +516,21 @@ class Game ():
             
             # We play until the game is over
             players_ready = [player for player in self.__players]
-            players_running = {player.name: True for player in self.__players}
+            players_running = {player.get_name(): True for player in self.__players}
             all_action_names = [action.value for action in Action]
             while any(players_running.values()):
 
                 # We communicate the state of the game to the players not in mud
-                game_phases = {player.name: "none" for player in self.__players}
-                turn_actions = {player.name: "miss" for player in self.__players}
-                durations = {player.name: None for player in self.__players}
+                game_phases = {player.get_name(): "none" for player in self.__players}
+                turn_actions = {player.get_name(): "miss" for player in self.__players}
+                durations = {player.get_name(): None for player in self.__players}
                 for ready_player in players_ready:
                     final_stats = copy.deepcopy(stats) if game_state.game_over() else {}
                     player_game_state = copy.deepcopy(game_state)
                     if self.__game_mode in [GameMode.MATCH, GameMode.SYNCHRONOUS]:
-                        player_processes[ready_player.name]["input_queue"].put((player_game_state, final_stats))
+                        player_processes[ready_player.get_name()]["input_queue"].put((player_game_state, final_stats))
                     else:
-                        turn_actions[ready_player.name], game_phases[ready_player.name], durations[ready_player.name] = _player_process_function(ready_player, maze_per_player[ready_player.name], None, None, None, None, None, player_game_state, final_stats)
+                        turn_actions[ready_player.get_name()], game_phases[ready_player.get_name()], durations[ready_player.get_name()] = _player_process_function(ready_player, maze_per_player[ready_player.get_name()], None, None, None, None, None, player_game_state, final_stats)
                 
                 # In multiprocessing mode, we for everybody to receive data to start
                 # In sequential mode, decisions are already received at this point
@@ -531,64 +544,64 @@ class Game ():
                 # In synchronous mode, we wait for everyone
                 if self.__game_mode == GameMode.SYNCHRONOUS:
                     for player in self.__players:
-                        player_processes[player.name]["turn_end_synchronizer"].wait()
-                        turn_actions[player.name], game_phases[player.name], durations[player.name] = player_processes[player.name]["output_queue"].get()
+                        player_processes[player.get_name()]["turn_end_synchronizer"].wait()
+                        turn_actions[player.get_name()], game_phases[player.get_name()], durations[player.get_name()] = player_processes[player.get_name()]["output_queue"].get()
 
                 # In match mode, we block the possibility to return an action and check who answered in time
                 elif self.__game_mode == GameMode.MATCH:
 
                     # Wait at least for those in mud
                     for player in self.__players:
-                        if game_state.is_in_mud(player.name) and players_running[player.name]:
-                            player_processes[player.name]["turn_end_synchronizer"].wait()
-                            turn_actions[player.name], game_phases[player.name], durations[player.name] = player_processes[player.name]["output_queue"].get()
+                        if game_state.is_in_mud(player.get_name()) and players_running[player.get_name()]:
+                            player_processes[player.get_name()]["turn_end_synchronizer"].wait()
+                            turn_actions[player.get_name()], game_phases[player.get_name()], durations[player.get_name()] = player_processes[player.get_name()]["output_queue"].get()
 
                     # For others, set timeout and wait for output info of those who passed just before timeout
                     with turn_timeout_lock:
                         for player in self.__players:
-                            if not game_state.is_in_mud(player.name) and players_running[player.name]:
-                                if not player_processes[player.name]["output_queue"].empty():
-                                    player_processes[player.name]["turn_end_synchronizer"].wait()
-                                    turn_actions[player.name], game_phases[player.name], durations[player.name] = player_processes[player.name]["output_queue"].get()
+                            if not game_state.is_in_mud(player.get_name()) and players_running[player.get_name()]:
+                                if not player_processes[player.get_name()]["output_queue"].empty():
+                                    player_processes[player.get_name()]["turn_end_synchronizer"].wait()
+                                    turn_actions[player.get_name()], game_phases[player.get_name()], durations[player.get_name()] = player_processes[player.get_name()]["output_queue"].get()
 
                 # Check which players are ready to continue
                 players_ready = []
                 for player in self.__players:
-                    if game_phases[player.name] == "postprocessing":
-                        players_running[player.name] = False
-                    if self.__game_mode == GameMode.MATCH and (game_phases[player.name] == "postprocessing" or turn_actions[player.name] == "miss"):
-                        waiter_processes[player.name]["input_queue"].put(True)
+                    if game_phases[player.get_name()] == "postprocessing":
+                        players_running[player.get_name()] = False
+                    if self.__game_mode == GameMode.MATCH and (game_phases[player.get_name()] == "postprocessing" or turn_actions[player.get_name()] == "miss"):
+                        waiter_processes[player.get_name()]["input_queue"].put(True)
                     else:
                         players_ready.append(player)
 
                 # Check for errors
-                if any([turn_actions[player.name] == "error" for player in self.__players]) and not self.__continue_on_error:
+                if any([turn_actions[player.get_name()] == "error" for player in self.__players]) and not self.__continue_on_error:
                     raise Exception("A player has crashed, exiting")
 
                 # We save the turn info if we are not postprocessing
                 if not game_state.game_over():
                 
                     # Apply the actions
-                    corrected_actions = {player.name: Action(turn_actions[player.name]) if turn_actions[player.name] in all_action_names else Action.NOTHING for player in self.__players}
+                    corrected_actions = {player.get_name(): Action(turn_actions[player.get_name()]) if turn_actions[player.get_name()] in all_action_names else Action.NOTHING for player in self.__players}
                     new_game_state = self.__determine_new_game_state(game_state, corrected_actions)
 
                     # Save stats
                     for player in self.__players:
-                        if game_phases[player.name] == "none":
-                            stats["players"][player.name]["actions"]["miss"] += 1
-                        elif game_phases[player.name] != "preprocessing":
-                            if turn_actions[player.name] in all_action_names and turn_actions[player.name] != Action.NOTHING.value and game_state.player_locations[player.name] == new_game_state.player_locations[player.name] and not new_game_state.is_in_mud(player.name):
-                                stats["players"][player.name]["actions"]["wall"] += 1
+                        if game_phases[player.get_name()] == "none":
+                            stats["players"][player.get_name()]["actions"]["miss"] += 1
+                        elif game_phases[player.get_name()] != "preprocessing":
+                            if turn_actions[player.get_name()] in all_action_names and turn_actions[player.get_name()] != Action.NOTHING.value and game_state.player_locations[player.get_name()] == new_game_state.player_locations[player.get_name()] and not new_game_state.is_in_mud(player.get_name()):
+                                stats["players"][player.get_name()]["actions"]["wall"] += 1
                             else:
-                                stats["players"][player.name]["actions"][turn_actions[player.name]] += 1
-                            if turn_actions[player.name] != "mud":
-                                self.__actions_history[player.name].append(corrected_actions[player.name])
-                        if durations[player.name] is not None:
-                            if game_phases[player.name] == "preprocessing":
-                                stats["players"][player.name]["preprocessing_duration"] = durations[player.name]
+                                stats["players"][player.get_name()]["actions"][turn_actions[player.get_name()]] += 1
+                            if turn_actions[player.get_name()] != "mud":
+                                self.__actions_history[player.get_name()].append(corrected_actions[player.get_name()])
+                        if durations[player.get_name()] is not None:
+                            if game_phases[player.get_name()] == "preprocessing":
+                                stats["players"][player.get_name()]["preprocessing_duration"] = durations[player.get_name()]
                             else:
-                                stats["players"][player.name]["turn_durations"].append(durations[player.name])
-                        stats["players"][player.name]["score"] = new_game_state.score_per_player[player.name]
+                                stats["players"][player.get_name()]["turn_durations"].append(durations[player.get_name()])
+                        stats["players"][player.get_name()]["score"] = new_game_state.score_per_player[player.get_name()]
                     stats["turns"] = game_state.turn
                     
                     # Go to next turn
@@ -637,11 +650,11 @@ class Game ():
             # Create a description of the players
             player_descriptions = []
             for player in self.__players:
-                player_descriptions.append({"name": player.name,
-                                            "skin": "{SKIN_" + player.skin.name + "}",
-                                            "team": [team for team in self.__initial_game_state.teams if player.name in self.__initial_game_state.teams[team]][0],
-                                            "location": self.__initial_game_state.player_locations[player.name],
-                                            "actions": "{ACTIONS_" + player.name + "}"})
+                player_descriptions.append({"name": player.get_name(),
+                                            "skin": "{SKIN_" + player.get_skin().name + "}",
+                                            "team": [team for team in self.__initial_game_state.teams if player.get_name() in self.__initial_game_state.teams[team]][0],
+                                            "location": self.__initial_game_state.player_locations[player.get_name()],
+                                            "actions": "{ACTIONS_" + player.get_name() + "}"})
 
             # Create the players' file, forcing players to their initial locations
             output_file_name = os.path.join(self.__save_path, datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S_%f.py"))
@@ -651,9 +664,9 @@ class Game ():
                 save_template = save_template.replace("{CONFIG}", str(config).replace(", '", ",\\n          '"))
                 save_template = save_template.replace("'{GAME_MODE}'", "GameMode.SEQUENTIAL")
                 for skin in PlayerSkin:
-                    save_template = save_template.replace("'{SKIN_" + skin.name + "}'", "PlayerSkin." + skin.name)
+                    save_template = save_template.replace("'{SKIN_" + skin.get_name() + "}'", "PlayerSkin." + skin.get_name())
                 for player in self.__players:
-                    save_template = save_template.replace("'{ACTIONS_" + player.name + "}'", "[" + ", ".join("Action." + action.name for action in self.__actions_history[player.name]) + "]")
+                    save_template = save_template.replace("'{ACTIONS_" + player.get_name() + "}'", "[" + ", ".join("Action." + action.get_name() for action in self.__actions_history[player.get_name()]) + "]")
                 with open(output_file_name, "w") as output_file:
                     print(save_template, file=output_file)
 
@@ -681,7 +694,7 @@ class Game ():
         # Debug
         assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
         assert isinstance(actions, dict), "Argument 'actions' must be a dictionary"
-        assert all(player_name in [player.name for player in self.__players] for player_name in actions), "All players must be in the game"
+        assert all(player_name in [player.get_name() for player in self.__players] for player_name in actions), "All players must be in the game"
         assert all(action in Action for action in actions.values()), "All actions must be of type 'pyrat.Action'"
 
         # Initialize new game state
@@ -690,44 +703,44 @@ class Game ():
 
         # Move all players accordingly
         for player in self.__players:
-            row, col = self.__maze.i_to_rc(game_state.player_locations[player.name])
+            row, col = self.__maze.i_to_rc(game_state.player_locations[player.get_name()])
             target = None
-            if actions[player.name] == Action.NORTH and row > 0:
+            if actions[player.get_name()] == Action.NORTH and row > 0:
                 target = self.__maze.rc_to_i(row - 1, col)
-            elif actions[player.name] == Action.SOUTH and row < self.__maze.get_height() - 1:
+            elif actions[player.get_name()] == Action.SOUTH and row < self.__maze.get_height() - 1:
                 target = self.__maze.rc_to_i(row + 1, col)
-            elif actions[player.name] == Action.WEST and col > 0:
+            elif actions[player.get_name()] == Action.WEST and col > 0:
                 target = self.__maze.rc_to_i(row, col - 1)
-            elif actions[player.name] == Action.EAST and col < self.__maze.get_width() - 1:
+            elif actions[player.get_name()] == Action.EAST and col < self.__maze.get_width() - 1:
                 target = self.__maze.rc_to_i(row, col + 1)
-            if target is not None and self.__maze.i_exists(target) and self.__maze.has_edge(game_state.player_locations[player.name], target):
-                weight = self.__maze.get_weight(game_state.player_locations[player.name], target)
+            if target is not None and self.__maze.i_exists(target) and self.__maze.has_edge(game_state.player_locations[player.get_name()], target):
+                weight = self.__maze.get_weight(game_state.player_locations[player.get_name()], target)
                 if weight == 1:
-                    new_game_state.player_locations[player.name] = target
+                    new_game_state.player_locations[player.get_name()] = target
                 elif weight > 1:
-                    new_game_state.muds[player.name]["target"] = target
-                    new_game_state.muds[player.name]["count"] = weight
+                    new_game_state.muds[player.get_name()]["target"] = target
+                    new_game_state.muds[player.get_name()]["count"] = weight
 
         # All players in mud advance a bit
         for player in self.__players:
-            if new_game_state.is_in_mud(player.name):
-                new_game_state.muds[player.name]["count"] -= 1
-                if new_game_state.muds[player.name]["count"] == 0:
-                    new_game_state.player_locations[player.name] = new_game_state.muds[player.name]["target"]
-                    new_game_state.muds[player.name]["target"] = None
+            if new_game_state.is_in_mud(player.get_name()):
+                new_game_state.muds[player.get_name()]["count"] -= 1
+                if new_game_state.muds[player.get_name()]["count"] == 0:
+                    new_game_state.player_locations[player.get_name()] = new_game_state.muds[player.get_name()]["target"]
+                    new_game_state.muds[player.get_name()]["target"] = None
 
         # Update cheese and scores
         for c in game_state.cheese:
-            players_on_cheese = [player for player in self.__players if c == new_game_state.player_locations[player.name]]
+            players_on_cheese = [player for player in self.__players if c == new_game_state.player_locations[player.get_name()]]
             for player_on_cheese in players_on_cheese:
-                new_game_state.score_per_player[player_on_cheese.name] += 1.0 / len(players_on_cheese)
+                new_game_state.score_per_player[player_on_cheese.get_name()] += 1.0 / len(players_on_cheese)
             if len(players_on_cheese) > 0:
                 new_game_state.cheese.remove(c)
         
         # Store trace for GUI
         for player in self.__players:
-            self.__player_traces[player.name].append(new_game_state.player_locations[player.name])
-            self.__player_traces[player.name] = self.__player_traces[player.name][-self.__trace_length:]
+            self.__player_traces[player.get_name()].append(new_game_state.player_locations[player.get_name()])
+            self.__player_traces[player.get_name()] = self.__player_traces[player.get_name()][-self.__trace_length:]
         
         # Return new game state
         return new_game_state
@@ -818,9 +831,7 @@ def _player_process_function ( player:                  Player,
         final_stats:             Final stats (set if sequential).
 
     Returns:
-        Action performed by the player.
-        Phase of the game in which the player is.
-        Duration of the turn.
+        A tuple containing the action performed by the player, the phase of the game in which the player is, and the duration of the turn.
     """
 
     # Debug
@@ -861,7 +872,7 @@ def _player_process_function ( player:                  Player,
                     action = "ignore"
                     
                 # If in mud, we return immediately (main process will wait for us in all cases)
-                elif game_state.is_in_mud(player.name):
+                elif game_state.is_in_mud(player.get_name()):
                     action = "mud"
                 
                 # Otherwise, we ask for an action
@@ -879,7 +890,7 @@ def _player_process_function ( player:                  Player,
                     else:
                         a = player.turn(maze, game_state)
                         if a not in list(Action):
-                            raise Exception("Invalid action %s by player %s" % (str(a), player.name))
+                            raise Exception("Invalid action %s by player %s" % (str(a), player.get_name()))
                         action = a.value
                     
                     # Set end time
@@ -888,7 +899,7 @@ def _player_process_function ( player:                  Player,
                         
             # Print error message in case of a crash
             except:
-                print("Player %s has crashed with the following error:" % player.name, file=sys.stderr)
+                print("Player %s has crashed with the following error:" % player.get_name(), file=sys.stderr)
                 print(traceback.format_exc(), file=sys.stderr)
                     
             # Turn is over

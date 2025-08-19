@@ -7,6 +7,11 @@
 # Please import necessary elements using the following syntax:
 #     from pyrat import <element_name>
 
+"""
+This module provides functionality for generating mazes with large holes in them, which can be used in various game scenarios.
+It extends ``RandomMaze`` to create a specific type of maze with larger holes, enhancing the gameplay experience by introducing more complex navigation challenges.
+"""
+
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
@@ -26,11 +31,15 @@ from pyrat.src.RandomMaze import RandomMaze
 class BigHolesRandomMaze (RandomMaze):
 
     """
-    This class inherits from the RandomMaze class.
-    Therefore, it has the attributes and methods defined in the RandomMaze class in addition to the ones defined below.
+    *(This class inherits from* ``RandomMaze`` *).*
 
-    With this maze, holes have a larger probability to appear if they are close to another hole.
+    This class defines a random maze with big holes here and there.
     The maze is created by removing random cells from a full maze, and making sure the maze remains connected.
+    Cells are removed with a larger probability if they are close to an already existing hole.
+
+    You can use this class to create a maze with this algorithm.
+    However, if you just want to play a game, you can use the ``Game`` class instead, which will create a maze for you.
+    Just make sure to set the ``random_maze_algorithm`` parameter to ``RandomMazeAlgorithm.BIG_HOLES`` when creating the game.
     """
 
     #############################################################################################################################################
@@ -46,7 +55,7 @@ class BigHolesRandomMaze (RandomMaze):
         Initializes a new instance of the class.
 
         Args:
-            *args: Arguments to pass to the parent constructor.
+            *args:    Arguments to pass to the parent constructor.
             **kwargs: Keyword arguments to pass to the parent constructor.
         """
 
@@ -65,7 +74,8 @@ class BigHolesRandomMaze (RandomMaze):
                    ) ->    None:
         
         """
-        Redefines the abstract method of the parent class.
+        *(This method redefines the method of the parent class with the same name).*
+
         Adds cells to the maze by starting from a full maze and removing cells one by one.
         """
 

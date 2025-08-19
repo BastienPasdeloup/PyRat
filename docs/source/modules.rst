@@ -20,5 +20,4 @@ PyRat
    ShellRenderingEngine
    UniformHolesRandomMaze
    enums
-   save_template
    utils

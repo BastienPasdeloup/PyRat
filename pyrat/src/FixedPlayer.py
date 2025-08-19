@@ -7,6 +7,12 @@
 # Please import necessary elements using the following syntax:
 #     from pyrat import <element_name>
 
+"""
+This module provides a player that follows a predetermined list of actions.
+It is used when games are saved and replayed.
+This player can be useful for testing purposes, for instance to evaluate the behavior of other players against a fixed strategy.
+"""
+
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
@@ -29,6 +35,8 @@ from pyrat.src.enums import Action
 class FixedPlayer (Player):
 
     """
+    *(This class inherits from* ``Player`` *).*
+
     This player follows a predetermined list of actions.
     This is useful to save and replay a game.
     """
@@ -74,7 +82,8 @@ class FixedPlayer (Player):
              ) ->          Action:
 
         """
-        Redefines the abstract method of the parent class.
+        *(This method redefines the method of the parent class with the same name).*
+        
         Called at each turn of the game to return the next action to perform.
 
         Args:

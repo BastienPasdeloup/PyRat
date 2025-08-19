@@ -7,6 +7,12 @@
 # Please import necessary elements using the following syntax:
 #     from pyrat import <element_name>
 
+"""
+This module provides a base class for random mazes.
+It extends ``Maze`` to create a specific type of maze with random cells, walls, and mud.
+However, it does not implement the maze generation algorithm itself and is meant to be subclassed.
+"""
+
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
@@ -29,15 +35,11 @@ from pyrat.src.Maze import Maze
 class RandomMaze (Maze, abc.ABC):
 
     """
-        This class inherits from the Maze class.
-        Therefore, it has the attributes and methods defined in the Maze class in addition to the ones defined below.
-
-        This class is abstract and cannot be instantiated.
-        You should use one of the subclasses to create a maze, or create your own subclass.
-
-        A random maze is a maze that is created randomly.
-        You can specify the size of the maze, the density of cells, walls, and mud, and the range of the mud values.
-        You can also specify a random seed to reproduce the same maze later.
+    *(This class inherits from* ``Maze`` *).*
+    
+    A random maze is a maze that is created randomly.
+    You can specify the size of the maze, the density of cells, walls, and mud, and the range of the mud values.
+    You can also specify a random seed to reproduce the same maze later.
     """
 
     #############################################################################################################################################
@@ -55,18 +57,18 @@ class RandomMaze (Maze, abc.ABC):
                  ) ->               None:
 
         """
-            Initializes a new instance of the class.
-            In:
-                * self:            Reference to the current object.
-                * cell_percentage: Percentage of cells to be reachable.
-                * wall_percentage: Percentage of walls to be present.
-                * mud_percentage:  Percentage of mud to be present.
-                * mud_range:       Range of the mud values (optional if mud_percentage = 0.0).
-                * random_seed:     Random seed for the maze generation, set to None for a random value.
-                * args:            Arguments to pass to the parent constructor.
-                * kwargs:          Keyword arguments to pass to the parent constructor.
-            Out:
-                * A new instance of the class (we indicate None as return type per convention, see PEP-484).
+        *(This class is abstract and meant to be subclassed, not instantiated directly).*
+
+        Initializes a new instance of the class.
+
+        Args:
+            cell_percentage: Percentage of cells to be reachable.
+            wall_percentage: Percentage of walls to be present.
+            mud_percentage:  Percentage of mud to be present.
+            mud_range:       Range of the mud values (optional if mud_percentage = 0.0).
+            random_seed:     Random seed for the maze generation, set to None for a random value.
+            args:            Arguments to pass to the parent constructor.
+            kwargs:          Keyword arguments to pass to the parent constructor.
         """
 
         # Inherit from parent class
@@ -100,38 +102,17 @@ class RandomMaze (Maze, abc.ABC):
     #                                                             PROTECTED METHODS                                                             #
     #############################################################################################################################################
 
-    @override
-    def _create_maze ( self: Self,
-                     ) ->    None:
-
-        """
-            This method redefines the abstract method of the parent class.
-            It creates a random maze using the parameters given at initialization.
-            It should be called by the constructor of the child classes.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * None.
-        """
-
-        # Add cells, walls, and mud
-        self._add_cells()
-        self._add_walls()
-        self._add_mud()
-
-    #############################################################################################################################################
-
     @abc.abstractmethod
     def _add_cells ( self: Self,
                    ) ->    None:
 
         """
-            This method is abstract and must be implemented in the subclasses.
-            It should add cells to the maze.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * None.
+        *(This method is abstract and must be implemented in the child classes).*
+
+        It should add cells to the maze.
+
+        Raises:
+            NotImplementedError: If the method is not implemented in the child class.
         """
 
         # This method must be implemented in the child classes
@@ -140,16 +121,33 @@ class RandomMaze (Maze, abc.ABC):
 
     #############################################################################################################################################
 
+    def _add_mud ( self: Self,
+                 ) ->    None:
+
+        """
+        This method adds mud to the maze.
+        It replaces some edges with weighted ones.
+        """
+
+        # Determine the number of mud edges
+        target_nb_mud = int(self.nb_edges() * self._mud_percentage / 100)
+
+        # Add mud to some edges
+        edges = self.get_edges()
+        self._rng.shuffle(edges)
+        for vertex, neighbor in edges[:target_nb_mud]:
+            self.remove_edge(vertex, neighbor, True)
+            weight = self._rng.randint(self._mud_range[0], self._mud_range[1])
+            self.add_edge(vertex, neighbor, weight)
+
+    #############################################################################################################################################
+
     def _add_walls ( self: Self,
                    ) ->    None:
 
         """
-            This method adds walls to the maze.
-            It uses the minimum spanning tree to determine the maximum number of walls.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * None.
+        This method adds walls to the maze.
+        It uses the minimum spanning tree to determine the maximum number of walls.
         """
 
         # Determine the maximum number of walls by computing the minimum spanning tree
@@ -168,28 +166,21 @@ class RandomMaze (Maze, abc.ABC):
 
     #############################################################################################################################################
 
-    def _add_mud ( self: Self,
-                 ) ->    None:
+    @override
+    def _create_maze ( self: Self,
+                     ) ->    None:
 
         """
-            This method adds mud to the maze.
-            It replaces some edges with weighted ones.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * None.
+        *(This method redefines the abstract method of the parent class with the same name).*
+
+        It creates a random maze using the parameters given at initialization.
+        It should be called by the constructor of the child classes.
         """
 
-        # Determine the number of mud edges
-        target_nb_mud = int(self.nb_edges() * self._mud_percentage / 100)
-
-        # Add mud to some edges
-        edges = self.get_edges()
-        self._rng.shuffle(edges)
-        for vertex, neighbor in edges[:target_nb_mud]:
-            self.remove_edge(vertex, neighbor, True)
-            weight = self._rng.randint(self._mud_range[0], self._mud_range[1])
-            self.add_edge(vertex, neighbor, weight)
+        # Add cells, walls, and mud
+        self._add_cells()
+        self._add_walls()
+        self._add_mud()
 
 #####################################################################################################################################################
 #####################################################################################################################################################

@@ -7,6 +7,13 @@
 # Please import necessary elements using the following syntax:
 #     from pyrat import <element_name>
 
+"""
+This module provides the base class for players in the PyRat game.
+It defines the interface that all players must implement, including important methods ``preprocessing()``, ``turn()``, and ``postprocessing()``.
+Players can be implemented as subclasses of this class, and they can use the provided methods to interact with the game state.
+The ``turn()`` method is mandatory and must be implemented in the subclasses.
+"""
+
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
@@ -29,16 +36,13 @@ from pyrat.src.enums import Action, PlayerSkin
 class Player (abc.ABC):
 
     """
-        This class is abstract and cannot be instantiated.
-        You should use one of the subclasses to create a maze, or create your own subclass.
-
         A player is an agent that can play a PyRat game.
-        The preprocessing method is called once at the beginning of the game.
-        The turn method is called at each turn of the game.
-        The postprocessing method is called once at the end of the game.
-        Only the turn method is mandatory.
+        The ``preprocessing()`` method is called once at the beginning of the game.
+        The ``turn()`` method is called at each turn of the game.
+        The ``postprocessing()`` method is called once at the end of the game.
+        Only the ``turn()`` method is mandatory.
         If you want to keep track of some information between turns, you can define a constructor and add attributes to the object.
-        Check examples to see how to do it properly.
+        Check examples in the provided workspace to see how to do it properly.
     """
 
     #############################################################################################################################################
@@ -51,13 +55,13 @@ class Player (abc.ABC):
                  ) ->    None:
 
         """
-            Initializes a new instance of the class.
-            In:
-                * self: Reference to the current object.
-                * name: Name of the player (if None, we take the name of the class).
-                * skin: Skin of the player.
-            Out:
-                * A new instance of the class (we indicate None as return type per convention, see PEP-484).
+        *(This class is abstract and meant to be subclassed, not instantiated directly).*
+        
+        Initializes a new instance of the class.
+        
+        Args:
+            name: Name of the player (if ``None``, we take the name of the class).
+            skin: Skin of the player.
         """
 
         # Debug
@@ -69,19 +73,17 @@ class Player (abc.ABC):
         self.__skin = skin
 
     #############################################################################################################################################
-    #                                                            ATTRIBUTE ACCESSORS                                                            #
+    #                                                               PUBLIC METHODS                                                              #
     #############################################################################################################################################
 
-    @property
-    def name ( self: Self,
-             ) ->    str:
+    def get_name ( self: Self,
+                 ) ->    str:
         
         """
-            Getter for __name.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * self.__name: The __name attribute.
+        Returns the name of the player.
+
+        Returns:
+            Name of the player.
         """
 
         # Get the attribute
@@ -89,59 +91,63 @@ class Player (abc.ABC):
 
     #############################################################################################################################################
 
-    @property
-    def skin ( self: Self,
-             ) ->    PlayerSkin:
+    def get_skin ( self: Self,
+                 ) ->    PlayerSkin:
         
         """
-            Getter for __skin.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * self.__skin: The __skin attribute.
+        Returns the skin of the player.
+
+        Returns:
+            Skin of the player.
         """
 
         # Get the attribute
         return self.__skin
 
     #############################################################################################################################################
- 
-    @skin.setter
-    def skin ( self:  Self,
-               value: PlayerSkin
-             ) ->     None:
-        
+
+    def postprocessing ( self:       Self,
+                         maze:       Maze,
+                         game_state: GameState,
+                         stats:      Dict[str, Any],
+                       ) ->          None:
+
         """
-            Setter for __skin.
-            In:
-                * self:  Reference to the current object.
-                * value: New value for the __skin attribute.
-            Out:
-                * None.
+        This method can optionally be implemented in the child classes.
+        It is called once at the end of the game.
+        It is not timed, and can be used to perform cleanup, analyze the completed game, train models, etc.
+
+        Args:
+            maze:       An object representing the maze in which the player plays.
+            game_state: An object representing the state of the game.
+            stats:      A dictionary containing statistics about the game.
         """
 
-        # Set the attribute
-        self.__skin = value
+        # Debug
+        assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
+        assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
+        assert isinstance(stats, dict), "Argument 'stats' must be a dictionary"
+        assert all(isinstance(key, str) for key in stats.keys()), "All keys of 'stats' must be strings"
+
+        # By default, this method does nothing unless implemented in the child classes
+        pass
 
     #############################################################################################################################################
-    #                                                               PUBLIC METHODS                                                              #
-    #############################################################################################################################################
-
+    
     def preprocessing ( self:       Self,
                         maze:       Maze,
                         game_state: GameState
                       ) ->          None:
         
         """
-            This method can optionally be implemented in the child classes.
-            It is called once at the beginning of the game.
-            It is typically given more time than the turn function, to perform complex computations.
-            In:
-                * self:       Reference to the current object.
-                * maze:       An object representing the maze in which the player plays.
-                * game_state: An object representing the state of the game.
-            Out:
-                * None.
+        This method can optionally be implemented in the child classes.
+        It is called once at the beginning of the game.
+        It is typically given more time than the turn function, to perform complex computations.
+        This time is set in the ``Game`` class using the ``preprocessing_time`` attribute.
+
+        Args:
+            maze:       An object representing the maze in which the player plays.
+            game_state: An object representing the state of the game.
         """
 
         # Debug
@@ -160,15 +166,20 @@ class Player (abc.ABC):
              ) ->          Action:
 
         """
-            This method is abstract and must be implemented in the child classes.
-            It is called at each turn of the game.
-            It returns an action to perform among the possible actions, defined in the Action enumeration.
-            In:
-                * self:       Reference to the current object.
-                * maze:       An object representing the maze in which the player plays.
-                * game_state: An object representing the state of the game.
-            Out:
-                * action: One of the possible actions.
+        (This method is abstract and must be implemented in the subclasses.)
+
+        Called at each turn of the game.
+        Returns an action to perform, chosen from the possible actions defined in the ``Action`` enumeration.
+
+        Args:
+            maze:       An object representing the maze in which the player plays.
+            game_state: An object representing the state of the game.
+
+        Returns:
+            An action to perform, chosen from the possible actions defined in the ``Action`` enumeration.
+
+        Raises:
+            NotImplementedError: If the method is not implemented in the subclass.
         """
 
         # Debug
@@ -178,36 +189,6 @@ class Player (abc.ABC):
         # This method must be implemented in the child classes
         # By default we raise an error
         raise NotImplementedError("This method must be implemented in the child classes.")
-
-#############################################################################################################################################
-
-    def postprocessing ( self:       Self,
-                         maze:       Maze,
-                         game_state: GameState,
-                         stats:      Dict[str, Any],
-                       ) ->          None:
-
-        """
-            This method can optionally be implemented in the child classes.
-            It is called once at the end of the game.
-            It is not timed, and can be used to make some cleanup, analyses of the completed game, model training, etc.
-            In:
-                * self:       Reference to the current object.
-                * maze:       An object representing the maze in which the player plays.
-                * game_state: An object representing the state of the game.
-                * stats:      Statistics about the game.
-            Out:
-                * None.
-        """
-
-        # Debug
-        assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
-        assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
-        assert isinstance(stats, dict), "Argument 'stats' must be a dictionary"
-        assert all(isinstance(key, str) for key in stats.keys()), "All keys of 'stats' must be strings"
-
-        # By default, this method does nothing unless implemented in the child classes
-        pass
 
 #####################################################################################################################################################
 #####################################################################################################################################################

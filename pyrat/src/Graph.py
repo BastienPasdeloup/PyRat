@@ -7,6 +7,12 @@
 # Please import necessary elements using the following syntax:
 #     from pyrat import <element_name>
 
+"""
+This module provides a graph structure that can be used to represent mazes, networks, or any other graph-like structure.
+It can be manipulated using the methods defined below.
+These methods allow to add and remove vertices and edges, check for the existence of edges, get neighbors of a vertex, etc.
+"""
+
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
@@ -44,7 +50,10 @@ class Graph ():
     The values of the dictionary are dictionaries themselves.
     The keys of these dictionaries are the neighbors of the corresponding vertex.
     The values of these dictionaries are the weights of the corresponding edges.
-    It should be manipulated using the methods defined below and not directly.
+    This structure should be manipulated using the methods defined below and not directly.
+
+    This class provides generic methods to manipulate any graph.
+    For more specific graphs, such as mazes, you should use the classes that inherit from this class.
     """
 
     #############################################################################################################################################
@@ -56,7 +65,7 @@ class Graph ():
 
         """
         Initializes a new instance of the class.
-        This constructor sets up the internal adjacency dictionary.
+        This constructor initializes the internal adjacency dictionary.
         """
 
         # Private attributes
@@ -68,7 +77,7 @@ class Graph ():
                 ) ->    str:
 
         """
-        Returns a string representation of the Graph object.
+        Returns a string representation of the object.
 
         Returns:
             String representation of the object.
@@ -162,11 +171,11 @@ class Graph ():
                          ) ->    Any:
 
         """
-        Returns a Numpy ``ndarray`` representing the graph.
-        Entries are given in order of the vertices.
+        Returns a ``numpy.ndarray`` representing the graph.
+        Entries are given in order in which vertices appear in the adjacency dictionary.
 
         Returns:
-            Numpy ``ndarray`` representing the adjacency matrix (untyped to allow ``numpy`` to be optional).
+            A ``numpy.ndarray`` representing the adjacency matrix (return type is ``Any`` to allow ``numpy`` to be optional).
         """
         
         # Debug
@@ -186,11 +195,11 @@ class Graph ():
                         ) ->    Any:
 
         """
-        Returns a Torch ``tensor`` representing the graph.
-        Entries are given in order of the vertices.
+        Returns a ``torch.tensor`` representing the graph.
+        Entries are given in order in which vertices appear in the adjacency dictionary
 
         Returns:
-            Torch ``tensor`` representing the adjacency matrix (untyped to allow ``torch`` to be optional).
+            A ``torch.tensor`` representing the adjacency matrix (return type is ``Any`` to allow ``torch`` to be optional).
         """
         
         # Debug
@@ -360,7 +369,7 @@ class Graph ():
         Checks whether the graph is connected using a depth-first search.
 
         Returns:
-            True if the graph is connected, False otherwise.
+            ``True`` if the graph is connected, ``False`` otherwise.
         """
         
         # Debug

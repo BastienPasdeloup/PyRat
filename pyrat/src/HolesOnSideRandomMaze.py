@@ -7,6 +7,11 @@
 # Please import necessary elements using the following syntax:
 #     from pyrat import <element_name>
 
+"""
+This module provides a maze that is created by adding cells from the center of the maze.
+It extends ``RandomMaze`` to create a specific type of maze with holes distributed on the sides of the maze.
+"""
+
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
@@ -26,11 +31,14 @@ from pyrat.src.RandomMaze import RandomMaze
 class HolesOnSideRandomMaze (RandomMaze):
 
     """
-        This class inherits from the RandomMaze class.
-        Therefore, it has the attributes and methods defined in the RandomMaze class in addition to the ones defined below.
-
-        With this maze, holes are distributed on the sides of the maze.
-        The maze is created by adding cells from the center of the maze
+    *(This class inherits from* ``RandomMaze`` *).*
+    
+    With this maze, holes are distributed on the sides of the maze.
+    The maze is created by adding cells from the center of the maze
+    
+    You can use this class to create a maze with this algorithm.
+    However, if you just want to play a game, you can use the ``Game`` class instead, which will create a maze for you.
+    Just make sure to set the ``random_maze_algorithm`` parameter to ``RandomMazeAlgorithm.HOLES_ON_SIDE`` when creating the game.
     """
 
     #############################################################################################################################################
@@ -65,7 +73,8 @@ class HolesOnSideRandomMaze (RandomMaze):
                    ) ->    None:
         
         """
-        This method redefines the abstract method of the parent class.
+        *(This method redefines the method of the parent class with the same name).*
+
         It adds cells to the maze by starting from a full maze and removing cells one by one.
         """
 

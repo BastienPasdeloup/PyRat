@@ -2,8 +2,17 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-# This file is a script that creates a PyRat game.
-# In this script, we create a match between two players.
+# This file is part of the PyRat library.
+# It describes a script that creates a PyRat game.
+# Please import necessary elements using the following syntax:
+#     from pyrat import <element_name>
+#     from players.<player_name> import <player_name>
+
+"""
+This file is a script that creates a PyRat game.
+In this script, we create a match between two players.
+We also configure the game with specific parameters such as the maze size, cheese count, and wall percentage.
+"""
 
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################

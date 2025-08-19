@@ -7,6 +7,11 @@
 # Please import necessary elements using the following syntax:
 #     from pyrat import <element_name>
 
+"""
+This module provides a maze that is created by removing random cells from a full maze uniformly.
+It makes sure the maze remains connected.
+"""
+
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
@@ -26,11 +31,10 @@ from pyrat.src.RandomMaze import RandomMaze
 class UniformHolesRandomMaze (RandomMaze):
 
     """
-        This class inherits from the RandomMaze class.
-        Therefore, it has the attributes and methods defined in the RandomMaze class in addition to the ones defined below.
-
-        With this maze, holes are uniformly distributed in the maze.
-        The maze is created by removing random cells from a full maze, and making sure the maze remains connected.
+    *(This class inherits from* ``RandomMaze`` *).*        
+    
+    With this maze, holes are uniformly distributed in the maze.
+    The maze is created by removing random cells from a full maze, and making sure the maze remains connected.
     """
 
     #############################################################################################################################################
@@ -43,13 +47,11 @@ class UniformHolesRandomMaze (RandomMaze):
                  ) ->        None:
 
         """
-            Initializes a new instance of the class.
-            In:
-                * self:   Reference to the current object.
-                * args:   Arguments to pass to the parent constructor.
-                * kwargs: Keyword arguments to pass to the parent constructor.
-            Out:
-                * A new instance of the class (we indicate None as return type per convention, see PEP-484).
+        Initializes a new instance of the class.
+        
+        Args:
+            args:   Arguments to pass to the parent constructor.
+            kwargs: Keyword arguments to pass to the parent constructor.
         """
 
         # Inherit from parent class
@@ -67,12 +69,9 @@ class UniformHolesRandomMaze (RandomMaze):
                    ) ->    None:
         
         """
-            This method redefines the abstract method of the parent class.
-            It adds cells to the maze by starting from a full maze and removing cells one by one.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * None.
+        *(This method redefines the method of the parent class with the same name).*
+
+        It adds cells to the maze by starting from a full maze and removing cells one by one.
         """
 
         # Initialize maze with all cells

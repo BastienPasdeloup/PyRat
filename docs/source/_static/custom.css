@@ -1,21 +1,29 @@
-.method {
+.main h1 {
+    text-align: center;
+}
+
+.main h1 + p {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    border-top: 5px solid #ddd;
+    border-bottom: 5px solid #ddd;
+    font-style: italic;
+}
+
+.main .method { 
     margin-top: 2em;
     padding-top: 2em;
     border-top: 1px solid #ddd;
 }
 
-.class > dd:first-of-type > p:first-of-type {
-    font-size: var(--font-size--small);
-    text-transform: uppercase;
-}
-
-.class > dd:first-of-type > p:first-of-type code {
-    font-size: initial;
-    text-transform: none;
-}
-
-.class:not(:first-of-type) {
+.main .class:not(:first-of-type) {
     margin-top: 2em;
     padding-top: 2em;
     border-top: 1px solid #ddd;
+}
+
+.main p {
+    text-align: justify;
 }

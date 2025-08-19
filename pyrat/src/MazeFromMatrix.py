@@ -7,6 +7,13 @@
 # Please import necessary elements using the following syntax:
 #     from pyrat import <element_name>
 
+"""
+This module provides a maze that is created from a fixed description as a ``numpy.ndarray`` or a ``torch.tensor``.
+Indices of rows and columns are the indices of the corresponding cells.
+This class is especially useful to allow exporting a maze to a file, and then reusing it later.
+It is also useful to test a player on a fixed maze.
+"""
+
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
@@ -27,8 +34,7 @@ from pyrat.src.Maze import Maze
 class MazeFromMatrix (Maze):
 
     """
-    This class inherits from the Maze class.
-    Therefore, it has the attributes and methods defined in the Maze class in addition to the ones defined below.
+    *(This class inherits from* ``Maze`` *).*
 
     This is a maze that is created from a fixed description as a numpy ndarray or a torch tensor.
     Indices of rows and columns are the indices of the corresponding cells.
@@ -84,7 +90,8 @@ class MazeFromMatrix (Maze):
                      ) ->    None:
 
         """
-        This method redefines the abstract method of the parent class.
+        *(This method redefines the method of the parent class with the same name).*
+
         Creates a maze from the description provided at initialization.
         """
 

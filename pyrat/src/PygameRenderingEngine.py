@@ -7,6 +7,11 @@
 # Please import necessary elements using the following syntax:
 #     from pyrat import <element_name>
 
+"""
+This module provides a rendering engine using the ``pygame`` library.
+It will create a window and display the game in it.
+"""
+
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
@@ -38,12 +43,11 @@ from pyrat.src.GameState import GameState
 class PygameRenderingEngine (RenderingEngine):
 
     """
-        This class inherits from the RenderingEngine class.
-        Therefore, it has the attributes and methods defined in the RenderingEngine class in addition to the ones defined below.
+    *(This class inherits from* ``RenderingEngine`` *).*
 
-        This rendering engine uses the pygame library to render the game.
-        It will create a window and display the game in it.
-        The window will run in a different process than the one running the game.
+    This rendering engine uses the ``pygame`` library to render the game.
+    It will create a window and display the game in it.
+    The window will run in a different process than the one running the game.
     """
 
     #############################################################################################################################################
@@ -58,15 +62,13 @@ class PygameRenderingEngine (RenderingEngine):
                  ) ->            None:
 
         """
-            Initializes a new instance of the class.
-            In:
-                * self:         Reference to the current object.
-                * fullscreen:   Indicates if the GUI should be fullscreen.
-                * trace_length: Length of the trace to display.
-                * args:         Arguments to pass to the parent constructor.
-                * kwargs:       Keyword arguments to pass to the parent constructor.
-            Out:
-                * A new instance of the class (we indicate None as return type per convention, see PEP-484).
+        Initializes a new instance of the class.
+
+        Args:
+            fullscreen:   Indicates if the GUI should be fullscreen.
+            trace_length: Length of the trace to display.
+            *args:        Arguments to pass to the parent constructor.
+            **kwargs:     Keyword arguments to pass to the parent constructor.
         """
 
         # Inherit from parent class
@@ -88,6 +90,22 @@ class PygameRenderingEngine (RenderingEngine):
     #############################################################################################################################################
 
     @override
+    def end ( self: Self,
+            ) ->    None:
+        
+        """
+        *(This method redefines the method of the parent class with the same name).*
+        
+        It waits for the window to be closed before exiting.
+        """
+
+        # Wait for GUI to be exited to quit if there is one
+        if self.__gui_process is not None:
+            self.__gui_process.join()
+
+    #############################################################################################################################################
+
+    @override
     def render ( self:       Self,
                  players:    List[Player],
                  maze:       Maze,
@@ -95,16 +113,15 @@ class PygameRenderingEngine (RenderingEngine):
                ) ->          None:
         
         """
-            This method redefines the method of the parent class.
-            This function renders the game to a Pyame window.
-            The window is created in a different process than the one running the game.
-            In:
-                * self:       Reference to the current object.
-                * players:    Players of the game.
-                * maze:       Maze of the game.
-                * game_state: State of the game.
-            Out:
-                * None.
+        *(This method redefines the method of the parent class with the same name).*
+
+        This function renders the game to a ``pygame`` window.
+        The window is created in a different process than the one running the game.
+        
+        Args:
+            players:    Players of the game.
+            maze:       Maze of the game.
+            game_state: State of the game.
         """
 
         # Debug
@@ -127,25 +144,6 @@ class PygameRenderingEngine (RenderingEngine):
         else:
             self.__gui_queue.put(game_state)
         
-    #############################################################################################################################################
-
-    @override
-    def end ( self: Self,
-            ) ->    None:
-        
-        """
-            This method redefines the method of the parent class.
-            It waits for the window to be closed before exiting.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * None.
-        """
-
-        # Wait for GUI to be exited to quit if there is one
-        if self.__gui_process is not None:
-            self.__gui_process.join()
-
 #####################################################################################################################################################
 ##################################################################### FUNCTIONS #####################################################################
 #####################################################################################################################################################
@@ -162,21 +160,19 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
                           ) ->                            None:
     
     """
-        This function is executed in a separate process for the GUI.
-        It handles rendering in a Pygame environment.
-        It is defined outside of the class due to multiprocessing limitations.
-        In:
-            * gui_initialized_synchronizer: Barrier to synchronize the initialization of the GUI.
-            * gui_queue:                    Queue to receive the game state.
-            * maze:                         Maze of the game.
-            * initial_game_state:           Initial game state.
-            * players:                      Players of the game.
-            * fullscreen:                   Indicates if the GUI should be fullscreen.
-            * render_simplified:            Indicates if the GUI should be simplified.
-            * trace_length:                 Length of the trace to display.
-            * rendering_speed:              Speed at which the game should be rendered.
-        Out:
-            * None.
+    This function is executed in a separate process for the GUI.
+    It handles rendering in a ``pygame`` environment.
+    It is defined outside of the class due to multiprocessing limitations.
+    
+    Args:
+        gui_queue:          Queue to receive the game state.
+        maze:               Maze of the game.
+        initial_game_state: Initial game state.
+        players:            Players of the game.
+        fullscreen:         Indicates if the GUI should be fullscreen.
+        render_simplified:  Indicates if the GUI should be simplified.
+        trace_length:       Length of the trace to display.
+        rendering_speed:    Speed at which the game should be rendered.
     """
 
     # Debug
@@ -482,10 +478,10 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
         if not render_simplified:
             cells_with_flags = {cell: {} for cell in initial_game_state.player_locations.values()}
             for player in players:
-                team = [team for team in initial_game_state.teams if player.name in initial_game_state.teams[team]][0]
-                if team not in cells_with_flags[initial_game_state.player_locations[player.name]]:
-                    cells_with_flags[initial_game_state.player_locations[player.name]][team] = 0
-                cells_with_flags[initial_game_state.player_locations[player.name]][team] += 1
+                team = [team for team in initial_game_state.teams if player.get_name() in initial_game_state.teams[team]][0]
+                if team not in cells_with_flags[initial_game_state.player_locations[player.get_name()]]:
+                    cells_with_flags[initial_game_state.player_locations[player.get_name()]][team] = 0
+                cells_with_flags[initial_game_state.player_locations[player.get_name()]][team] += 1
             flag = ___surface_from_image(os.path.join("..", "gui", "flag", "flag.png"), flag_size)
             max_teams_in_cells = max([len(team) for team in cells_with_flags.values()])
             max_players_in_cells = max([cells_with_flags[cell][team] for cell in cells_with_flags for team in cells_with_flags[cell]])
@@ -511,12 +507,12 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
         
         # Add players
         for player in players:
-            team = [team for team in initial_game_state.teams if player.name in initial_game_state.teams[team]][0]
-            player_neutral, player_north, player_south, player_west, player_east = ___load_player_surfaces(player.skin, player_size, team_colors[team], player_border_width)
-            row, col = maze.i_to_rc(initial_game_state.player_locations[player.name])
+            team = [team for team in initial_game_state.teams if player.get_name() in initial_game_state.teams[team]][0]
+            player_neutral, player_north, player_south, player_west, player_east = ___load_player_surfaces(player.get_skin(), player_size, team_colors[team], player_border_width)
+            row, col = maze.i_to_rc(initial_game_state.player_locations[player.get_name()])
             player_x = maze_x_offset + col * cell_size + (cell_size - player_neutral.get_width()) // 2
             player_y = maze_y_offset + row * cell_size + (cell_size - player_neutral.get_height()) // 2
-            player_elements[player.name] = (player_x, player_y, player_neutral, player_north, player_south, player_west, player_east)
+            player_elements[player.get_name()] = (player_x, player_y, player_neutral, player_north, player_south, player_west, player_east)
         
         # Add avatars area
         score_locations = {}
@@ -547,8 +543,8 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
             # Players avatars
             player_images = []
             for j in range(len(initial_game_state.teams[team])):
-                player = [player for player in players if player.name == initial_game_state.teams[team][j]][0]
-                player_avatar = ___load_player_avatar(player.skin, player_avatar_size)
+                player = [player for player in players if player.get_name() == initial_game_state.teams[team][j]][0]
+                player_avatar = ___load_player_avatar(player.get_skin(), player_avatar_size)
                 player_images.append(player_avatar)
             avatar_area = pygame.Surface((2 * avatars_area_padding + sum([player_image.get_width() for player_image in player_images]) + player_avatar_horizontal_padding * (len(initial_game_state.teams[team]) - 1), player_avatar_size))
             pygame.draw.rect(avatar_area, background_color, pygame.Rect(0, 0, avatar_area.get_width(), avatar_area.get_height()))
@@ -650,10 +646,10 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
         
         # Prepare useful variables
         current_state = copy.deepcopy(initial_game_state)
-        mud_being_crossed = {player.name: 0 for player in players}
-        traces = {player.name: [(player_elements[player.name][0] + player_elements[player.name][2].get_width() / 2, player_elements[player.name][1] + player_elements[player.name][2].get_height() / 2)] for player in players}
-        trace_colors = {player.name: ___get_main_color(player_elements[player.name][2]) for player in players}
-        player_surfaces = {player.name: player_elements[player.name][2] for player in players}
+        mud_being_crossed = {player.get_name(): 0 for player in players}
+        traces = {player.get_name(): [(player_elements[player.get_name()][0] + player_elements[player.get_name()][2].get_width() / 2, player_elements[player.get_name()][1] + player_elements[player.get_name()][2].get_height() / 2)] for player in players}
+        trace_colors = {player.get_name(): ___get_main_color(player_elements[player.get_name()][2]) for player in players}
+        player_surfaces = {player.get_name(): player_elements[player.get_name()][2] for player in players}
 
         # Show and indicate when ready
         gui_running = True
@@ -687,30 +683,30 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
 
                 # Enter mud?
                 for player in players:
-                    if new_state.muds[player.name]["count"] > 0 and mud_being_crossed[player.name] == 0:
-                        mud_being_crossed[player.name] = new_state.muds[player.name]["count"] + 1
+                    if new_state.muds[player.get_name()]["count"] > 0 and mud_being_crossed[player.get_name()] == 0:
+                        mud_being_crossed[player.get_name()] = new_state.muds[player.get_name()]["count"] + 1
 
                 # Choose the correct player surface
                 for player in players:
-                    player_x, player_y, player_neutral, player_north, player_south, player_west, player_east = player_elements[player.name]
-                    row, col = maze.i_to_rc(current_state.player_locations[player.name])
-                    adjusted_new_location = new_state.player_locations[player.name] if not new_state.is_in_mud(player.name) else new_state.muds[player.name]["target"]
+                    player_x, player_y, player_neutral, player_north, player_south, player_west, player_east = player_elements[player.get_name()]
+                    row, col = maze.i_to_rc(current_state.player_locations[player.get_name()])
+                    adjusted_new_location = new_state.player_locations[player.get_name()] if not new_state.is_in_mud(player.get_name()) else new_state.muds[player.get_name()]["target"]
                     new_row, new_col = maze.i_to_rc(adjusted_new_location)
-                    player_x += player_surfaces[player.name].get_width() / 2
-                    player_y += player_surfaces[player.name].get_height() / 2
+                    player_x += player_surfaces[player.get_name()].get_width() / 2
+                    player_y += player_surfaces[player.get_name()].get_height() / 2
                     if new_col > col:
-                        player_surfaces[player.name] = player_east
+                        player_surfaces[player.get_name()] = player_east
                     elif new_col < col:
-                        player_surfaces[player.name] = player_west
+                        player_surfaces[player.get_name()] = player_west
                     elif new_row > row:
-                        player_surfaces[player.name] = player_south
+                        player_surfaces[player.get_name()] = player_south
                     elif new_row < row:
-                        player_surfaces[player.name] = player_north
+                        player_surfaces[player.get_name()] = player_north
                     else:
-                        player_surfaces[player.name] = player_neutral
-                    player_x -= player_surfaces[player.name].get_width() / 2
-                    player_y -= player_surfaces[player.name].get_height() / 2
-                    player_elements[player.name] = (player_x, player_y, player_neutral, player_north, player_south, player_west, player_east)
+                        player_surfaces[player.get_name()] = player_neutral
+                    player_x -= player_surfaces[player.get_name()].get_width() / 2
+                    player_y -= player_surfaces[player.get_name()].get_height() / 2
+                    player_elements[player.get_name()] = (player_x, player_y, player_neutral, player_north, player_south, player_west, player_east)
 
                 # Move players
                 for i in range(animation_steps):
@@ -721,28 +717,28 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
                     
                     # Move player with trace
                     for player in players:
-                        player_x, player_y, player_neutral, player_north, player_south, player_west, player_east = player_elements[player.name]
-                        row, col = maze.i_to_rc(current_state.player_locations[player.name])
-                        adjusted_new_location = new_state.player_locations[player.name] if not new_state.is_in_mud(player.name) else new_state.muds[player.name]["target"]
+                        player_x, player_y, player_neutral, player_north, player_south, player_west, player_east = player_elements[player.get_name()]
+                        row, col = maze.i_to_rc(current_state.player_locations[player.get_name()])
+                        adjusted_new_location = new_state.player_locations[player.get_name()] if not new_state.is_in_mud(player.get_name()) else new_state.muds[player.get_name()]["target"]
                         new_row, new_col = maze.i_to_rc(adjusted_new_location)
                         shift = (i + 1) * cell_size / animation_steps
-                        if mud_being_crossed[player.name] > 0:
-                            shift /= mud_being_crossed[player.name]
-                            shift += (mud_being_crossed[player.name] - new_state.muds[player.name]["count"] - 1) * cell_size / mud_being_crossed[player.name]
+                        if mud_being_crossed[player.get_name()] > 0:
+                            shift /= mud_being_crossed[player.get_name()]
+                            shift += (mud_being_crossed[player.get_name()] - new_state.muds[player.get_name()]["count"] - 1) * cell_size / mud_being_crossed[player.get_name()]
                         next_x = player_x if col == new_col else player_x + shift if new_col > col else player_x - shift
                         next_y = player_y if row == new_row else player_y + shift if new_row > row else player_y - shift
-                        if i == animation_steps - 1 and new_state.muds[player.name]["count"] == 0:
-                            player_elements[player.name] = (next_x, next_y, player_neutral, player_north, player_south, player_west, player_east)
+                        if i == animation_steps - 1 and new_state.muds[player.get_name()]["count"] == 0:
+                            player_elements[player.get_name()] = (next_x, next_y, player_neutral, player_north, player_south, player_west, player_east)
                         if trace_length > 0:
-                            pygame.draw.line(gui_screen, trace_colors[player.name], (next_x + player_surfaces[player.name].get_width() / 2, next_y + player_surfaces[player.name].get_height() / 2), traces[player.name][-1], width=trace_size)
+                            pygame.draw.line(gui_screen, trace_colors[player.get_name()], (next_x + player_surfaces[player.get_name()].get_width() / 2, next_y + player_surfaces[player.get_name()].get_height() / 2), traces[player.get_name()][-1], width=trace_size)
                             for j in range(1, trace_length):
-                                if len(traces[player.name]) > j:
-                                    pygame.draw.line(gui_screen, trace_colors[player.name], traces[player.name][-j-1], traces[player.name][-j], width=trace_size)
-                            if len(traces[player.name]) == trace_length + 1:
-                                final_segment_length = math.sqrt((traces[player.name][-1][0] - (next_x + player_surfaces[player.name].get_width() / 2))**2 + (traces[player.name][-1][1] - (next_y + player_surfaces[player.name].get_height() / 2))**2)
+                                if len(traces[player.get_name()]) > j:
+                                    pygame.draw.line(gui_screen, trace_colors[player.get_name()], traces[player.get_name()][-j-1], traces[player.get_name()][-j], width=trace_size)
+                            if len(traces[player.get_name()]) == trace_length + 1:
+                                final_segment_length = math.sqrt((traces[player.get_name()][-1][0] - (next_x + player_surfaces[player.get_name()].get_width() / 2))**2 + (traces[player.get_name()][-1][1] - (next_y + player_surfaces[player.get_name()].get_height() / 2))**2)
                                 ratio = 1 - final_segment_length / cell_size
-                                pygame.draw.line(gui_screen, trace_colors[player.name], traces[player.name][1], (traces[player.name][1][0] + ratio * (traces[player.name][0][0] - traces[player.name][1][0]), traces[player.name][1][1] + ratio * (traces[player.name][0][1] - traces[player.name][1][1])), width=trace_size)
-                        gui_screen.blit(player_surfaces[player.name], (next_x, next_y))
+                                pygame.draw.line(gui_screen, trace_colors[player.get_name()], traces[player.get_name()][1], (traces[player.get_name()][1][0] + ratio * (traces[player.get_name()][0][0] - traces[player.get_name()][1][0]), traces[player.get_name()][1][1] + ratio * (traces[player.get_name()][0][1] - traces[player.get_name()][1][1])), width=trace_size)
+                        gui_screen.blit(player_surfaces[player.get_name()], (next_x, next_y))
                     
                     # Update maze & wait for animation
                     pygame.display.update((maze_x_offset, maze_y_offset, maze.get_width() * cell_size, maze.get_height() * cell_size))
@@ -750,18 +746,18 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
 
                 # Exit mud?
                 for player in players:
-                    if new_state.muds[player.name]["count"] == 0:
-                        mud_being_crossed[player.name] = 0
-                    if mud_being_crossed[player.name] == 0:
-                        player_x, player_y, _, _, _, _, _ = player_elements[player.name]
-                        if traces[player.name][-1] != (player_x + player_surfaces[player.name].get_width() / 2, player_y + player_surfaces[player.name].get_height() / 2):
-                            traces[player.name].append((player_x + player_surfaces[player.name].get_width() / 2, player_y + player_surfaces[player.name].get_height() / 2))
-                        traces[player.name] = traces[player.name][-trace_length-1:]
+                    if new_state.muds[player.get_name()]["count"] == 0:
+                        mud_being_crossed[player.get_name()] = 0
+                    if mud_being_crossed[player.get_name()] == 0:
+                        player_x, player_y, _, _, _, _, _ = player_elements[player.get_name()]
+                        if traces[player.get_name()][-1] != (player_x + player_surfaces[player.get_name()].get_width() / 2, player_y + player_surfaces[player.get_name()].get_height() / 2):
+                            traces[player.get_name()].append((player_x + player_surfaces[player.get_name()].get_width() / 2, player_y + player_surfaces[player.get_name()].get_height() / 2))
+                        traces[player.get_name()] = traces[player.get_name()][-trace_length-1:]
                 
                 # Play a sound is a cheese is eaten
                 for player in players:
-                    if new_state.player_locations[player.name] in current_state.cheese and mud_being_crossed[player.name] == 0:
-                        ___play_sound(os.path.join("..", "gui", "players", player.skin.value, "cheese_eaten.wav"), os.path.join("..", "gui", "players", "default", "cheese_eaten.wav"))
+                    if new_state.player_locations[player.get_name()] in current_state.cheese and mud_being_crossed[player.get_name()] == 0:
+                        ___play_sound(os.path.join("..", "gui", "players", player.get_skin().value, "cheese_eaten.wav"), os.path.join("..", "gui", "players", "default", "cheese_eaten.wav"))
                 
                 # Update score
                 ___show_avatars()

@@ -2,22 +2,16 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-# This file contains useful elements to define a particular player.
-# In particular, it defines three methods that you can redefine to implement your own player:
-#     - `preprocessing`: This method is called once at the beginning of the game.
-#     - `turn`: This method is called at each turn of the game and must return an action to perform.
-#     - `postprocessing`: This method is called once at the end of the game.
+# This file is part of the PyRat library.
+# It describes a player that can be used in a PyRat game.
+# It is meant to be copy-pasted in a new file to create a new player.
 
-# You can also redefine the constructor to initialize your player.
-# You can also add other methods to your player, to use them in any of the three methods above.
-# You can also add attributes to your player, to store information that you want to use.
-
-# When creating a new player from this template, you should:
-#     - Rename the class to something more meaningful.
-#     - Rename the file to match the class name (e.g., `MyPlayer.py`).
-#     - Change the docstring to describe your player.
-# You can also remove the `preprocessing` and `postprocessing` methods if you don't need them.
-# The `turn` method is mandatory, so you must keep it.
+"""
+This module provides a template for creating a new player in a PyRat game.
+It defines a class that inherits from ``Player`` and provides methods that can be overridden to implement your own player.
+You can use this template to create a new player by copying this file and renaming it.
+You can then modify the class name and the methods to implement your own player logic.
+"""
 
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
@@ -38,10 +32,12 @@ from pyrat import Player, Maze, GameState, Action
 class TemplatePlayer (Player):
 
     """
-        This player is basically a player that does nothing except printing the phase of the game.
-        It is meant to be used as a template to create new players.
-        Methods "preprocessing" and "postprocessing" are optional.
-        Method "turn" is mandatory.
+    *(This class inherits from* ``Player`` *).*
+
+    This player is basically a player that does nothing except printing the phase of the game.
+    It is meant to be used as a template to create new players.
+    Methods ``preprocessing()``, and ``postprocessing()`` are optional.
+    Method ``turn()`` is mandatory.
     """
 
     #############################################################################################################################################
@@ -54,17 +50,14 @@ class TemplatePlayer (Player):
                  ) ->        None:
 
         """
-            This function is the constructor of the class.
-            When an object is instantiated, this method is called to initialize the object.
-            This is where you should define the attributes of the object and set their initial values.
-            Arguments *args and **kwargs are used to pass arguments to the parent constructor.
-            This is useful not to declare again all the parent's attributes in the child class.
-            In:
-                * self:   Reference to the current object.
-                * args:   Arguments to pass to the parent constructor.
-                * kwargs: Keyword arguments to pass to the parent constructor.
-            Out:
-                * A new instance of the class (we indicate None as return type per convention, see PEP-484).
+        This function is the constructor of the class.
+        When an object is instantiated, this method is called to initialize the object.
+        This is where you should define the attributes of the object and set their initial values.
+        Arguments *args and **kwargs are used to pass arguments to the parent constructor.
+
+        Args:
+            args:   Arguments to pass to the parent constructor.
+            kwargs: Keyword arguments to pass to the parent constructor.
         """
 
         # Inherit from parent class
@@ -84,14 +77,16 @@ class TemplatePlayer (Player):
                       ) ->          None:
         
         """
-            This method redefines the method of the parent class.
-            It is called once at the beginning of the game.
-            In:
-                * self:       Reference to the current object.
-                * maze:       An object representing the maze in which the player plays.
-                * game_state: An object representing the state of the game.
-            Out:
-                * None.
+        *(This method redefines the method of the parent class with the same name).*
+
+        This method is called once at the beginning of the game.
+        It can be used to initialize attributes or to perform any other setup that is needed before the game starts.
+        It typically is given more computational resources than the ``turn()`` method.
+        Therefore, it is a good place to perform any heavy computations that are needed for the player to function correctly.
+
+        Args:
+            maze:       An object representing the maze in which the player plays.
+            game_state: An object representing the state of the game.
         """
         
         # Print phase of the game
@@ -106,15 +101,19 @@ class TemplatePlayer (Player):
              ) ->          Action:
 
         """
-            This method redefines the abstract method of the parent class.
-            It is called at each turn of the game.
-            It returns an action to perform among the possible actions, defined in the Action enumeration.
-            In:
-                * self:       Reference to the current object.
-                * maze:       An object representing the maze in which the player plays.
-                * game_state: An object representing the state of the game.
-            Out:
-                * action: One of the possible actions.
+        *(This method redefines the method of the parent class with the same name).*
+
+        This method is called at each turn of the game.
+        It returns an action to perform among the possible actions, defined in the ``Action`` enumeration.
+        It is generally given less computational resources than the ``preprocessing()`` method.
+        Therefore, you should limit the amount of computations you perform in this method to those that require real-time information.
+
+        Args:
+            maze:       An object representing the maze in which the player plays.
+            game_state: An object representing the state of the game.
+
+        Returns:
+            One of the possible action, defined in the ``Action`` enumeration.
         """
 
         # Print phase of the game
@@ -133,15 +132,16 @@ class TemplatePlayer (Player):
                        ) ->          None:
 
         """
-            This method redefines the method of the parent class.
-            It is called once at the end of the game.
-            In:
-                * self:       Reference to the current object.
-                * maze:       An object representing the maze in which the player plays.
-                * game_state: An object representing the state of the game.
-                * stats:      Statistics about the game.
-            Out:
-                * None.
+        *(This method redefines the method of the parent class with the same name).*
+
+        This method is called once at the end of the game.
+        It can be used to perform any cleanup that is needed after the game ends.
+        It is not timed, and can be used to analyze the completed game, train models, etc.
+
+        Args:
+            maze:       An object representing the maze in which the player plays.
+            game_state: An object representing the state of the game.
+            stats:      A dictionary containing statistics about the game.
         """
 
         # Print phase of the game
