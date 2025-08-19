@@ -2,23 +2,22 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-"""
-    This file contains useful elements to define a particular player.
-    In particular, it defines three methods that you can redefine to implement your own player:
-        - `preprocessing`: This method is called once at the beginning of the game.
-        - `turn`: This method is called at each turn of the game and must return an action to perform.
-        - `postprocessing`: This method is called once at the end of the game.
-    You can also redefine the constructor to initialize your player.
-    You can also add other methods to your player, to use them in any of the three methods above.
-    You can also add attributes to your player, to store information that you want to use.
+# This file contains useful elements to define a particular player.
+# In particular, it defines three methods that you can redefine to implement your own player:
+#     - `preprocessing`: This method is called once at the beginning of the game.
+#     - `turn`: This method is called at each turn of the game and must return an action to perform.
+#     - `postprocessing`: This method is called once at the end of the game.
 
-    When creating a new player from this template, you should:
-        - Rename the class to something more meaningful.
-        - Rename the file to match the class name (e.g., `MyPlayer.py`).
-        - Change the docstring to describe your player.
-    You can also remove the `preprocessing` and `postprocessing` methods if you don't need them.
-    The `turn` method is mandatory, so you must keep it.
-"""
+# You can also redefine the constructor to initialize your player.
+# You can also add other methods to your player, to use them in any of the three methods above.
+# You can also add attributes to your player, to store information that you want to use.
+
+# When creating a new player from this template, you should:
+#     - Rename the class to something more meaningful.
+#     - Rename the file to match the class name (e.g., `MyPlayer.py`).
+#     - Change the docstring to describe your player.
+# You can also remove the `preprocessing` and `postprocessing` methods if you don't need them.
+# The `turn` method is mandatory, so you must keep it.
 
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################

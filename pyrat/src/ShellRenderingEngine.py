@@ -2,12 +2,10 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-"""
-    This file is part of the PyRat library.
-    It is meant to be used as a library, and not to be executed directly.
-    Please import necessary elements using the following syntax:
-        from pyrat import <element_name>
-"""
+# This file is part of the PyRat library.
+# It is meant to be used as a library, and not to be executed directly.
+# Please import necessary elements using the following syntax:
+#     from pyrat import <element_name>
 
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
@@ -57,11 +55,7 @@ class ShellRenderingEngine (RenderingEngine):
                  ) ->               None:
 
         """
-            This function is the constructor of the class.
-            When an object is instantiated, this method is called to initialize the object.
-            This is where you should define the attributes of the object and set their initial values.
-            Arguments *args and **kwargs are used to pass arguments to the parent constructor.
-            This is useful not to declare again all the parent's attributes in the child class.
+            Initializes a new instance of the class.
             In:
                 * self:            Reference to the current object.
                 * use_colors:      Boolean indicating whether the rendering engine should use colors or not.
@@ -114,10 +108,10 @@ class ShellRenderingEngine (RenderingEngine):
         assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
 
         # Dimensions
-        max_weight = max([maze.get_weight(*edge) for edge in maze.edges])
+        max_weight = max([maze.get_weight(*edge) for edge in maze.get_edges()])
         max_weight_len = len(str(max_weight))
         max_player_name_len = max([len(player.name) for player in players]) + (max_weight_len + 5 if max_weight > 1 else 0)
-        max_cell_number_len = len(str(maze.width * maze.height - 1))
+        max_cell_number_len = len(str(maze.get_width() * maze.get_height() - 1))
         cell_width = max(max_player_name_len, max_weight_len, max_cell_number_len + 1) + 2
         
         # Colors
@@ -155,14 +149,14 @@ class ShellRenderingEngine (RenderingEngine):
             environment_str += " + ".join(["%s (%s)" % (player_in_team, str(round(game_state.score_per_player[player_in_team], 3)).rstrip('0').rstrip('.') if game_state.score_per_player[player_in_team] > 0 else "0") for player_in_team in game_state.teams[team]])
 
         # Consider cells in lexicographic order
-        environment_str += "\n" + wall * (maze.width * (cell_width + 1) + 1)
-        for row in range(maze.height):
+        environment_str += "\n" + wall * (maze.get_width() * (cell_width + 1) + 1)
+        for row in range(maze.get_height()):
             players_in_row = [game_state.player_locations[player.name] for player in players if maze.i_to_rc(game_state.player_locations[player.name])[0] == row]
             cell_height = max([players_in_row.count(cell) for cell in players_in_row] + [max_weight_len]) + 2
             environment_str += "\n"
             for subrow in range(cell_height):
                 environment_str += wall
-                for col in range(maze.width):
+                for col in range(maze.get_width()):
                     
                     # Check cell contents
                     players_in_cell = [player.name for player in players if game_state.player_locations[player.name] == maze.rc_to_i(row, col)]
@@ -193,7 +187,7 @@ class ShellRenderingEngine (RenderingEngine):
                     
                     # Right separation
                     right_weight = "0" if not maze.rc_exists(row, col) or not maze.rc_exists(row, col + 1) or not maze.has_edge(maze.rc_to_i(row, col), maze.rc_to_i(row, col + 1)) else str(maze.get_weight(maze.rc_to_i(row, col), maze.rc_to_i(row, col + 1)))
-                    if col == maze.width - 1 or right_weight == "0":
+                    if col == maze.get_width() - 1 or right_weight == "0":
                         environment_str += wall
                     else:
                         if right_weight == "1":
@@ -207,7 +201,7 @@ class ShellRenderingEngine (RenderingEngine):
             environment_str += wall
             
             # Bottom separation
-            for col in range(maze.width):
+            for col in range(maze.get_width()):
                 bottom_weight = "0" if not maze.rc_exists(row, col) or not maze.rc_exists(row + 1, col) or not maze.has_edge(maze.rc_to_i(row, col), maze.rc_to_i(row + 1, col)) else str(maze.get_weight(maze.rc_to_i(row, col), maze.rc_to_i(row + 1, col)))
                 if bottom_weight == "0":
                     environment_str += wall * (cell_width + 1)

@@ -2,12 +2,10 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-"""
-    This file is part of the PyRat library.
-    It is meant to be used as a library, and not to be executed directly.
-    Please import necessary elements using the following syntax:
-        from pyrat import <element_name>
-"""
+# This file is part of the PyRat library.
+# It is meant to be used as a library, and not to be executed directly.
+# Please import necessary elements using the following syntax:
+#     from pyrat import <element_name>
 
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
@@ -21,7 +19,6 @@ from numbers import *
 import os
 import shutil
 import inspect
-import pdoc
 import pathlib
 import sys
 import pyfakefs
@@ -59,35 +56,6 @@ def create_workspace ( target_directory: str
     with open(pth_file, "w") as f:
         f.write(target_workspace + "\n")
     print(f"Workspace added to Python path", file=sys.stderr)
-
-#####################################################################################################################################################
-
-def generate_documentation ( workspace_directory: str
-                           ) ->                   None:
-
-    """
-        Generates the documentation for the project.
-        The function will parse the PyRat library, and all the subdirectories of the workspace directory.
-        This will create a doc directory in the workspace directory, and fill it with the documentation.
-        In:
-            * workspace_directory: The directory in which the workspace is located.
-        Out:
-            * None.
-    """
-    
-    # Debug
-    assert isinstance(workspace_directory, str), "Argument 'workspace_directory' must be a string"
-    assert is_valid_directory(os.path.join(workspace_directory, "doc")), "Doc directory cannot be created"
-
-    # Process paths
-    target_directory = pathlib.Path(os.path.join(workspace_directory, "doc"))
-    workspace_subdirectories = [os.path.join(workspace_directory, directory) for directory in os.listdir(workspace_directory) if directory != "doc"]
-    for d in workspace_subdirectories:
-        sys.path.append(d)
-    
-    # Generate the documentation for PyRat, and for workspace subdirectories
-    pdoc.render.configure(docformat="google")
-    pdoc.pdoc("pyrat", *workspace_subdirectories, output_directory=target_directory)
 
 #####################################################################################################################################################
 

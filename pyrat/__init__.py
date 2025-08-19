@@ -2,10 +2,8 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-"""
-    This file allows easier import of the PyRat library.
-    It defines all the classes and functions that can be imported from the library.
-"""
+# This file allows easier import of the PyRat library.
+# It defines all the classes and functions that can be imported from the library.
 
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
@@ -27,7 +25,7 @@ from .src.RandomMaze import RandomMaze
 from .src.RenderingEngine import RenderingEngine
 from .src.ShellRenderingEngine import ShellRenderingEngine
 from .src.UniformHolesRandomMaze import UniformHolesRandomMaze
-from .src.utils import create_workspace, generate_documentation
+from .src.utils import create_workspace
 from .src.enums import Action, RenderMode, GameMode, StartingLocation, PlayerSkin, RandomMazeAlgorithm
 
 #####################################################################################################################################################

@@ -2,11 +2,10 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-"""
-    This file is a replay of a game that has already been played.
-    Players will reproduce their actions in the same order as in the original game.
-    Computations will not be made again.
-"""
+# This file is part of the PyRat library.
+# It is meant to be used as a library, and not to be executed directly.
+# Please import necessary elements using the following syntax:
+#     from pyrat import <element_name>
 
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################

@@ -2,12 +2,10 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-"""
-    This file is part of the PyRat library.
-    It is meant to be used as a library, and not to be executed directly.
-    Please import necessary elements using the following syntax:
-        from pyrat import <element_name>
-"""
+# This file is part of the PyRat library.
+# It is meant to be used as a library, and not to be executed directly.
+# Please import necessary elements using the following syntax:
+#     from pyrat import <element_name>
 
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
@@ -42,17 +40,17 @@ from pyrat.src.enums import Action
 class Maze (Graph, abc.ABC):
 
     """
-        This class inherits from the Graph class.
-        Therefore, it has the attributes and methods defined in the Graph class in addition to the ones defined below.
-        
-        This class is abstract and cannot be instantiated.
-        You should use one of the subclasses to create a maze, or create your own subclass.
-        
-        A maze is a particular type of graph.
-        Each vertex is a cell, indexed by a number from 0 to width*height-1.
-        There are edges between adjacent cells.
-        Weights indicate the number of actions required to go from one cell to an adjacent one.
-        In this implementation, cells are placed on a grid and can only be connected along the cardinal directions.
+    This class inherits from the Graph class.
+    Therefore, it has the attributes and methods defined in the Graph class in addition to the ones defined below.
+    
+    This class is abstract and cannot be instantiated.
+    You should use one of the subclasses to create a maze, or create your own subclass.
+    
+    A maze is a particular type of graph.
+    Each vertex is a cell, indexed by a number from 0 to width*height-1.
+    There are edges between adjacent cells.
+    Weights indicate the number of actions required to go from one cell to an adjacent one.
+    In this implementation, cells are placed on a grid and can only be connected along the cardinal directions.
     """
 
     #############################################################################################################################################
@@ -67,19 +65,13 @@ class Maze (Graph, abc.ABC):
                  ) ->        None:
 
         """
-            This function is the constructor of the class.
-            When an object is instantiated, this method is called to initialize the object.
-            This is where you should define the attributes of the object and set their initial values.
-            Arguments *args and **kwargs are used to pass arguments to the parent constructor.
-            This is useful not to declare again all the parent's attributes in the child class.
-            In:
-                * self:   Reference to the current object.
-                * width:  Width of the maze, initialized to None in case it is determined afterward.
-                * height: Height of the maze, initialized to None in case it is determined afterward.
-                * args:   Arguments to pass to the parent constructor.
-                * kwargs: Keyword arguments to pass to the parent constructor.
-            Out:
-                * A new instance of the class (we indicate None as return type per convention, see PEP-484).
+        Initializes a new instance of the class.
+
+        Args:
+            width:    Width of the maze, can be None if determined later.
+            height:   Height of the maze, can be None if determined later.
+            *args:    Additional arguments to pass to the parent constructor.
+            **kwargs: Additional keyword arguments to pass to the parent constructor.
         """
 
         # Inherit from parent class
@@ -102,67 +94,24 @@ class Maze (Graph, abc.ABC):
                 ) ->    str:
 
         """
-            This method returns a string representation of the object.
-            This defines what will be shown when calling print on the object.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * string: String representation of the object.
+        Returns a string representation of the object.
+        Defines what is shown when calling print on the object.
+
+        Returns:
+            String representation of the object.
         """
         
         # Create the string
         string = "Maze object:\n"
-        string += "|  Width: {}\n".format(self.width)
-        string += "|  Height: {}\n".format(self.height)
-        string += "|  Vertices: {}\n".format(self.vertices)
+        string += "|  Width: {}\n".format(self.get_width())
+        string += "|  Height: {}\n".format(self.get_height())
+        string += "|  Vertices: {}\n".format(self.get_vertices())
         string += "|  Adjacency matrix:\n"
-        for vertex_1, vertex_2 in self.edges:
+        for vertex_1, vertex_2 in self.get_edges():
             weight = self.get_weight(vertex_1, vertex_2)
             symmetric = self.edge_is_symmetric(vertex_1, vertex_2)
             string += "|  |  {} {} ({}) --> {}\n".format(vertex_1, "<--" if symmetric else "---", weight, vertex_2)
         return string.strip()
-
-    #############################################################################################################################################
-    #                                                                  GETTERS                                                                  #
-    #############################################################################################################################################
-
-    @property
-    def width ( self: Self
-              ) ->    Integral:
-        
-        """
-            Getter for _width.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * self._width: The _width attribute.
-        """
-
-        # Debug
-        assert isinstance(self._width, Integral), "Width has not yet been set or inferred"
-
-        # Return the attribute
-        return self._width
-
-    #############################################################################################################################################
-    
-    @property
-    def height ( self: Self
-               ) ->    Integral:
-        
-        """
-            Getter for _height.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * self._height: The _height attribute.
-        """
-
-        # Debug
-        assert isinstance(self._height, Integral), "Height has not yet been set or inferred"
-
-        # Return the attribute
-        return self._height
 
     #############################################################################################################################################
     #                                                               PUBLIC METHODS                                                              #
@@ -173,24 +122,62 @@ class Maze (Graph, abc.ABC):
                 ) ->     Tuple[Integral, Integral]:
         
         """
-            Transforms a maze index in a pair (row, col).
-            Does not check if the cell exists.
-            In:
-                * self:  Reference to the current object.
-                * index: Index of the cell.
-            Out:
-                * row: Row of the cell.
-                * col: Column of the cell.
+        Transforms a maze index into a (row, col) pair.
+        Does not check if the cell exists.
+
+        Args:
+            index: Index of the cell.
+
+        Returns:
+            Tuple containing (row, col) of the cell.
         """
         
         # Debug
         assert isinstance(index, Integral), "Argument 'index' must be an integer"
 
         # Conversion
-        row = index // self.width
-        col = index % self.width
+        row = index // self.get_width()
+        col = index % self.get_width()
         return row, col
     
+    #############################################################################################################################################
+
+    def get_width ( self: Self
+                  ) ->    Integral:
+        
+        """
+        Returns the width of the maze.
+        This is the number of cells in a row.
+
+        Returns:
+            Width of the maze.
+        """
+
+        # Debug
+        assert isinstance(self._width, Integral), "Width has not yet been set or inferred"
+
+        # Return the attribute
+        return self._width
+
+    #############################################################################################################################################
+    
+    def get_height ( self: Self
+                   ) ->    Integral:
+        
+        """
+        Returns the height of the maze.
+        This is the number of cells in a column.
+
+        Returns:
+            Height of the maze.
+        """
+
+        # Debug
+        assert isinstance(self._height, Integral), "Height has not yet been set or inferred"
+
+        # Return the attribute
+        return self._height
+
     #############################################################################################################################################
     
     def rc_to_i ( self: Self,
@@ -199,14 +186,15 @@ class Maze (Graph, abc.ABC):
                 ) ->    Integral:
         
         """
-            Transforms a (row, col) pair of maze coordiates (lexicographic order) in a maze index.
-            Does not check if the cell exists.
-            In:
-                * self: Reference to the current object.
-                * row:  Row of the cell.
-                * col:  Column of the cell.
-            Out:
-                * index: Corresponding cell index in the maze.
+        Transforms a (row, col) pair of maze coordinates (lexicographic order) into a maze index.
+        Does not check if the cell exists.
+
+        Args:
+            row: Row of the cell.
+            col: Column of the cell.
+
+        Returns:
+            Corresponding cell index in the maze.
         """
         
         # Debug
@@ -214,7 +202,7 @@ class Maze (Graph, abc.ABC):
         assert isinstance(col, Integral), "Argument 'col' must be an integer"
 
         # Conversion
-        index = row * self.width + col
+        index = row * self.get_width() + col
         return index
     
     #############################################################################################################################################
@@ -225,13 +213,14 @@ class Maze (Graph, abc.ABC):
                   ) ->    bool:
         
         """
-            Checks if a given (row, col) pair corresponds to a valid cell in the maze.
-            In:
-                * self: Reference to the current object.
-                * row:  Row of the cell.
-                * col:  Column of the cell.
-            Out:
-                * exists: True if the cell exists, False otherwise.
+        Checks if a given (row, col) pair corresponds to a valid cell in the maze.
+
+        Args:
+            row: Row of the cell.
+            col: Column of the cell.
+
+        Returns:
+            True if the cell exists, False otherwise.
         """
         
         # Debug
@@ -239,7 +228,7 @@ class Maze (Graph, abc.ABC):
         assert isinstance(col, Integral), "Argument 'col' must be an integer"
 
         # Check if the cell exists
-        exists = 0 <= row < self.height and 0 <= col < self.width and self.rc_to_i(row, col) in self.vertices
+        exists = 0 <= row < self.get_height() and 0 <= col < self.get_width() and self.rc_to_i(row, col) in self.get_vertices()
         return exists
     
     #############################################################################################################################################
@@ -249,19 +238,20 @@ class Maze (Graph, abc.ABC):
                  ) ->     bool:
         
         """
-            Checks if a given index pair is a valid cell in the maze.
-            In:
-                * self:  Reference to the current object.
-                * index: Index of the cell.
-            Out:
-                * exists: True if the cell exists, False otherwise.
+        Checks if a given index is a valid cell in the maze.
+
+        Args:
+            index: Index of the cell.
+
+        Returns:
+            True if the cell exists, False otherwise.
         """
         
         # Debug
         assert isinstance(index, Integral), "Argument 'index' must be an integer"
 
         # Check if the cell exists
-        exists = index in self.vertices
+        exists = index in self.get_vertices()
         return exists
     
     #############################################################################################################################################
@@ -272,14 +262,14 @@ class Maze (Graph, abc.ABC):
                           ) ->        Tuple[Integral, Integral]:
         
         """
-            Computes the difference between the coordinates of two cells.
-            In:
-                * self:     Reference to the current object.
-                * vertex_1: First cell.
-                * vertex_2: Second cell.
-            Out:
-                * row_diff: Difference between the rows of the cells.
-                * col_diff: Difference between the columns of the cells.
+        Computes the difference between the coordinates of two cells.
+
+        Args:
+            vertex_1: First cell.
+            vertex_2: Second cell.
+
+        Returns:
+            Tuple containing (row_diff, col_diff) difference between the rows and columns of the cells.
         """
         
         # Debug
@@ -304,15 +294,11 @@ class Maze (Graph, abc.ABC):
                    ) ->      None:
 
         """
-            Redefines the method of the parent class.
-            Here, we want vertices of a maze to be integers only.
-            This is a particular type of graph.
-            We do not duplicate asserts already made in the parent method.
-            In:
-                * self:   Reference to the current object.
-                * vertex: Vertex to add.
-            Out:
-                * None.
+        Redefines the method of the parent class.
+        Only integer vertices are allowed in a maze.
+
+        Args:
+            vertex: Vertex to add.
         """
         
         # Debug
@@ -330,18 +316,16 @@ class Maze (Graph, abc.ABC):
                  ) ->        None:
 
         """
-            Redefines the method of the parent class.
-            Here, we want edges to link only cells that are above or below.
-            Also, weights should be positive integers.
-            Edges are symmetric by default.
-            We do not duplicate asserts already made in the parent method.
-            In:
-                * self:     Reference to the current object.
-                * vertex_1: First vertex.
-                * vertex_2: Second vertex.
-                * weight:   Weight of the edge.
-            Out:
-                * None.
+        Redefines the method of the parent class.
+        Here, we want edges to link only cells that are above or below.
+        Also, weights should be positive integers.
+        Edges are symmetric by default.
+        We do not duplicate asserts already made in the parent method.
+
+        Args:
+            vertex_1: First vertex.
+            vertex_2: Second vertex.
+            weight:   Weight of the edge.
         """
         
         # Debug
@@ -365,21 +349,19 @@ class Maze (Graph, abc.ABC):
                          ) ->    Any:
 
         """
-            This redefines a method of the parent class.
-            Returns a numpy ndarray representing the maze.
-            Here, we have an entry for each cell in the maze.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * adjacency_matrix: Numpy ndarray representing the adjacency matrix.
+        Returns a numpy ndarray representing the maze adjacency matrix.
+        Each entry corresponds to the weight of the edge between two cells.
+
+        Returns:
+            Numpy ndarray representing the adjacency matrix.
         """
         
         # Debug
         assert "numpy" in globals(), "Numpy is not available"
 
         # Create the adjacency matrix
-        adjacency_matrix = numpy.zeros((self.width * self.height, self.width * self.height), dtype=int)
-        for vertex in self.vertices:
+        adjacency_matrix = numpy.zeros((self.get_width() * self.get_height(), self.get_width() * self.get_height()), dtype=int)
+        for vertex in self.get_vertices():
             for neighbor in self.get_neighbors(vertex):
                 adjacency_matrix[vertex, neighbor] = self.get_weight(vertex, neighbor)
         return adjacency_matrix
@@ -390,21 +372,19 @@ class Maze (Graph, abc.ABC):
                         ) ->    Any:
 
         """
-            This redefines a method of the parent class.
-            Returns a torch tensor representing the maze.
-            Here, we have an entry for each cell in the maze.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * adjacency_matrix: Torch tensor representing the adjacency matrix.
+        Returns a torch tensor representing the maze adjacency matrix.
+        Each entry corresponds to the weight of the edge between two cells.
+
+        Returns:
+            Torch tensor representing the adjacency matrix.
         """
         
         # Debug
         assert "torch" in globals(), "Torch is not available"
 
         # Create the adjacency matrix
-        adjacency_matrix = torch.zeros((self.width * self.height, self.width * self.height), dtype=torch.int)
-        for vertex in self.vertices:
+        adjacency_matrix = torch.zeros((self.get_width() * self.get_height(), self.get_width() * self.get_height()), dtype=torch.int)
+        for vertex in self.get_vertices():
             for neighbor in self.get_neighbors(vertex):
                 adjacency_matrix[vertex, neighbor] = self.get_weight(vertex, neighbor)
         return adjacency_matrix
@@ -417,13 +397,14 @@ class Maze (Graph, abc.ABC):
                             ) ->      Optional[Action]: 
 
         """
-            Function to transform two locations into an action to reach the target from the source.
-            In:
-                * self:   Reference to the current object.
-                * source: Vertex on which the player is.
-                * target: Vertex where the character wants to go.
-            Out:
-                * action: Action to go from the source to the target, or None if the move is impossible.
+        Transforms two locations into the action required to reach the target from the source.
+
+        Args:
+            source: Vertex where the player is.
+            target: Vertex where the character wants to go.
+
+        Returns:
+            Action to go from the source to the target, or None if the move is impossible.
         """
 
         # Debug
@@ -457,12 +438,13 @@ class Maze (Graph, abc.ABC):
                              ) ->         List[Optional[Action]]:
 
         """
-            Function to transform a series locations into actions.
-            In:
-                * self:      Reference to the current object.
-                * locations: List of vertices to go through.
-            Out:
-                * actions: List of actions to go from one location to the next.
+        Transforms a list of locations into a list of actions to go from one location to the next.
+
+        Args:
+            locations: List of vertices to go through.
+
+        Returns:
+            List of actions to go from one location to the next.
         """
 
         # Debug
@@ -484,13 +466,9 @@ class Maze (Graph, abc.ABC):
                      ) ->    None:
         
         """
-            This method is abstract and must be implemented in the subclasses.
-            It should be in charge of creating the maze and, if needed, to set the width and height attributes.
-            It should be called at some point by the subclass.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * None.
+        This method is abstract and must be implemented in the subclasses.
+        It should be responsible for creating the maze and, if needed, setting the width and height attributes.
+        It should be called at some point by the subclass.
         """
 
         # This method must be implemented in the child classes

@@ -2,12 +2,10 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-"""
-    This file is part of the PyRat library.
-    It is meant to be used as a library, and not to be executed directly.
-    Please import necessary elements using the following syntax:
-        from pyrat import <element_name>
-"""
+# This file is part of the PyRat library.
+# It is meant to be used as a library, and not to be executed directly.
+# Please import necessary elements using the following syntax:
+#     from pyrat import <element_name>
 
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
@@ -60,11 +58,7 @@ class PygameRenderingEngine (RenderingEngine):
                  ) ->            None:
 
         """
-            This function is the constructor of the class.
-            When an object is instantiated, this method is called to initialize the object.
-            This is where you should define the attributes of the object and set their initial values.
-            Arguments *args and **kwargs are used to pass arguments to the parent constructor.
-            This is useful not to declare again all the parent's attributes in the child class.
+            Initializes a new instance of the class.
             In:
                 * self:         Reference to the current object.
                 * fullscreen:   Indicates if the GUI should be fullscreen.
@@ -228,7 +222,7 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
         
         # Parameters of the GUI
         window_width, window_height = pygame.display.get_surface().get_size()
-        cell_size = int(min(window_width / maze.width, window_height / maze.height) * 0.9)
+        cell_size = int(min(window_width / maze.get_width(), window_height / maze.get_height()) * 0.9)
         background_color = (0, 0, 0)
         cell_text_color = (50, 50, 50)
         cell_text_offset = int(cell_size * 0.1)
@@ -239,8 +233,8 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
         flag_x_offset = int(cell_size * 0.2)
         flag_x_next_offset = int(cell_size * 0.07)
         flag_y_offset = int(cell_size * 0.3)
-        game_area_width = cell_size * maze.width
-        game_area_height = cell_size * maze.height
+        game_area_width = cell_size * maze.get_width()
+        game_area_height = cell_size * maze.get_height()
         maze_x_offset = int((window_width - game_area_width) * 0.9)
         maze_y_offset = (window_height - game_area_height) // 2
         avatars_x_offset = window_width - maze_x_offset - game_area_width
@@ -392,8 +386,8 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
         pygame.draw.rect(gui_screen, background_color, pygame.Rect(0, 0, window_width, window_height))
         
         # Add cells
-        for row in range(maze.height):
-            for col in range(maze.width):
+        for row in range(maze.get_height()):
+            for col in range(maze.get_width()):
                 if maze.rc_exists(row, col):
                     cell = ___surface_from_image(os.path.join("..", "gui", "ground"), cell_size, cell_size)
                     cell = pygame.transform.rotate(cell, rng.randint(0, 3) * 90)
@@ -404,8 +398,8 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
                     
         # Add mud
         mud = ___surface_from_image(os.path.join("..", "gui", "mud", "mud.png"), cell_size)
-        for row in range(maze.height):
-            for col in range(maze.width):
+        for row in range(maze.get_height()):
+            for col in range(maze.get_width()):
                 if maze.rc_exists(row, col):
                     if maze.rc_exists(row, col - 1):
                         if maze.has_edge(maze.rc_to_i(row, col), maze.rc_to_i(row, col - 1)):
@@ -433,8 +427,8 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
 
         # Add cell numbers
         if not render_simplified:
-            for row in range(maze.height):
-                for col in range(maze.width):
+            for row in range(maze.get_height()):
+                for col in range(maze.get_width()):
                     if maze.rc_exists(row, col):
                         cell_text = ___surface_from_text(str(maze.rc_to_i(row, col)), text_size, cell_text_color)
                         cell_text_x = maze_x_offset + col * cell_size + cell_text_offset
@@ -444,8 +438,8 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
         # Add walls
         walls = []
         wall = ___surface_from_image(os.path.join("..", "gui", "wall", "wall.png"), cell_size)
-        for row in range(maze.height + 1):
-            for col in range(maze.width + 1):
+        for row in range(maze.get_height() + 1):
+            for col in range(maze.get_width() + 1):
                 case_outside_to_inside = not maze.rc_exists(row, col) and maze.rc_exists(row, col - 1)
                 case_inside_to_outside = maze.rc_exists(row, col) and not maze.rc_exists(row, col - 1)
                 case_inside_to_inside = maze.rc_exists(row, col) and maze.rc_exists(row, col - 1) and not maze.has_edge(maze.rc_to_i(row, col), maze.rc_to_i(row, col - 1))
@@ -688,7 +682,7 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
                     ___show_cheese(current_state.cheese if i != animation_steps - 1 else new_state.cheese)
                     ___show_initial_players()
                     gui_screen.blit(go_image, (main_image_x, main_image_y))
-                    pygame.display.update((maze_x_offset, maze_y_offset, maze.width * cell_size, maze.height * cell_size))
+                    pygame.display.update((maze_x_offset, maze_y_offset, maze.get_width() * cell_size, maze.get_height() * cell_size))
                     time.sleep(go_image_duration)
 
                 # Enter mud?
@@ -751,7 +745,7 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
                         gui_screen.blit(player_surfaces[player.name], (next_x, next_y))
                     
                     # Update maze & wait for animation
-                    pygame.display.update((maze_x_offset, maze_y_offset, maze.width * cell_size, maze.height * cell_size))
+                    pygame.display.update((maze_x_offset, maze_y_offset, maze.get_width() * cell_size, maze.get_height() * cell_size))
                     time.sleep(animation_time / animation_steps)
 
                 # Exit mud?

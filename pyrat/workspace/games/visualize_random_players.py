@@ -2,13 +2,11 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-"""
-    This file is a script that creates a PyRat game.
-    In this script, we visualize three players in the same maze, one after the other.
-    Each player is a random player that performs random actions.
-    This is useful to see how the players behave in the same environment.
-    The maze is the same for all players, thanks to a fixed random seed.
-"""
+# This file is a script that creates a PyRat game.
+# In this script, we visualize three players in the same maze, one after the other.
+# Each player is a random player that performs random actions.
+# This is useful to see how the players behave in the same environment.
+# The maze is the same for all players, thanks to a fixed random seed.
 
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################

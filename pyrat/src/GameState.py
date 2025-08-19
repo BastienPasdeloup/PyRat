@@ -2,12 +2,10 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-"""
-    This file is part of the PyRat library.
-    It is meant to be used as a library, and not to be executed directly.
-    Please import necessary elements using the following syntax:
-        from pyrat import <element_name>
-"""
+# This file is part of the PyRat library.
+# It is meant to be used as a library, and not to be executed directly.
+# Please import necessary elements using the following syntax:
+#     from pyrat import <element_name>
 
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
@@ -28,9 +26,9 @@ from pyrat.src.utils import caller_file, pyrat_files
 class GameState ():
 
     """
-        A game state is a snapshot of the game at a given time.
-        It gives an overview of scores, locations, available cheese, who is currently crossing mud, etc.
-        It also provides a few useful functions to determine who is currently leading, etc.
+    A game state is a snapshot of the game at a given time.
+    It gives an overview of scores, locations, available cheese, who is currently crossing mud, etc.
+    It also provides a few useful functions to determine who is currently leading, etc.
     """
 
     #############################################################################################################################################
@@ -41,22 +39,17 @@ class GameState ():
                  ) ->    None:
 
         """
-            This function is the constructor of the class.
-            When an object is instantiated, this method is called to initialize the object.
-            This is where you should define the attributes of the object and set their initial values.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * A new instance of the class (we indicate None as return type per convention, see PEP-484).
+        Initializes a new instance of the class.
+        Objects of this class are created each turn, so manually changing the attributes will not allow you to cheat :)
         """
 
-        # Private attributes
-        self.__player_locations = {}
-        self.__score_per_player = {}
-        self.__muds = {}
-        self.__teams = {}
-        self.__cheese = []
-        self.__turn = 0
+        # Public attributes
+        self.player_locations = {}
+        self.score_per_player = {}
+        self.muds = {}
+        self.teams = {}
+        self.cheese = []
+        self.turn = 0
 
     #############################################################################################################################################
 
@@ -64,12 +57,10 @@ class GameState ():
                 ) ->    str:
 
         """
-            This method returns a string representation of the object.
-            This defines what will be shown when calling print on the object.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * string: String representation of the object.
+        Returns a string representation of the GameState object.
+        
+        Returns:
+            String representation of the object.
         """
 
         # Create the string
@@ -83,150 +74,6 @@ class GameState ():
         return string
 
     #############################################################################################################################################
-    #                                                            ATTRIBUTE ACCESSORS                                                            #
-    #############################################################################################################################################
-
-    @property
-    def player_locations ( self: Self
-                         ) ->    Dict[str, Integral]:
-        
-        """
-            Getter for __player_locations.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * self.__player_locations: The __player_locations attribute.
-        """
-
-        # Debug
-        assert self.__player_locations or caller_file() in pyrat_files(), "Cannot access player locations before the game has started"
-
-        # Return the attribute
-        return self.__player_locations
-
-    #############################################################################################################################################
-
-    @property
-    def score_per_player ( self: Self
-                         ) ->    Dict[str, Number]:
-        
-        """
-            Getter for __score_per_player.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * self.__score_per_player: The __score_per_player attribute.
-        """
-
-        # Debug
-        assert self.__player_locations or caller_file() in pyrat_files(), "Cannot access player scores before the game has started"
-
-        # Return the attribute
-        return self.__score_per_player
-
-    #############################################################################################################################################
-
-    @property
-    def muds ( self: Self
-             ) ->    Dict[str, Dict[str, Optional[Integral]]]:
-        
-        """
-            Getter for __muds.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * self.__muds: The __muds attribute.
-        """
-
-        # Debug
-        assert self.__player_locations or caller_file() in pyrat_files(), "Cannot access muds before the game has started"
-
-        # Return the attribute
-        return self.__muds
-
-    #############################################################################################################################################
-
-    @property
-    def teams ( self: Self
-              ) ->    Dict[str, List[str]]:
-        
-        """
-            Getter for __teams.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * self.__teams: The __teams attribute.
-        """
-
-        # Debug
-        assert self.__player_locations or caller_file() in pyrat_files(), "Cannot access teams before the game has started"
-
-        # Return the attribute
-        return self.__teams
-
-    #############################################################################################################################################
-
-    @property
-    def cheese ( self: Self
-               ) ->    List[Integral]:
-        
-        """
-            Getter for __cheese.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * self.__cheese: The __cheese attribute.
-        """
-
-        # Debug
-        assert self.__player_locations or caller_file() in pyrat_files(), "Cannot access cheese before the game has started"
-
-        # Return the attribute
-        return self.__cheese
-
-    #############################################################################################################################################
-
-    @property
-    def turn ( self: Self
-             ) ->    Integral:
-        
-        """
-            Getter for __turn.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * self.__turn: The __turn attribute.
-        """
-
-        # Debug
-        assert self.__player_locations or caller_file() in pyrat_files(), "Cannot access turn before the game has started"
-
-        # Return the attribute
-        return self.__turn
-
-    #############################################################################################################################################
- 
-    @turn.setter
-    def turn ( self:  Self,
-               value: Integral
-             ) ->     None:
-        
-        """
-            Setter for __turn.
-            In:
-                * self:  Reference to the current object.
-                * value: New value for the __turn attribute.
-            Out:
-                * None.
-        """
-
-        # Debug
-        assert caller_file() in pyrat_files(), "Cannot set the turn outside of the game"
-
-        # Set the attribute
-        self.__turn = value
-
-    #############################################################################################################################################
     #                                                               PUBLIC METHODS                                                              #
     #############################################################################################################################################
     
@@ -235,12 +82,13 @@ class GameState ():
                   ) ->    bool:
 
         """
-            This method returns whether a player is currently crossing mud.
-            In:
-                * self: Reference to the current object.
-                * name: Name of the player.
-            Out:
-                * in_mud: Whether the player is currently crossing mud.
+        Returns whether a player is currently crossing mud.
+
+        Args:
+            name: Name of the player.
+
+        Returns:
+            True if the player is currently crossing mud, False otherwise.
         """
 
         # Debug
@@ -257,11 +105,10 @@ class GameState ():
                            ) ->    Dict[str, Number]:
         
         """
-            Returns the score per team.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * score_per_team: Dictionary of scores.
+        Returns the score per team.
+
+        Returns:
+            Dictionary of scores per team.
         """
         
         # Aggregate players of the team
@@ -274,12 +121,11 @@ class GameState ():
                   ) ->    bool:
         
         """
-            This function checks if the game is over.
-            The game is over when there is no more cheese or when no team can catch up anymore.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * is_over: Boolean indicating if the game is over.
+        Checks if the game is over.
+        The game is over when there is no more cheese or when no team can catch up anymore.
+
+        Returns:
+            True if the game is over, False otherwise.
         """
 
         # The game is over when there is no more cheese

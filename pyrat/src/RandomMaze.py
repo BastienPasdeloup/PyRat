@@ -2,12 +2,10 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-"""
-    This file is part of the PyRat library.
-    It is meant to be used as a library, and not to be executed directly.
-    Please import necessary elements using the following syntax:
-        from pyrat import <element_name>
-"""
+# This file is part of the PyRat library.
+# It is meant to be used as a library, and not to be executed directly.
+# Please import necessary elements using the following syntax:
+#     from pyrat import <element_name>
 
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
@@ -57,11 +55,7 @@ class RandomMaze (Maze, abc.ABC):
                  ) ->               None:
 
         """
-            This function is the constructor of the class.
-            When an object is instantiated, this method is called to initialize the object.
-            This is where you should define the attributes of the object and set their initial values.
-            Arguments *args and **kwargs are used to pass arguments to the parent constructor.
-            This is useful not to declare again all the parent's attributes in the child class.
+            Initializes a new instance of the class.
             In:
                 * self:            Reference to the current object.
                 * cell_percentage: Percentage of cells to be reachable.
@@ -92,10 +86,10 @@ class RandomMaze (Maze, abc.ABC):
         assert 0.0 <= wall_percentage <= 100.0, "Argument 'wall_percentage' must be a percentage"
         assert 0.0 <= mud_percentage <= 100.0, "Argument 'mud_percentage' must be a percentage"
         assert mud_range is None or 1 < mud_range[0] <= mud_range[1], "Argument 'mud_range' must be a valid interval with minimum value at least 2"
-        assert int(self.width * self.height * cell_percentage / 100) > 1, "The maze must have at least two vertices"
+        assert int(self.get_width() * self.get_height() * cell_percentage / 100) > 1, "The maze must have at least two vertices"
 
         # Protected attributes
-        self._target_nb_vertices = int(self.width * self.height * cell_percentage / 100)
+        self._target_nb_vertices = int(self.get_width() * self.get_height() * cell_percentage / 100)
         self._wall_percentage = wall_percentage
         self._mud_percentage = mud_percentage
         self._mud_range = mud_range
@@ -160,9 +154,9 @@ class RandomMaze (Maze, abc.ABC):
 
         # Determine the maximum number of walls by computing the minimum spanning tree
         mst = self.minimum_spanning_tree(self._rng.randint(0, sys.maxsize))
-        target_nb_walls = int((self.nb_edges - mst.nb_edges) * self._wall_percentage / 100)
+        target_nb_walls = int((self.nb_edges() - mst.nb_edges()) * self._wall_percentage / 100)
         walls = []
-        for vertex, neighbor in self.edges:
+        for vertex, neighbor in self.get_edges():
             if not mst.has_edge(vertex, neighbor):
                 self.remove_edge(vertex, neighbor, True)
                 walls.append((vertex, neighbor))
@@ -187,10 +181,10 @@ class RandomMaze (Maze, abc.ABC):
         """
 
         # Determine the number of mud edges
-        target_nb_mud = int(self.nb_edges * self._mud_percentage / 100)
+        target_nb_mud = int(self.nb_edges() * self._mud_percentage / 100)
 
         # Add mud to some edges
-        edges = self.edges
+        edges = self.get_edges()
         self._rng.shuffle(edges)
         for vertex, neighbor in edges[:target_nb_mud]:
             self.remove_edge(vertex, neighbor, True)

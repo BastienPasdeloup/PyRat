@@ -1,0 +1,21 @@
+.method {
+    margin-top: 2em;
+    padding-top: 2em;
+    border-top: 1px solid #ddd;
+}
+
+.class > dd:first-of-type > p:first-of-type {
+    font-size: var(--font-size--small);
+    text-transform: uppercase;
+}
+
+.class > dd:first-of-type > p:first-of-type code {
+    font-size: initial;
+    text-transform: none;
+}
+
+.class:not(:first-of-type) {
+    margin-top: 2em;
+    padding-top: 2em;
+    border-top: 1px solid #ddd;
+}

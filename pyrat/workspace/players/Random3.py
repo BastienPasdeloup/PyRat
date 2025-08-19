@@ -2,12 +2,10 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-"""
-    This file contains the description of a player that performs random actions.
-    It is meant to be used as a library, and not to be executed directly.
-    Please import this file from a game script using the following syntax:
-        from players.Random3 import Random3
-"""
+# This file contains the description of a player that performs random actions.
+# It is meant to be used as a library, and not to be executed directly.
+# Please import this file from a game script using the following syntax:
+#     from players.Random3 import Random3
 
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################

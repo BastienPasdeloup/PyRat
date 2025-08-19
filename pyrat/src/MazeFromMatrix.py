@@ -2,12 +2,10 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-"""
-    This file is part of the PyRat library.
-    It is meant to be used as a library, and not to be executed directly.
-    Please import necessary elements using the following syntax:
-        from pyrat import <element_name>
-"""
+# This file is part of the PyRat library.
+# It is meant to be used as a library, and not to be executed directly.
+# Please import necessary elements using the following syntax:
+#     from pyrat import <element_name>
 
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
@@ -29,14 +27,14 @@ from pyrat.src.Maze import Maze
 class MazeFromMatrix (Maze):
 
     """
-        This class inherits from the Maze class.
-        Therefore, it has the attributes and methods defined in the Maze class in addition to the ones defined below.
+    This class inherits from the Maze class.
+    Therefore, it has the attributes and methods defined in the Maze class in addition to the ones defined below.
 
-        This is a maze that is created from a fixed description as a numpy ndarray or a torch tensor.
-        Indices of rows and columns are the indices of the corresponding cells.
-        Entries are the weights of the corresponding edges.
-        Rows and columns with only 0 values will be ignored.
-        This class can be useful to test a player on a fixed maze, to compare its performance with other players.
+    This is a maze that is created from a fixed description as a numpy ndarray or a torch tensor.
+    Indices of rows and columns are the indices of the corresponding cells.
+    Entries are the weights of the corresponding edges.
+    Rows and columns with only 0 values will be ignored.
+    This class can be useful to test a player on a fixed maze, to compare its performance with other players.
     """
 
     #############################################################################################################################################
@@ -50,18 +48,12 @@ class MazeFromMatrix (Maze):
                  ) ->           None:
 
         """
-            This function is the constructor of the class.
-            When an object is instantiated, this method is called to initialize the object.
-            This is where you should define the attributes of the object and set their initial values.
-            Arguments *args and **kwargs are used to pass arguments to the parent constructor.
-            This is useful not to declare again all the parent's attributes in the child class.
-            In:
-                * self:        Reference to the current object.
-                * description: Fixed maze as a matrix (numpy.ndarray or torch.tensor).
-                * args:        Arguments to pass to the parent constructor.
-                * kwargs:      Keyword arguments to pass to the parent constructor.
-            Out:
-                * A new instance of the class (we indicate None as return type per convention, see PEP-484).
+        Initializes a new instance of the class.
+
+        Args:
+            description: Fixed maze as a matrix.
+            *args:       Arguments to pass to the parent constructor.
+            **kwargs:    Keyword arguments to pass to the parent constructor.
         """
 
         # Inherit from parent class
@@ -92,12 +84,8 @@ class MazeFromMatrix (Maze):
                      ) ->    None:
 
         """
-            This method redefines the abstract method of the parent class.
-            Creates a maze from the description provided at initialization.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * None.
+        This method redefines the abstract method of the parent class.
+        Creates a maze from the description provided at initialization.
         """
 
         # Determine the vertices
@@ -116,7 +104,7 @@ class MazeFromMatrix (Maze):
 
         # Determine the dimensions of the maze
         self._width = max([abs(edge[1] - edge[0]) for edge in edges])
-        self._height = math.ceil((max(vertices) + 1) / self.width)
+        self._height = math.ceil((max(vertices) + 1) / self.get_width())
 
         # Add vertices and edges
         for vertex in vertices:

@@ -2,12 +2,10 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-"""
-    This file is part of the PyRat library.
-    It is meant to be used as a library, and not to be executed directly.
-    Please import necessary elements using the following syntax:
-        from pyrat import <element_name>
-"""
+# This file is part of the PyRat library.
+# It is meant to be used as a library, and not to be executed directly.
+# Please import necessary elements using the following syntax:
+#     from pyrat import <element_name>
 
 #####################################################################################################################################################
 ###################################################################### IMPORTS ######################################################################
@@ -50,21 +48,15 @@ from pyrat.src.utils import is_valid_directory
 class Game ():
 
     """
-        A game is a class that allows to play a game of PyRat.
-        It is initialized with the parameters of the game.
-        Players should then be added to the game using the add_player method.
-        Finally, the start method should be called to start the game.
-        Once the game is over, it will provide statistics about the game.
-        Set your own parameters to define interesting objectives for the players.
-    """
+    A game is a class that allows to play a game of PyRat.
+    It is initialized with the parameters of the game.
+    Players should then be added to the game using the add_player method.
+    Finally, the start method should be called to start the game.
+    Once the game is over, it will provide statistics about the game.
+    Set your own parameters to define interesting objectives for the players.
 
-    #############################################################################################################################################
-    #                                                              CLASS ATTRIBUTES                                                             #
-    #############################################################################################################################################
-    
-    """
-        To ease creating games, we provide a set of default parameters.
-        We do not put them in the constructor to be able to ckeck for valid configurations.
+    To ease creating games, we provide a set of default parameters.
+    These are used when the parameters are not set in the constructor.
     """
 
     DEFAULT_RANDOM_SEED = None
@@ -129,40 +121,36 @@ class Game ():
                  ) ->                     None:
 
         """
-            This function is the constructor of the class.
-            When an object is instantiated, this method is called to initialize the object.
-            This is where you should define the attributes of the object and set their initial values.
-            Assertions checked in the objects manipulated by the game are not checked again.
-            In:
-                * self:                  Reference to the current object.
-                * random_seed:           Global random seed for all elements, set to None for a random value.
-                * random_seed_maze:      Random seed for the maze generation, set to None for a random value.
-                * random_seed_cheese:    Random seed for the pieces of cheese distribution, set to None for a random value.
-                * random_seed_players:   Random seed for the initial location of players, set to None for a random value.
-                * maze_width:            Width of the maze in number of cells.
-                * maze_height:           Height of the maze in number of cells.
-                * cell_percentage:       Percentage of cells that can be accessed in the maze, 0%% being a useless maze, and 100%% being a full rectangular maze.
-                * wall_percentage:       Percentage of walls in the maze, 0%% being an empty maze, and 100%% being the maximum number of walls that keep the maze connected.
-                * mud_percentage:        Percentage of pairs of adjacent cells that are separated by mud in the maze.
-                * mud_range:             Interval of turns needed to cross mud.
-                * fixed_maze:            Fixed maze in any PyRat accepted representation (Maze, dictionary, numpy.ndarray or torch.tensor).
-                * random_maze_algorithm: Algorithm to generate the maze.
-                * nb_cheese:             Number of pieces of cheese in the maze.
-                * fixed_cheese:          Fixed list of cheese.
-                * render_mode:           Method to display the game.
-                * render_simplified:     If the maze is rendered, hides some elements that are not essential.
-                * rendering_speed:       When rendering as GUI or in the shell, controls the speed of the game (when rendering only).
-                * trace_length:          Maximum length of the trace to display when players are moving (GUI rendering only).
-                * fullscreen:            Renders the game in fullscreen mode (GUI rendering only).
-                * clear_shell_each_turn: Clears the shell each turn (shell rendering only).
-                * save_path:             Path where games are saved.
-                * save_game:             Indicates if the game should be saved.
-                * preprocessing_time:    Time given to the players before the game starts.
-                * turn_time:             Time after which players will miss a turn.
-                * game_mode:             Indicates if players play concurrently, wait for each other, or if multiprocessing is disabled.
-                * continue_on_error:     If a player crashes, continues the game anyway.
-            Out:
-                * A new instance of the class (we indicate None as return type per convention, see PEP-484).
+        Initializes a new instance of the class.
+        Any unset parameter will be set to its default value defined in the class.
+
+        Args:
+            random_seed:           Global random seed for all elements, or None for a random value.
+            random_seed_maze:      Random seed for maze generation, or None for a random value.
+            random_seed_cheese:    Random seed for cheese distribution, or None for a random value.
+            random_seed_players:   Random seed for initial player locations, or None for a random value.
+            maze_width:            Width of the maze (number of cells).
+            maze_height:           Height of the maze (number of cells).
+            cell_percentage:       Percentage of accessible cells in the maze (0% = useless maze, 100% = full rectangle).
+            wall_percentage:       Percentage of walls in the maze (0% = empty, 100% = max walls while connected).
+            mud_percentage:        Percentage of adjacent cell pairs separated by mud.
+            mud_range:             Interval of turns needed to cross mud.
+            fixed_maze:            Fixed maze in any PyRat-accepted representation (Maze, dict, numpy.ndarray, or torch.tensor).
+            random_maze_algorithm: Algorithm to generate the maze.
+            nb_cheese:             Number of pieces of cheese in the maze.
+            fixed_cheese:          Fixed list of cheese locations.
+            render_mode:           Method to display the game.
+            render_simplified:     If True, hides non-essential elements in rendering.
+            rendering_speed:       Controls the speed of the game when rendering.
+            trace_length:          Maximum trace length to display (GUI rendering only).
+            fullscreen:            If True, renders the game in fullscreen (GUI only).
+            clear_shell_each_turn: If True, clears the shell each turn (shell rendering only).
+            save_path:             Path where games are saved.
+            save_game:             If True, saves the game.
+            preprocessing_time:    Time given to players before the game starts.
+            turn_time:             Time after which players miss a turn.
+            game_mode:             Indicates concurrency mode for players.
+            continue_on_error:     If True, continues the game if a player crashes.
         """
         
         # Debug
@@ -255,12 +243,10 @@ class Game ():
                 ) ->    str:
 
         """
-            This method returns a string representation of the object.
-            This defines what will be shown when calling print on the object.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * string: String representation of the object.
+        Returns a string representation of the object.
+
+        Returns:
+            String representation of the object.
         """
         
         # Create the string
@@ -294,27 +280,6 @@ class Game ():
         return string
 
     #############################################################################################################################################
-    #                                                            ATTRIBUTE ACCESSORS                                                            #
-    #############################################################################################################################################
-
-    @property
-    def maze ( self: Self
-             ) ->    Maze:
-        
-        """
-            Getter for __maze.
-            It returns a copy of the maze attribute.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * maze_copy: Copy of the __maze attribute.
-        """
-
-        # Return the attribute
-        maze_copy = copy.deepcopy(self.__maze)
-        return maze_copy
-    
-    #############################################################################################################################################
     #                                                              PUBLIC METHODS                                                              #
     #############################################################################################################################################
 
@@ -325,14 +290,12 @@ class Game ():
                    ) ->        None:
         
         """
-            Adds a player to the game.
-            In:
-                * self:     Reference to the current object.
-                * player:   Player to add.
-                * team:     Team of the player.
-                * location: Controls initial location of the player (fixed index, or value of the StartingLocation enumeration).
-            Out:
-                * None.
+        Adds a player to the game.
+
+        Args:
+            player:   Player to add.
+            team:     Team of the player.
+            location: Initial location of the player (fixed index or value of the StartingLocation enumeration).
         """
 
         # Debug
@@ -347,25 +310,25 @@ class Game ():
         self.__players_asked_location.append(location)
         corrected_location = location
         if location == StartingLocation.RANDOM:
-            corrected_location = self.__players_rng.choice(self.__maze.vertices)
+            corrected_location = self.__players_rng.choice(self.__maze.get_vertices())
         elif location == StartingLocation.SAME:
             corrected_location = list(self.__initial_game_state.player_locations.values())[-1]
         elif location == StartingLocation.CENTER:
-            corrected_location = self.__maze.rc_to_i(self.__maze.height // 2, self.__maze.width // 2)
+            corrected_location = self.__maze.rc_to_i(self.__maze.get_height() // 2, self.__maze.get_width() // 2)
         elif location == StartingLocation.TOP_LEFT:
             corrected_location = self.__maze.rc_to_i(0, 0)
         elif location == StartingLocation.TOP_RIGHT:
-            corrected_location = self.__maze.rc_to_i(0, self.__maze.width - 1)
+            corrected_location = self.__maze.rc_to_i(0, self.__maze.get_width() - 1)
         elif location == StartingLocation.BOTTOM_LEFT:
-            corrected_location = self.__maze.rc_to_i(self.__maze.height - 1, 0)
+            corrected_location = self.__maze.rc_to_i(self.__maze.get_height() - 1, 0)
         elif location == StartingLocation.BOTTOM_RIGHT:
-            corrected_location = self.__maze.rc_to_i(self.__maze.height - 1, self.__maze.width - 1)
+            corrected_location = self.__maze.rc_to_i(self.__maze.get_height() - 1, self.__maze.get_width() - 1)
         
         # If the location is not reachable, we choose the closest reachable location
         if self.__maze.i_exists(corrected_location):
             self.__initial_game_state.player_locations[player.name] = corrected_location
         else:
-            valid_cells = self.__maze.vertices
+            valid_cells = self.__maze.get_vertices()
             distances = [math.dist(self.__maze.i_to_rc(corrected_location), self.__maze.i_to_rc(cell)) for cell in valid_cells]
             _, argmin_distance = min((val, idx) for (idx, val) in enumerate(distances))
             self.__initial_game_state.player_locations[player.name] = valid_cells[argmin_distance]
@@ -386,18 +349,31 @@ class Game ():
         
     #############################################################################################################################################
     
+    def get_maze ( self: Self
+                 ) ->    Maze:
+        
+        """
+        Returns a copy of the maze used in the game.
+
+        Returns:
+            A copy of the maze.
+        """
+
+        # Return the attribute
+        maze_copy = copy.deepcopy(self.__maze)
+        return maze_copy
+    
+    #############################################################################################################################################
+
     def reset ( self:         Self,
                 keep_players: bool = True
               ) ->            None:
         
         """
-            Resets the game to its initial state.
-            If random seeds were set, they will be kept, otherwise they will be randomly generated using the configuration provided when the game was created.
-            If asked, it will keep players and will insert them as they were added.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * None.
+        Resets the game to its initial state.
+        
+        Args:
+            keep_players: If True, keeps the players in the game, otherwise removes them.
         """
         
         # Debug
@@ -459,11 +435,10 @@ class Game ():
               ) ->    Dict[str, Any]:
 
         """
-            Starts a game, asking players for decisions until the game is over.
-            In:
-                * self: Reference to the current object.
-            Out:
-                * stats: Game statistics computed during the game.
+        Starts a game, asking players for decisions until the game is over.
+
+        Returns:
+            Game statistics computed during the game.
         """
         
         # Debug
@@ -519,7 +494,7 @@ class Game ():
                         waiter_processes[player.name]["process"].start()
 
             # Add cheese
-            available_cells = [i for i in self.__maze.vertices if i not in self.__initial_game_state.player_locations.values()]
+            available_cells = [i for i in self.__maze.get_vertices() if i not in self.__initial_game_state.player_locations.values()]
             self.__initial_game_state.cheese.extend(self.__distribute_cheese(available_cells))
             game_state = copy.deepcopy(self.__initial_game_state)
             
@@ -638,12 +613,10 @@ class Game ():
               ) ->            None:
         
         """
-            Actions to do at the end of the game if needed.
-            In:
-                * self:         Reference to the current object.
-                * game_crashed: Indicates if the game crashed.
-            Out:
-                * None.
+        Actions to perform at the end of the game if needed.
+
+        Args:
+            game_crashed: Indicates if the game crashed.
         """
 
         # Debug
@@ -695,13 +668,14 @@ class Game ():
                                    ) ->          GameState:
         
         """
-            Updates the game state after a turn, given decisions of players.
-            In:
-                * self:       Reference to the current object.
-                * game_state: Current game state.
-                * actions:    Action performed per player.
-            Out:
-                * new_game_state: New game state after the turn.
+        Updates the game state after a turn, given decisions of players.
+
+        Args:
+            game_state: Current game state.
+            actions:    Action performed per player.
+
+        Returns:
+            New game state after the turn.
         """
 
         # Debug
@@ -720,11 +694,11 @@ class Game ():
             target = None
             if actions[player.name] == Action.NORTH and row > 0:
                 target = self.__maze.rc_to_i(row - 1, col)
-            elif actions[player.name] == Action.SOUTH and row < self.__maze.height - 1:
+            elif actions[player.name] == Action.SOUTH and row < self.__maze.get_height() - 1:
                 target = self.__maze.rc_to_i(row + 1, col)
             elif actions[player.name] == Action.WEST and col > 0:
                 target = self.__maze.rc_to_i(row, col - 1)
-            elif actions[player.name] == Action.EAST and col < self.__maze.width - 1:
+            elif actions[player.name] == Action.EAST and col < self.__maze.get_width() - 1:
                 target = self.__maze.rc_to_i(row, col + 1)
             if target is not None and self.__maze.i_exists(target) and self.__maze.has_edge(game_state.player_locations[player.name], target):
                 weight = self.__maze.get_weight(game_state.player_locations[player.name], target)
@@ -765,14 +739,15 @@ class Game ():
                             ) ->               List[Integral]:
         
         """
-            Distributes pieces of cheese in the maze, according to the provided criteria.
-            If a fixed list of cheese was provided, it is used.
-            Otherwise, the cheese is distributed randomly.
-            In:
-                * self:            Reference to the current object.
-                * available_cells: List of indices of cells that can be used to place cheese.
-            Out:
-                * cheese: List of indices of cells containing cheese.
+        Distributes pieces of cheese in the maze, according to the provided criteria.
+        If a fixed list of cheese was provided, it is used.
+        Otherwise, the cheese is distributed randomly.
+
+        Args:
+            available_cells: List of indices of cells that can be used to place cheese.
+
+        Returns:
+            List of indices of cells containing cheese.
         """
         
         # Debug
@@ -826,24 +801,26 @@ def _player_process_function ( player:                  Player,
                              ) ->                       Tuple[str, str, Optional[float]]:
     
     """
-        This function is executed in a separate process per player.
-        It handles the communication with the player and calls the functions given as arguments.
-        It is defined outside of the class due to multiprocessing limitations.
-        If not using multiprocessing, the function returns the action and the duration of the turn.
-        In:
-            * player:                  Player controlled by the process.
-            * maze:                    Maze in which the player plays.
-            * input_queue:             Queue to receive the game state (set if multiprocessing).
-            * output_queue:            Queue to send the action (set if multiprocessing).
-            * turn_start_synchronizer: Barrier to synchronize the start of the turn (set if multiprocessing).
-            * turn_timeout_lock:       Lock to synchronize the timeout of the turn (set if multiprocessing).
-            * turn_end_synchronizer:   Barrier to synchronize the end of the turn (set if multiprocessing).
-            * game_state:              Initial game state (set if sequential).
-            * final_stats:             Final stats (set if sequential).
-        Out:
-            * action:     Action performed by the player.
-            * game_phase: Phase of the game in which the player is.
-            * duration:   Duration of the turn.
+    This function is executed in a separate process per player.
+    It handles the communication with the player and calls the functions given as arguments.
+    It is defined outside of the class due to multiprocessing limitations.
+    If not using multiprocessing, the function returns the action and the duration of the turn.
+
+    Args:
+        player:                  Player controlled by the process.
+        maze:                    Maze in which the player plays.
+        input_queue:             Queue to receive the game state (set if multiprocessing).
+        output_queue:            Queue to send the action (set if multiprocessing).
+        turn_start_synchronizer: Barrier to synchronize the start of the turn (set if multiprocessing).
+        turn_timeout_lock:       Lock to synchronize the timeout of the turn (set if multiprocessing).
+        turn_end_synchronizer:   Barrier to synchronize the end of the turn (set if multiprocessing).
+        game_state:              Initial game state (set if sequential).
+        final_stats:             Final stats (set if sequential).
+
+    Returns:
+        Action performed by the player.
+        Phase of the game in which the player is.
+        Duration of the turn.
     """
 
     # Debug
@@ -939,14 +916,13 @@ def _waiter_process_function ( input_queue:             multiprocessing.Queue,
                              ) ->                       None:
     
     """
-        This function is executed in a separate process per player.
-        It handles the timeouts of the player.
-        It is defined outside of the class due to multiprocessing limitations.
-        In:
-            * input_queue:             Queue to receive the game state.
-            * turn_start_synchronizer: Barrier to synchronize the start of the turn.
-        Out:
-            * None.
+    This function is executed in a separate process per player.
+    It handles the timeouts of the player.
+    It is defined outside of the class due to multiprocessing limitations.
+
+    Args:
+        input_queue:             Queue to receive the game state.
+        turn_start_synchronizer: Barrier to synchronize the start of the turn.
     """
 
     # Debug
