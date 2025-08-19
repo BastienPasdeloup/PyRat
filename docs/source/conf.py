@@ -7,7 +7,7 @@ import os
 import sys
 
 # Ajouter le chemin vers le module pyrat
-sys.path.insert(0, os.path.abspath(".."))
+sys.path.insert(0, os.path.abspath("../../pyrat/src"))
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -31,6 +31,7 @@ extensions = [
 templates_path = ['_templates']
 exclude_patterns = []
 
+autosummary_generate = True
 
 
 # -- Options for HTML output -------------------------------------------------
