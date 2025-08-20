@@ -15,7 +15,7 @@
     <table>
         <tr>
             <td align="center">
-                <img height="350px" src="https://github.com/BastienPasdeloup/PyRat/blob/master/pyrat/gui/drawings/pyrat.png">
+                <img height="350px" src="https://raw.githubusercontent.com/BastienPasdeloup/PyRat/refs/heads/master/pyrat/gui/drawings/pyrat.png">
             </td>
             <td align="center">
                 <h1>PyRat</h1>

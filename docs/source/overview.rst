@@ -150,7 +150,7 @@ A PyRat game consists in four phases:
 2. **Preprocessing**: When the game starts, players are given some time to make computations and prepare their strategies.
    The duration of this phase can be set in the game settings using the ``preprocessing_time`` argument.
    During this phase, players can analyze the maze, plan their moves, and prepare for the game.
-   To describe what to do during this phase, you should implement the ``preprocessing`` method in your player class.
+   To describe what to do during this phase, you should implement the ``preprocessing()`` method in your player class.
 
    .. code-block:: python
 
