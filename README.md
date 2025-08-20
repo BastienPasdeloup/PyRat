@@ -15,7 +15,7 @@
     <table>
         <tr>
             <td align="center">
-                <img height="350px" src="https://hub.imt-atlantique.fr/ueinfo-fise1a/images/s5/project/pyrat.png">
+                <img height="350px" src="https://github.com/BastienPasdeloup/PyRat/raw/main/pyrat/gui/drawings/pyrat.png">
             </td>
             <td align="center">
                 <h1>PyRat</h1>
@@ -31,7 +31,7 @@
     </table>
 </div>
 
-# 1 – Prerequisites
+# Prerequisites
 
 - This installation procedure assumes that you have basic knowledge about shell manipulation.
 
@@ -42,7 +42,7 @@
   Please make sure it is already installed, or install it from the [official website](https://code.visualstudio.com/).
   Note that you can use a different tool if you want, but we just provide indications for that one here.
 
-# 2 – Install the PyRat package
+# Install the PyRat package
 
 Installation of the PyRat software can be done directly using `pip`. \
 To do so, follow steps:
@@ -62,7 +62,7 @@ Installing collected packages: pyrat-game
 Successfully installed pyrat-game-6.0.0
 ```
 
-# 3 – Setup your PyRat workspace
+# Setup your PyRat workspace
 
 We are now going to create a workspace for PyRat. \
 This is a directory that contains minimal working examples to get started. \
@@ -81,7 +81,7 @@ Workspace created in /path/to/pyrat_workspace`
 Workspace added to Python path
 ```
 
-# 4 – Check your installation
+# Check your installation
 
 Now, we are going to verify that PyRat works properly. \
 To do so, follow these steps:
@@ -92,9 +92,9 @@ To do so, follow these steps:
 
 You should see something like this:
 
-<img src="https://hub.imt-atlantique.fr/ueinfo-fise1a/images/s5/project/pyrat_interface.png" />
+![](https://github.com/BastienPasdeloup/PyRat/raw/main/docs/source/_static/pyrat_interface.png)
 
-# 5 – Troubleshooting
+# Troubleshooting
 
 - In case of a problem, please check the existing [GitHub issues](https://github.com/BastienPasdeloup/PyRat/issues) first.
 

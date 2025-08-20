@@ -1,8 +1,12 @@
-PyRat
-=====
+PyRat API
+=========
+
+This section gives the documentation for functions and classes in the PyRat library.
+All modules below are part of the PyRat library and can be used to create and manipulate mazes, players, etc.
+To use any of them, you can import them as follows: ``from pyrat import <module_name>``.
 
 .. toctree::
-   :maxdepth: 99
+   :maxdepth: 1
 
    BigHolesRandomMaze
    FixedPlayer
@@ -14,11 +18,10 @@ PyRat
    MazeFromDict
    MazeFromMatrix
    Player
-   PyGameRenderingEngine
+   PygameRenderingEngine
    RandomMaze
    RenderingEngine
    ShellRenderingEngine
    UniformHolesRandomMaze
    enums
-   sample_game
    utils

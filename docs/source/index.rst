@@ -1,23 +1,34 @@
 PyRat Documentation
 ===================
 
-Overview
---------
+Welcome to the PyRat documentation website!
+This documentation is designed to help you understand and use the PyRat library effectively.
+It includes detailed information about the PyRat API, workspace API, and other relevant topics.
 
-PyRat is a teaching-oriented Python software developed at IMT Atlantique.
+Website Organization
+--------------------
 
-PyRat API
----------
+On this website, you will find the following sections:
+
+- :doc:`Install PyRat <install>`: Instructions on how to install the PyRat library and set up your workspace.
+- :doc:`Quick Overview <overview>`: An overview of the PyRat library, including its main components and how they interact.
+- :doc:`Tutorials <tutorials/index>`: A collection of tutorials that guide you through some desired use cases of the PyRat library.
+- :doc:`PyRat API <pyrat/index>`: Detailed documentation of the PyRat API, including classes, functions, and modules.
+- :doc:`Workspace API <workspace/index>`: Information about the PyRat workspace API, where you can store your games and players.
+
+Additionally, here are some general useful links:
+
+- `PyRat GitHub repository <https://github.com/BastienPasdeloup/PyRat>`_.
+- `GitHub issues <https://github.com/BastienPasdeloup/PyRat/issues>`_.
+- `PyRat documentation <https://bastienpasdeloup.github.io/PyRat/>`_.
+- `PyRat on PyPI <https://pypi.org/project/pyrat-game/>`_.
+- `IMT Atlantique course page <https://hub.imt-atlantique.fr/ueinfo-fise1a/>`_.
 
 .. toctree::
-   :maxdepth: 2
+   :hidden:
 
+   install
+   overview
+   tutorials/index
    pyrat/index
-
-Workspace API
--------------
-
-.. toctree::
-   :maxdepth: 3
-
    workspace/index
