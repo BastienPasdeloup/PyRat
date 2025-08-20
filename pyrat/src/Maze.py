@@ -18,9 +18,7 @@ In a maze, each vertex is placed on a grid and can only be connected along the c
 #####################################################################################################################################################
 
 # External imports
-from typing import *
-from typing_extensions import *
-from numbers import *
+from collections.abc import Hashable
 import abc
 
 # Numpy is an optional dependency
@@ -59,11 +57,11 @@ class Maze (Graph, abc.ABC):
     #                                                               MAGIC METHODS                                                               #
     #############################################################################################################################################
 
-    def __init__ ( self:     Self,
-                   width:    Optional[Integral] = None,
-                   height:   Optional[Integral] = None,
-                   *args:    Any,
-                   **kwargs: Any
+    def __init__ ( self,
+                   width:    int | None = None,
+                   height:   int | None = None,
+                   *args:    object,
+                   **kwargs: object
                  ) ->        None:
 
         """
@@ -82,8 +80,8 @@ class Maze (Graph, abc.ABC):
         super().__init__(*args, **kwargs)
         
         # Debug
-        assert isinstance(width, (Integral, type(None))), "Argument 'width' must be an integer or None"
-        assert isinstance(height, (Integral, type(None))), "Argument 'height' must be an integer or None"
+        assert isinstance(width, (int, type(None))), "Argument 'width' must be an integer or None"
+        assert isinstance(height, (int, type(None))), "Argument 'height' must be an integer or None"
         assert width is None or width > 0, "Width must be positive"
         assert height is None or height > 0, "Height must be positive"
         assert (width is None and height is None) or width * height >= 2, "The maze must have at least 2 cells"
@@ -94,8 +92,7 @@ class Maze (Graph, abc.ABC):
 
     #############################################################################################################################################
 
-    def __str__ ( self: Self,
-                ) ->    str:
+    def __str__ (self) -> str:
 
         """
         Returns a string representation of the object.
@@ -121,11 +118,10 @@ class Maze (Graph, abc.ABC):
     #                                                               PUBLIC METHODS                                                              #
     #############################################################################################################################################
 
-    @override
-    def add_edge ( self:     Self,
-                   vertex_1: Integral,
-                   vertex_2: Integral,
-                   weight:   Integral = 1
+    def add_edge ( self,
+                   vertex_1: int,
+                   vertex_2: int,
+                   weight:   int = 1
                  ) ->        None:
 
         """
@@ -143,9 +139,9 @@ class Maze (Graph, abc.ABC):
         """
         
         # Debug
-        assert isinstance(vertex_1, Integral), "Argument 'vertex_1' must be an integer"
-        assert isinstance(vertex_2, Integral), "Argument 'vertex_2' must be an integer"
-        assert isinstance(weight, Integral), "Argument 'weight' must be an integer"
+        assert isinstance(vertex_1, int), "Argument 'vertex_1' must be an integer"
+        assert isinstance(vertex_2, int), "Argument 'vertex_2' must be an integer"
+        assert isinstance(weight, int), "Argument 'weight' must be an integer"
         assert self.i_exists(vertex_1), "Vertex 1 is not in the maze"
         assert self.i_exists(vertex_2), "Vertex 2 is not in the maze"
         assert self.coords_difference(vertex_1, vertex_2) in [(0, 1), (0, -1), (1, 0), (-1, 0)], "Vertices are not adjacent"
@@ -155,13 +151,12 @@ class Maze (Graph, abc.ABC):
             return
 
         # Add edge to the graph using the parent's method
-        super().add_edge(vertex_1, vertex_2, weight, True)
+        super().add_edge(vertex_1, vertex_2, float(weight), True)
     
     #############################################################################################################################################
 
-    @override
-    def add_vertex ( self:   Self,
-                     vertex: Integral
+    def add_vertex ( self,
+                     vertex: int
                    ) ->      None:
 
         """
@@ -175,16 +170,14 @@ class Maze (Graph, abc.ABC):
         """
         
         # Debug
-        assert isinstance(vertex, Integral), "Argument 'vertex' must be an integer"
+        assert isinstance(vertex, int), "Argument 'vertex' must be an integer"
 
         # Add vertex to the graph using the parent's method
         super().add_vertex(vertex)
         
     #############################################################################################################################################
 
-    @override
-    def as_numpy_ndarray ( self: Self,
-                         ) ->    Any:
+    def as_numpy_ndarray (self) -> object:
 
         """
         *(This method redefines the method of the parent class with the same name).*
@@ -193,7 +186,7 @@ class Maze (Graph, abc.ABC):
         Entries are given in order of the indices of the vertices.
 
         Returns:
-            A ``numpy.ndarray`` representing the adjacency matrix (return type is ``Any`` to allow ``numpy`` to be optional).
+            A ``numpy.ndarray`` representing the adjacency matrix (return type is ``object`` to allow ``numpy`` to be optional).
         """
         
         # Debug
@@ -208,9 +201,7 @@ class Maze (Graph, abc.ABC):
 
     #############################################################################################################################################
 
-    @override
-    def as_torch_tensor ( self: Self,
-                        ) ->    Any:
+    def as_torch_tensor (self) -> object:
 
         """
         *(This method redefines the method of the parent class with the same name).*
@@ -234,10 +225,10 @@ class Maze (Graph, abc.ABC):
 
     #############################################################################################################################################
 
-    def coords_difference ( self:     Self,
-                            vertex_1: Integral,
-                            vertex_2: Integral,
-                          ) ->        Tuple[Integral, Integral]:
+    def coords_difference ( self,
+                            vertex_1: int,
+                            vertex_2: int,
+                          ) ->        tuple[int, int]:
         
         """
         Computes the difference between the coordinates of two cells.
@@ -251,8 +242,8 @@ class Maze (Graph, abc.ABC):
         """
         
         # Debug
-        assert isinstance(vertex_1, Integral), "Argument 'vertex_1' must be an integer"
-        assert isinstance(vertex_2, Integral), "Argument 'vertex_2' must be an integer"
+        assert isinstance(vertex_1, int), "Argument 'vertex_1' must be an integer"
+        assert isinstance(vertex_2, int), "Argument 'vertex_2' must be an integer"
         assert self.i_exists(vertex_1), "Vertex 1 is not in the maze"
         assert self.i_exists(vertex_2), "Vertex 2 is not in the maze"
 
@@ -267,8 +258,7 @@ class Maze (Graph, abc.ABC):
     
     #############################################################################################################################################
 
-    def get_height ( self: Self
-                   ) ->    Integral:
+    def get_height (self) -> int:
         
         """
         Returns the height of the maze.
@@ -279,15 +269,36 @@ class Maze (Graph, abc.ABC):
         """
 
         # Debug
-        assert isinstance(self._height, Integral), "Height has not yet been set or inferred"
+        assert isinstance(self._height, int), "Height has not yet been set or inferred"
 
         # Return the attribute
         return self._height
 
     #############################################################################################################################################
 
-    def get_width ( self: Self
-                  ) ->    Integral:
+    def get_weight ( self,
+                     vertex_1: Hashable,
+                     vertex_2: Hashable
+                   ) ->        int:
+
+        """
+        Returns the weight of an edge.
+
+        Args:
+            vertex_1: First vertex.
+            vertex_2: Second vertex.
+
+        Returns:
+            Weight of the edge.
+        """
+        
+        # A generic graph manipulates floats, but a maze only uses integers
+        weight = int(super().get_weight(vertex_1, vertex_2))
+        return weight
+
+    #############################################################################################################################################
+
+    def get_width (self) -> int:
         
         """
         Returns the width of the maze.
@@ -298,15 +309,15 @@ class Maze (Graph, abc.ABC):
         """
 
         # Debug
-        assert isinstance(self._width, Integral), "Width has not yet been set or inferred"
+        assert isinstance(self._width, int), "Width has not yet been set or inferred"
 
         # Return the attribute
         return self._width
 
     #############################################################################################################################################
     
-    def i_exists ( self:  Self,
-                   index: Integral
+    def i_exists ( self,
+                   index: int
                  ) ->     bool:
         
         """
@@ -320,7 +331,7 @@ class Maze (Graph, abc.ABC):
         """
         
         # Debug
-        assert isinstance(index, Integral), "Argument 'index' must be an integer"
+        assert isinstance(index, int), "Argument 'index' must be an integer"
 
         # Check if the cell exists
         exists = index in self.get_vertices()
@@ -328,9 +339,9 @@ class Maze (Graph, abc.ABC):
     
     #############################################################################################################################################
 
-    def i_to_rc ( self:  Self,
-                  index: Integral,
-                ) ->     Tuple[Integral, Integral]:
+    def i_to_rc ( self,
+                  index: int,
+                ) ->     tuple[int, int]:
         
         """
         Transforms a maze index into a ``(row, col)`` pair.
@@ -344,7 +355,7 @@ class Maze (Graph, abc.ABC):
         """
         
         # Debug
-        assert isinstance(index, Integral), "Argument 'index' must be an integer"
+        assert isinstance(index, int), "Argument 'index' must be an integer"
 
         # Conversion
         row = index // self.get_width()
@@ -353,10 +364,10 @@ class Maze (Graph, abc.ABC):
     
     #############################################################################################################################################
     
-    def rc_exists ( self: Self,
-                    row:  Integral,
-                    col:  Integral,
-                  ) ->    bool:
+    def rc_exists ( self,
+                    row: int,
+                    col: int,
+                  ) ->   bool:
         
         """
         Checks if a given ``(row, col)`` pair corresponds to a valid cell in the maze.
@@ -370,20 +381,20 @@ class Maze (Graph, abc.ABC):
         """
         
         # Debug
-        assert isinstance(row, Integral), "Argument 'row' must be an integer"
-        assert isinstance(col, Integral), "Argument 'col' must be an integer"
+        assert isinstance(row, int), "Argument 'row' must be an integer"
+        assert isinstance(col, int), "Argument 'col' must be an integer"
 
         # Check if the cell exists
         exists = 0 <= row < self.get_height() and 0 <= col < self.get_width() and self.rc_to_i(row, col) in self.get_vertices()
         return exists
     
     #############################################################################################################################################
-        
-    def rc_to_i ( self: Self,
-                  row:  Integral,
-                  col:  Integral,
-                ) ->    Integral:
-        
+
+    def rc_to_i ( self,
+                  row: int,
+                  col: int,
+                ) ->   int:
+
         """
         Transforms a ``(row, col)`` pair of maze coordinates (lexicographic order) into a maze index.
         Does not check if the cell exists.
@@ -397,8 +408,8 @@ class Maze (Graph, abc.ABC):
         """
         
         # Debug
-        assert isinstance(row, Integral), "Argument 'row' must be an integer"
-        assert isinstance(col, Integral), "Argument 'col' must be an integer"
+        assert isinstance(row, int), "Argument 'row' must be an integer"
+        assert isinstance(col, int), "Argument 'col' must be an integer"
 
         # Conversion
         index = row * self.get_width() + col
@@ -406,10 +417,10 @@ class Maze (Graph, abc.ABC):
     
     #############################################################################################################################################
 
-    def locations_to_action ( self:   Self,
-                              source: Integral,
-                              target: Integral
-                            ) ->      Optional[Action]: 
+    def locations_to_action ( self,
+                              source: int,
+                              target: int
+                            ) ->      Action | None:
 
         """
         Transforms two locations into the action required to reach the target from the source.
@@ -423,8 +434,8 @@ class Maze (Graph, abc.ABC):
         """
 
         # Debug
-        assert isinstance(source, Integral), "Argument 'source' must be an integer"
-        assert isinstance(target, Integral), "Argument 'target' must be an integer"
+        assert isinstance(source, int), "Argument 'source' must be an integer"
+        assert isinstance(target, int), "Argument 'target' must be an integer"
         assert self.i_exists(source), "Source is not in the maze"
         assert self.i_exists(target), "Target is not in the maze"
 
@@ -448,9 +459,9 @@ class Maze (Graph, abc.ABC):
 
     #############################################################################################################################################
 
-    def locations_to_actions ( self:      Self,
-                               locations: List[Integral]
-                             ) ->         List[Optional[Action]]:
+    def locations_to_actions ( self,
+                               locations: list[int]
+                             ) ->         list[Action | None]:
 
         """
         Transforms a list of locations into a list of actions to go from one location to the next.
@@ -464,7 +475,7 @@ class Maze (Graph, abc.ABC):
 
         # Debug
         assert isinstance(locations, list), "Argument 'locations' must be a list"
-        assert all(isinstance(location, Integral) for location in locations), "All elements of 'locations' must be integers"
+        assert all(isinstance(location, int) for location in locations), "All elements of 'locations' must be integers"
         assert all(self.i_exists(location) for location in locations), "Some locations are not in the maze"
         assert None not in [self.locations_to_action(locations[i], locations[i+1]) for i in range(len(locations) - 1)], "Some moves are impossible"
 
@@ -477,8 +488,7 @@ class Maze (Graph, abc.ABC):
     #############################################################################################################################################
 
     @abc.abstractmethod
-    def _create_maze ( self: Self,
-                     ) ->    None:
+    def _create_maze (self) -> None:
         
         """
         *(This method is abstract and must be implemented in the subclasses).*

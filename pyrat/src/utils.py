@@ -9,8 +9,7 @@
 
 """
 This module provides utility functions for the PyRat library.
-It includes functions to create a workspace, get the caller file, get PyRat files, and check if a directory is valid.
-Except for the ``create_workspace()`` function, which is meant to be called just at the beginning of a PyRat project, all other functions are mostly for internal use.
+It includes mainly a function to create a workspace, which is meant to be called just at the beginning of a PyRat project.
 """
 
 #####################################################################################################################################################
@@ -18,13 +17,9 @@ Except for the ``create_workspace()`` function, which is meant to be called just
 #####################################################################################################################################################
 
 # External imports
-from typing import *
 import pyfakefs.fake_filesystem_unittest
-from typing_extensions import *
-from numbers import *
 import os
 import shutil
-import inspect
 import pathlib
 import sys
 import pyfakefs
@@ -32,22 +27,6 @@ import site
 
 #####################################################################################################################################################
 ##################################################################### FUNCTIONS #####################################################################
-#####################################################################################################################################################
-
-def caller_file () -> pathlib.Path:
-
-    """
-    Returns the path to the file from which the caller of this function was called.
-
-    Returns:
-        The path to the file from which the caller of this function was called.
-    """
-
-    # Check stack to get the file name
-    caller = inspect.currentframe().f_back.f_back.f_code.co_filename
-    file_path = pathlib.Path(caller)
-    return file_path
-
 #####################################################################################################################################################
 
 def create_workspace ( target_directory: str
@@ -112,22 +91,6 @@ def is_valid_directory ( directory: str
     
     # Done
     return valid
-
-#####################################################################################################################################################
-
-def pyrat_files () -> List[pathlib.Path]:
-
-    """
-    Returns the list of all the paths to files in the PyRat library.
-
-    Returns:
-        The list of all the paths to files in the PyRat library.
-    """
-
-    # Get the list of all the files in the PyRat library
-    pyrat_path = os.path.dirname(os.path.realpath(__file__))
-    file_paths = [pathlib.Path(os.path.join(pyrat_path, file)) for file in os.listdir(pyrat_path) if file.endswith(".py")]
-    return file_paths
 
 #####################################################################################################################################################
 #####################################################################################################################################################

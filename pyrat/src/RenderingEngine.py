@@ -17,11 +17,6 @@ The default implementation does nothing, but subclasses can override the `render
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
 
-# External imports
-from typing import *
-from typing_extensions import *
-from numbers import *
-
 # PyRat imports
 from pyrat.src.Player import Player
 from pyrat.src.Maze import Maze
@@ -43,8 +38,8 @@ class RenderingEngine ():
     #                                                               MAGIC METHODS                                                               #
     #############################################################################################################################################
 
-    def __init__ ( self:              Self,
-                   rendering_speed:   Number = 1.0,
+    def __init__ ( self,
+                   rendering_speed:   float = 1.0,
                    render_simplified: bool = False
                  ) ->                 None:
 
@@ -58,7 +53,7 @@ class RenderingEngine ():
 
         # Debug
         assert isinstance(render_simplified, bool), "Argument 'render_simplified' must be a boolean"
-        assert isinstance(rendering_speed, Number), "Argument 'gui_speed' must be a real number"
+        assert isinstance(rendering_speed, float), "Argument 'gui_speed' must be a real number"
         assert rendering_speed > 0.0, "Argument 'gui_speed' must be positive"
 
         # Protected attributes
@@ -69,8 +64,7 @@ class RenderingEngine ():
     #                                                               PUBLIC METHODS                                                              #
     #############################################################################################################################################
 
-    def end ( self: Self,
-            ) ->    None:
+    def end (self) -> None:
         
         """
         This method does nothing.
@@ -82,8 +76,8 @@ class RenderingEngine ():
 
     #############################################################################################################################################
     
-    def render ( self:       Self,
-                 players:    List[Player],
+    def render ( self,
+                 players:    list[Player],
                  maze:       Maze,
                  game_state: GameState,
                ) ->          None:

@@ -18,9 +18,6 @@ It is a simple player that does not take into account the maze structure.
 #####################################################################################################################################################
 
 # External imports
-from typing import *
-from typing_extensions import *
-from numbers import *
 import random
 
 # PyRat imports
@@ -44,9 +41,9 @@ class Random1 (Player):
     #                                                                CONSTRUCTOR                                                                #
     #############################################################################################################################################
 
-    def __init__ ( self:     Self,
-                   *args:    Any,
-                   **kwargs: Any
+    def __init__ ( self,
+                   *args:    object,
+                   **kwargs: object
                  ) ->        None:
 
         """
@@ -66,8 +63,7 @@ class Random1 (Player):
     #                                                               PYRAT METHODS                                                               #
     #############################################################################################################################################
 
-    @override
-    def turn ( self:       Self,
+    def turn ( self,
                maze:       Maze,
                game_state: GameState,
              ) ->          Action:
@@ -94,8 +90,7 @@ class Random1 (Player):
     #                                                               OTHER METHODS                                                               #
     #############################################################################################################################################
 
-    def find_next_action ( self: Self
-                         ) ->    Action:
+    def find_next_action (self) -> Action:
 
         """
         This method returns an action to perform among the possible actions, defined in the ``Action`` enumeration.

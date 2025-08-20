@@ -25,7 +25,7 @@ from .src.RandomMaze import RandomMaze
 from .src.RenderingEngine import RenderingEngine
 from .src.ShellRenderingEngine import ShellRenderingEngine
 from .src.UniformHolesRandomMaze import UniformHolesRandomMaze
-from .src.utils import caller_file, create_workspace, is_valid_directory, pyrat_files
+from .src.utils import create_workspace, is_valid_directory
 from .src.enums import Action, GameMode, PlayerSkin, RandomMazeAlgorithm, RenderMode, StartingLocation
 
 #####################################################################################################################################################

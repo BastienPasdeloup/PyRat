@@ -9,7 +9,7 @@
 #     from players.<player_name> import <player_name>
 
 """
-In this script, we visualize three players in the same maze, one after the other.
+In this script, we visualize four players in the same maze, one after the other.
 Each player is a random player that performs random actions.
 This is useful to see how the players behave in the same environment.
 The maze is the same for all players, thanks to a fixed random seed.
@@ -27,6 +27,7 @@ from pyrat import Game, StartingLocation
 from players.Random1 import Random1
 from players.Random2 import Random2
 from players.Random3 import Random3
+from players.Random4 import Random4
 
 #####################################################################################################################################################
 ####################################################################### SCRIPT ######################################################################
@@ -50,7 +51,7 @@ if __name__ == "__main__":
     # Let's visualize the three players in the same maze, one after the other
     # To make sure that the maze is the same for all players, we will add a fixed seed to the game configuration
     # This is done by the `random_seed` argument of the Game class, defined in the dictionary above
-    for player_class in [Random1, Random2, Random3]:
+    for player_class in [Random1, Random2, Random3, Random4]:
 
         # Instantiate a game with specified arguments
         game = Game(**game_config)

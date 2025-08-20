@@ -19,9 +19,6 @@ It is also useful to test a player on a fixed maze.
 #####################################################################################################################################################
 
 # External imports
-from typing import *
-from typing_extensions import *
-from numbers import *
 import math
 
 # PyRat imports
@@ -47,17 +44,17 @@ class MazeFromMatrix (Maze):
     #                                                               MAGIC METHODS                                                               #
     #############################################################################################################################################
 
-    def __init__ ( self:        Self,
-                   description: Any,
-                   *args:       Any,
-                   **kwargs:    Any
+    def __init__ ( self,
+                   description: object,
+                   *args:       object,
+                   **kwargs:    object
                  ) ->           None:
 
         """
         Initializes a new instance of the class.
 
         Args:
-            description: Fixed maze as a matrix.
+            description: Fixed maze as a matrix (not specified for optional dependency reasons).
             *args:       Arguments to pass to the parent constructor.
             **kwargs:    Keyword arguments to pass to the parent constructor.
         """
@@ -70,7 +67,7 @@ class MazeFromMatrix (Maze):
         assert len(description.shape) == 2, "Argument 'description' must be a 2D matrix"
         assert description.shape[0] == description.shape[1], "Argument 'description' must be a square matrix"
         assert description.shape[0] > 1, "The maze must have at least two vertices"
-        assert all(isinstance(weight, Integral) for weight in description.flatten().tolist()), "All entries of 'description' must be integers"
+        assert all(isinstance(weight, int) for weight in description.flatten().tolist()), "All entries of 'description' must be integers"
         assert (description == description.T).all(), "Argument 'description' must be a symmetric matrix"
         assert (description >= 0).all(), "All entries of 'description' must be non-negative"
         assert (description > 0).any(), "The maze must have at least one edge"
@@ -85,9 +82,7 @@ class MazeFromMatrix (Maze):
     #                                                             PROTECTED METHODS                                                             #
     #############################################################################################################################################
 
-    @override
-    def _create_maze ( self: Self,
-                     ) ->    None:
+    def _create_maze (self) -> None:
 
         """
         *(This method redefines the method of the parent class with the same name).*

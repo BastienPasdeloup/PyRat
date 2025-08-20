@@ -19,9 +19,6 @@ The ``turn()`` method is mandatory and must be implemented in the subclasses.
 #####################################################################################################################################################
 
 # External imports
-from typing import *
-from typing_extensions import *
-from numbers import *
 import abc
 
 # PyRat imports
@@ -49,8 +46,8 @@ class Player (abc.ABC):
     #                                                               MAGIC METHODS                                                               #
     #############################################################################################################################################
 
-    def __init__ ( self: Self,
-                   name: Optional[str] = None,
+    def __init__ ( self,
+                   name: str | None = None,
                    skin: PlayerSkin = PlayerSkin.RAT
                  ) ->    None:
 
@@ -76,8 +73,7 @@ class Player (abc.ABC):
     #                                                               PUBLIC METHODS                                                              #
     #############################################################################################################################################
 
-    def get_name ( self: Self,
-                 ) ->    str:
+    def get_name (self) -> str:
         
         """
         Returns the name of the player.
@@ -91,8 +87,7 @@ class Player (abc.ABC):
 
     #############################################################################################################################################
 
-    def get_skin ( self: Self,
-                 ) ->    PlayerSkin:
+    def get_skin (self) -> PlayerSkin:
         
         """
         Returns the skin of the player.
@@ -106,10 +101,10 @@ class Player (abc.ABC):
 
     #############################################################################################################################################
 
-    def postprocessing ( self:       Self,
+    def postprocessing ( self,
                          maze:       Maze,
                          game_state: GameState,
-                         stats:      Dict[str, Any],
+                         stats:      dict[str, object],
                        ) ->          None:
 
         """
@@ -134,7 +129,7 @@ class Player (abc.ABC):
 
     #############################################################################################################################################
     
-    def preprocessing ( self:       Self,
+    def preprocessing ( self,
                         maze:       Maze,
                         game_state: GameState
                       ) ->          None:
@@ -160,7 +155,7 @@ class Player (abc.ABC):
     #############################################################################################################################################
 
     @abc.abstractmethod
-    def turn ( self:       Self,
+    def turn ( self,
                maze:       Maze,
                game_state: GameState
              ) ->          Action:

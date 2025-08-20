@@ -18,9 +18,7 @@ These methods allow to add and remove vertices and edges, check for the existenc
 #####################################################################################################################################################
 
 # External imports
-from typing import *
-from typing_extensions import *
-from numbers import *
+from collections.abc import Hashable
 import random
 import sys
 
@@ -60,8 +58,7 @@ class Graph ():
     #                                                               MAGIC METHODS                                                               #
     #############################################################################################################################################
 
-    def __init__ ( self: Self,
-                 ) ->    None:
+    def __init__ (self) -> None:
 
         """
         Initializes a new instance of the class.
@@ -73,8 +70,7 @@ class Graph ():
 
     #############################################################################################################################################
 
-    def __str__ ( self: Self,
-                ) ->    str:
+    def __str__ (self) -> str:
 
         """
         Returns a string representation of the object.
@@ -97,10 +93,10 @@ class Graph ():
     #                                                               PUBLIC METHODS                                                              #
     #############################################################################################################################################
 
-    def add_edge ( self:      Self,
+    def add_edge ( self,
                    vertex_1:  Hashable,
                    vertex_2:  Hashable,
-                   weight:    Number = 1,
+                   weight:    float = 1.0,
                    symmetric: bool = False
                  ) ->         None:
 
@@ -117,7 +113,7 @@ class Graph ():
         # Debug
         assert isinstance(vertex_1, Hashable), "Argument 'vertex_1' must be hashable"
         assert isinstance(vertex_2, Hashable), "Argument 'vertex_2' must be hashable"
-        assert isinstance(weight, Number), "Argument 'weight' must be a real number"
+        assert isinstance(weight, float), "Argument 'weight' must be a real number"
         assert isinstance(symmetric, bool), "Argument 'symmetric' must be a boolean"
         assert vertex_1 in self.__adjacency, "Vertex 1 not in the graph"
         assert vertex_2 in self.__adjacency, "Vertex 2 not in the graph"
@@ -131,7 +127,7 @@ class Graph ():
     
     #############################################################################################################################################
 
-    def add_vertex ( self:   Self,
+    def add_vertex ( self,
                      vertex: Hashable
                    ) ->      None:
         
@@ -151,8 +147,7 @@ class Graph ():
         
     #############################################################################################################################################
 
-    def as_dict ( self: Self,
-                ) ->    Dict[Hashable, Dict[Hashable, Number]]:
+    def as_dict (self) -> dict[Hashable, dict[Hashable, float]]:
 
         """
         Returns a dictionary representing the adjacency matrix.
@@ -167,15 +162,14 @@ class Graph ():
         
     #############################################################################################################################################
 
-    def as_numpy_ndarray ( self: Self,
-                         ) ->    Any:
+    def as_numpy_ndarray (self) -> object:
 
         """
         Returns a ``numpy.ndarray`` representing the graph.
         Entries are given in order in which vertices appear in the adjacency dictionary.
 
         Returns:
-            A ``numpy.ndarray`` representing the adjacency matrix (return type is ``Any`` to allow ``numpy`` to be optional).
+            A ``numpy.ndarray`` representing the adjacency matrix (return type is ``object`` to allow ``numpy`` to be optional).
         """
         
         # Debug
@@ -191,15 +185,14 @@ class Graph ():
 
     #############################################################################################################################################
 
-    def as_torch_tensor ( self: Self,
-                        ) ->    Any:
+    def as_torch_tensor (self) -> object:
 
         """
         Returns a ``torch.tensor`` representing the graph.
         Entries are given in order in which vertices appear in the adjacency dictionary
 
         Returns:
-            A ``torch.tensor`` representing the adjacency matrix (return type is ``Any`` to allow ``torch`` to be optional).
+            A ``torch.tensor`` representing the adjacency matrix (return type is ``object`` to allow ``torch`` to be optional).
         """
         
         # Debug
@@ -215,7 +208,7 @@ class Graph ():
 
     #############################################################################################################################################
 
-    def edge_is_symmetric ( self:     Self,
+    def edge_is_symmetric ( self,
                             vertex_1: Hashable,
                             vertex_2: Hashable,
                           ) ->        bool:
@@ -244,8 +237,7 @@ class Graph ():
 
     #############################################################################################################################################
 
-    def get_edges ( self: Self,
-                  ) ->    List[Tuple[Hashable, Hashable]]:
+    def get_edges (self) -> list[tuple[Hashable, Hashable]]:
 
         """
         Returns the list of edges in the graph.
@@ -265,9 +257,9 @@ class Graph ():
     
     #############################################################################################################################################
 
-    def get_neighbors ( self:   Self,
+    def get_neighbors ( self,
                         vertex: Hashable
-                      ) ->      List[Hashable]:
+                      ) ->      list[Hashable]:
 
         """
         Returns the list of neighbors of a vertex.
@@ -289,8 +281,7 @@ class Graph ():
 
     #############################################################################################################################################
 
-    def get_vertices ( self: Self,
-                     ) ->    List[Hashable]:
+    def get_vertices (self) -> list[Hashable]:
         
         """
         Returns the list of vertices in the graph.
@@ -305,10 +296,10 @@ class Graph ():
 
     #############################################################################################################################################
 
-    def get_weight ( self:     Self,
+    def get_weight ( self,
                      vertex_1: Hashable,
                      vertex_2: Hashable
-                   ) ->        Number:
+                   ) ->        float:
 
         """
         Returns the weight of an edge.
@@ -334,10 +325,10 @@ class Graph ():
 
     #############################################################################################################################################
 
-    def has_edge ( self:      Self,
-                   vertex_1:  Hashable,
-                   vertex_2:  Hashable,
-                 ) ->         bool:
+    def has_edge ( self,
+                   vertex_1: Hashable,
+                   vertex_2: Hashable,
+                 ) ->        bool:
         
         """
         Checks whether an edge exists between two vertices.
@@ -362,8 +353,7 @@ class Graph ():
 
     #############################################################################################################################################
 
-    def is_connected ( self: Self,
-                     ) ->    bool:
+    def is_connected (self) -> bool:
 
         """
         Checks whether the graph is connected using a depth-first search.
@@ -395,9 +385,9 @@ class Graph ():
 
     #############################################################################################################################################
 
-    def minimum_spanning_tree ( self:        Self,
-                                random_seed: Optional[Integral] = None
-                              ) ->           Self:
+    def minimum_spanning_tree ( self,
+                                random_seed: int | None = None
+                              ) ->           "Graph":
 
         """
         Returns the minimum spanning tree of the graph.
@@ -410,7 +400,7 @@ class Graph ():
         """
         
         # Debug
-        assert random_seed is None or isinstance(random_seed, Integral), "Argument 'random_seed' must be an integer"
+        assert random_seed is None or isinstance(random_seed, int), "Argument 'random_seed' must be an integer"
         assert random_seed is None or 0 <= random_seed < sys.maxsize, "Argument 'random_seed' must be non-negative"
 
         # Initialize a random number generator
@@ -434,7 +424,7 @@ class Graph ():
             if neighbors_in_mst:
                 neighbor = neighbors_in_mst[0]
                 symmetric = self.edge_is_symmetric(vertex, neighbor)
-                weight = self.get_weight(neighbor, vertex)
+                weight = self.__adjacency[neighbor][vertex]
                 mst.add_vertex(vertex)
                 mst.add_edge(vertex, neighbor, weight, symmetric)
             else:
@@ -445,8 +435,7 @@ class Graph ():
 
     #############################################################################################################################################
 
-    def nb_edges ( self: Self,
-                 ) ->    Integral:
+    def nb_edges (self) -> int:
     
         """
         Returns the number of edges in the graph.
@@ -462,8 +451,7 @@ class Graph ():
 
     #############################################################################################################################################
 
-    def nb_vertices ( self: Self,
-                    ) ->    Integral:
+    def nb_vertices (self) -> int:
 
         """
         Returns the number of vertices in the graph.
@@ -478,7 +466,7 @@ class Graph ():
 
     #############################################################################################################################################
 
-    def remove_edge ( self:      Self,
+    def remove_edge ( self,
                       vertex_1:  Hashable,
                       vertex_2:  Hashable,
                       symmetric: bool = False
@@ -509,7 +497,7 @@ class Graph ():
 
     #############################################################################################################################################
 
-    def remove_vertex ( self:   Self,
+    def remove_vertex ( self,
                         vertex: Hashable
                       ) ->      None:
 

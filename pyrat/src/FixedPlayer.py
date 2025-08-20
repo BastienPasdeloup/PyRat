@@ -17,11 +17,6 @@ This player can be useful for testing purposes, for instance to evaluate the beh
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
 
-# External imports
-from typing import *
-from typing_extensions import *
-from numbers import *
-
 # PyRat imports
 from pyrat.src.Player import Player
 from pyrat.src.Maze import Maze
@@ -45,10 +40,10 @@ class FixedPlayer (Player):
     #                                                               MAGIC METHODS                                                               #
     #############################################################################################################################################
 
-    def __init__ ( self:     Self,
-                   actions:  List[Action],
-                   *args:    Any,
-                   **kwargs: Any
+    def __init__ ( self,
+                   actions:  list[Action],
+                   *args:    object,
+                   **kwargs: object
                  ) ->        None:
 
         """
@@ -75,8 +70,7 @@ class FixedPlayer (Player):
     #                                                               PUBLIC METHODS                                                              #
     #############################################################################################################################################
 
-    @override
-    def turn ( self:       Self,
+    def turn ( self,
                maze:       Maze,
                game_state: GameState
              ) ->          Action:

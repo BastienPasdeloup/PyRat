@@ -18,9 +18,6 @@ Contrary to the ``Random1`` player, this one takes into account the maze structu
 #####################################################################################################################################################
 
 # External imports
-from typing import *
-from typing_extensions import *
-from numbers import *
 import random
 
 # PyRat imports
@@ -44,9 +41,9 @@ class Random2 (Player):
     #                                                                CONSTRUCTOR                                                                #
     #############################################################################################################################################
 
-    def __init__ ( self:     Self,
-                   *args:    Any,
-                   **kwargs: Any
+    def __init__ ( self,
+                   *args:    object,
+                   **kwargs: object
                  ) ->        None:
 
         """
@@ -66,8 +63,7 @@ class Random2 (Player):
     #                                                               PYRAT METHODS                                                               #
     #############################################################################################################################################
 
-    @override
-    def turn ( self:       Self,
+    def turn ( self,
                maze:       Maze,
                game_state: GameState,
              ) ->          Action:
@@ -94,7 +90,7 @@ class Random2 (Player):
     #                                                               OTHER METHODS                                                               #
     #############################################################################################################################################
 
-    def find_next_action ( self:       Self,
+    def find_next_action ( self,
                            maze:       Maze,
                            game_state: GameState,
                          ) ->          Action:

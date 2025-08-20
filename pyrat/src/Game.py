@@ -18,9 +18,6 @@ It is the core of the PyRat game engine, allowing players to interact with the m
 #####################################################################################################################################################
 
 # External imports
-from typing import *
-from typing_extensions import *
-from numbers import *
 import copy
 import math
 import multiprocessing
@@ -100,33 +97,33 @@ class Game ():
     #                                                               MAGIC METHODS                                                               #
     #############################################################################################################################################
 
-    def __init__ ( self:                  Self,
-                   random_seed:           Optional[Integral] = None,
-                   random_seed_maze:      Optional[Integral] = None,
-                   random_seed_cheese:    Optional[Integral] = None,
-                   random_seed_players:   Optional[Integral] = None,
-                   maze_width:            Optional[Integral] = None,
-                   maze_height:           Optional[Integral] = None,
-                   cell_percentage:       Optional[Number] = None,
-                   wall_percentage:       Optional[Number] = None,
-                   mud_percentage:        Optional[Number] = None,
-                   mud_range:             Optional[Tuple[Integral, Integral]] = None,
-                   fixed_maze:            Optional[Union[Maze, Dict[Integral, Dict[Integral, Integral]], Any]] = None,
-                   nb_cheese:             Optional[Integral] = None,
-                   fixed_cheese:          Optional[List[Integral]] = None,
-                   random_maze_algorithm: Optional[RandomMazeAlgorithm] = None,
-                   render_mode:           Optional[RenderMode] = None,
-                   render_simplified:     Optional[bool] = None,
-                   rendering_speed:       Optional[Number] = None,
-                   trace_length:          Optional[Integral] = None,
-                   fullscreen:            Optional[bool] = None,
-                   clear_shell_each_turn: Optional[bool] = None,
-                   save_path:             Optional[str] = None,
-                   save_game:             Optional[bool] = None,
-                   preprocessing_time:    Optional[Number] = None,
-                   turn_time:             Optional[Number] = None,
-                   game_mode:             Optional[GameMode] = None,
-                   continue_on_error:     Optional[bool] = None
+    def __init__ ( self,
+                   random_seed:           int | None = None,
+                   random_seed_maze:      int | None = None,
+                   random_seed_cheese:    int | None = None,
+                   random_seed_players:   int | None = None,
+                   maze_width:            int | None = None,
+                   maze_height:           int | None = None,
+                   cell_percentage:       float | None = None,
+                   wall_percentage:       float | None = None,
+                   mud_percentage:        float | None = None,
+                   mud_range:             tuple[int, int] | None = None,
+                   fixed_maze:            Maze | dict[int, dict[int, int]] | object | None = None, # Object for numpy.ndarray or torch.tensor (not listed to have an optional dependency on these libraries)
+                   nb_cheese:             int | None = None,
+                   fixed_cheese:          list[int] | None = None,
+                   random_maze_algorithm: RandomMazeAlgorithm | None = None,
+                   render_mode:           RenderMode | None = None,
+                   render_simplified:     bool | None = None,
+                   rendering_speed:       float | None = None,
+                   trace_length:          int | None = None,
+                   fullscreen:            bool | None = None,
+                   clear_shell_each_turn: bool | None = None,
+                   save_path:             str | None = None,
+                   save_game:             bool | None = None,
+                   preprocessing_time:    float | None = None,
+                   turn_time:             float | None = None,
+                   game_mode:             GameMode | None = None,
+                   continue_on_error:     bool | None = None
                  ) ->                     None:
 
         """
@@ -163,19 +160,19 @@ class Game ():
         """
         
         # Debug
-        assert isinstance(random_seed, (Integral, type(None))), "Argument 'random_seed' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED' is used)"
-        assert isinstance(random_seed_maze, (Integral, type(None))), "Argument 'random_seed_maze' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED_MAZE' is used)"
-        assert isinstance(random_seed_cheese, (Integral, type(None))), "Argument 'random_seed_cheese' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED_CHEESE' is used)"
-        assert isinstance(random_seed_players, (Integral, type(None))), "Argument 'random_seed_players' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED_PLAYERS' is used)"
+        assert isinstance(random_seed, (int, type(None))), "Argument 'random_seed' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED' is used)"
+        assert isinstance(random_seed_maze, (int, type(None))), "Argument 'random_seed_maze' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED_MAZE' is used)"
+        assert isinstance(random_seed_cheese, (int, type(None))), "Argument 'random_seed_cheese' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED_CHEESE' is used)"
+        assert isinstance(random_seed_players, (int, type(None))), "Argument 'random_seed_players' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED_PLAYERS' is used)"
         assert random_seed is None or (random_seed is not None and 0 <= random_seed < sys.maxsize), "Argument 'random_seed' should be non-negative"
         assert random_seed_maze is None or (random_seed_maze is not None and 0 <= random_seed_maze < sys.maxsize), "Argument 'random_seed_maze' should be a positive integer"
         assert random_seed_cheese is None or (random_seed_cheese is not None and 0 <= random_seed_cheese < sys.maxsize), "Argument 'random_seed_cheese' should be a positive integer"
         assert random_seed_players is None or (random_seed_players is not None and 0 <= random_seed_players < sys.maxsize), "Argument 'random_seed_players' should be a positive integer"
         assert random_seed is None or (random_seed is not None and all([param is None for param in [random_seed_maze, random_seed_cheese, random_seed_players]])), "Argument 'random_seed' should be given if and only if no other random seed is given"
         assert isinstance(render_mode, (RenderMode, type(None))), "Argument 'render_mode' must be of type 'pyrat.RenderMode' or None (if so, default value 'Game.DEFAULT_RENDER_MODE' is used)"
-        assert isinstance(turn_time, (Number, type(None))), "Argument 'turn_time' must be a real number or None (if so, default value 'Game.DEFAULT_TURN_TIME' is used)"
+        assert isinstance(turn_time, (float, type(None))), "Argument 'turn_time' must be a real number or None (if so, default value 'Game.DEFAULT_TURN_TIME' is used)"
         assert turn_time is None or turn_time >= 0, "Argument 'turn_time' should be non-negative"
-        assert isinstance(preprocessing_time, (Number, type(None))), "Argument 'preprocessing_time' must be a real number or None (if so, default value 'Game.DEFAULT_PREPROCESSING_TIME' is used)"
+        assert isinstance(preprocessing_time, (float, type(None))), "Argument 'preprocessing_time' must be a real number or None (if so, default value 'Game.DEFAULT_PREPROCESSING_TIME' is used)"
         assert preprocessing_time is None or preprocessing_time >= 0, "Argument 'preprocessing_time' should be non-negative"
         assert isinstance(game_mode, (GameMode, type(None))), "Argument 'game_mode' must be of type 'pyrat.GameMode' or None (if so, default value 'Game.DEFAULT_GAME_MODE_SINGLE' or 'Game.DEFAULT_GAME_MODE_MULTI' is used)"
         assert isinstance(continue_on_error, (bool, type(None))), "Argument 'continue_on_error' must be a boolean or None (if so, default value 'Game.DEFAULT_CONTINUE_ON_ERROR' is used)"
@@ -248,8 +245,7 @@ class Game ():
 
     #############################################################################################################################################
 
-    def __str__ ( self: Self,
-                ) ->    str:
+    def __str__ (self) -> str:
 
         """
         Returns a string representation of the object.
@@ -292,10 +288,10 @@ class Game ():
     #                                                              PUBLIC METHODS                                                              #
     #############################################################################################################################################
 
-    def add_player ( self:     Self,
+    def add_player ( self,
                      player:   Player,
                      team:     str = "",
-                     location: Union[StartingLocation, Integral] = StartingLocation.CENTER
+                     location: StartingLocation | int = StartingLocation.CENTER
                    ) ->        None:
         
         """
@@ -314,8 +310,8 @@ class Game ():
         # Debug
         assert isinstance(player, Player), "Argument 'player' must be of type 'pyrat.Player'"
         assert isinstance(team, str), "Argument 'team' must be a string"
-        assert isinstance(location, (StartingLocation, Integral)), "Argument 'location' must be of type 'pyrat.StartingLocation' or an integer, corresponding to the index of the cell where the player should start"
-        assert location in list(StartingLocation) or (isinstance(location, Integral) and self.__maze.i_exists(location)), "Argument 'location' must be a valid index of the maze or a value of the 'pyrat.StartingLocation' enumeration"
+        assert isinstance(location, (StartingLocation, int)), "Argument 'location' must be of type 'pyrat.StartingLocation' or an integer, corresponding to the index of the cell where the player should start"
+        assert location in list(StartingLocation) or (isinstance(location, int) and self.__maze.i_exists(location)), "Argument 'location' must be a valid index of the maze or a value of the 'pyrat.StartingLocation' enumeration"
         assert player.get_name() not in self.__player_traces, "Player '%s' was already added to the game" % player.get_name()
         assert not (location == StartingLocation.SAME and len(self.__players) == 0), "Cannot start player '%s' at the same location as the previous player if no player was added before" % player.get_name()
 
@@ -361,24 +357,8 @@ class Game ():
         self.__actions_history[player.get_name()] = []
         
     #############################################################################################################################################
-    
-    def get_maze ( self: Self
-                 ) ->    Maze:
-        
-        """
-        Returns a copy of the maze used in the game.
 
-        Returns:
-            A copy of the maze.
-        """
-
-        # Return the attribute
-        maze_copy = copy.deepcopy(self.__maze)
-        return maze_copy
-    
-    #############################################################################################################################################
-
-    def reset ( self:         Self,
+    def reset ( self,
                 keep_players: bool = True
               ) ->            None:
         
@@ -444,8 +424,7 @@ class Game ():
 
     #############################################################################################################################################
 
-    def start ( self: Self
-              ) ->    Dict[str, Any]:
+    def start (self) -> dict[str, object]:
 
         """
         Starts a game, asking players for decisions until the game is over.
@@ -621,7 +600,7 @@ class Game ():
     #                                                              PRIVATE METHODS                                                              #
     #############################################################################################################################################
 
-    def __end ( self:         Self,
+    def __end ( self,
                 game_crashed: bool,
               ) ->            None:
         
@@ -675,9 +654,9 @@ class Game ():
         
     #############################################################################################################################################
 
-    def __determine_new_game_state ( self:       Self,
+    def __determine_new_game_state ( self,
                                      game_state: GameState,
-                                     actions:    Dict[str, Action]
+                                     actions:    dict[str, Action]
                                    ) ->          GameState:
         
         """
@@ -747,10 +726,10 @@ class Game ():
         
     #############################################################################################################################################
 
-    def __distribute_cheese ( self:            Self,
-                              available_cells: List[Integral],
-                            ) ->               List[Integral]:
-        
+    def __distribute_cheese ( self,
+                              available_cells: list[int],
+                            ) ->               list[int]:
+
         """
         Distributes pieces of cheese in the maze, according to the provided criteria.
         If a fixed list of cheese was provided, it is used.
@@ -765,7 +744,7 @@ class Game ():
         
         # Debug
         assert isinstance(available_cells, list), "Argument 'available_cells' must be a list"
-        assert all([isinstance(cell, Integral) for cell in available_cells]), "All elements of 'available_cells' must be integers"
+        assert all([isinstance(cell, int) for cell in available_cells]), "All elements of 'available_cells' must be integers"
         assert all([self.__maze.i_exists(cell) for cell in available_cells]), "All elements of 'available_cells' must be valid indices of the maze"
 
         # If we ask for a fixed list of cheese, we use it
@@ -773,7 +752,7 @@ class Game ():
             
             # Debug
             assert isinstance(self.__fixed_cheese, list), "Attribute '__fixed_cheese' must be a list"
-            assert all([isinstance(cell, Integral) for cell in self.__fixed_cheese]), "All elements of '__fixed_cheese' must be integers"
+            assert all([isinstance(cell, int) for cell in self.__fixed_cheese]), "All elements of '__fixed_cheese' must be integers"
             assert len(set(self.__fixed_cheese)) == len(self.__fixed_cheese), "All elements of '__fixed_cheese' must be unique"
             assert len(available_cells) >= len(self.__fixed_cheese), "Not enough available cells to place the fixed cheese"
             assert all([self.__maze.i_exists(cell) for cell in self.__fixed_cheese]), "All elements of '__fixed_cheese' must be valid indices of the maze"
@@ -786,7 +765,7 @@ class Game ():
         else:
             
             # Debug
-            assert isinstance(self.__nb_cheese, Integral), "Attribute '__nb_cheese' must be an integer"
+            assert isinstance(self.__nb_cheese, int), "Attribute '__nb_cheese' must be an integer"
             assert self.__nb_cheese > 0, "Attribute '__nb_cheese' must be positive"
             assert len(available_cells) >= self.__nb_cheese, "Not enough available cells to place the cheese"
 
@@ -804,14 +783,14 @@ class Game ():
 
 def _player_process_function ( player:                  Player,
                                maze:                    Maze,
-                               input_queue:             Optional[multiprocessing.Queue] = None,
-                               output_queue:            Optional[multiprocessing.Queue] = None,
-                               turn_start_synchronizer: Optional[multiprocessing.Barrier] = None,
-                               turn_timeout_lock:       Optional[multiprocessing.Lock] = None,
-                               turn_end_synchronizer:   Optional[multiprocessing.Barrier] = None,
-                               game_state:              Optional[GameState] = None,
-                               final_stats:             Optional[Dict[str, Any]] = None,
-                             ) ->                       Tuple[str, str, Optional[float]]:
+                               input_queue:             mpmanagers.BaseProxy | None = None,
+                               output_queue:            mpmanagers.BaseProxy | None = None,
+                               turn_start_synchronizer: mpmanagers.BarrierProxy | None = None,
+                               turn_timeout_lock:       mpmanagers.AcquirerProxy | None = None,
+                               turn_end_synchronizer:   mpmanagers.BarrierProxy | None = None,
+                               game_state:              GameState | None = None,
+                               final_stats:             dict[str, object] | None = None,
+                             ) ->                       tuple[str, str, float | None]:
     
     """
     This function is executed in a separate process per player.
@@ -922,8 +901,8 @@ def _player_process_function ( player:                  Player,
 
 #####################################################################################################################################################
 
-def _waiter_process_function ( input_queue:             multiprocessing.Queue,
-                               turn_start_synchronizer: multiprocessing.Barrier,
+def _waiter_process_function ( input_queue:             mpmanagers.BaseProxy,
+                               turn_start_synchronizer: mpmanagers.BarrierProxy,
                              ) ->                       None:
     
     """

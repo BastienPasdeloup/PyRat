@@ -17,9 +17,6 @@ It will print the game state to the console using ASCII characters and ANSI esca
 #####################################################################################################################################################
 
 # External imports
-from typing import *
-from typing_extensions import *
-from numbers import *
 import colored
 import re
 import math
@@ -51,11 +48,11 @@ class ShellRenderingEngine (RenderingEngine):
     #                                                               MAGIC METHODS                                                               #
     #############################################################################################################################################
 
-    def __init__ ( self:            Self,
+    def __init__ ( self,
                    use_colors:      bool = True,
                    clear_each_turn: bool = True,
-                   *args:           Any,
-                   **kwargs:        Any
+                   *args:           object,
+                   **kwargs:        object
                  ) ->               None:
 
         """
@@ -83,9 +80,8 @@ class ShellRenderingEngine (RenderingEngine):
     #                                                               PUBLIC METHODS                                                              #
     #############################################################################################################################################
 
-    @override
-    def render ( self:       Self,
-                 players:    List[Player],
+    def render ( self,
+                 players:    list[Player],
                  maze:       Maze,
                  game_state: GameState,
                ) ->          None:
@@ -226,8 +222,7 @@ class ShellRenderingEngine (RenderingEngine):
     #                                                              PRIVATE METHODS                                                              #
     #############################################################################################################################################
 
-    def __clear_output ( self: Self
-                       ) ->    None:
+    def __clear_output (self) -> None:
 
         """
         This method clears the output of the console.
@@ -245,9 +240,9 @@ class ShellRenderingEngine (RenderingEngine):
 
     #############################################################################################################################################
 
-    def __colored_len ( self: Self,
+    def __colored_len ( self,
                         text: str
-                      ) ->    Integral:
+                      ) ->    int:
         
         """
         This method returns the true ``len`` of a color-formated string.
@@ -268,10 +263,10 @@ class ShellRenderingEngine (RenderingEngine):
     
     #############################################################################################################################################
 
-    def __colorize ( self:           Self,
+    def __colorize ( self,
                      text:           str,
                      colorization:   str,
-                     alternate_text: Optional[str] = None
+                     alternate_text: str | None = None
                    ) ->              str:
         
         """

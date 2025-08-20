@@ -17,11 +17,6 @@ You can then modify the class name and the methods to implement your own player 
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
 
-# External imports
-from typing import *
-from typing_extensions import *
-from numbers import *
-
 # PyRat imports
 from pyrat import Player, Maze, GameState, Action
 
@@ -44,16 +39,15 @@ class TemplatePlayer (Player):
     #                                                                CONSTRUCTOR                                                                #
     #############################################################################################################################################
 
-    def __init__ ( self:     Self,
-                   *args:    Any,
-                   **kwargs: Any
+    def __init__ ( self,
+                   *args:    object,
+                   **kwargs: object
                  ) ->        None:
 
         """
         This function is the constructor of the class.
         When an object is instantiated, this method is called to initialize the object.
         This is where you should define the attributes of the object and set their initial values.
-        Arguments *args and **kwargs are used to pass arguments to the parent constructor.
 
         Args:
             args:   Arguments to pass to the parent constructor.
@@ -70,8 +64,7 @@ class TemplatePlayer (Player):
     #                                                               PYRAT METHODS                                                               #
     #############################################################################################################################################
 
-    @override
-    def preprocessing ( self:       Self,
+    def preprocessing ( self,
                         maze:       Maze,
                         game_state: GameState,
                       ) ->          None:
@@ -94,8 +87,7 @@ class TemplatePlayer (Player):
 
     #############################################################################################################################################
 
-    @override
-    def turn ( self:       Self,
+    def turn ( self,
                maze:       Maze,
                game_state: GameState,
              ) ->          Action:
@@ -124,11 +116,10 @@ class TemplatePlayer (Player):
 
 #############################################################################################################################################
 
-    @override
-    def postprocessing ( self:       Self,
+    def postprocessing ( self,
                          maze:       Maze,
                          game_state: GameState,
-                         stats:      Dict[str, Any],
+                         stats:      dict[str, object],
                        ) ->          None:
 
         """

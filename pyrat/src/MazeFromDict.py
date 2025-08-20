@@ -19,9 +19,6 @@ It is also useful to test a player on a fixed maze.
 #####################################################################################################################################################
 
 # External imports
-from typing import *
-from typing_extensions import *
-from numbers import *
 import math
 
 # PyRat imports
@@ -46,10 +43,10 @@ class MazeFromDict (Maze):
     #                                                               MAGIC METHODS                                                               #
     #############################################################################################################################################
 
-    def __init__ ( self:        Self,
-                   description: Dict[Integral, Dict[Integral, Integral]],
-                   *args:       Any,
-                   **kwargs:    Any
+    def __init__ ( self,
+                   description: dict[int, dict[int, int]],
+                   *args:       object,
+                   **kwargs:    object
                  ) ->           None:
 
         """
@@ -66,9 +63,9 @@ class MazeFromDict (Maze):
 
         # Debug
         assert isinstance(description, dict), "Argument 'description' must be a dictionary"
-        assert all(isinstance(vertex, Integral) for vertex in description), "All keys of 'description' must be integers"
-        assert all(isinstance(neighbor, Integral) for vertex in description for neighbor in description[vertex]), "All keys of subdictionaries of 'description' must be integers"
-        assert all(isinstance(description[vertex][neighbor], Integral) for vertex in description for neighbor in description[vertex]), "All values of subdictionaries of 'description' must be integers"
+        assert all(isinstance(vertex, int) for vertex in description), "All keys of 'description' must be integers"
+        assert all(isinstance(neighbor, int) for vertex in description for neighbor in description[vertex]), "All keys of subdictionaries of 'description' must be integers"
+        assert all(isinstance(description[vertex][neighbor], int) for vertex in description for neighbor in description[vertex]), "All values of subdictionaries of 'description' must be integers"
         assert len(description) > 1, "The maze must have at least two vertices"
         assert all(len(description[vertex]) > 0 for vertex in description), "All vertices must have at least one neighbor"
         assert all(vertex in description[neighbor] for vertex in description for neighbor in description[vertex]), "The maze must be symmetric"
@@ -85,9 +82,7 @@ class MazeFromDict (Maze):
     #                                                             PROTECTED METHODS                                                             #
     #############################################################################################################################################
 
-    @override
-    def _create_maze ( self: Self,
-                     ) ->    None:
+    def _create_maze (self) -> None:
 
         """
         *(This method redefines the method of the parent class with the same name).*

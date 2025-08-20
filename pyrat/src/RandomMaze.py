@@ -18,9 +18,6 @@ However, it does not implement the maze generation algorithm itself and is meant
 #####################################################################################################################################################
 
 # External imports
-from typing import *
-from typing_extensions import *
-from numbers import *
 import sys
 import random
 import abc
@@ -46,14 +43,14 @@ class RandomMaze (Maze, abc.ABC):
     #                                                               MAGIC METHODS                                                               #
     #############################################################################################################################################
 
-    def __init__ ( self:            Self,
-                   cell_percentage: Number,
-                   wall_percentage: Number,
-                   mud_percentage:  Number,
-                   mud_range:       Optional[Tuple[Integral, Integral]] = None,
-                   random_seed:     Optional[Integral] = None,
-                   *args:           Any,
-                   **kwargs:        Any
+    def __init__ ( self,
+                   cell_percentage: float,
+                   wall_percentage: float,
+                   mud_percentage:  float,
+                   mud_range:       tuple[int, int] | None = None,
+                   random_seed:     int | None = None,
+                   *args:           object,
+                   **kwargs:        object
                  ) ->               None:
 
         """
@@ -75,15 +72,15 @@ class RandomMaze (Maze, abc.ABC):
         super().__init__(*args, **kwargs)
         
         # Debug
-        assert isinstance(cell_percentage, Number), "Argument 'cell_percentage' must be a real number"
-        assert isinstance(wall_percentage, Number), "Argument 'wall_percentage' must be a real number"
-        assert isinstance(mud_percentage, Number), "Argument 'mud_percentage' must be a real number"
+        assert isinstance(cell_percentage, float), "Argument 'cell_percentage' must be a real number"
+        assert isinstance(wall_percentage, float), "Argument 'wall_percentage' must be a real number"
+        assert isinstance(mud_percentage, float), "Argument 'mud_percentage' must be a real number"
         assert isinstance(mud_range, (type(None), tuple, list)), "Argument 'mud_range' must be a tuple, a list, or None"
-        assert isinstance(random_seed, (Integral, type(None))), "Argument 'random_seed' must be an integer or None"
+        assert isinstance(random_seed, (int, type(None))), "Argument 'random_seed' must be an integer or None"
         assert random_seed is None or 0 <= random_seed < sys.maxsize, "Argument 'random_seed' must be a positive integer or None"
         assert (mud_percentage > 0.0 and mud_range is not None and len(mud_range) == 2) or mud_percentage == 0.0, "Argument 'mud_range' must be specified if 'mud_percentage' is not 0.0"
-        assert mud_range is None or isinstance(mud_range[0], Integral), "Argument 'mud_range' must be a tuple of integers"
-        assert mud_range is None or isinstance(mud_range[1], Integral), "Argument 'mud_range' must be a tuple of integers"
+        assert mud_range is None or isinstance(mud_range[0], int), "Argument 'mud_range' must be a tuple of integers"
+        assert mud_range is None or isinstance(mud_range[1], int), "Argument 'mud_range' must be a tuple of integers"
         assert 0.0 <= cell_percentage <= 100.0, "Argument 'cell_percentage' must be a percentage"
         assert 0.0 <= wall_percentage <= 100.0, "Argument 'wall_percentage' must be a percentage"
         assert 0.0 <= mud_percentage <= 100.0, "Argument 'mud_percentage' must be a percentage"
@@ -103,8 +100,7 @@ class RandomMaze (Maze, abc.ABC):
     #############################################################################################################################################
 
     @abc.abstractmethod
-    def _add_cells ( self: Self,
-                   ) ->    None:
+    def _add_cells (self) -> None:
 
         """
         *(This method is abstract and must be implemented in the child classes).*
@@ -121,8 +117,7 @@ class RandomMaze (Maze, abc.ABC):
 
     #############################################################################################################################################
 
-    def _add_mud ( self: Self,
-                 ) ->    None:
+    def _add_mud (self) -> None:
 
         """
         This method adds mud to the maze.
@@ -142,8 +137,7 @@ class RandomMaze (Maze, abc.ABC):
 
     #############################################################################################################################################
 
-    def _add_walls ( self: Self,
-                   ) ->    None:
+    def _add_walls (self) -> None:
 
         """
         This method adds walls to the maze.
@@ -166,9 +160,7 @@ class RandomMaze (Maze, abc.ABC):
 
     #############################################################################################################################################
 
-    @override
-    def _create_maze ( self: Self,
-                     ) ->    None:
+    def _create_maze (self) -> None:
 
         """
         *(This method redefines the abstract method of the parent class with the same name).*

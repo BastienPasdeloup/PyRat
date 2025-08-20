@@ -33,12 +33,14 @@ To do so, follow these steps:
 
 3. Install PyRat through ``pip`` as follows: ``pip install pyrat-game``
 
-You should see something like this::
+You should see something like this:
 
-        Downloading pyrat_game-6.0.0-py3-none-any.whl (4.2 MB)
-             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.2/4.2 MB 9.6 MB/s eta 0:00:00
-        Installing collected packages: pyrat-game
-        Successfully installed pyrat-game-6.0.0
+.. code-block:: text
+
+     Downloading pyrat_game-6.0.0-py3-none-any.whl (4.2 MB)
+          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.2/4.2 MB 9.6 MB/s eta 0:00:00
+     Installing collected packages: pyrat-game
+     Successfully installed pyrat-game-6.0.0
 
 Setup your PyRat workspace
 --------------------------
@@ -56,10 +58,12 @@ To do so, follow these steps:
      - **Windows (cmd):** ``python -c "import pyrat; pyrat.create_workspace('.')"`` 
      - **Windows (PowerShell):** ``python -c "import pyrat; pyrat.create_workspace('.')"``
 
-You should see something like this::
+You should see something like this:
 
-        Workspace created in /path/to/pyrat_workspace
-        Workspace added to Python path
+.. code-block:: text
+
+     Workspace created in /path/to/pyrat_workspace
+     Workspace added to Python path
 
 Check your installation
 -----------------------

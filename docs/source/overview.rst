@@ -118,7 +118,7 @@ This can be helpful to compare multiple algorithms for a same objective, or to t
 Phases of a Game
 ^^^^^^^^^^^^^^^^
 
-A PyRat game consists in four phases:
+A PyRat game consists in four phases, that we illustrate below using the code in :doc:`TemplatePlayer <workspace/players/TemplatePlayer>`.
 
 1. **Before the Game Starts**: When players are instantiated in the game script (see above), the constructor of the player class (``__init__()`` method) is called.
    This is where you can define attributes or perform any setup that is needed before the game starts.
@@ -126,9 +126,9 @@ A PyRat game consists in four phases:
 
    .. code-block:: python
 
-       def __init__ ( self:     Self,
-                      *args:    Any,
-                      **kwargs: Any
+       def __init__ ( self,
+                      *args:    object,
+                      **kwargs: object
                     ) ->        None:
 
            """
@@ -147,7 +147,7 @@ A PyRat game consists in four phases:
 
            # Do what you want here
 
-2. **Preprocessing**: When the game starts, players are given some time to make computations and prepare their strategies.
+2. **Preprocessing**: When the game starts, players are given some time to optionally make computations and prepare their strategies.
    The duration of this phase can be set in the game settings using the ``preprocessing_time`` argument.
    During this phase, players can analyze the maze, plan their moves, and prepare for the game.
    To describe what to do during this phase, you should implement the ``preprocessing()`` method in your player class.
@@ -155,7 +155,7 @@ A PyRat game consists in four phases:
    .. code-block:: python
 
        @override
-       def preprocessing ( self:       Self,
+       def preprocessing ( self,
                            maze:       Maze,
                            game_state: GameState,
                          ) ->          None:
@@ -193,7 +193,7 @@ A PyRat game consists in four phases:
    .. code-block:: python
 
        @override
-       def turn ( self:       Self,
+       def turn ( self,
                   maze:       Maze,
                   game_state: GameState,
                 ) ->          Action:
@@ -232,10 +232,10 @@ A PyRat game consists in four phases:
    .. code-block:: python
 
        @override
-       def postprocessing ( self:       Self,
+       def postprocessing ( self,
                             maze:       Maze,
                             game_state: GameState,
-                            stats:      Dict[str, Any],
+                            stats:      dict[str, object],
                           ) ->          None:
 
            """

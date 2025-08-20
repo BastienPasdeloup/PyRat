@@ -16,11 +16,6 @@ It extends ``RandomMaze`` to create a specific type of maze with larger holes, e
 ###################################################################### IMPORTS ######################################################################
 #####################################################################################################################################################
 
-# External imports
-from typing import *
-from typing_extensions import *
-from numbers import *
-
 # PyRat imports
 from pyrat.src.RandomMaze import RandomMaze
 
@@ -46,9 +41,9 @@ class BigHolesRandomMaze (RandomMaze):
     #                                                               MAGIC METHODS                                                               #
     #############################################################################################################################################
 
-    def __init__ ( self:     Self,
-                   *args:    Any,
-                   **kwargs: Any
+    def __init__ ( self,
+                   *args:    object,
+                   **kwargs: object
                  ) ->        None:
 
         """
@@ -69,9 +64,7 @@ class BigHolesRandomMaze (RandomMaze):
     #                                                             PROTECTED METHODS                                                             #
     #############################################################################################################################################
 
-    @override
-    def _add_cells ( self: Self,
-                   ) ->    None:
+    def _add_cells (self) -> None:
         
         """
         *(This method redefines the method of the parent class with the same name).*

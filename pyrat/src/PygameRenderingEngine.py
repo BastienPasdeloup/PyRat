@@ -17,9 +17,6 @@ It will create a window and display the game in it.
 #####################################################################################################################################################
 
 # External imports
-from typing import *
-from typing_extensions import *
-from numbers import *
 import copy
 import multiprocessing
 import os
@@ -54,11 +51,11 @@ class PygameRenderingEngine (RenderingEngine):
     #                                                               MAGIC METHODS                                                               #
     #############################################################################################################################################
 
-    def __init__ ( self:         Self,
+    def __init__ ( self,
                    fullscreen:   bool = False,
-                   trace_length: Integral = 0,
-                   *args:        Any,
-                   **kwargs:     Any
+                   trace_length: int = 0,
+                   *args:        object,
+                   **kwargs:     object
                  ) ->            None:
 
         """
@@ -76,7 +73,7 @@ class PygameRenderingEngine (RenderingEngine):
 
         # Debug
         assert isinstance(fullscreen, bool), "Argument 'fullscreen' must be a boolean"
-        assert isinstance(trace_length, Integral), "Argument 'trace_length' must be an integer"
+        assert isinstance(trace_length, int), "Argument 'trace_length' must be an integer"
         assert trace_length >= 0, "Argument 'trace_length' must be positive"
 
         # Private attributes
@@ -89,9 +86,7 @@ class PygameRenderingEngine (RenderingEngine):
     #                                                               PUBLIC METHODS                                                              #
     #############################################################################################################################################
 
-    @override
-    def end ( self: Self,
-            ) ->    None:
+    def end (self) -> None:
         
         """
         *(This method redefines the method of the parent class with the same name).*
@@ -105,9 +100,8 @@ class PygameRenderingEngine (RenderingEngine):
 
     #############################################################################################################################################
 
-    @override
-    def render ( self:       Self,
-                 players:    List[Player],
+    def render ( self,
+                 players:    list[Player],
                  maze:       Maze,
                  game_state: GameState,
                ) ->          None:
@@ -152,11 +146,11 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
                             gui_queue:                    multiprocessing.Queue,
                             maze:                         Maze,
                             initial_game_state:           GameState,
-                            players:                      List[Player],
+                            players:                      list[Player],
                             fullscreen:                   bool,
                             render_simplified:            bool,
-                            trace_length:                 Integral,
-                            rendering_speed:              Number
+                            trace_length:                 int,
+                            rendering_speed:              float
                           ) ->                            None:
     
     """
@@ -184,8 +178,8 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
     assert all(isinstance(player, Player) for player in players), "All elements of 'players' must be of type 'pyrat.Player'"
     assert isinstance(fullscreen, bool), "Argument 'fullscreen' must be a boolean"
     assert isinstance(render_simplified, bool), "Argument 'render_simplified' must be a boolean"
-    assert isinstance(trace_length, Integral), "Argument 'trace_length' must be an integer"
-    assert isinstance(rendering_speed, Number), "Argument 'rendering_speed' must be a real number"
+    assert isinstance(trace_length, int), "Argument 'trace_length' must be an integer"
+    assert isinstance(rendering_speed, float), "Argument 'rendering_speed' must be a real number"
     assert trace_length >= 0, "Argument 'trace_length' must be positive"
     assert rendering_speed > 0.0, "Argument 'rendering_speed' must be positive"
 
