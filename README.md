@@ -15,7 +15,7 @@
     <table>
         <tr>
             <td align="center">
-                <img height="350px" src="https://github.com/BastienPasdeloup/PyRat/raw/main/pyrat/gui/drawings/pyrat.png">
+                <img height="350px" src="https://github.com/BastienPasdeloup/PyRat/blob/master/pyrat/gui/drawings/pyrat.png">
             </td>
             <td align="center">
                 <h1>PyRat</h1>
@@ -92,7 +92,7 @@ To do so, follow these steps:
 
 You should see something like this:
 
-![](https://github.com/BastienPasdeloup/PyRat/raw/main/docs/source/_static/pyrat_interface.png)
+<img src="https://bastienpasdeloup.github.io/PyRat/_images/pyrat_interface.png" />
 
 # Troubleshooting
 
