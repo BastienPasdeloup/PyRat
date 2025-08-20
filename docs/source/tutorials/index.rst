@@ -10,7 +10,7 @@ If you are new to PyRat, we advise you to start with the following tutorials:
    :maxdepth: 1
 
    the_random_programs
-   customizing_the_game_elements
+   customizing_your_game
    game_modes
 
 When familiar with the basics, you can explore more advanced topics:
