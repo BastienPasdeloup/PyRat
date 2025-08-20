@@ -18,7 +18,6 @@ In a maze, each vertex is placed on a grid and can only be connected along the c
 #####################################################################################################################################################
 
 # External imports
-from collections.abc import Hashable
 import abc
 
 # Numpy is an optional dependency
@@ -151,7 +150,7 @@ class Maze (Graph, abc.ABC):
             return
 
         # Add edge to the graph using the parent's method
-        super().add_edge(vertex_1, vertex_2, float(weight), True)
+        super().add_edge(vertex_1, vertex_2, weight, True)
     
     #############################################################################################################################################
 
@@ -273,28 +272,6 @@ class Maze (Graph, abc.ABC):
 
         # Return the attribute
         return self._height
-
-    #############################################################################################################################################
-
-    def get_weight ( self,
-                     vertex_1: Hashable,
-                     vertex_2: Hashable
-                   ) ->        int:
-
-        """
-        Returns the weight of an edge.
-
-        Args:
-            vertex_1: First vertex.
-            vertex_2: Second vertex.
-
-        Returns:
-            Weight of the edge.
-        """
-        
-        # A generic graph manipulates floats, but a maze only uses integers
-        weight = int(super().get_weight(vertex_1, vertex_2))
-        return weight
 
     #############################################################################################################################################
 

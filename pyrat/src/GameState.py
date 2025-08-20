@@ -70,12 +70,12 @@ class GameState ():
 
         # Create the string
         string = "GameState object:\n"
-        string += "|  Players: {}\n".format(self.__player_locations)
-        string += "|  Scores: {}\n".format(self.__score_per_player)
-        string += "|  Muds: {}\n".format(self.__muds)
-        string += "|  Teams: {}\n".format(self.__teams)
-        string += "|  Cheese: {}\n".format(self.__cheese)
-        string += "|  Turn: {}".format(self.__turn)
+        string += "|  Locations: {}\n".format(self.player_locations)
+        string += "|  Scores: {}\n".format(self.score_per_player)
+        string += "|  Muds: {}\n".format(self.muds)
+        string += "|  Teams: {}\n".format(self.teams)
+        string += "|  Cheese: {}\n".format(self.cheese)
+        string += "|  Turn: {}".format(self.turn)
         return string
 
     #############################################################################################################################################
@@ -98,27 +98,12 @@ class GameState ():
 
         # Debug
         assert isinstance(name, str), "Argument 'name' must be a string"
-        assert name in self.muds, "Player '%s' is not in the game" % name
+        assert name in self.get_players(), "Player '%s' is not in the game" % name
 
         # Get whether the player is currently crossing mud
         in_mud = self.muds[name]["target"] is not None
         return in_mud
     
-    #############################################################################################################################################
-
-    def get_score_per_team (self) -> dict[str, float]:
-        
-        """
-        Returns the score per team.
-
-        Returns:
-            Dictionary of scores per team.
-        """
-        
-        # Aggregate players of the team
-        score_per_team = {team: round(sum([self.score_per_player[player] for player in self.teams[team]]), 5) for team in self.teams}
-        return score_per_team
-
     #############################################################################################################################################
 
     def game_over (self) -> bool:
@@ -150,6 +135,36 @@ class GameState ():
         # The game is not over
         is_over = False
         return is_over
+
+    #############################################################################################################################################
+
+    def get_players (self) -> list[str]:
+        
+        """
+        Returns the names of the players in the game.
+
+        Returns:
+            List of player names.
+        """
+
+        # Return the list of player names
+        players = list(self.player_locations.keys())
+        return players
+
+    #############################################################################################################################################
+
+    def get_score_per_team (self) -> dict[str, float]:
+        
+        """
+        Returns the score per team.
+
+        Returns:
+            Dictionary of scores per team.
+        """
+        
+        # Aggregate players of the team
+        score_per_team = {team: round(sum([self.score_per_player[player] for player in self.teams[team]]), 5) for team in self.teams}
+        return score_per_team
 
 #####################################################################################################################################################
 #####################################################################################################################################################

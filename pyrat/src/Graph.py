@@ -96,7 +96,7 @@ class Graph ():
     def add_edge ( self,
                    vertex_1:  Hashable,
                    vertex_2:  Hashable,
-                   weight:    float = 1.0,
+                   weight:    float | int = 1,
                    symmetric: bool = False
                  ) ->         None:
 
@@ -113,7 +113,7 @@ class Graph ():
         # Debug
         assert isinstance(vertex_1, Hashable), "Argument 'vertex_1' must be hashable"
         assert isinstance(vertex_2, Hashable), "Argument 'vertex_2' must be hashable"
-        assert isinstance(weight, float), "Argument 'weight' must be a real number"
+        assert isinstance(weight, (float, int)), "Argument 'weight' must be a real number"
         assert isinstance(symmetric, bool), "Argument 'symmetric' must be a boolean"
         assert vertex_1 in self.__adjacency, "Vertex 1 not in the graph"
         assert vertex_2 in self.__adjacency, "Vertex 2 not in the graph"
@@ -147,7 +147,7 @@ class Graph ():
         
     #############################################################################################################################################
 
-    def as_dict (self) -> dict[Hashable, dict[Hashable, float]]:
+    def as_dict (self) -> dict[Hashable, dict[Hashable, float | int]]:
 
         """
         Returns a dictionary representing the adjacency matrix.
@@ -299,7 +299,7 @@ class Graph ():
     def get_weight ( self,
                      vertex_1: Hashable,
                      vertex_2: Hashable
-                   ) ->        float:
+                   ) ->        float | int:
 
         """
         Returns the weight of an edge.
@@ -424,7 +424,7 @@ class Graph ():
             if neighbors_in_mst:
                 neighbor = neighbors_in_mst[0]
                 symmetric = self.edge_is_symmetric(vertex, neighbor)
-                weight = self.__adjacency[neighbor][vertex]
+                weight = self.get_weight(neighbor, vertex)
                 mst.add_vertex(vertex)
                 mst.add_edge(vertex, neighbor, weight, symmetric)
             else:
