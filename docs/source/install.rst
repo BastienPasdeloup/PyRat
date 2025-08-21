@@ -14,7 +14,7 @@ Prerequisites
   If not, please do this first as described in the `official documentation <https://docs.python.org/3/library/venv.html>`_.
 
 - Finally, we will test PyRat installation using Visual Studio Code (VSCode), as this is the main tool we use in the associated course.
-  Please make sure it is already installed, or install it from the `official website <https://code.visualstudio.com/>`_.
+  Please make sure it is already installed, or install it from the `official website <https://code.visualstudio.com>`_.
   Note that you can use a different tool if you want, but we just provide indications for that one here.
 
 Install the PyRat package

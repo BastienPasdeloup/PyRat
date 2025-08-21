@@ -22,9 +22,9 @@
                 <br />
                 <p>This repository contains the software used in the<br>computer science course at IMT Atlantique.</p>
                 <br />
-                <p>The course contents is available at this address:<br><a rel="nofollow"></a><a href="https://hub.imt-atlantique.fr/ueinfo-fise1a/" rel="nofollow">https://hub.imt-atlantique.fr/ueinfo-fise1a/</a>.</p>
+                <p>The course contents is available at this address:<br><a rel="nofollow"></a><a href="https://hub.imt-atlantique.fr/ueinfo-fise1a" rel="nofollow">https://hub.imt-atlantique.fr/ueinfo-fise1a</a>.</p>
                 <br />
-                <p>The documentation is available at this address::<br><a rel="nofollow"></a><a href="https://bastienpasdeloup.github.io/PyRat/" rel="nofollow">https://bastienpasdeloup.github.io/PyRat/</a>.</p>
+                <p>The documentation is available at this address::<br><a rel="nofollow"></a><a href="https://bastienpasdeloup.github.io/PyRat" rel="nofollow">https://bastienpasdeloup.github.io/PyRat</a>.</p>
                 <br />
             </td>
         </tr>
@@ -39,7 +39,7 @@
   If not, please do this first as described in the [official documentation](https://docs.python.org/3/library/venv.html).
 
 - Finally, we will test PyRat installation using Visual Studio Code (VSCode), as this is the main tool we use in the associated course.
-  Please make sure it is already installed, or install it from the [official website](https://code.visualstudio.com/).
+  Please make sure it is already installed, or install it from the [official website](https://code.visualstudio.com).
   Note that you can use a different tool if you want, but we just provide indications for that one here.
 
 # Install the PyRat package

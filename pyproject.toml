@@ -26,7 +26,7 @@ dependencies = ["pygame",
 
 [project.urls]
 Homepage      = "https://github.com/BastienPasdeloup/PyRat"
-Documentation = "https://bastienpasdeloup.github.io/PyRat/"
+Documentation = "https://bastienpasdeloup.github.io/PyRat"
 Issues        = "https://github.com/BastienPasdeloup/PyRat/issues"
 PyPI          = "https://pypi.org/project/pyrat-game"
 Course        = "https://hub.imt-atlantique.fr/ueinfo-fise1a"
