@@ -359,23 +359,37 @@ class Game ():
     #############################################################################################################################################
 
     def reset ( self,
-                keep_players: bool = True
+                keep_players: bool = True,
+                same:         bool = True
               ) ->            None:
         
         """
         Resets the game to its initial state.
+        The initial state is defined by the parameters given in the constructor.
+
+        If the game was generated with random elements, we will generate new random elements or keep the same ones, depending on the ``same`` parameter.
+        If ``same`` is ``True``, we will keep the same random seeds that were used to generate the previous game.
+        If ``same`` is ``False``, we will generate new random seeds for the game, based on what was provided in the constructor.
+
+        Note that even if you set  ``same`` to ``False`` but you provided random seeds in the constructor, the game will use these random seeds.
+        Thus, if you declare ``same=False`` but created a game with ``random_seed=42``, this will be equivalent ``same=True``.
         
+        Another example: if you declare ``same=False`` but created a game with ``random_seed_maze=42``, the game will happen on the same maze as before, but with a different cheese distribution and random initial player locations.
+
         Args:
             keep_players: If ``True``, keeps the players in the game, otherwise removes them.
+            same:         If ``True``, keeps the same random seeds as before, otherwise generates new random seeds.
         """
         
         # Debug
         assert isinstance(keep_players, bool), "Argument 'keep_players' must be a boolean"
+        assert isinstance(same, bool), "Argument 'same' must be a boolean"
 
         # Set random seeds for the game
-        self.__game_random_seed_maze = self.__random_seed if self.__random_seed is not None else self.__random_seed_maze if self.__random_seed_maze is not None else random.randint(0, sys.maxsize - 1)
-        self.__game_random_seed_cheese = self.__random_seed if self.__random_seed is not None else self.__random_seed_cheese if self.__random_seed_cheese is not None else random.randint(0, sys.maxsize - 1)
-        self.__game_random_seed_players = self.__random_seed if self.__random_seed is not None else self.__random_seed_players if self.__random_seed_players is not None else random.randint(0, sys.maxsize - 1)
+        if not same or self.__game_random_seed_maze is None:
+            self.__game_random_seed_maze = self.__random_seed if self.__random_seed is not None else self.__random_seed_maze if self.__random_seed_maze is not None else random.randint(0, sys.maxsize - 1)
+            self.__game_random_seed_cheese = self.__random_seed if self.__random_seed is not None else self.__random_seed_cheese if self.__random_seed_cheese is not None else random.randint(0, sys.maxsize - 1)
+            self.__game_random_seed_players = self.__random_seed if self.__random_seed is not None else self.__random_seed_players if self.__random_seed_players is not None else random.randint(0, sys.maxsize - 1)
         self.__players_rng = random.Random(self.__game_random_seed_players)
         
         # Reset game elements

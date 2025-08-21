@@ -326,12 +326,34 @@ Here is the complete code of the constructor:
         super().__init__(*args, **kwargs)
 
         # We create an attribute to keep track of visited cells
+        # We will initialize it in the ``preprocessing()`` method to allow the game to be reset
+        # Otherwise, the set would keep the cells visited in previous games
+        self.visited_cells = None
+
+Not that we do not yet initialize the ``visited_cells`` attribute.
+We are going to do that in the ``preprocessing()`` method, which is called at the beginning of the game.
+The reason is that PyRat allows to reset games, and we want to be able to reset the visited cells at each game start.
+
+The ``preprocessing()`` Method
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Now, we need to implement the ``preprocessing()`` method to initialize the ``visited_cells`` attribute.
+At the beginning of the game, we have no visited cells, so we can just initialize the attribute to an empty set.
+
+.. code-block:: python
+
+    def preprocessing ( self,
+                        maze:       Maze,
+                        game_state: GameState,
+                      ) ->          None:
+
+        # Initialize visited cells
         self.visited_cells = set()
 
 The ``turn()`` Method
 ^^^^^^^^^^^^^^^^^^^^^
 
-Now, we need to update the ``find_next_action()`` method to prioritize unvisited cells.
+Then, we need to update the ``find_next_action()`` method to prioritize unvisited cells.
 To do so, we will first retrieve the neighbors of the current cell, and then filter them to keep only the unvisited ones.
 If there are unvisited neighbors, we choose one of them at random.
 If there are no unvisited neighbors, we choose a random neighbor among all the valid ones.
@@ -446,19 +468,18 @@ It is not initialized here, as the maze is not available at this point.
         super().__init__(*args, **kwargs)
 
         # We create an attribute to keep track of visited cells
-        self.visited_cells = set()
+        # We will initialize it in the ``preprocessing()`` method to allow the game to be reset
+        # Otherwise, the set would keep the cells visited in previous games
+        self.visited_cells = None
 
-        # We create an attribute for the reduced maze
-        # We will initialize it in the preprocessing method
+        # We also create an attribute for the reduced maze
         self.reduced_maze = None
 
 The ``preprocessing()`` Method
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Now, we need to implement the ``preprocessing()`` method.
-This method is called at the beginning of the game, and it allows to perform some initial computations.
-
-To keep things organized, we will create a helper method called ``remove_dead_ends()``.
+Now, let's update the ``preprocessing()`` method.
+To keep things organized, we will first create a helper method called ``remove_dead_ends()``.
 This method will take a maze and a list of locations to keep even if in a dead-end, and it will return a reduced version of the maze.
 
 .. code-block:: python
@@ -495,6 +516,9 @@ The ``preprocessing()`` method will call this helper method to initialize the ``
                         game_state: GameState,
                       ) ->          None:
         
+        # Initialize visited cells
+        self.visited_cells = set()
+
         # Reduce the maze
         my_location = game_state.player_locations[self.get_name()]
         self.reduced_maze = self.remove_dead_ends(maze, [my_location] + game_state.cheese)
@@ -583,26 +607,24 @@ You can save it in a file called ``evaluate_random_players.py`` in the ``games``
     # Determines how many games will be played for each player
     nb_games = 1000
 
-    # Customize the game elements
-    # Note the use of the GameMode.SIMULATION to avoid displaying the game window
+    # Customize the game elements
     game_config = {"mud_percentage": 0.0,
-                   "nb_cheese": 1,
-                   "game_mode": GameMode.SIMULATION}
+                "nb_cheese": 1,
+                "game_mode": GameMode.SIMULATION}
 
     # Run the games for each player class
-    player_classes = [Random1, Random2, Random3, Random4]
-    results = {player_class.__name__: [] for player_class in player_classes}
-    for player_class in player_classes:
-        for seed in tqdm.tqdm(range(nb_games), desc=player_class.__name__):
+    players = [Random1(), Random2(), Random3(), Random4()]
+    results = {player.get_name(): [] for player in players}
+    for player in players:
+        for seed in tqdm.tqdm(range(nb_games), desc=player.get_name()):
 
             # Make the game with given seed
             game = Game(random_seed=seed, **game_config)
-            player = player_class()
             game.add_player(player)
             stats = game.start()
             
             # Store the number of turns needed
-            results[player_class.__name__].append(stats["turns"])
+            results[player.get_name()].append(stats["turns"])
 
     # Visualization of cumulative curves of numbers of turns taken per program
     max_turn = max([max(results[player]) for player in results])

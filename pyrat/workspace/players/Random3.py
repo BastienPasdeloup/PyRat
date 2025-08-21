@@ -63,10 +63,33 @@ class Random3 (Player):
         super().__init__(*args, **kwargs)
 
         # We create an attribute to keep track of visited cells
-        self.visited_cells = set()
+        # We will initialize it in the ``preprocessing()`` method to allow the game to be reset
+        # Otherwise, the set would keep the cells visited in previous games
+        self.visited_cells = None
        
     #############################################################################################################################################
     #                                                               PYRAT METHODS                                                               #
+    #############################################################################################################################################
+
+    def preprocessing ( self,
+                        maze:       Maze,
+                        game_state: GameState,
+                      ) ->          None:
+        
+        """
+        *(This method redefines the method of the parent class with the same name).*
+
+        This method is called once at the beginning of the game.
+        Here, we just initialize the set of visited cells.
+
+        Args:
+            maze:       An object representing the maze in which the player plays.
+            game_state: An object representing the state of the game.
+        """
+
+        # Initialize visited cells
+        self.visited_cells = set()
+
     #############################################################################################################################################
 
     def turn ( self,

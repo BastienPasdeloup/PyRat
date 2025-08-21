@@ -47,7 +47,8 @@ class TemplatePlayer (Player):
         """
         This function is the constructor of the class.
         When an object is instantiated, this method is called to initialize the object.
-        This is where you should define the attributes of the object and set their initial values.
+        This is where you should define the attributes of the object.
+        We advise that you initialize these attributes of the object in the ``preprocessing()`` method to allow the game to be reset.
 
         Args:
             args:   Arguments to pass to the parent constructor.

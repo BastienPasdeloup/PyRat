@@ -62,10 +62,11 @@ class Random4 (Player):
         super().__init__(*args, **kwargs)
 
         # We create an attribute to keep track of visited cells
-        self.visited_cells = set()
+        # We will initialize it in the ``preprocessing()`` method to allow the game to be reset
+        # Otherwise, the set would keep the cells visited in previous games
+        self.visited_cells = None
 
-        # We create an attribute for the reduced maze
-        # We will initialize it in the preprocessing method
+        # We also create an attribute for the reduced maze
         self.reduced_maze = None
        
     #############################################################################################################################################
@@ -89,6 +90,9 @@ class Random4 (Player):
             maze:       An object representing the maze in which the player plays.
             game_state: An object representing the state of the game.
         """
+
+        # Initialize visited cells
+        self.visited_cells = set()
 
         # Reduce the maze
         my_location = game_state.player_locations[self.get_name()]

@@ -5,9 +5,6 @@ Welcome to the PyRat documentation website!
 This documentation is designed to help you understand and use the PyRat library effectively.
 It includes detailed information about the PyRat API, workspace API, and other relevant topics.
 
-Website Organization
---------------------
-
 On this website, you will find the following sections:
 
 - :doc:`Install PyRat <install>`: Instructions on how to install the PyRat library and set up your workspace.

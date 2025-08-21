@@ -12,6 +12,7 @@ If you are new to PyRat, we advise you to start with the following tutorials:
    the_random_programs
    customizing_your_game
    game_modes
+   stopping_a_game
 
 When familiar with the basics, you can explore more advanced topics:
 
