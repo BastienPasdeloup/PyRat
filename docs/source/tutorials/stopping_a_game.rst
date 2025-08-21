@@ -12,7 +12,7 @@ By default, the game will continue running until: one of the following condition
 - It reaches an end condition.
 - An error occurs in one of the players' codes.
 
-However, if you want to let the game run even in the event of a player error, you can set the ``stop_on_error`` parameter to ``False`` when creating the game instance.
+However, if you want to let the game run even in the event of a player error, you can set the ``continue_on_error`` parameter to ``True`` when creating the game instance.
 This is particularly useful when running matches with multiple players, as it does not penalize other players.
 
 Stopping the Game
