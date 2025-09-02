@@ -36,6 +36,7 @@ def create_workspace ( target_directory: str
     Creates all the directories for a clean student workspace.
     Also creates a few default programs to start with.
     This function also takes care of adding the workspace to the Python path so that it can be used directly.
+    If the workspace already exists, it is not modified but we setup the Python path anyway to use it.
     
     Args:
         target_directory: The directory in which to create the workspace.
@@ -46,10 +47,11 @@ def create_workspace ( target_directory: str
     assert is_valid_directory(os.path.join(target_directory, "pyrat_workspace")), "Workspace directory cannot be created"
 
     # Copy the template workspace into the target directory if not already existing
-    source_workspace = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "workspace")
-    target_workspace = os.path.abspath(os.path.join(target_directory, "pyrat_workspace"))
-    shutil.copytree(source_workspace, target_workspace, ignore=shutil.ignore_patterns('__pycache__'))
-    print(f"Workspace created in {target_workspace}", file=sys.stderr)
+    if not os.path.exists(target_workspace):
+        source_workspace = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "workspace")
+        target_workspace = os.path.abspath(os.path.join(target_directory, "pyrat_workspace"))
+        shutil.copytree(source_workspace, target_workspace, ignore=shutil.ignore_patterns('__pycache__'))
+        print(f"Workspace created in {target_workspace}", file=sys.stderr)
 
     # Permanently add the workspace to path
     site_packages = site.getusersitepackages()
