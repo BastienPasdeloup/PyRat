@@ -2,7 +2,7 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-# This file is part of the PyRat library.
+# This file is provided as an example by the PyRat library.
 # It describes a script that creates a PyRat game.
 # Please import necessary elements using the following syntax:
 #     from pyrat import <element_name>

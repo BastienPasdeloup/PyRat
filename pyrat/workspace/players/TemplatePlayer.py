@@ -2,7 +2,7 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-# This file is part of the PyRat library.
+# This file is provided as an example by the PyRat library.
 # It describes a player that can be used in a PyRat game.
 # It is meant to be copy-pasted in a new file to create a new player.
 

@@ -2,9 +2,9 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-# This file is part of the PyRat library.
+# This file is provided as an example by the PyRat library.
 # It describes a player that can be used in a PyRat game.
-# It is meant to be used as a library, and not to be executed directly.
+# This file is meant to be imported, and not to be executed directly.
 # Please import this file from a game script using the following syntax:
 #     from players.Random3 import Random3
 

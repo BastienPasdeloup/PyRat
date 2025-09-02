@@ -2,9 +2,9 @@
 ######################################################################## INFO #######################################################################
 #####################################################################################################################################################
 
-# This file is part of the PyRat library.
+# This file is provided as an example by the PyRat library.
 # It describes a player that can be used in a PyRat game.
-# It is meant to be used as a library, and not to be executed directly.
+# This file is meant to be imported, and not to be executed directly.
 # Please import this file from a game script using the following syntax:
 #     from players.Random4 import Random4
 
@@ -142,7 +142,7 @@ class Random4 (Player):
         """
         This method returns an action to perform among the possible actions, defined in the ``Action`` enumeration.
         Here, the action is chosen randomly among those that don't hit a wall, and that lead to an unvisited cell if possible.
-        If no such action exists, we come back to the last cell in the trajectory and pop it.
+        If no such action exists, we choose randomly among all possible actions that don't hit a wall.
         
         Args:
             maze:       An object representing the maze in which the player plays.
