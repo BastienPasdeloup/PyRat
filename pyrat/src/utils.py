@@ -47,9 +47,9 @@ def create_workspace ( target_directory: str
     assert is_valid_directory(os.path.join(target_directory, "pyrat_workspace")), "Workspace directory cannot be created"
 
     # Copy the template workspace into the target directory if not already existing
+    source_workspace = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "workspace")
+    target_workspace = os.path.abspath(os.path.join(target_directory, "pyrat_workspace"))
     if not os.path.exists(target_workspace):
-        source_workspace = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "workspace")
-        target_workspace = os.path.abspath(os.path.join(target_directory, "pyrat_workspace"))
         shutil.copytree(source_workspace, target_workspace, ignore=shutil.ignore_patterns('__pycache__'))
         print(f"Workspace created in {target_workspace}", file=sys.stderr)
 
