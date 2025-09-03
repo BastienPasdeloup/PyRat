@@ -23,6 +23,7 @@ import shutil
 import pathlib
 import sys
 import pyfakefs
+import site
 import sysconfig
 
 #####################################################################################################################################################
@@ -58,6 +59,7 @@ def init_workspace ( target_directory: str
     pth_file = os.path.join(site_packages, "pyrat_workspace_path.pth")
     with open(pth_file, "w") as f:
         f.write(target_workspace + "\n")
+    site.addsitedir(site_packages)
     print(f"Workspace added to Python path", file=sys.stderr)
 
     # Confirmation
