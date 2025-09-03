@@ -30,7 +30,7 @@ import sysconfig
 ##################################################################### FUNCTIONS #####################################################################
 #####################################################################################################################################################
 
-def init_workspace ( target_directory: str
+def init_workspace ( target_directory: str = "pyrat_workspace"
                    ) ->                None:
 
     """
@@ -45,11 +45,11 @@ def init_workspace ( target_directory: str
 
     # Debug
     assert isinstance(target_directory, str), "Argument 'target_directory' must be a string"
-    assert is_valid_directory(os.path.join(target_directory, "pyrat_workspace")), "Workspace directory cannot be created"
+    assert is_valid_directory(target_directory), "Workspace directory cannot be created"
 
     # Copy the template workspace into the target directory if not already existing
     source_workspace = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "workspace")
-    target_workspace = os.path.abspath(os.path.join(target_directory, "pyrat_workspace"))
+    target_workspace = os.path.abspath(target_directory)
     if not os.path.exists(target_workspace):
         shutil.copytree(source_workspace, target_workspace, ignore=shutil.ignore_patterns('__pycache__'))
         print(f"Workspace created in {target_workspace}", file=sys.stderr)

@@ -53,10 +53,10 @@ To do so, follow these steps:
 2. Activate your virtual environment where PyRat is installed (see above).
 3. Run the following command:
 
-     - **Linux:** ``python3 -c "import pyrat; pyrat.init_workspace('.')"``
-     - **MacOS:** ``python3 -c "import pyrat; pyrat.init_workspace('.')"``
-     - **Windows (cmd):** ``python -c "import pyrat; pyrat.init_workspace('.')"`` 
-     - **Windows (PowerShell):** ``python -c "import pyrat; pyrat.init_workspace('.')"``
+     - **Linux:** ``python3 -c "import pyrat; pyrat.init_workspace()"``
+     - **MacOS:** ``python3 -c "import pyrat; pyrat.init_workspace()"``
+     - **Windows (cmd):** ``python -c "import pyrat; pyrat.init_workspace()"`` 
+     - **Windows (PowerShell):** ``python -c "import pyrat; pyrat.init_workspace()"``
 
 You should see something like this:
 
@@ -65,6 +65,8 @@ You should see something like this:
      Workspace created in /path/to/pyrat_workspace
      Workspace added to Python path
      Your workspace is ready! You can now start coding your players and run games.
+
+You should have a new directory called ``pyrat_workspace`` in the directory where you ran the command.
 
 Check your installation
 -----------------------

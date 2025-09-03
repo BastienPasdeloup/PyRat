@@ -70,10 +70,10 @@ To do so, follow these steps:
 1) Open a terminal, and navigate (use the `cd` command) to the directory where you want to create your PyRat workspace.
 2) Activate your virtual environment where PyRat is installed (see above).
 3) Run the following command:
-   - **Linux:** `python3 -c "import pyrat; pyrat.init_workspace('.')"`
-   - **MacOS:** `python3 -c "import pyrat; pyrat.init_workspace('.')"`
-   - **Windows (cmd):** `python -c "import pyrat; pyrat.init_workspace('.')"`
-   - **Windows (PowerShell):** `python -c "import pyrat; pyrat.init_workspace('.')"`
+   - **Linux:** `python3 -c "import pyrat; pyrat.init_workspace()"`
+   - **MacOS:** `python3 -c "import pyrat; pyrat.init_workspace()"`
+   - **Windows (cmd):** `python -c "import pyrat; pyrat.init_workspace()"`
+   - **Windows (PowerShell):** `python -c "import pyrat; pyrat.init_workspace()"`
 
 You should see something like this:
 ```text
@@ -82,6 +82,8 @@ Workspace added to Python path
 Your workspace is ready! You can now start coding your players and run games.
 ```
 
+You should have a new directory called `pyrat_workspace` in the directory where you ran the command.
+
 # Check your installation
 
 Now, we are going to verify that PyRat works properly. \
@@ -89,7 +91,7 @@ To do so, follow these steps:
 1) Open VSCode, and add your `pyrat_workspace` directory in your VSCode workspace.
 2) Open the file `sample_game.py` in directory `pyrat_workspace/games/`.
 3) Make sure VSCode is using your virtual environment where PyRat is installed.
-3) Run `sample_game.py`.
+3) Run `sample_game.py`.    
 
 You should see something like this:
 
