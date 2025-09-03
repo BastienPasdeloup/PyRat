@@ -14,8 +14,9 @@ name         = "pyrat-game"
 version      = "6.2.3"
 description  = "PyRat software used in the computer science course at IMT Atlantique"
 readme       = "README.md"
-license      = {text = "MIT"}
+license      = "MIT"
 authors      = [{name = "Bastien Pasdeloup", email = "bastien.pasdeloup@imt-atlantique.fr"}]
+classifiers  = ["Programming Language :: Python"]
 dependencies = ["pygame",
                 "colored",
                 "distinctipy",

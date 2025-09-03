@@ -41,6 +41,7 @@ You should see something like this:
           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.2/4.2 MB 9.6 MB/s eta 0:00:00
      Installing collected packages: pyrat-game
      Successfully installed pyrat-game-6.0.0
+     Your workspace is ready! You can now start coding your players and run games.
 
 Setup your PyRat workspace
 --------------------------

@@ -24,7 +24,7 @@
                 <br />
                 <p>The course contents is available at this address:<br><a rel="nofollow"></a><a href="https://hub.imt-atlantique.fr/ueinfo-fise1a" rel="nofollow">https://hub.imt-atlantique.fr/ueinfo-fise1a</a>.</p>
                 <br />
-                <p>The documentation is available at this address::<br><a rel="nofollow"></a><a href="https://bastienpasdeloup.github.io/PyRat" rel="nofollow">https://bastienpasdeloup.github.io/PyRat</a>.</p>
+                <p>The documentation is available at this address:<br><a rel="nofollow"></a><a href="https://bastienpasdeloup.github.io/PyRat" rel="nofollow">https://bastienpasdeloup.github.io/PyRat</a>.</p>
                 <br />
             </td>
         </tr>
@@ -60,6 +60,7 @@ Downloading pyrat_game-6.0.0-py3-none-any.whl (4.2 MB)
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.2/4.2 MB 9.6 MB/s eta 0:00:00
 Installing collected packages: pyrat-game
 Successfully installed pyrat-game-6.0.0
+Your workspace is ready! You can now start coding your players and run games.
 ```
 
 # Setup your PyRat workspace

@@ -23,14 +23,14 @@ import shutil
 import pathlib
 import sys
 import pyfakefs
-import site
+import sysconfig
 
 #####################################################################################################################################################
 ##################################################################### FUNCTIONS #####################################################################
 #####################################################################################################################################################
 
-def create_workspace ( target_directory: str
-                     ) ->                None:
+def init_workspace ( target_directory: str
+                   ) ->                None:
 
     """
     Creates all the directories for a clean student workspace.
@@ -53,12 +53,14 @@ def create_workspace ( target_directory: str
         shutil.copytree(source_workspace, target_workspace, ignore=shutil.ignore_patterns('__pycache__'))
         print(f"Workspace created in {target_workspace}", file=sys.stderr)
 
-    # Permanently add the workspace to path
-    site_packages = site.getusersitepackages()
-    pth_file = os.path.join(site_packages, "pyrat_workspace_path.pth")
+    # Add the workspace to path
+    pth_file = sysconfig.get_paths()["purelib"]
     with open(pth_file, "w") as f:
         f.write(target_workspace + "\n")
     print(f"Workspace added to Python path", file=sys.stderr)
+
+    # Confirmation
+    print(f"Your workspace is ready! You can now start coding your players and run games.", file=sys.stderr)
 
 #####################################################################################################################################################
 
