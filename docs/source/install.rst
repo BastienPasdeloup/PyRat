@@ -54,10 +54,10 @@ To do so, follow these steps:
 2. Activate your virtual environment where PyRat is installed (see above).
 3. Run the following command:
 
-     - **Linux:** ``python3 -c "import pyrat; pyrat.create_workspace('.')"``
-     - **MacOS:** ``python3 -c "import pyrat; pyrat.create_workspace('.')"``
-     - **Windows (cmd):** ``python -c "import pyrat; pyrat.create_workspace('.')"`` 
-     - **Windows (PowerShell):** ``python -c "import pyrat; pyrat.create_workspace('.')"``
+     - **Linux:** ``python3 -c "import pyrat; pyrat.init_workspace('.')"``
+     - **MacOS:** ``python3 -c "import pyrat; pyrat.init_workspace('.')"``
+     - **Windows (cmd):** ``python -c "import pyrat; pyrat.init_workspace('.')"`` 
+     - **Windows (PowerShell):** ``python -c "import pyrat; pyrat.init_workspace('.')"``
 
 You should see something like this:
 
