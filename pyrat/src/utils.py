@@ -54,7 +54,8 @@ def init_workspace ( target_directory: str
         print(f"Workspace created in {target_workspace}", file=sys.stderr)
 
     # Add the workspace to path
-    pth_file = sysconfig.get_paths()["purelib"]
+    site_packages = sysconfig.get_paths()["purelib"]
+    pth_file = os.path.join(site_packages, "pyrat_workspace_path.pth")
     with open(pth_file, "w") as f:
         f.write(target_workspace + "\n")
     print(f"Workspace added to Python path", file=sys.stderr)
