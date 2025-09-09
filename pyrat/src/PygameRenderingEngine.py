@@ -19,6 +19,7 @@ It will create a window and display the game in it.
 # External imports
 import copy
 import multiprocessing
+import multiprocessing.managers as mpmanagers
 import os
 import glob
 import distinctipy
@@ -142,8 +143,8 @@ class PygameRenderingEngine (RenderingEngine):
 ##################################################################### FUNCTIONS #####################################################################
 #####################################################################################################################################################
 
-def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrier,
-                            gui_queue:                    multiprocessing.Queue,
+def _gui_process_function ( gui_initialized_synchronizer: mpmanagers.BarrierProxy,
+                            gui_queue:                    mpmanagers.BaseProxy,
                             maze:                         Maze,
                             initial_game_state:           GameState,
                             players:                      list[Player],
@@ -170,8 +171,8 @@ def _gui_process_function ( gui_initialized_synchronizer: multiprocessing.Barrie
     """
 
     # Debug
-    assert isinstance(gui_initialized_synchronizer, multiprocessing.managers.BarrierProxy), "Argument 'gui_initialized_synchronizer' must be a multiprocessing.Barrier"
-    assert isinstance(gui_queue, multiprocessing.managers.BaseProxy), "Argument 'gui_queue' must be a multiprocessing.Queue"
+    assert isinstance(gui_initialized_synchronizer, mpmanagers.BarrierProxy), "Argument 'gui_initialized_synchronizer' must be a multiprocessing.Barrier"
+    assert isinstance(gui_queue, mpmanagers.BaseProxy), "Argument 'gui_queue' must be a multiprocessing.Queue"
     assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
     assert isinstance(initial_game_state, GameState), "Argument 'initial_game_state' must be of type 'pyrat.GameState'"
     assert isinstance(players, list), "Argument 'players' must be a list"
