@@ -68,7 +68,7 @@ We are now going to create a workspace for PyRat. \
 This is a directory that contains minimal working examples to get started. \
 To do so, follow these steps:
 1) Open a terminal, and navigate (use the `cd` command) to the directory where you want to create your PyRat workspace.
-2) Activate your virtual environment where PyRat is installed (see above).
+2) If not already activated, activate your virtual environment where PyRat is installed (see above).
 3) Run the following command:
    - **Linux:** `python3 -c "import pyrat; pyrat.init_workspace()"`
    - **MacOS:** `python3 -c "import pyrat; pyrat.init_workspace()"`
