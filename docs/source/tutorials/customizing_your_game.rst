@@ -93,7 +93,7 @@ When creating a new player, you can specify the following arguments:
   Note that the name must be unique among players in the game.
 - ``skin``: Skin of the player, given as a possible value of the :doc:`PlayerSkin </pyrat/enums>` enumeration.
 
-When creating a new game, you also specify the initial positions of players using the ``game.add_player()`` method.
+When creating a new game, you also specify the initial positions of players using the ``game.add_player(...)`` method.
 This method takes the following arguments:
 
 - ``team``: Team to which the player belongs.

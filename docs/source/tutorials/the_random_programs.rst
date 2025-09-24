@@ -74,16 +74,16 @@ Often, the class name will be the same as the file name, without the ``.py`` ext
 Also, note that all PyRat players should inherit from class Player (defined in the ``pyrat`` module).
 This is done by adding ``(Player)`` after the class name below.
 By doing so, all players you will write will have access to the attributes (data) and methods (functions) defined in the ``Player`` class.
-In particular, you can access the ``get_name()`` method, that will be useful to know where you are in the maze, as shown later on this page.
+In particular, you can access the ``get_name(...)`` method, that will be useful to know where you are in the maze, as shown later on this page.
 
 .. code-block:: python
 
     class Random1 (Player):
 
-The Constructor ``__init__()``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The Constructor ``__init__(...)``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-There is a particular method called ``__init__()`` that is called when you instantiate a class, *i.e.*, when you run the code ``p = Random1()``.
+There is a particular method called ``__init__(...)`` that is called when you instantiate a class, *i.e.*, when you run the code ``p = Random1(...)``.
 This method should always start with the argument ``self``, and finish with arguments ``*args, **kwargs`` (a `good convention <https://www.datasciencebyexample.com/2023/08/10/flexible-way-to-extend-and-inherit-python-class/>`_).
 You can add all the arguments you want in the middle.
 
@@ -104,20 +104,20 @@ We are going to change that later in the other players.
         # Inherit from parent class
         super().__init__(*args, **kwargs)
 
-The ``preprocessing()`` and ``postprocessing()`` methods
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The ``preprocessing(...)`` and ``postprocessing(...)`` methods
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-As ``Random1`` does nothing during the preprocessing and postprocessing phases, we do not need to implement the ``preprocessing()`` and ``postprocessing()`` methods.
+As ``Random1`` does nothing during the preprocessing and postprocessing phases, we do not need to implement the ``preprocessing(...)`` and ``postprocessing(...)`` methods.
 We will introduce the former later in this tutorial, and the latter in a more advanced tutorial.
 
-The ``turn()`` Method
-^^^^^^^^^^^^^^^^^^^^^
+The ``turn(...)`` Method
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-The main part of the player is the ``turn()`` method.
+The main part of the player is the ``turn(...)`` method.
 This method is called at each turn of the game, and it should return an action that the player wants to perform.
 In our case, we want the player to move randomly.
 
-For code readability, we are going to define a helper function called ``find_next_action()``.
+For code readability, we are going to define a helper function called ``find_next_action(...)``.
 This function will choose a random action from the list of possible actions defined in the ``Action`` enum.
 
 .. code-block:: python
@@ -128,7 +128,7 @@ This function will choose a random action from the list of possible actions defi
         action = random.choice(list(Action))
         return action
 
-Using this function, we can now implement the ``turn()`` method.
+Using this function, we can now implement the ``turn(...)`` method.
 
 .. code-block:: python
 
@@ -188,7 +188,7 @@ The ``Random2`` Player
 The second random player is a bit more intelligent.
 Moving like ``Random1`` has the drawback of sometimes running into walls, or maybe returning an action that does nothing (``Action.NOTHING``).
 Here, we are going to return an action at random, among those that lead somewhere.
-To obtain this information, we will use the arguments provided by the PyRat game to the ``turn()`` method.
+To obtain this information, we will use the arguments provided by the PyRat game to the ``turn(...)`` method.
 
 Definition of the Class
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -200,23 +200,23 @@ First, we change the class name to ``Random2``:
 
     class Random2 (Player):
 
-The ``turn()`` Method
-^^^^^^^^^^^^^^^^^^^^^
+The ``turn(...)`` Method
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-Now, let's update the ``find_next_action()`` method to return a random valid action.
-To do so, we will need to use the maze map and current game configuration, received by ``turn()`` as arguments ``maze`` (an object of class ``Maze``, defined in the ``pyrat`` module) and ``game_state`` (an object of class ``GameState``, defined in the ``pyrat`` module).
+Now, let's update the ``find_next_action(...)`` method to return a random valid action.
+To do so, we will need to use the maze map and current game configuration, received by ``turn(...)`` as arguments ``maze`` (an object of class ``Maze``, defined in the ``pyrat`` module) and ``game_state`` (an object of class ``GameState``, defined in the ``pyrat`` module).
 
 In particular, ``game_state`` contains the current location of the player in the maze, that you can retrieve using its attribute ``game_state.player_locations``.
 This is a dictionary that maps player names to their current location in the maze.
-You can retrieve your own location using the method ``get_name()`` defined in the parent class ``Player``.
+You can retrieve your own location using the method ``get_name(...)`` defined in the parent class ``Player``.
 Combining these methods, you can retrieve your current location in the maze with the following code: ``my_location = game_state.player_locations[self.get_name()]``.
 
 Now, we need to determine which actions are valid.
-The ``Maze`` class has a method called ``get_neighbors()`` that returns the neighbors of a given location.
+The ``Maze`` class has a method called ``get_neighbors(...)`` that returns the neighbors of a given location.
 We are going to use this method to retrieve the accessible neighbors of our current location.
 Finally, we just select one of these neighbors at random, and return the corresponding action.
 
-Here is the complete code of the ``find_next_action()`` method.
+Here is the complete code of the ``find_next_action(...)`` method.
 Note that for this method to be able to use the ``maze`` and ``game_state`` arguments, we need to add them to the method signature.
 
 .. code-block:: python
@@ -235,7 +235,7 @@ Note that for this method to be able to use the ``maze`` and ``game_state`` argu
         action = maze.locations_to_action(my_location, neighbor)
         return action
 
-In coherence with these changes, we also need to update the ``turn()`` method to pass the ``maze`` and ``game_state`` arguments to the ``find_next_action()`` method.
+In coherence with these changes, we also need to update the ``turn(...)`` method to pass the ``maze`` and ``game_state`` arguments to the ``find_next_action(...)`` method.
 
 .. code-block:: python
 
@@ -302,8 +302,8 @@ First, we change the class name to ``Random3``:
 
     class Random3 (Player):
 
-The Constructor ``__init__()``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The Constructor ``__init__(...)``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Now, we need to add the ``visited_cells`` attribute to the class.
 To do so, we add a new line in the constructor, after the call to the parent constructor.
@@ -331,13 +331,13 @@ Here is the complete code of the constructor:
         self.visited_cells = None
 
 Not that we do not yet initialize the ``visited_cells`` attribute.
-We are going to do that in the ``preprocessing()`` method, which is called at the beginning of the game.
+We are going to do that in the ``preprocessing(...)`` method, which is called at the beginning of the game.
 The reason is that PyRat allows to reset games, and we want to be able to reset the visited cells at each game start.
 
-The ``preprocessing()`` Method
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The ``preprocessing(...)`` Method
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Now, we need to implement the ``preprocessing()`` method to initialize the ``visited_cells`` attribute.
+Now, we need to implement the ``preprocessing(...)`` method to initialize the ``visited_cells`` attribute.
 At the beginning of the game, we have no visited cells, so we can just initialize the attribute to an empty set.
 
 .. code-block:: python
@@ -350,10 +350,10 @@ At the beginning of the game, we have no visited cells, so we can just initializ
         # Initialize visited cells
         self.visited_cells = set()
 
-The ``turn()`` Method
-^^^^^^^^^^^^^^^^^^^^^
+The ``turn(...)`` Method
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-Then, we need to update the ``find_next_action()`` method to prioritize unvisited cells.
+Then, we need to update the ``find_next_action(...)`` method to prioritize unvisited cells.
 To do so, we will first retrieve the neighbors of the current cell, and then filter them to keep only the unvisited ones.
 If there are unvisited neighbors, we choose one of them at random.
 If there are no unvisited neighbors, we choose a random neighbor among all the valid ones.
@@ -381,7 +381,7 @@ Finally, we return the corresponding action.
         action = maze.locations_to_action(my_location, neighbor)
         return action
 
-Finally, we need to update the ``turn()`` method to keep track of the visited cells.
+Finally, we need to update the ``turn(...)`` method to keep track of the visited cells.
 
 .. code-block:: python
 
@@ -438,7 +438,7 @@ The ``Random4`` Player
 In the fourth and final random player, we are going to make some initial computations to reduce the maze.
 This will allow the player to avoid dead-ends and to focus on the main paths of the maze.
 
-To program this, we will need to use the ``preprocessing()`` method to initialize an attribute called ``reduced_maze``.
+To program this, we will need to use the ``preprocessing(...)`` method to initialize an attribute called ``reduced_maze``.
 This attribute will be a reduced version of the maze, where dead-ends have been removed.
 
 Definition of the Class
@@ -451,8 +451,8 @@ First, we change the class name to ``Random4``:
 
     class Random4 (Player):
 
-The Constructor ``__init__()``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The Constructor ``__init__(...)``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Now, we need to update the constructor to create a ``reduced_maze`` attribute.
 It is not initialized here, as the maze is not available at this point.
@@ -475,11 +475,11 @@ It is not initialized here, as the maze is not available at this point.
         # We also create an attribute for the reduced maze
         self.reduced_maze = None
 
-The ``preprocessing()`` Method
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The ``preprocessing(...)`` Method
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Now, let's update the ``preprocessing()`` method.
-To keep things organized, we will first create a helper method called ``remove_dead_ends()``.
+Now, let's update the ``preprocessing(...)`` method.
+To keep things organized, we will first create a helper method called ``remove_dead_ends(...)``.
 This method will take a maze and a list of locations to keep even if in a dead-end, and it will return a reduced version of the maze.
 
 .. code-block:: python
@@ -506,7 +506,7 @@ This method will take a maze and a list of locations to keep even if in a dead-e
         # Return the updated maze
         return updated_maze
 
-The ``preprocessing()`` method will call this helper method to initialize the ``reduced_maze`` attribute.
+The ``preprocessing(...)`` method will call this helper method to initialize the ``reduced_maze`` attribute.
 
 .. code-block:: python
 
@@ -523,10 +523,10 @@ The ``preprocessing()`` method will call this helper method to initialize the ``
         my_location = game_state.player_locations[self.get_name()]
         self.reduced_maze = self.remove_dead_ends(maze, [my_location] + game_state.cheese)
 
-The ``turn()`` Method
-^^^^^^^^^^^^^^^^^^^^^
+The ``turn(...)`` Method
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-Now, we need to update the ``turn()`` method to use the reduced maze instead of the original maze.
+Now, we need to update the ``turn(...)`` method to use the reduced maze instead of the original maze.
 
 .. code-block:: python
 

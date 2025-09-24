@@ -1,21 +1,21 @@
-The ``postprocessing()`` Method
+The ``postprocessing(...)`` Method
 ===============================
 
-In addition to the ``turn()`` and ``preprocessing()`` methods, the ``Player`` class also includes a ``postprocessing()`` method.
+In addition to the ``turn(...)`` and ``preprocessing(...)`` methods, the ``Player`` class also includes a ``postprocessing(...)`` method.
 This method is called after the main game loop has completed and can be used to perform any final updates or clean-up tasks.
-In this tutorial, we will explore how to implement the ``postprocessing()`` method in a custom player class.
+In this tutorial, we will explore how to implement the ``postprocessing(...)`` method in a custom player class.
 
 An Example of Usage
 -------------------
 
-In this example, we will illustrate how the ``postprocessing()`` method can be used to analyze the moves made by an opponent player during the game.
+In this example, we will illustrate how the ``postprocessing(...)`` method can be used to analyze the moves made by an opponent player during the game.
 We will not provide a complete implementation, but rather focus on the structure and purpose of the method.
 
 Let's consider a match in 3 games between two players, where the first player to reach 2 wins is declared the overall winner.
-A game script for this will use the ``game.reset()`` functions to allow players to store information across games.
+A game script for this will use the ``game.reset(...)`` functions to allow players to store information across games.
 
-Here is a possible class that uses the ``postprocessing()`` method to analyze the series of game states across the games, and to determine the opponent's strategy based on that.
-Then, the ``turn()`` method has a different behavior depending on the conclusions found in the previous game.
+Here is a possible class that uses the ``postprocessing(...)`` method to analyze the series of game states across the games, and to determine the opponent's strategy based on that.
+Then, the ``turn(...)`` method has a different behavior depending on the conclusions found in the previous game.
 
 .. code-block:: python
 
@@ -89,12 +89,12 @@ Then, the ``turn()`` method has a different behavior depending on the conclusion
                 self.strategy = "beat_density_opponent"
 
 With this code, if your player determines that the opponent followed a greedy strategy during the game that just ended, it will set the ``self.strategy`` attribute accordingly.
-Thus, in the next game, the ``turn()`` method will behave differently.
+Thus, in the next game, the ``turn(...)`` method will behave differently.
 
 Other Possible Usages
 ---------------------
 
-In addition to the example above, here are a few extra ideas you can implement using the ``postprocessing()`` method.
+In addition to the example above, here are a few extra ideas you can implement using the ``postprocessing(...)`` method.
 
 - Train a model with reinforcement.
 - Remove some temporary files you may have created across the game.
