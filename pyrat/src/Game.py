@@ -659,7 +659,7 @@ class Game ():
                 for skin in PlayerSkin:
                     save_template = save_template.replace("'{SKIN_" + skin.name + "}'", "PlayerSkin." + skin.name)
                 for player in self.__players:
-                    save_template = save_template.replace("'{ACTIONS_" + player.get_name() + "}'", "[" + ", ".join("Action." + action.get_name() for action in self.__actions_history[player.get_name()]) + "]")
+                    save_template = save_template.replace("'{ACTIONS_" + player.get_name() + "}'", "[" + ", ".join("Action." + action.name for action in self.__actions_history[player.get_name()]) + "]")
                 with open(output_file_name, "w") as output_file:
                     print(save_template, file=output_file)
 
