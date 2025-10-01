@@ -653,8 +653,8 @@ class Game ():
             output_file_name = os.path.join(self.__save_path, datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S_%f.py"))
             with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), "save_template.py"), "r") as save_template_file:
                 save_template = save_template_file.read()
-                save_template = save_template.replace("{PLAYERS}", str(player_descriptions).replace("}, ", "},\\n                       "))
-                save_template = save_template.replace("{CONFIG}", str(config).replace(", '", ",\\n          '"))
+                save_template = save_template.replace("{PLAYERS}", str(player_descriptions).replace("}, ", "},\n                           "))
+                save_template = save_template.replace("{CONFIG}", str(config).replace(", '", ",\n                   '"))
                 save_template = save_template.replace("'{GAME_MODE}'", "GameMode.SEQUENTIAL")
                 for skin in PlayerSkin:
                     save_template = save_template.replace("'{SKIN_" + skin.name + "}'", "PlayerSkin." + skin.name)
