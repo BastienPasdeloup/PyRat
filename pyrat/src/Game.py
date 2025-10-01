@@ -657,7 +657,7 @@ class Game ():
                 save_template = save_template.replace("{CONFIG}", str(config).replace(", '", ",\\n          '"))
                 save_template = save_template.replace("'{GAME_MODE}'", "GameMode.SEQUENTIAL")
                 for skin in PlayerSkin:
-                    save_template = save_template.replace("'{SKIN_" + skin.get_name() + "}'", "PlayerSkin." + skin.get_name())
+                    save_template = save_template.replace("'{SKIN_" + skin.name + "}'", "PlayerSkin." + skin.name)
                 for player in self.__players:
                     save_template = save_template.replace("'{ACTIONS_" + player.get_name() + "}'", "[" + ", ".join("Action." + action.get_name() for action in self.__actions_history[player.get_name()]) + "]")
                 with open(output_file_name, "w") as output_file:
