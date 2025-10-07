@@ -39,12 +39,11 @@ if __name__ == "__main__":
     # This is done by setting the arguments of the Game class when instantiating it
     # In Python, we can also create a dictionary `d` with these arguments and pass it to the Game class using `game = Game(**d)`
     # This can be convenient for code organization and readability
-    game_config = {"mud_percentage": 20.0,
-                   "cell_percentage": 80.0,
-                   "wall_percentage": 60.0,
+    game_config = {"mud_percentage": 0.0,
                    "maze_width": 13,
                    "maze_height": 10,
                    "nb_cheese": 1,
+                   "random_seed": 42,
                    "trace_length": 1000}
 
     # Instantiate a game with specified arguments

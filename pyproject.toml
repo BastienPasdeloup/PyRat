@@ -11,7 +11,7 @@
 
 [project]
 name         = "pyrat-game"
-version      = "6.2.11"
+version      = "6.2.12"
 description  = "PyRat software used in the computer science course at IMT Atlantique"
 readme       = "README.md"
 license      = "MIT"
