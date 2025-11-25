@@ -342,59 +342,6 @@ class Maze (Graph, abc.ABC):
         return row, col
     
     ##################################################################################
-    
-    def rc_exists ( self,
-                    row: int,
-                    col: int,
-                  ) ->   bool:
-        
-        """
-        Checks if a given ``(row, col)`` pair corresponds to a valid cell in the maze.
-
-        Args:
-            row: Row of the cell.
-            col: Column of the cell.
-
-        Returns:
-            ``True`` if the cell exists, ``False`` otherwise.
-        """
-        
-        # Debug
-        assert isinstance(row, int), "Argument 'row' must be an integer"
-        assert isinstance(col, int), "Argument 'col' must be an integer"
-
-        # Check if the cell exists
-        exists = 0 <= row < self.get_height() and 0 <= col < self.get_width() and self.rc_to_i(row, col) in self.get_vertices()
-        return exists
-    
-    ##################################################################################
-
-    def rc_to_i ( self,
-                  row: int,
-                  col: int,
-                ) ->   int:
-
-        """
-        Transforms a ``(row, col)`` pair of maze coordinates (lexicographic order) into a maze index.
-        Does not check if the cell exists.
-
-        Args:
-            row: Row of the cell.
-            col: Column of the cell.
-
-        Returns:
-            Corresponding cell index in the maze.
-        """
-        
-        # Debug
-        assert isinstance(row, int), "Argument 'row' must be an integer"
-        assert isinstance(col, int), "Argument 'col' must be an integer"
-
-        # Conversion
-        index = row * self.get_width() + col
-        return index
-    
-    ##################################################################################
 
     def locations_to_action ( self,
                               source: int,
@@ -461,7 +408,60 @@ class Maze (Graph, abc.ABC):
         # Get the actions
         actions = [self.locations_to_action(locations[i], locations[i+1]) for i in range(len(locations) - 1)]
         return actions
+    
+    ##################################################################################
+    
+    def rc_exists ( self,
+                    row: int,
+                    col: int,
+                  ) ->   bool:
+        
+        """
+        Checks if a given ``(row, col)`` pair corresponds to a valid cell in the maze.
 
+        Args:
+            row: Row of the cell.
+            col: Column of the cell.
+
+        Returns:
+            ``True`` if the cell exists, ``False`` otherwise.
+        """
+        
+        # Debug
+        assert isinstance(row, int), "Argument 'row' must be an integer"
+        assert isinstance(col, int), "Argument 'col' must be an integer"
+
+        # Check if the cell exists
+        exists = 0 <= row < self.get_height() and 0 <= col < self.get_width() and self.rc_to_i(row, col) in self.get_vertices()
+        return exists
+    
+    ##################################################################################
+
+    def rc_to_i ( self,
+                  row: int,
+                  col: int,
+                ) ->   int:
+
+        """
+        Transforms a ``(row, col)`` pair of maze coordinates (lexicographic order) into a maze index.
+        Does not check if the cell exists.
+
+        Args:
+            row: Row of the cell.
+            col: Column of the cell.
+
+        Returns:
+            Corresponding cell index in the maze.
+        """
+        
+        # Debug
+        assert isinstance(row, int), "Argument 'row' must be an integer"
+        assert isinstance(col, int), "Argument 'col' must be an integer"
+
+        # Conversion
+        index = row * self.get_width() + col
+        return index
+    
     ##################################################################################
     #                                PROTECTED METHODS                               #
     ##################################################################################
