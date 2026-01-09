@@ -333,7 +333,7 @@ Use the controls below to build your maze, then save it as a JSON file that can 
                 <label>Actions:</label>
                 <button class="tool-btn action-btn" onclick="saveMaze()">💾 Save</button>
                 <button class="tool-btn load-btn" onclick="document.getElementById('load-input').click()">📂 Load</button>
-                <input type="file" id="load-input" class="hidden-input" accept=".json" onchange="loadMaze(event)">
+                <input type="file" id="load-input" class="hidden-input" accept=".py,.json" onchange="loadMaze(event)">
             </div>
             <div class="tool-group">
                 <label>View:</label>
@@ -769,11 +769,23 @@ Use the controls below to build your maze, then save it as a JSON file that can 
                 }
             }
             
-            const blob = new Blob([JSON.stringify(mazeDict, null, 2)], {type: 'application/json'});
+            // Format as Python dict (integer keys, not JSON string keys)
+            const formatPythonDict = (obj) => {
+                const entries = Object.entries(obj).map(([k, v]) => {
+                    if (typeof v === 'object' && v !== null) {
+                        return `${k}: ${formatPythonDict(v)}`;
+                    }
+                    return `${k}: ${v}`;
+                });
+                return `{${entries.join(', ')}}`;
+            };
+            
+            const pythonDict = formatPythonDict(mazeDict);
+            const blob = new Blob([pythonDict], {type: 'text/plain'});
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'pyrat_maze.json';
+            a.download = 'pyrat_maze.py';
             a.click();
             URL.revokeObjectURL(url);
         }
@@ -785,7 +797,12 @@ Use the controls below to build your maze, then save it as a JSON file that can 
             const reader = new FileReader();
             reader.onload = function(e) {
                 try {
-                    const mazeData = JSON.parse(e.target.result);
+                    // Parse Python dict format (or JSON for backwards compatibility)
+                    let content = e.target.result.trim();
+                    // Convert Python dict format to valid JSON by quoting keys
+                    // Replace unquoted integer keys with quoted ones
+                    const jsonContent = content.replace(/(\{|,)\s*(\d+)\s*:/g, '$1"$2":');
+                    const mazeData = JSON.parse(jsonContent);
                     
                     // Determine maze dimensions from cell indices
                     let maxIndex = 0;
@@ -905,15 +922,12 @@ Once you've saved your maze, you can load it in your PyRat game:
 
 .. code-block:: python
 
-    import json
+    import ast
     from pyrat import Game
 
-    # Load the maze from file
-    with open("pyrat_maze.json", "r") as f:
-        maze_data = json.load(f)
-
-    # Convert string keys to integers (JSON keys are always strings)
-    maze = {int(k): {int(k2): v2 for k2, v2 in v.items()} for k, v in maze_data.items()}
+    # Load the maze from file (Python dict format with integer keys)
+    with open("pyrat_maze.py", "r") as f:
+        maze = ast.literal_eval(f.read())
 
     # Create a game with the custom maze
     game = Game(fixed_maze=maze)
