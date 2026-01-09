@@ -618,17 +618,16 @@ Use the controls below to build your maze, then save it as a JSON file that can 
                                cells[neighborRow][neighborCol];
             
             if (currentTool === 'wall') {
+                if (!hasNeighbor) return; // Can't add wall along hole or edge
                 walls[row][col][side] = !walls[row][col][side];
                 // Clear mud if adding wall
                 if (walls[row][col][side]) {
                     mud[row][col][side] = 0;
                 }
                 // Sync with neighbor
-                if (hasNeighbor) {
-                    walls[neighborRow][neighborCol][oppositeSide] = walls[row][col][side];
-                    if (walls[row][col][side]) {
-                        mud[neighborRow][neighborCol][oppositeSide] = 0;
-                    }
+                walls[neighborRow][neighborCol][oppositeSide] = walls[row][col][side];
+                if (walls[row][col][side]) {
+                    mud[neighborRow][neighborCol][oppositeSide] = 0;
                 }
                 renderMaze();
             } else if (currentTool === 'mud') {
@@ -886,6 +885,18 @@ Use the controls below to build your maze, then save it as a JSON file that can 
                             if (weight > 1) {
                                 mud[srcRow][srcCol][side] = weight;
                             }
+                        }
+                    }
+                    
+                    // Clear walls that face holes
+                    for (let r = 0; r < mazeHeight; r++) {
+                        for (let c = 0; c < mazeWidth; c++) {
+                            if (!cells[r][c]) continue;
+                            // Check each direction for holes
+                            if (r > 0 && !cells[r-1][c]) walls[r][c].top = false;
+                            if (r < mazeHeight-1 && !cells[r+1][c]) walls[r][c].bottom = false;
+                            if (c > 0 && !cells[r][c-1]) walls[r][c].left = false;
+                            if (c < mazeWidth-1 && !cells[r][c+1]) walls[r][c].right = false;
                         }
                     }
                     
