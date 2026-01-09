@@ -137,7 +137,8 @@ Use the controls below to build your maze, then save it as a JSON file that can 
             content: '';
         }
         
-        .maze-cell:not(.hole):hover {
+        /* Cell hover only for cell tool */
+        .maze-grid.tool-cell .maze-cell:not(.hole):hover {
             background: #d0d0d0;
         }
         
@@ -152,30 +153,30 @@ Use the controls below to build your maze, then save it as a JSON file that can 
         
         .maze-cell .wall-top {
             top: -2px;
-            left: 0;
-            right: 0;
-            height: 4px;
+            left: 4px;
+            right: 4px;
+            height: 6px;
         }
         
         .maze-cell .wall-bottom {
             bottom: -2px;
-            left: 0;
-            right: 0;
-            height: 4px;
+            left: 4px;
+            right: 4px;
+            height: 6px;
         }
         
         .maze-cell .wall-left {
             left: -2px;
-            top: 0;
-            bottom: 0;
-            width: 4px;
+            top: 4px;
+            bottom: 4px;
+            width: 6px;
         }
         
         .maze-cell .wall-right {
             right: -2px;
-            top: 0;
-            bottom: 0;
-            width: 4px;
+            top: 4px;
+            bottom: 4px;
+            width: 6px;
         }
         
         .maze-cell .wall-top.active,
@@ -183,6 +184,19 @@ Use the controls below to build your maze, then save it as a JSON file that can 
         .maze-cell .wall-left.active,
         .maze-cell .wall-right.active {
             background: #333;
+        }
+        
+        /* Edge hover for wall/mud tools */
+        .maze-grid.tool-wall .maze-cell:not(.hole) .wall-top:hover,
+        .maze-grid.tool-wall .maze-cell:not(.hole) .wall-bottom:hover,
+        .maze-grid.tool-wall .maze-cell:not(.hole) .wall-left:hover,
+        .maze-grid.tool-wall .maze-cell:not(.hole) .wall-right:hover,
+        .maze-grid.tool-mud .maze-cell:not(.hole) .wall-top:hover,
+        .maze-grid.tool-mud .maze-cell:not(.hole) .wall-bottom:hover,
+        .maze-grid.tool-mud .maze-cell:not(.hole) .wall-left:hover,
+        .maze-grid.tool-mud .maze-cell:not(.hole) .wall-right:hover {
+            background: rgba(0, 123, 255, 0.5);
+            cursor: pointer;
         }
         
         .maze-cell .mud-top,
@@ -378,6 +392,10 @@ Use the controls below to build your maze, then save it as a JSON file that can 
             });
             document.getElementById('tool-' + tool).classList.add('active');
             
+            // Update grid class for hover behavior
+            const grid = document.getElementById('maze-grid');
+            grid.className = 'maze-grid tool-' + tool;
+            
             let toolDesc = '';
             switch(tool) {
                 case 'cell': toolDesc = 'Cell (click to toggle)'; break;
@@ -399,6 +417,7 @@ Use the controls below to build your maze, then save it as a JSON file that can 
         function renderMaze() {
             const grid = document.getElementById('maze-grid');
             grid.innerHTML = '';
+            grid.className = 'maze-grid tool-' + currentTool;
             
             let cellCount = 0;
             
@@ -457,47 +476,47 @@ Use the controls below to build your maze, then save it as a JSON file that can 
         }
         
         function renderControls() {
-            // Top controls (add/remove columns)
+            // Top controls (add/remove rows at top)
             const topControls = document.getElementById('top-controls');
             topControls.innerHTML = '';
             const topGroup = document.createElement('div');
             topGroup.className = 'column-control-group';
             topGroup.innerHTML = `
-                <button class="add-remove-btn remove" onclick="removeColumn()" title="Remove column">−</button>
-                <button class="add-remove-btn add" onclick="addColumn()" title="Add column">+</button>
+                <button class="add-remove-btn add" onclick="addRowTop()" title="Add row at top">+</button>
+                <button class="add-remove-btn remove" onclick="removeRowTop()" title="Remove row from top">−</button>
             `;
             topControls.appendChild(topGroup);
             
-            // Bottom controls
+            // Bottom controls (add/remove rows at bottom)
             const bottomControls = document.getElementById('bottom-controls');
             bottomControls.innerHTML = '';
             const bottomGroup = document.createElement('div');
             bottomGroup.className = 'column-control-group';
             bottomGroup.innerHTML = `
-                <button class="add-remove-btn add" onclick="addColumn()" title="Add column">+</button>
-                <button class="add-remove-btn remove" onclick="removeColumn()" title="Remove column">−</button>
+                <button class="add-remove-btn add" onclick="addRowBottom()" title="Add row at bottom">+</button>
+                <button class="add-remove-btn remove" onclick="removeRowBottom()" title="Remove row from bottom">−</button>
             `;
             bottomControls.appendChild(bottomGroup);
             
-            // Left controls (add/remove rows)
+            // Left controls (add/remove columns at left)
             const leftControls = document.getElementById('left-controls');
             leftControls.innerHTML = '';
             const leftGroup = document.createElement('div');
             leftGroup.className = 'row-control-group';
             leftGroup.innerHTML = `
-                <button class="add-remove-btn remove" onclick="removeRow()" title="Remove row">−</button>
-                <button class="add-remove-btn add" onclick="addRow()" title="Add row">+</button>
+                <button class="add-remove-btn add" onclick="addColumnLeft()" title="Add column at left">+</button>
+                <button class="add-remove-btn remove" onclick="removeColumnLeft()" title="Remove column from left">−</button>
             `;
             leftControls.appendChild(leftGroup);
             
-            // Right controls
+            // Right controls (add/remove columns at right)
             const rightControls = document.getElementById('right-controls');
             rightControls.innerHTML = '';
             const rightGroup = document.createElement('div');
             rightGroup.className = 'row-control-group';
             rightGroup.innerHTML = `
-                <button class="add-remove-btn add" onclick="addRow()" title="Add row">+</button>
-                <button class="add-remove-btn remove" onclick="removeRow()" title="Remove row">−</button>
+                <button class="add-remove-btn add" onclick="addColumnRight()" title="Add column at right">+</button>
+                <button class="add-remove-btn remove" onclick="removeColumnRight()" title="Remove column from right">−</button>
             `;
             rightControls.appendChild(rightGroup);
         }
@@ -572,7 +591,29 @@ Use the controls below to build your maze, then save it as a JSON file that can 
             }
         }
         
-        function addRow() {
+        function addRowTop() {
+            mazeHeight++;
+            cells.unshift([]);
+            walls.unshift([]);
+            mud.unshift([]);
+            for (let c = 0; c < mazeWidth; c++) {
+                cells[0][c] = true;
+                walls[0][c] = {top: false, right: false, bottom: false, left: false};
+                mud[0][c] = {top: 0, right: 0, bottom: 0, left: 0};
+            }
+            renderMaze();
+        }
+        
+        function removeRowTop() {
+            if (mazeHeight <= 2) return;
+            mazeHeight--;
+            cells.shift();
+            walls.shift();
+            mud.shift();
+            renderMaze();
+        }
+        
+        function addRowBottom() {
             mazeHeight++;
             cells.push([]);
             walls.push([]);
@@ -585,7 +626,7 @@ Use the controls below to build your maze, then save it as a JSON file that can 
             renderMaze();
         }
         
-        function removeRow() {
+        function removeRowBottom() {
             if (mazeHeight <= 2) return;
             mazeHeight--;
             cells.pop();
@@ -594,7 +635,28 @@ Use the controls below to build your maze, then save it as a JSON file that can 
             renderMaze();
         }
         
-        function addColumn() {
+        function addColumnLeft() {
+            mazeWidth++;
+            for (let r = 0; r < mazeHeight; r++) {
+                cells[r].unshift(true);
+                walls[r].unshift({top: false, right: false, bottom: false, left: false});
+                mud[r].unshift({top: 0, right: 0, bottom: 0, left: 0});
+            }
+            renderMaze();
+        }
+        
+        function removeColumnLeft() {
+            if (mazeWidth <= 2) return;
+            mazeWidth--;
+            for (let r = 0; r < mazeHeight; r++) {
+                cells[r].shift();
+                walls[r].shift();
+                mud[r].shift();
+            }
+            renderMaze();
+        }
+        
+        function addColumnRight() {
             mazeWidth++;
             for (let r = 0; r < mazeHeight; r++) {
                 cells[r].push(true);
@@ -604,7 +666,7 @@ Use the controls below to build your maze, then save it as a JSON file that can 
             renderMaze();
         }
         
-        function removeColumn() {
+        function removeColumnRight() {
             if (mazeWidth <= 2) return;
             mazeWidth--;
             for (let r = 0; r < mazeHeight; r++) {
@@ -653,13 +715,7 @@ Use the controls below to build your maze, then save it as a JSON file that can 
                 }
             }
             
-            const output = {
-                width: mazeWidth,
-                height: mazeHeight,
-                maze: mazeDict
-            };
-            
-            const blob = new Blob([JSON.stringify(output, null, 2)], {type: 'application/json'});
+            const blob = new Blob([JSON.stringify(mazeDict, null, 2)], {type: 'application/json'});
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -675,11 +731,38 @@ Use the controls below to build your maze, then save it as a JSON file that can 
             const reader = new FileReader();
             reader.onload = function(e) {
                 try {
-                    const data = JSON.parse(e.target.result);
+                    const mazeData = JSON.parse(e.target.result);
                     
-                    mazeWidth = data.width;
-                    mazeHeight = data.height;
-                    const mazeData = data.maze;
+                    // Determine maze dimensions from cell indices
+                    let maxIndex = 0;
+                    for (const srcStr of Object.keys(mazeData)) {
+                        const src = parseInt(srcStr);
+                        if (src > maxIndex) maxIndex = src;
+                        for (const dstStr of Object.keys(mazeData[srcStr])) {
+                            const dst = parseInt(dstStr);
+                            if (dst > maxIndex) maxIndex = dst;
+                        }
+                    }
+                    
+                    // Infer width from vertical neighbors (difference > 1)
+                    let inferredWidth = 0;
+                    for (const srcStr of Object.keys(mazeData)) {
+                        const src = parseInt(srcStr);
+                        for (const dstStr of Object.keys(mazeData[srcStr])) {
+                            const dst = parseInt(dstStr);
+                            const diff = Math.abs(dst - src);
+                            if (diff > 1 && (inferredWidth === 0 || diff < inferredWidth)) {
+                                inferredWidth = diff;
+                            }
+                        }
+                    }
+                    
+                    if (inferredWidth === 0) {
+                        inferredWidth = Math.ceil(Math.sqrt(maxIndex + 1));
+                    }
+                    
+                    mazeWidth = inferredWidth;
+                    mazeHeight = Math.ceil((maxIndex + 1) / mazeWidth);
                     
                     // Initialize empty maze
                     cells = [];
@@ -769,14 +852,11 @@ Once you've saved your maze, you can load it in your PyRat game:
 .. code-block:: python
 
     import json
-    from pyrat import Game, MazeFromDict
+    from pyrat import Game
 
     # Load the maze from file
     with open("pyrat_maze.json", "r") as f:
-        maze_data = json.load(f)
+        maze = json.load(f)
 
     # Create a game with the custom maze
-    game = Game(fixed_maze=maze_data["maze"])
-
-    # Or create a Maze object directly
-    maze = MazeFromDict(maze_data["maze"], maze_data["width"], maze_data["height"])
+    game = Game(fixed_maze=maze)
