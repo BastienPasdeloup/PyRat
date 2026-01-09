@@ -145,15 +145,15 @@ Use the controls below to build your maze, then save it as a file to use in your
             content: '';
         }
         
-        /* Cell tool: pointer on existing cells (will make hole), not-allowed on holes */
+        /* Cell tool: crosshair on cells (will remove/make hole), pointer on holes (will add cell) */
         .maze-grid.tool-cell .maze-cell:not(.hole) {
-            cursor: pointer;
+            cursor: crosshair;
         }
         .maze-grid.tool-cell .maze-cell.hole {
-            cursor: not-allowed;
+            cursor: pointer;
         }
         
-        /* Cheese tool: pointer on cells without cheese, not-allowed on holes and cells with cheese (erase) */
+        /* Cheese tool: pointer on cells without cheese (add), crosshair on cells with cheese (remove), not-allowed on holes */
         .maze-grid.tool-cheese .maze-cell:not(.hole):not(.has-cheese) {
             cursor: pointer;
         }
@@ -164,10 +164,10 @@ Use the controls below to build your maze, then save it as a file to use in your
             cursor: crosshair;
         }
         
-        /* Wall/mud tools: default not-allowed on cells, specific cursors on edges */
+        /* Wall/mud tools: not-allowed on cells (must click edges), specific cursors on edges */
         .maze-grid.tool-wall .maze-cell,
         .maze-grid.tool-mud .maze-cell {
-            cursor: default;
+            cursor: not-allowed;
         }
         
         /* Cell hover only for cell tool */
@@ -239,7 +239,7 @@ Use the controls below to build your maze, then save it as a file to use in your
             background: rgba(0, 123, 255, 0.5);
         }
         
-        /* Clickable edges: pointer to add, crosshair to erase */
+        /* Clickable edges: pointer (hand) to add, crosshair (cross) to remove */
         .maze-grid.tool-wall .maze-cell:not(.hole) .clickable:not(.has-wall) {
             cursor: pointer;
         }
