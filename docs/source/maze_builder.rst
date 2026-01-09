@@ -150,12 +150,12 @@ Use the controls below to build your maze, then save it as a file to use in your
             cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cline x1='4' y1='4' x2='16' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='16' y1='4' x2='4' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 10 10, crosshair;
         }
         
-        /* Cell tool: pointer on cells (will add hole), red cross on holes (will remove hole) */
+        /* Cell tool: red cross on cells (will add hole/remove cell), pointer on holes (will remove hole/add cell) */
         .maze-grid.tool-cell .maze-cell:not(.hole) {
-            cursor: pointer;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cline x1='4' y1='4' x2='16' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='16' y1='4' x2='4' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 10 10, crosshair;
         }
         .maze-grid.tool-cell .maze-cell.hole {
-            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cline x1='4' y1='4' x2='16' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='16' y1='4' x2='4' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 10 10, crosshair;
+            cursor: pointer;
         }
         
         /* Cheese tool: pointer on cells without cheese (add), red cross on cells with cheese (remove), not-allowed on holes */
@@ -254,8 +254,17 @@ Use the controls below to build your maze, then save it as a file to use in your
         .maze-grid.tool-mud .maze-cell:not(.hole) .clickable:not(.has-mud) {
             cursor: pointer;
         }
-        .maze-grid.tool-mud .maze-cell:not(.hole) .clickable.has-mud {
+        /* Mud with same value: red cross (will remove) */
+        .maze-grid.tool-mud .maze-cell:not(.hole) .clickable.has-mud.mud-same-value {
             cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cline x1='4' y1='4' x2='16' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='16' y1='4' x2='4' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 10 10, crosshair;
+        }
+        /* Mud with different value: pointer (will replace) */
+        .maze-grid.tool-mud .maze-cell:not(.hole) .clickable.has-mud.mud-diff-value {
+            cursor: pointer;
+        }
+        /* Fallback for mud without class yet */
+        .maze-grid.tool-mud .maze-cell:not(.hole) .clickable.has-mud:not(.mud-same-value):not(.mud-diff-value) {
+            cursor: pointer;
         }
         
         .mud-indicator {
@@ -384,7 +393,7 @@ Use the controls below to build your maze, then save it as a file to use in your
             </div>
             <div class="tool-group">
                 <label>Mud value:</label>
-                <input type="number" id="mud-value" class="mud-value-input" value="2" min="2" max="20">
+                <input type="number" id="mud-value" class="mud-value-input" value="2" min="2" max="20" oninput="updateMudCursorClasses()">
             </div>
             <div class="tool-group">
                 <label>Actions:</label>
@@ -475,6 +484,25 @@ Use the controls below to build your maze, then save it as a file to use in your
                 case 'cheese': toolDesc = 'Cheese (click to toggle)'; break;
             }
             document.getElementById('current-tool').textContent = toolDesc;
+            
+            // Update mud cursor classes when switching to mud tool
+            if (tool === 'mud') {
+                updateMudCursorClasses();
+            }
+        }
+        
+        function updateMudCursorClasses() {
+            const currentMudValue = parseInt(document.getElementById('mud-value').value) || 2;
+            document.querySelectorAll('.has-mud').forEach(edge => {
+                const edgeMudValue = parseInt(edge.dataset.mudValue) || 0;
+                if (edgeMudValue === currentMudValue) {
+                    edge.classList.add('mud-same-value');
+                    edge.classList.remove('mud-diff-value');
+                } else {
+                    edge.classList.add('mud-diff-value');
+                    edge.classList.remove('mud-same-value');
+                }
+            });
         }
         
         function toggleIndices() {
@@ -528,10 +556,14 @@ Use the controls below to build your maze, then save it as a file to use in your
                             const canHaveWall = !isOuterEdge && !neighborIsHole;
                             const hasWall = canHaveWall && walls[r][c][side];
                             const hasMud = canHaveWall && mud[r][c][side] > 0;
+                            const mudValue = mud[r][c][side];
                             wallDiv.className = 'wall-' + side + (hasWall ? ' active' : '') + (canHaveWall ? ' clickable' : '') + (hasWall ? ' has-wall' : '') + (hasMud ? ' has-mud' : '');
                             wallDiv.dataset.side = side;
                             wallDiv.dataset.row = r;
                             wallDiv.dataset.col = c;
+                            if (hasMud) {
+                                wallDiv.dataset.mudValue = mudValue;
+                            }
                             if (canHaveWall) {
                                 wallDiv.onclick = (e) => handleEdgeClick(e, r, c, side);
                                 wallDiv.onmouseenter = (e) => handleEdgeHover(e, r, c, side, true);
@@ -582,6 +614,11 @@ Use the controls below to build your maze, then save it as a file to use in your
             document.getElementById('cell-count').textContent = cellCount;
             
             renderControls();
+            
+            // Update mud cursor classes after rendering
+            if (currentTool === 'mud') {
+                updateMudCursorClasses();
+            }
         }
         
         function renderControls() {
