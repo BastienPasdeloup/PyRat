@@ -315,6 +315,21 @@ Use the controls below to build your maze, then save it as a file to use in your
             font-size: 8px;
             color: #999;
         }
+        
+        .cheese-indicator {
+            font-size: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Cell hover for cheese tool */
+        .maze-grid.tool-cheese .maze-cell:not(.hole):hover {
+            background: #fffacd;
+        }
     </style>
 
     <div class="maze-builder-container">
@@ -324,6 +339,7 @@ Use the controls below to build your maze, then save it as a file to use in your
                 <button class="tool-btn active" id="tool-cell" onclick="setTool('cell')">🔲 Hole</button>
                 <button class="tool-btn" id="tool-wall" onclick="setTool('wall')">🧱 Wall</button>
                 <button class="tool-btn" id="tool-mud" onclick="setTool('mud')">🟤 Mud</button>
+                <button class="tool-btn" id="tool-cheese" onclick="setTool('cheese')">🧀 Cheese</button>
             </div>
             <div class="tool-group">
                 <label>Mud value:</label>
@@ -355,7 +371,7 @@ Use the controls below to build your maze, then save it as a file to use in your
         </div>
         
         <div class="status-bar" id="status-bar">
-            Maze size: <span id="maze-size">5 × 5</span> | 
+            Maze: <span id="maze-size">5 rows × 5 columns</span> | 
             Cells: <span id="cell-count">25</span> | 
             Current tool: <span id="current-tool">Hole (click to toggle)</span>
         </div>
@@ -374,19 +390,24 @@ Use the controls below to build your maze, then save it as a file to use in your
         let walls = [];
         // mud[row][col] = {top: int, right: int, bottom: int, left: int} (0 = no mud)
         let mud = [];
+        // cheese[row][col] = true if cheese exists
+        let cheese = [];
         
         function initMaze() {
             cells = [];
             walls = [];
             mud = [];
+            cheese = [];
             for (let r = 0; r < mazeHeight; r++) {
                 cells[r] = [];
                 walls[r] = [];
                 mud[r] = [];
+                cheese[r] = [];
                 for (let c = 0; c < mazeWidth; c++) {
                     cells[r][c] = true;
                     walls[r][c] = {top: false, right: false, bottom: false, left: false};
                     mud[r][c] = {top: 0, right: 0, bottom: 0, left: 0};
+                    cheese[r][c] = false;
                 }
             }
             renderMaze();
@@ -410,6 +431,7 @@ Use the controls below to build your maze, then save it as a file to use in your
                 case 'cell': toolDesc = 'Hole (click to toggle)'; break;
                 case 'wall': toolDesc = 'Wall (click cell edges)'; break;
                 case 'mud': toolDesc = 'Mud (click cell edges)'; break;
+                case 'cheese': toolDesc = 'Cheese (click to toggle)'; break;
             }
             document.getElementById('current-tool').textContent = toolDesc;
         }
@@ -485,6 +507,14 @@ Use the controls below to build your maze, then save it as a file to use in your
                             cellDiv.appendChild(mudDiv);
                         }
                         
+                        // Add cheese indicator
+                        if (cheese[r][c]) {
+                            const cheeseDiv = document.createElement('div');
+                            cheeseDiv.className = 'cheese-indicator';
+                            cheeseDiv.textContent = '🧀';
+                            cellDiv.appendChild(cheeseDiv);
+                        }
+                        
                         // Add cell index if enabled
                         if (showIndices) {
                             const indexDiv = document.createElement('div');
@@ -501,7 +531,7 @@ Use the controls below to build your maze, then save it as a file to use in your
                 grid.appendChild(rowDiv);
             }
             
-            document.getElementById('maze-size').textContent = mazeWidth + ' × ' + mazeHeight;
+            document.getElementById('maze-size').textContent = mazeHeight + ' rows × ' + mazeWidth + ' columns';
             document.getElementById('cell-count').textContent = cellCount;
             
             renderControls();
@@ -591,9 +621,10 @@ Use the controls below to build your maze, then save it as a file to use in your
             if (currentTool === 'cell') {
                 cells[row][col] = !cells[row][col];
                 if (!cells[row][col]) {
-                    // Reset walls and mud when removing cell
+                    // Reset walls, mud and cheese when removing cell
                     walls[row][col] = {top: false, right: false, bottom: false, left: false};
                     mud[row][col] = {top: 0, right: 0, bottom: 0, left: 0};
+                    cheese[row][col] = false;
                     // Also remove walls/mud from neighbors pointing to this cell
                     if (row > 0) { walls[row-1][col].bottom = false; mud[row-1][col].bottom = 0; }
                     if (row < mazeHeight-1) { walls[row+1][col].top = false; mud[row+1][col].top = 0; }
@@ -601,6 +632,11 @@ Use the controls below to build your maze, then save it as a file to use in your
                     if (col < mazeWidth-1) { walls[row][col+1].left = false; mud[row][col+1].left = 0; }
                 }
                 renderMaze();
+            } else if (currentTool === 'cheese') {
+                if (cells[row][col]) {
+                    cheese[row][col] = !cheese[row][col];
+                    renderMaze();
+                }
             }
         }
         
@@ -664,10 +700,12 @@ Use the controls below to build your maze, then save it as a file to use in your
             cells.unshift([]);
             walls.unshift([]);
             mud.unshift([]);
+            cheese.unshift([]);
             for (let c = 0; c < mazeWidth; c++) {
                 cells[0][c] = true;
                 walls[0][c] = {top: false, right: false, bottom: false, left: false};
                 mud[0][c] = {top: 0, right: 0, bottom: 0, left: 0};
+                cheese[0][c] = false;
             }
             renderMaze();
         }
@@ -678,6 +716,7 @@ Use the controls below to build your maze, then save it as a file to use in your
             cells.shift();
             walls.shift();
             mud.shift();
+            cheese.shift();
             renderMaze();
         }
         
@@ -686,10 +725,12 @@ Use the controls below to build your maze, then save it as a file to use in your
             cells.push([]);
             walls.push([]);
             mud.push([]);
+            cheese.push([]);
             for (let c = 0; c < mazeWidth; c++) {
                 cells[mazeHeight-1][c] = true;
                 walls[mazeHeight-1][c] = {top: false, right: false, bottom: false, left: false};
                 mud[mazeHeight-1][c] = {top: 0, right: 0, bottom: 0, left: 0};
+                cheese[mazeHeight-1][c] = false;
             }
             renderMaze();
         }
@@ -700,6 +741,7 @@ Use the controls below to build your maze, then save it as a file to use in your
             cells.pop();
             walls.pop();
             mud.pop();
+            cheese.pop();
             renderMaze();
         }
         
@@ -709,6 +751,7 @@ Use the controls below to build your maze, then save it as a file to use in your
                 cells[r].unshift(true);
                 walls[r].unshift({top: false, right: false, bottom: false, left: false});
                 mud[r].unshift({top: 0, right: 0, bottom: 0, left: 0});
+                cheese[r].unshift(false);
             }
             renderMaze();
         }
@@ -720,6 +763,7 @@ Use the controls below to build your maze, then save it as a file to use in your
                 cells[r].shift();
                 walls[r].shift();
                 mud[r].shift();
+                cheese[r].shift();
             }
             renderMaze();
         }
@@ -730,6 +774,7 @@ Use the controls below to build your maze, then save it as a file to use in your
                 cells[r].push(true);
                 walls[r].push({top: false, right: false, bottom: false, left: false});
                 mud[r].push({top: 0, right: 0, bottom: 0, left: 0});
+                cheese[r].push(false);
             }
             renderMaze();
         }
@@ -741,6 +786,7 @@ Use the controls below to build your maze, then save it as a file to use in your
                 cells[r].pop();
                 walls[r].pop();
                 mud[r].pop();
+                cheese[r].pop();
             }
             renderMaze();
         }
@@ -749,6 +795,7 @@ Use the controls below to build your maze, then save it as a file to use in your
             // Build PyRat maze format: dict[int, dict[int, int]]
             // Key is source vertex, value is dict of {destination: weight}
             const mazeDict = {};
+            const cheeseList = [];
             
             for (let r = 0; r < mazeHeight; r++) {
                 for (let c = 0; c < mazeWidth; c++) {
@@ -756,6 +803,11 @@ Use the controls below to build your maze, then save it as a file to use in your
                     
                     const cellIndex = getCellIndex(r, c);
                     mazeDict[cellIndex] = {};
+                    
+                    // Track cheese positions
+                    if (cheese[r][c]) {
+                        cheeseList.push(cellIndex);
+                    }
                     
                     // Check each direction
                     const directions = [
@@ -794,8 +846,12 @@ Use the controls below to build your maze, then save it as a file to use in your
                 return `{${entries.join(', ')}}`;
             };
             
-            const pythonDict = formatPythonDict(mazeDict);
-            const blob = new Blob([pythonDict], {type: 'text/plain'});
+            // Format as Python tuple with maze dict and cheese list
+            const pythonMaze = formatPythonDict(mazeDict);
+            const pythonCheese = `[${cheeseList.join(', ')}]`;
+            const pythonOutput = `(${pythonMaze}, ${pythonCheese})`;
+            
+            const blob = new Blob([pythonOutput], {type: 'text/plain'});
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -811,11 +867,47 @@ Use the controls below to build your maze, then save it as a file to use in your
             const reader = new FileReader();
             reader.onload = function(e) {
                 try {
-                    // Parse Python dict format (or JSON for backwards compatibility)
+                    // Parse Python tuple format: (maze_dict, cheese_list)
                     let content = e.target.result.trim();
+                    
+                    // Check if it's a tuple format (maze_dict, cheese_list)
+                    let mazeContent = content;
+                    let cheeseArray = [];
+                    
+                    if (content.startsWith('(') && content.endsWith(')')) {
+                        // Find the matching closing brace of the first dict
+                        let braceCount = 0;
+                        let dictEnd = -1;
+                        for (let i = 1; i < content.length; i++) {
+                            if (content[i] === '{') braceCount++;
+                            else if (content[i] === '}') {
+                                braceCount--;
+                                if (braceCount === 0) {
+                                    dictEnd = i;
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        if (dictEnd > 0) {
+                            mazeContent = content.slice(1, dictEnd + 1);
+                            // Extract cheese list
+                            const remaining = content.slice(dictEnd + 1, -1).trim();
+                            if (remaining.startsWith(',')) {
+                                const cheeseStr = remaining.slice(1).trim();
+                                if (cheeseStr.startsWith('[') && cheeseStr.endsWith(']')) {
+                                    const cheeseListStr = cheeseStr.slice(1, -1).trim();
+                                    if (cheeseListStr.length > 0) {
+                                        cheeseArray = cheeseListStr.split(',').map(s => parseInt(s.trim()));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
                     // Convert Python dict format to valid JSON by quoting keys
                     // Replace unquoted integer keys with quoted ones
-                    const jsonContent = content.replace(/(\{|,)\s*(\d+)\s*:/g, '$1"$2":');
+                    const jsonContent = mazeContent.replace(/(\{|,)\s*(\d+)\s*:/g, '$1"$2":');
                     const mazeData = JSON.parse(jsonContent);
                     
                     // Determine maze dimensions from cell indices
@@ -853,14 +945,26 @@ Use the controls below to build your maze, then save it as a file to use in your
                     cells = [];
                     walls = [];
                     mud = [];
+                    cheese = [];
                     for (let r = 0; r < mazeHeight; r++) {
                         cells[r] = [];
                         walls[r] = [];
                         mud[r] = [];
+                        cheese[r] = [];
                         for (let c = 0; c < mazeWidth; c++) {
                             cells[r][c] = false; // Start with holes
                             walls[r][c] = {top: false, right: false, bottom: false, left: false}; // No walls for holes
                             mud[r][c] = {top: 0, right: 0, bottom: 0, left: 0};
+                            cheese[r][c] = false;
+                        }
+                    }
+                    
+                    // Set cheese from loaded data
+                    for (const idx of cheeseArray) {
+                        const r = Math.floor(idx / mazeWidth);
+                        const c = idx % mazeWidth;
+                        if (r >= 0 && r < mazeHeight && c >= 0 && c < mazeWidth) {
+                            cheese[r][c] = true;
                         }
                     }
                     
@@ -937,6 +1041,7 @@ Using the Maze Builder
 - **Hole**: Click on a cell to toggle it between a valid cell (light gray) and a hole (dark). Holes are not part of the maze.
 - **Wall**: Click on the edges between cells to add or remove walls. Walls block movement between adjacent cells.
 - **Mud**: Click on edges between cells to add mud. Set the mud value first (the number of turns required to cross). Click again to remove mud.
+- **Cheese**: Click on cells to place or remove cheese. Cheese positions will be saved with your maze.
 
 **Maze Controls:**
 
@@ -951,36 +1056,37 @@ Using the Maze Builder
 Using the Maze in PyRat
 -----------------------
 
-Once you've saved your maze, you can load it in your PyRat game:
+Once you've saved your maze, you can load it in your PyRat game.
+The saved file contains a Python tuple ``(maze_dict, cheese_list)`` with the maze structure and cheese positions:
 
 .. code-block:: python
 
-    # Import the necessary modules
+    # Import the necessary modules
     import ast
     from pyrat import Game
 
-    # Load the dict representing the maze from saved file
+    # Load the maze and cheese from saved file
     with open("pyrat_maze.py", "r") as f:
-        maze_dict = ast.literal_eval(f.read())
+        maze_dict, cheese_list = ast.literal_eval(f.read())
 
-    # Create a game with the custom maze
-    game = Game(fixed_maze=maze_dict)
+    # Create a game with the custom maze and cheese
+    game = Game(fixed_maze=maze_dict, fixed_cheese=cheese_list)
 
 You can also create a ``MazeFromDict`` object if you prefer.
 This has the advantages of validating the maze structure and providing additional methods.
 
 .. code-block:: python
 
-    # Import the necessary modules
+    # Import the necessary modules
     import ast
     from pyrat import Game, MazeFromDict
 
-    # Load the dict representing the maze from saved file
+    # Load the maze and cheese from saved file
     with open("pyrat_maze.py", "r") as f:
-        maze_dict = ast.literal_eval(f.read())
+        maze_dict, cheese_list = ast.literal_eval(f.read())
 
     # Create a MazeFromDict object
     maze = MazeFromDict(maze_dict)
 
-    # Create a game with the maze object
-    game = Game(fixed_maze=maze)
+    # Create a game with the maze object and cheese
+    game = Game(fixed_maze=maze, fixed_cheese=cheese_list)
