@@ -1174,3 +1174,11 @@ This has the advantages of validating the maze structure and providing additiona
 
     # Create a game with the maze object and cheese
     game = Game(fixed_maze=maze, fixed_cheese=cheese_list)
+
+**Remarks:**
+
+- When starting a game, players are added before the cheese.
+  Therefore, make sure that fixed cheese positions do not overlap with player starting positions.
+
+- If you only want to use this tool to design a maze, just remove the `fixed_cheese` parameter when creating the `Game` object.
+  Cheese will then be placed randomly by the game.
