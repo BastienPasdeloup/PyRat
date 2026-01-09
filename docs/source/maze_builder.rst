@@ -2,7 +2,7 @@ Maze Builder
 ============
 
 This interactive tool allows you to create custom mazes for PyRat.
-Use the controls below to build your maze, then save it as a JSON file that can be loaded in your games.
+Use the controls below to build your maze, then save it as a file to use in your games.
 
 .. raw:: html
 
@@ -945,7 +945,7 @@ Using the Maze Builder
 
 **Save/Load:**
 
-- Click **Save** to download your maze as a JSON file.
+- Click **Save** to download your maze as a file.
 - Click **Load** to import a previously saved maze.
 
 Using the Maze in PyRat
@@ -955,35 +955,31 @@ Once you've saved your maze, you can load it in your PyRat game:
 
 .. code-block:: python
 
+    # Import the necessary modules
     import ast
     from pyrat import Game
 
-    # Load the maze from file
+    # Load the dict representing the maze from saved file
     with open("pyrat_maze.py", "r") as f:
         maze = ast.literal_eval(f.read())
 
     # Create a game with the custom maze
     game = Game(fixed_maze=maze)
-You can also create a ``MazeFromDict`` object if you need more control:
+
+You can also create a ``MazeFromDict`` object if you prefer to manipulate the maze further:
 
 .. code-block:: python
 
+    # Import the necessary modules
     import ast
     from pyrat import Game, MazeFromDict
 
-    # Load the maze from file
+    # Load the dict representing the maze from saved file
     with open("pyrat_maze.py", "r") as f:
         maze_dict = ast.literal_eval(f.read())
 
-    # Determine maze dimensions from the dictionary
-    max_index = max(maze_dict.keys())
-    # Infer width from vertical neighbors (cells differing by more than 1)
-    width = min(abs(dst - src) for src, neighbors in maze_dict.items() 
-                for dst in neighbors.keys() if abs(dst - src) > 1)
-    height = (max_index // width) + 1
-
     # Create a MazeFromDict object
-    maze = MazeFromDict(maze_dict, width, height)
+    maze = MazeFromDict(maze_dict)
 
     # Create a game with the maze object
     game = Game(fixed_maze=maze)
