@@ -150,12 +150,12 @@ Use the controls below to build your maze, then save it as a file to use in your
             cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cline x1='4' y1='4' x2='16' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='16' y1='4' x2='4' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 10 10, crosshair;
         }
         
-        /* Cell tool: red cross on cells (will add hole/remove cell), pointer on holes (will remove hole/add cell) */
+        /* Cell/Hole tool: pointer on cells (will add hole), red cross on holes (will remove hole) */
         .maze-grid.tool-cell .maze-cell:not(.hole) {
-            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cline x1='4' y1='4' x2='16' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='16' y1='4' x2='4' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 10 10, crosshair;
+            cursor: pointer;
         }
         .maze-grid.tool-cell .maze-cell.hole {
-            cursor: pointer;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cline x1='4' y1='4' x2='16' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='16' y1='4' x2='4' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 10 10, crosshair;
         }
         
         /* Cheese tool: pointer on cells without cheese (add), red cross on cells with cheese (remove), not-allowed on holes */
