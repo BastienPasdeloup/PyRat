@@ -145,15 +145,20 @@ Use the controls below to build your maze, then save it as a file to use in your
             content: '';
         }
         
-        /* Cell tool: crosshair on cells (will remove/make hole), pointer on holes (will add cell) */
+        /* Custom red cross cursor for removal actions */
+        .cursor-remove {
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cline x1='4' y1='4' x2='16' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='16' y1='4' x2='4' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 10 10, crosshair;
+        }
+        
+        /* Cell tool: red cross on cells (will remove/make hole), pointer on holes (will add cell) */
         .maze-grid.tool-cell .maze-cell:not(.hole) {
-            cursor: crosshair;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cline x1='4' y1='4' x2='16' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='16' y1='4' x2='4' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 10 10, crosshair;
         }
         .maze-grid.tool-cell .maze-cell.hole {
             cursor: pointer;
         }
         
-        /* Cheese tool: pointer on cells without cheese (add), crosshair on cells with cheese (remove), not-allowed on holes */
+        /* Cheese tool: pointer on cells without cheese (add), red cross on cells with cheese (remove), not-allowed on holes */
         .maze-grid.tool-cheese .maze-cell:not(.hole):not(.has-cheese) {
             cursor: pointer;
         }
@@ -161,7 +166,7 @@ Use the controls below to build your maze, then save it as a file to use in your
             cursor: not-allowed;
         }
         .maze-grid.tool-cheese .maze-cell.has-cheese {
-            cursor: crosshair;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cline x1='4' y1='4' x2='16' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='16' y1='4' x2='4' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 10 10, crosshair;
         }
         
         /* Wall/mud tools: not-allowed on cells (must click edges), specific cursors on edges */
@@ -239,18 +244,18 @@ Use the controls below to build your maze, then save it as a file to use in your
             background: rgba(0, 123, 255, 0.5);
         }
         
-        /* Clickable edges: pointer (hand) to add, crosshair (cross) to remove */
+        /* Clickable edges: pointer (hand) to add, red cross to remove */
         .maze-grid.tool-wall .maze-cell:not(.hole) .clickable:not(.has-wall) {
             cursor: pointer;
         }
         .maze-grid.tool-wall .maze-cell:not(.hole) .clickable.has-wall {
-            cursor: crosshair;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cline x1='4' y1='4' x2='16' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='16' y1='4' x2='4' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 10 10, crosshair;
         }
         .maze-grid.tool-mud .maze-cell:not(.hole) .clickable:not(.has-mud) {
             cursor: pointer;
         }
         .maze-grid.tool-mud .maze-cell:not(.hole) .clickable.has-mud {
-            cursor: crosshair;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cline x1='4' y1='4' x2='16' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='16' y1='4' x2='4' y2='16' stroke='%23dc3545' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 10 10, crosshair;
         }
         
         .mud-indicator {
