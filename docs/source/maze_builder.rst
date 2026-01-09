@@ -91,10 +91,7 @@ Use the controls below to build your maze, then save it as a JSON file that can 
         }
         
         .maze-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
+            display: block;
             max-width: 100%;
             max-height: 70vh;
             overflow: auto;
@@ -102,11 +99,11 @@ Use the controls below to build your maze, then save it as a JSON file that can 
         }
         
         .maze-inner {
-            display: flex;
+            display: inline-flex;
             flex-direction: column;
             align-items: center;
             gap: 5px;
-            min-width: fit-content;
+            min-width: 100%;
         }
         
         .maze-row-wrapper {
