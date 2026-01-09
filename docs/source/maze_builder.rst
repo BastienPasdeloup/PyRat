@@ -966,7 +966,8 @@ Once you've saved your maze, you can load it in your PyRat game:
     # Create a game with the custom maze
     game = Game(fixed_maze=maze_dict)
 
-You can also create a ``MazeFromDict`` object if you prefer to manipulate the maze further:
+You can also create a ``MazeFromDict`` object if you prefer.
+This has the advantages of validating the maze structure and providing additional methods.
 
 .. code-block:: python
 
