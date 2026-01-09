@@ -961,10 +961,10 @@ Once you've saved your maze, you can load it in your PyRat game:
 
     # Load the dict representing the maze from saved file
     with open("pyrat_maze.py", "r") as f:
-        maze = ast.literal_eval(f.read())
+        maze_dict = ast.literal_eval(f.read())
 
     # Create a game with the custom maze
-    game = Game(fixed_maze=maze)
+    game = Game(fixed_maze=maze_dict)
 
 You can also create a ``MazeFromDict`` object if you prefer to manipulate the maze further:
 
