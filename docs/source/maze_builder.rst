@@ -101,6 +101,14 @@ Use the controls below to build your maze, then save it as a JSON file that can 
             padding: 10px;
         }
         
+        .maze-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            min-width: fit-content;
+        }
+        
         .maze-row-wrapper {
             display: flex;
             align-items: center;
@@ -158,29 +166,29 @@ Use the controls below to build your maze, then save it as a JSON file that can 
         
         .maze-cell .wall-top {
             top: -2px;
-            left: 4px;
-            right: 4px;
+            left: 0;
+            right: 0;
             height: 6px;
         }
         
         .maze-cell .wall-bottom {
             bottom: -2px;
-            left: 4px;
-            right: 4px;
+            left: 0;
+            right: 0;
             height: 6px;
         }
         
         .maze-cell .wall-left {
             left: -2px;
-            top: 4px;
-            bottom: 4px;
+            top: 0;
+            bottom: 0;
             width: 6px;
         }
         
         .maze-cell .wall-right {
             right: -2px;
-            top: 4px;
-            bottom: 4px;
+            top: 0;
+            bottom: 0;
             width: 6px;
         }
         
@@ -316,7 +324,7 @@ Use the controls below to build your maze, then save it as a JSON file that can 
         <div class="toolbar">
             <div class="tool-group">
                 <label>Tool:</label>
-                <button class="tool-btn active" id="tool-cell" onclick="setTool('cell')">🔲 Cell</button>
+                <button class="tool-btn active" id="tool-cell" onclick="setTool('cell')">🔲 Cell / Hole</button>
                 <button class="tool-btn" id="tool-wall" onclick="setTool('wall')">🧱 Wall</button>
                 <button class="tool-btn" id="tool-mud" onclick="setTool('mud')">🟤 Mud</button>
             </div>
@@ -338,19 +346,21 @@ Use the controls below to build your maze, then save it as a JSON file that can 
         </div>
         
         <div class="maze-wrapper">
-            <div class="column-controls" id="top-controls"></div>
-            <div class="maze-row-wrapper">
-                <div class="row-controls" id="left-controls"></div>
-                <div class="maze-grid" id="maze-grid"></div>
-                <div class="row-controls" id="right-controls"></div>
+            <div class="maze-inner">
+                <div class="column-controls" id="top-controls"></div>
+                <div class="maze-row-wrapper">
+                    <div class="row-controls" id="left-controls"></div>
+                    <div class="maze-grid" id="maze-grid"></div>
+                    <div class="row-controls" id="right-controls"></div>
+                </div>
+                <div class="column-controls" id="bottom-controls"></div>
             </div>
-            <div class="column-controls" id="bottom-controls"></div>
         </div>
         
         <div class="status-bar" id="status-bar">
             Maze size: <span id="maze-size">5 × 5</span> | 
             Cells: <span id="cell-count">25</span> | 
-            Current tool: <span id="current-tool">Cell (click to toggle)</span>
+            Current tool: <span id="current-tool">Cell / Hole (click to toggle)</span>
         </div>
     </div>
 
@@ -400,7 +410,7 @@ Use the controls below to build your maze, then save it as a JSON file that can 
             
             let toolDesc = '';
             switch(tool) {
-                case 'cell': toolDesc = 'Cell (click to toggle)'; break;
+                case 'cell': toolDesc = 'Cell / Hole (click to toggle)'; break;
                 case 'wall': toolDesc = 'Wall (click cell edges)'; break;
                 case 'mud': toolDesc = 'Mud (click cell edges)'; break;
             }
@@ -872,7 +882,7 @@ Using the Maze Builder
 
 **Tools:**
 
-- **Cell**: Click on a cell to toggle it between a valid cell (light gray) and a hole (dark). Holes are not part of the maze.
+- **Cell / Hole**: Click on a cell to toggle it between a valid cell (light gray) and a hole (dark). Holes are not part of the maze.
 - **Wall**: Click on the edges between cells to add or remove walls. Walls block movement between adjacent cells.
 - **Mud**: Click on edges between cells to add mud. Set the mud value first (the number of turns required to cross). Click again to remove mud.
 
