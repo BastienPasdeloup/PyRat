@@ -321,7 +321,7 @@ Use the controls below to build your maze, then save it as a JSON file that can 
         <div class="toolbar">
             <div class="tool-group">
                 <label>Tool:</label>
-                <button class="tool-btn active" id="tool-cell" onclick="setTool('cell')">🔲 Cell / Hole</button>
+                <button class="tool-btn active" id="tool-cell" onclick="setTool('cell')">🔲 Hole</button>
                 <button class="tool-btn" id="tool-wall" onclick="setTool('wall')">🧱 Wall</button>
                 <button class="tool-btn" id="tool-mud" onclick="setTool('mud')">🟤 Mud</button>
             </div>
@@ -357,7 +357,7 @@ Use the controls below to build your maze, then save it as a JSON file that can 
         <div class="status-bar" id="status-bar">
             Maze size: <span id="maze-size">5 × 5</span> | 
             Cells: <span id="cell-count">25</span> | 
-            Current tool: <span id="current-tool">Cell / Hole (click to toggle)</span>
+            Current tool: <span id="current-tool">Hole (click to toggle)</span>
         </div>
     </div>
 
@@ -407,7 +407,7 @@ Use the controls below to build your maze, then save it as a JSON file that can 
             
             let toolDesc = '';
             switch(tool) {
-                case 'cell': toolDesc = 'Cell / Hole (click to toggle)'; break;
+                case 'cell': toolDesc = 'Hole (click to toggle)'; break;
                 case 'wall': toolDesc = 'Wall (click cell edges)'; break;
                 case 'mud': toolDesc = 'Mud (click cell edges)'; break;
             }
@@ -625,7 +625,12 @@ Use the controls below to build your maze, then save it as a JSON file that can 
                 renderMaze();
             } else if (currentTool === 'mud') {
                 if (!hasNeighbor) return; // Can't add mud to edge
-                if (walls[row][col][side]) return; // Can't add mud where there's a wall
+                
+                // Clear wall if adding mud
+                if (walls[row][col][side]) {
+                    walls[row][col][side] = false;
+                    walls[neighborRow][neighborCol][oppositeSide] = false;
+                }
                 
                 const mudValue = parseInt(document.getElementById('mud-value').value) || 2;
                 if (mud[row][col][side] === mudValue) {
@@ -879,7 +884,7 @@ Using the Maze Builder
 
 **Tools:**
 
-- **Cell / Hole**: Click on a cell to toggle it between a valid cell (light gray) and a hole (dark). Holes are not part of the maze.
+- **Hole**: Click on a cell to toggle it between a valid cell (light gray) and a hole (dark). Holes are not part of the maze.
 - **Wall**: Click on the edges between cells to add or remove walls. Walls block movement between adjacent cells.
 - **Mud**: Click on edges between cells to add mud. Set the mud value first (the number of turns required to cross). Click again to remove mud.
 
@@ -905,7 +910,10 @@ Once you've saved your maze, you can load it in your PyRat game:
 
     # Load the maze from file
     with open("pyrat_maze.json", "r") as f:
-        maze = json.load(f)
+        maze_data = json.load(f)
+
+    # Convert string keys to integers (JSON keys are always strings)
+    maze = {int(k): {int(k2): v2 for k2, v2 in v.items()} for k, v in maze_data.items()}
 
     # Create a game with the custom maze
     game = Game(fixed_maze=maze)
