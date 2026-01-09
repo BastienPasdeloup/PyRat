@@ -446,13 +446,21 @@ Use the controls below to build your maze, then save it as a JSON file that can 
                         // Add wall indicators with hover support
                         ['top', 'right', 'bottom', 'left'].forEach(side => {
                             const wallDiv = document.createElement('div');
-                            wallDiv.className = 'wall-' + side + (walls[r][c][side] ? ' active' : '');
+                            // Check if this is an outer edge (always show wall on maze boundary)
+                            const isOuterEdge = (side === 'top' && r === 0) ||
+                                               (side === 'bottom' && r === mazeHeight - 1) ||
+                                               (side === 'left' && c === 0) ||
+                                               (side === 'right' && c === mazeWidth - 1);
+                            const hasWall = walls[r][c][side] || isOuterEdge;
+                            wallDiv.className = 'wall-' + side + (hasWall ? ' active' : '');
                             wallDiv.dataset.side = side;
                             wallDiv.dataset.row = r;
                             wallDiv.dataset.col = c;
-                            wallDiv.onclick = (e) => handleEdgeClick(e, r, c, side);
-                            wallDiv.onmouseenter = (e) => handleEdgeHover(e, r, c, side, true);
-                            wallDiv.onmouseleave = (e) => handleEdgeHover(e, r, c, side, false);
+                            if (!isOuterEdge) {
+                                wallDiv.onclick = (e) => handleEdgeClick(e, r, c, side);
+                                wallDiv.onmouseenter = (e) => handleEdgeHover(e, r, c, side, true);
+                                wallDiv.onmouseleave = (e) => handleEdgeHover(e, r, c, side, false);
+                            }
                             cellDiv.appendChild(wallDiv);
                         });
                         
@@ -845,7 +853,7 @@ Use the controls below to build your maze, then save it as a JSON file that can 
                         mud[r] = [];
                         for (let c = 0; c < mazeWidth; c++) {
                             cells[r][c] = false; // Start with holes
-                            walls[r][c] = {top: true, right: true, bottom: true, left: true};
+                            walls[r][c] = {top: false, right: false, bottom: false, left: false}; // No walls for holes
                             mud[r][c] = {top: 0, right: 0, bottom: 0, left: 0};
                         }
                     }
@@ -856,6 +864,8 @@ Use the controls below to build your maze, then save it as a JSON file that can 
                         const srcRow = Math.floor(src / mazeWidth);
                         const srcCol = src % mazeWidth;
                         cells[srcRow][srcCol] = true;
+                        // Initialize walls to true for existing cells (will be removed where connections exist)
+                        walls[srcRow][srcCol] = {top: true, right: true, bottom: true, left: true};
                         
                         for (const [dstStr, weight] of Object.entries(neighbors)) {
                             const dst = parseInt(dstStr);
