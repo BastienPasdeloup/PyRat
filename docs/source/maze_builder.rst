@@ -131,7 +131,6 @@ Use the controls below to build your maze, then save it as a file to use in your
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
             position: relative;
             font-size: 10px;
             font-weight: bold;
@@ -140,11 +139,35 @@ Use the controls below to build your maze, then save it as a file to use in your
         
         .maze-cell.hole {
             background: #333;
-            cursor: not-allowed;
         }
         
         .maze-cell.hole::after {
             content: '';
+        }
+        
+        /* Cell tool: pointer on existing cells (will make hole), not-allowed on holes */
+        .maze-grid.tool-cell .maze-cell:not(.hole) {
+            cursor: pointer;
+        }
+        .maze-grid.tool-cell .maze-cell.hole {
+            cursor: not-allowed;
+        }
+        
+        /* Cheese tool: pointer on cells without cheese, not-allowed on holes and cells with cheese (erase) */
+        .maze-grid.tool-cheese .maze-cell:not(.hole):not(.has-cheese) {
+            cursor: pointer;
+        }
+        .maze-grid.tool-cheese .maze-cell.hole {
+            cursor: not-allowed;
+        }
+        .maze-grid.tool-cheese .maze-cell.has-cheese {
+            cursor: crosshair;
+        }
+        
+        /* Wall/mud tools: default not-allowed on cells, specific cursors on edges */
+        .maze-grid.tool-wall .maze-cell,
+        .maze-grid.tool-mud .maze-cell {
+            cursor: default;
         }
         
         /* Cell hover only for cell tool */
@@ -197,14 +220,14 @@ Use the controls below to build your maze, then save it as a file to use in your
         }
         
         /* Edge hover for wall/mud tools */
-        .maze-grid.tool-wall .maze-cell:not(.hole) .wall-top:hover,
-        .maze-grid.tool-wall .maze-cell:not(.hole) .wall-bottom:hover,
-        .maze-grid.tool-wall .maze-cell:not(.hole) .wall-left:hover,
-        .maze-grid.tool-wall .maze-cell:not(.hole) .wall-right:hover,
-        .maze-grid.tool-mud .maze-cell:not(.hole) .wall-top:hover,
-        .maze-grid.tool-mud .maze-cell:not(.hole) .wall-bottom:hover,
-        .maze-grid.tool-mud .maze-cell:not(.hole) .wall-left:hover,
-        .maze-grid.tool-mud .maze-cell:not(.hole) .wall-right:hover,
+        .maze-grid.tool-wall .maze-cell:not(.hole) .wall-top.clickable:hover,
+        .maze-grid.tool-wall .maze-cell:not(.hole) .wall-bottom.clickable:hover,
+        .maze-grid.tool-wall .maze-cell:not(.hole) .wall-left.clickable:hover,
+        .maze-grid.tool-wall .maze-cell:not(.hole) .wall-right.clickable:hover,
+        .maze-grid.tool-mud .maze-cell:not(.hole) .wall-top.clickable:hover,
+        .maze-grid.tool-mud .maze-cell:not(.hole) .wall-bottom.clickable:hover,
+        .maze-grid.tool-mud .maze-cell:not(.hole) .wall-left.clickable:hover,
+        .maze-grid.tool-mud .maze-cell:not(.hole) .wall-right.clickable:hover,
         .maze-grid.tool-wall .maze-cell:not(.hole) .wall-top.hover-pair,
         .maze-grid.tool-wall .maze-cell:not(.hole) .wall-bottom.hover-pair,
         .maze-grid.tool-wall .maze-cell:not(.hole) .wall-left.hover-pair,
@@ -214,7 +237,20 @@ Use the controls below to build your maze, then save it as a file to use in your
         .maze-grid.tool-mud .maze-cell:not(.hole) .wall-left.hover-pair,
         .maze-grid.tool-mud .maze-cell:not(.hole) .wall-right.hover-pair {
             background: rgba(0, 123, 255, 0.5);
+        }
+        
+        /* Clickable edges: pointer to add, crosshair to erase */
+        .maze-grid.tool-wall .maze-cell:not(.hole) .clickable:not(.has-wall) {
             cursor: pointer;
+        }
+        .maze-grid.tool-wall .maze-cell:not(.hole) .clickable.has-wall {
+            cursor: crosshair;
+        }
+        .maze-grid.tool-mud .maze-cell:not(.hole) .clickable:not(.has-mud) {
+            cursor: pointer;
+        }
+        .maze-grid.tool-mud .maze-cell:not(.hole) .clickable.has-mud {
+            cursor: crosshair;
         }
         
         .mud-indicator {
@@ -465,6 +501,11 @@ Use the controls below to build your maze, then save it as a file to use in your
                     if (cells[r][c]) {
                         cellCount++;
                         
+                        // Add has-cheese class for cursor styling
+                        if (cheese[r][c]) {
+                            cellDiv.classList.add('has-cheese');
+                        }
+                        
                         // Add wall indicators with hover support
                         ['top', 'right', 'bottom', 'left'].forEach(side => {
                             const wallDiv = document.createElement('div');
@@ -481,7 +522,8 @@ Use the controls below to build your maze, then save it as a file to use in your
                             const neighborIsHole = !isOuterEdge && !cells[neighborRow][neighborCol];
                             const canHaveWall = !isOuterEdge && !neighborIsHole;
                             const hasWall = canHaveWall && walls[r][c][side];
-                            wallDiv.className = 'wall-' + side + (hasWall ? ' active' : '');
+                            const hasMud = canHaveWall && mud[r][c][side] > 0;
+                            wallDiv.className = 'wall-' + side + (hasWall ? ' active' : '') + (canHaveWall ? ' clickable' : '') + (hasWall ? ' has-wall' : '') + (hasMud ? ' has-mud' : '');
                             wallDiv.dataset.side = side;
                             wallDiv.dataset.row = r;
                             wallDiv.dataset.col = c;
