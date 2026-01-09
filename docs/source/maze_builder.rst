@@ -95,6 +95,10 @@ Use the controls below to build your maze, then save it as a JSON file that can 
             flex-direction: column;
             align-items: center;
             gap: 5px;
+            max-width: 100%;
+            max-height: 70vh;
+            overflow: auto;
+            padding: 10px;
         }
         
         .maze-row-wrapper {
@@ -107,6 +111,7 @@ Use the controls below to build your maze, then save it as a JSON file that can 
             display: inline-block;
             border: 2px solid #333;
             background: #333;
+            flex-shrink: 0;
         }
         
         .maze-row {
@@ -194,47 +199,44 @@ Use the controls below to build your maze, then save it as a JSON file that can 
         .maze-grid.tool-mud .maze-cell:not(.hole) .wall-top:hover,
         .maze-grid.tool-mud .maze-cell:not(.hole) .wall-bottom:hover,
         .maze-grid.tool-mud .maze-cell:not(.hole) .wall-left:hover,
-        .maze-grid.tool-mud .maze-cell:not(.hole) .wall-right:hover {
+        .maze-grid.tool-mud .maze-cell:not(.hole) .wall-right:hover,
+        .maze-grid.tool-wall .maze-cell:not(.hole) .wall-top.hover-pair,
+        .maze-grid.tool-wall .maze-cell:not(.hole) .wall-bottom.hover-pair,
+        .maze-grid.tool-wall .maze-cell:not(.hole) .wall-left.hover-pair,
+        .maze-grid.tool-wall .maze-cell:not(.hole) .wall-right.hover-pair,
+        .maze-grid.tool-mud .maze-cell:not(.hole) .wall-top.hover-pair,
+        .maze-grid.tool-mud .maze-cell:not(.hole) .wall-bottom.hover-pair,
+        .maze-grid.tool-mud .maze-cell:not(.hole) .wall-left.hover-pair,
+        .maze-grid.tool-mud .maze-cell:not(.hole) .wall-right.hover-pair {
             background: rgba(0, 123, 255, 0.5);
             cursor: pointer;
         }
         
-        .maze-cell .mud-top,
-        .maze-cell .mud-bottom,
-        .maze-cell .mud-left,
-        .maze-cell .mud-right {
+        .mud-indicator {
             position: absolute;
-            background: transparent;
-            z-index: 1;
+            z-index: 3;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 8px;
-            color: #8B4513;
+            font-size: 9px;
+            font-weight: bold;
+            color: #5c3d1e;
+            background: #d4a574;
+            border-radius: 3px;
+            padding: 1px 3px;
+            pointer-events: none;
         }
         
-        .maze-cell .mud-top {
-            top: 2px;
+        .mud-indicator.horizontal {
             left: 50%;
             transform: translateX(-50%);
+            bottom: -5px;
         }
         
-        .maze-cell .mud-bottom {
-            bottom: 2px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .maze-cell .mud-left {
-            left: 2px;
+        .mud-indicator.vertical {
             top: 50%;
             transform: translateY(-50%);
-        }
-        
-        .maze-cell .mud-right {
-            right: 2px;
-            top: 50%;
-            transform: translateY(-50%);
+            right: -8px;
         }
         
         .add-remove-btn {
@@ -434,24 +436,32 @@ Use the controls below to build your maze, then save it as a JSON file that can 
                     if (cells[r][c]) {
                         cellCount++;
                         
-                        // Add wall indicators
+                        // Add wall indicators with hover support
                         ['top', 'right', 'bottom', 'left'].forEach(side => {
                             const wallDiv = document.createElement('div');
                             wallDiv.className = 'wall-' + side + (walls[r][c][side] ? ' active' : '');
                             wallDiv.dataset.side = side;
+                            wallDiv.dataset.row = r;
+                            wallDiv.dataset.col = c;
                             wallDiv.onclick = (e) => handleEdgeClick(e, r, c, side);
+                            wallDiv.onmouseenter = (e) => handleEdgeHover(e, r, c, side, true);
+                            wallDiv.onmouseleave = (e) => handleEdgeHover(e, r, c, side, false);
                             cellDiv.appendChild(wallDiv);
                         });
                         
-                        // Add mud indicators
-                        ['top', 'right', 'bottom', 'left'].forEach(side => {
-                            if (mud[r][c][side] > 0) {
-                                const mudDiv = document.createElement('div');
-                                mudDiv.className = 'mud-' + side;
-                                mudDiv.textContent = mud[r][c][side];
-                                cellDiv.appendChild(mudDiv);
-                            }
-                        });
+                        // Add mud indicators (only on bottom and right edges to avoid duplication)
+                        if (mud[r][c].bottom > 0) {
+                            const mudDiv = document.createElement('div');
+                            mudDiv.className = 'mud-indicator horizontal';
+                            mudDiv.textContent = mud[r][c].bottom;
+                            cellDiv.appendChild(mudDiv);
+                        }
+                        if (mud[r][c].right > 0) {
+                            const mudDiv = document.createElement('div');
+                            mudDiv.className = 'mud-indicator vertical';
+                            mudDiv.textContent = mud[r][c].right;
+                            cellDiv.appendChild(mudDiv);
+                        }
                         
                         // Add cell index if enabled
                         if (showIndices) {
@@ -482,8 +492,8 @@ Use the controls below to build your maze, then save it as a JSON file that can 
             const topGroup = document.createElement('div');
             topGroup.className = 'column-control-group';
             topGroup.innerHTML = `
-                <button class="add-remove-btn add" onclick="addRowTop()" title="Add row at top">+</button>
                 <button class="add-remove-btn remove" onclick="removeRowTop()" title="Remove row from top">−</button>
+                <button class="add-remove-btn add" onclick="addRowTop()" title="Add row at top">+</button>
             `;
             topControls.appendChild(topGroup);
             
@@ -493,8 +503,8 @@ Use the controls below to build your maze, then save it as a JSON file that can 
             const bottomGroup = document.createElement('div');
             bottomGroup.className = 'column-control-group';
             bottomGroup.innerHTML = `
-                <button class="add-remove-btn add" onclick="addRowBottom()" title="Add row at bottom">+</button>
                 <button class="add-remove-btn remove" onclick="removeRowBottom()" title="Remove row from bottom">−</button>
+                <button class="add-remove-btn add" onclick="addRowBottom()" title="Add row at bottom">+</button>
             `;
             bottomControls.appendChild(bottomGroup);
             
@@ -504,8 +514,8 @@ Use the controls below to build your maze, then save it as a JSON file that can 
             const leftGroup = document.createElement('div');
             leftGroup.className = 'row-control-group';
             leftGroup.innerHTML = `
-                <button class="add-remove-btn add" onclick="addColumnLeft()" title="Add column at left">+</button>
                 <button class="add-remove-btn remove" onclick="removeColumnLeft()" title="Remove column from left">−</button>
+                <button class="add-remove-btn add" onclick="addColumnLeft()" title="Add column at left">+</button>
             `;
             leftControls.appendChild(leftGroup);
             
@@ -515,10 +525,42 @@ Use the controls below to build your maze, then save it as a JSON file that can 
             const rightGroup = document.createElement('div');
             rightGroup.className = 'row-control-group';
             rightGroup.innerHTML = `
-                <button class="add-remove-btn add" onclick="addColumnRight()" title="Add column at right">+</button>
                 <button class="add-remove-btn remove" onclick="removeColumnRight()" title="Remove column from right">−</button>
+                <button class="add-remove-btn add" onclick="addColumnRight()" title="Add column at right">+</button>
             `;
             rightControls.appendChild(rightGroup);
+        }
+        
+        function handleEdgeHover(e, row, col, side, isEntering) {
+            if (currentTool === 'cell') return;
+            
+            // Find the neighbor cell's corresponding edge
+            let neighborRow = row, neighborCol = col;
+            let oppositeSide = '';
+            switch(side) {
+                case 'top': neighborRow = row - 1; oppositeSide = 'bottom'; break;
+                case 'bottom': neighborRow = row + 1; oppositeSide = 'top'; break;
+                case 'left': neighborCol = col - 1; oppositeSide = 'right'; break;
+                case 'right': neighborCol = col + 1; oppositeSide = 'left'; break;
+            }
+            
+            // Check if neighbor exists
+            if (neighborRow >= 0 && neighborRow < mazeHeight && 
+                neighborCol >= 0 && neighborCol < mazeWidth &&
+                cells[neighborRow][neighborCol]) {
+                // Find the neighbor's edge element
+                const neighborCell = document.querySelector(`.maze-cell[data-row="${neighborRow}"][data-col="${neighborCol}"]`);
+                if (neighborCell) {
+                    const neighborEdge = neighborCell.querySelector(`.wall-${oppositeSide}`);
+                    if (neighborEdge) {
+                        if (isEntering) {
+                            neighborEdge.classList.add('hover-pair');
+                        } else {
+                            neighborEdge.classList.remove('hover-pair');
+                        }
+                    }
+                }
+            }
         }
         
         function handleCellClick(e, row, col) {
