@@ -870,8 +870,13 @@ Use the controls below to build your maze, then save it as a JSON file that can 
                         const srcRow = Math.floor(src / mazeWidth);
                         const srcCol = src % mazeWidth;
                         cells[srcRow][srcCol] = true;
-                        // Initialize walls to true for existing cells (will be removed where connections exist)
-                        walls[srcRow][srcCol] = {top: true, right: true, bottom: true, left: true};
+                        // Initialize walls only for interior edges (not at borders)
+                        walls[srcRow][srcCol] = {
+                            top: srcRow > 0,
+                            right: srcCol < mazeWidth - 1,
+                            bottom: srcRow < mazeHeight - 1,
+                            left: srcCol > 0
+                        };
                         
                         for (const [dstStr, weight] of Object.entries(neighbors)) {
                             const dst = parseInt(dstStr);
