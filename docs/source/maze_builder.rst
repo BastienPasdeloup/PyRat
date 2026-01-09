@@ -958,9 +958,32 @@ Once you've saved your maze, you can load it in your PyRat game:
     import ast
     from pyrat import Game
 
-    # Load the maze from file (Python dict format with integer keys)
+    # Load the maze from file
     with open("pyrat_maze.py", "r") as f:
         maze = ast.literal_eval(f.read())
 
     # Create a game with the custom maze
+    game = Game(fixed_maze=maze)
+You can also create a ``MazeFromDict`` object if you need more control:
+
+.. code-block:: python
+
+    import ast
+    from pyrat import Game, MazeFromDict
+
+    # Load the maze from file
+    with open("pyrat_maze.py", "r") as f:
+        maze_dict = ast.literal_eval(f.read())
+
+    # Determine maze dimensions from the dictionary
+    max_index = max(maze_dict.keys())
+    # Infer width from vertical neighbors (cells differing by more than 1)
+    width = min(abs(dst - src) for src, neighbors in maze_dict.items() 
+                for dst in neighbors.keys() if abs(dst - src) > 1)
+    height = (max_index // width) + 1
+
+    # Create a MazeFromDict object
+    maze = MazeFromDict(maze_dict, width, height)
+
+    # Create a game with the maze object
     game = Game(fixed_maze=maze)
