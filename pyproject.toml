@@ -10,20 +10,23 @@
 ##########################################################################################
 
 [project]
-name         = "pyrat-game"
-version      = "6.2.14"
-description  = "PyRat software used in the computer science course at IMT Atlantique"
-readme       = "README.md"
-license      = "MIT"
-authors      = [{name = "Bastien Pasdeloup", email = "bastien.pasdeloup@imt-atlantique.fr"}]
-classifiers  = ["Programming Language :: Python"]
-dependencies = ["pygame",
-                "colored",
-                "distinctipy",
-                "scipy",
-                "tqdm",
-                "matplotlib",
-                "pyfakefs"]
+name            = "pyrat-game"
+version         = "6.3.0"
+description     = "PyRat software used in the computer science course at IMT Atlantique"
+readme          = "README.md"
+license         = "MIT"
+requires-python = ">=3.12,<3.14"
+authors         = [{name = "Bastien Pasdeloup", email = "bastien.pasdeloup@imt-atlantique.fr"}]
+classifiers     = ["Programming Language :: Python",
+                   "Programming Language :: Python :: 3.12",
+                   "Programming Language :: Python :: 3.13"]
+dependencies    = ["pygame",
+                   "colored",
+                   "distinctipy",
+                   "scipy",
+                   "tqdm",
+                   "matplotlib",
+                   "pyfakefs"]
 
 [project.urls]
 Homepage      = "https://github.com/BastienPasdeloup/PyRat"
@@ -31,6 +34,9 @@ Documentation = "https://bastienpasdeloup.github.io/PyRat"
 Issues        = "https://github.com/BastienPasdeloup/PyRat/issues"
 PyPI          = "https://pypi.org/project/pyrat-game"
 Course        = "https://hub.imt-atlantique.fr/ueinfo-fise1a"
+
+[project.scripts]
+pyrat-init = "pyrat.src.utils:main"
 
 [project.optional-dependencies]
 numpy = ["numpy"]

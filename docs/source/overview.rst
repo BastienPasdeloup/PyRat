@@ -39,11 +39,13 @@ Depending on the number of players, the winning condition may vary:
 Starting a PyRat Game
 ^^^^^^^^^^^^^^^^^^^^^
 
-To start a PyRat game, you typically follow these steps:
+To start a PyRat game from a terminal, navigate to your workspace using ``cd pyrat_workspace``, then run ``uv run games/sample_game.py``.
+
+Alternatively, to start a PyRat game from VSCode, you typically follow these steps:
 
 1. Open VSCode, and add your ``pyrat_workspace`` directory in your VSCode workspace.
 2. Open the file ``sample_game.py`` in directory ``pyrat_workspace/games/``.
-3. Make sure VSCode is using your virtual environment where PyRat is installed.
+3. Make sure VSCode is using the interpreter located in the ``.venv`` directory of your workspace.
 4. Run ``sample_game.py``.
 
 You should see something like this:
