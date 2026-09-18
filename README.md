@@ -10,7 +10,7 @@
 <!-- ################################################################################# -->
 
 <div align="center">
-    <table border="0">
+    <table>
         <tr>
             <td align="center">
                 <img height="350px" src="https://raw.githubusercontent.com/BastienPasdeloup/PyRat/refs/heads/master/pyrat/gui/drawings/pyrat.png">

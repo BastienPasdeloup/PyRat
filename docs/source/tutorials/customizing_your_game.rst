@@ -16,6 +16,11 @@ The best way to customize your game is to create a new game file in the ``games`
 As we saw in previous tutorials, you need to instantiate an object from the :doc:`Game </pyrat/Game>` class.
 The constructor of the ``Game`` class takes several arguments that allow you to customize the game:
 
+.. note::
+
+   This page presents the arguments by theme, with what they are useful for.
+   The exhaustive list, with default values and accepted types, is in the :doc:`Game </pyrat/Game>` documentation.
+
 Random Control
 ^^^^^^^^^^^^^^
 

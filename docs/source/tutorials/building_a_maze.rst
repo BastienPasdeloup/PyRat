@@ -4,6 +4,11 @@ Building a Maze
 It may be convenient to build a custom maze for your game to test particular situations.
 In this tutorial, we will see how to build a maze using the PyRat library.
 
+.. tip::
+
+   If you would rather draw your maze than describe it in code, use the :doc:`Maze Builder </maze_builder>`.
+   It produces a file that you can load directly into a game, as explained on that page.
+
 Building a Graph
 ----------------
 

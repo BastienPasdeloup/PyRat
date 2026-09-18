@@ -7,7 +7,7 @@ This is because the game runs in a separate process, allowing the game to contin
 Default Behavior
 ----------------
 
-By default, the game will continue running until: one of the following conditions is met:
+By default, the game will continue running until one of the following conditions is met:
 
 - It reaches an end condition.
 - An error occurs in one of the players' codes.
@@ -23,3 +23,7 @@ However, if you are running games in a loop, PyRat may just abort the current ga
 To ensure that the game stops completely, you can hold ``Ctrl+C`` for a few seconds.
 
 In VSCode, you can also stop the game by clicking the red square at the top of the editor window.
+
+.. tip::
+
+   If a game seems stuck, check the terminal first: a player that raises an error stops the game there, and the traceback tells you which one.

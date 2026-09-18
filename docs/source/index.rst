@@ -3,24 +3,95 @@ PyRat Documentation
 
 Welcome to the PyRat documentation website!
 This documentation is designed to help you understand and use the PyRat library effectively.
-It includes detailed information about the PyRat API, workspace API, and other relevant topics.
 
-On this website, you will find the following sections:
+.. grid:: 1 1 3 3
+   :gutter: 3
 
-- :doc:`Install PyRat <install>`: Instructions on how to install the PyRat library and set up your workspace.
-- :doc:`Quick Overview <overview>`: An overview of the PyRat library, including its main components and how they interact.
-- :doc:`Tutorials <tutorials/index>`: A collection of tutorials that guide you through some desired use cases of the PyRat library.
-- :doc:`Maze Builder <maze_builder>`: An interactive tool to create custom mazes for your PyRat games.
-- :doc:`PyRat API <pyrat/index>`: Detailed documentation of the PyRat API, including classes, functions, and modules.
-- :doc:`Workspace API <workspace/index>`: Information about the PyRat workspace API, where you can store your games and players.
+   .. grid-item-card:: Install PyRat
+      :link: install
+      :link-type: doc
 
-Additionally, here are some general useful links:
+      Install uv, create your workspace, and run your first game.
 
-- `PyRat GitHub repository <https://github.com/BastienPasdeloup/PyRat>`_.
-- `GitHub issues <https://github.com/BastienPasdeloup/PyRat/issues>`_.
-- `PyRat documentation <https://bastienpasdeloup.github.io/PyRat/>`_.
-- `PyRat on PyPI <https://pypi.org/project/pyrat-game/>`_.
-- `IMT Atlantique course page <https://hub.imt-atlantique.fr/ueinfo-fise1a/>`_.
+      +++
+      Start here.
+
+   .. grid-item-card:: Quick Overview
+      :link: overview
+      :link-type: doc
+
+      What a game is made of, how a player takes decisions, and what the interface shows.
+
+      +++
+      Read this next.
+
+   .. grid-item-card:: Tutorials
+      :link: tutorials/index
+      :link-type: doc
+
+      Guided walkthroughs, from the provided example players to custom mazes.
+
+      +++
+      Learn by doing.
+
+.. grid:: 1 1 3 3
+   :gutter: 3
+
+   .. grid-item-card:: Maze Builder
+      :link: maze_builder
+      :link-type: doc
+
+      An interactive tool to draw a maze in your browser and use it in your games.
+
+      +++
+      Build a maze.
+
+   .. grid-item-card:: PyRat API
+      :link: pyrat/index
+      :link-type: doc
+
+      Every class and function of the library, with its arguments and examples.
+
+      +++
+      Look things up.
+
+   .. grid-item-card:: Workspace API
+      :link: workspace/index
+      :link-type: doc
+
+      The players and games that come with a fresh workspace.
+
+      +++
+      See the examples.
+
+New to PyRat?
+-------------
+
+The fastest path from nothing to a running game is:
+
+.. card:: Three steps to your first game
+
+   1. :doc:`Install PyRat <install>` and create your workspace with a single command.
+   2. Run the provided ``sample_game.py`` to check that everything works.
+   3. Follow :doc:`The Random Programs <tutorials/the_random_programs>` to understand how a player is written, then write your own.
+
+Useful links
+------------
+
+.. grid:: 1 2 2 2
+   :gutter: 2
+
+   .. grid-item::
+
+      - `PyRat GitHub repository <https://github.com/BastienPasdeloup/PyRat>`_.
+      - `GitHub issues <https://github.com/BastienPasdeloup/PyRat/issues>`_.
+      - `PyRat on PyPI <https://pypi.org/project/pyrat-game/>`_.
+
+   .. grid-item::
+
+      - `PyRat documentation <https://bastienpasdeloup.github.io/PyRat/>`_.
+      - `IMT Atlantique course page <https://hub.imt-atlantique.fr/ueinfo-fise1a/>`_.
+      - `Discord server of the course <https://discord.gg/eMnFArZ8ht>`_.
 
 .. toctree::
    :hidden:

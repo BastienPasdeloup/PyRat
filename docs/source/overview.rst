@@ -6,16 +6,30 @@ This section provides a quick overview of the PyRat library and its workspace st
 Contents of the PyRat Library
 -----------------------------
 
-In PyRat, we manipulate two main types of files:
+In PyRat, we manipulate two main types of files.
 
-- **Games**: These are Python scripts that define a game using the PyRat API.
-  They are stored in the ``games`` :doc:`directory of the workspace <workspace/games/index>`.
-  These scripts typically import the PyRat library and use its functionalities to create a game environment, with players, mazes, and game objectives.
-  
-- **Players**: These are classes that define the behavior of a player in the game.
-  They are stored in the ``players`` :doc:`directory of the workspace <workspace/players/index>`.
-  Contrary to games, players are not scripts but rather Python classes that inherit from the ``Player`` class provided by the PyRat library.
-  They implement methods that define how the player interacts with the game, in particular how it moves and reacts to the game state.
+.. grid:: 1 1 2 2
+   :gutter: 3
+
+   .. grid-item-card:: Games
+      :link: workspace/games/index
+      :link-type: doc
+
+      Python **scripts** that define a game using the PyRat API.
+      They import the PyRat library and use it to create a game environment, with players, mazes, and game objectives.
+
+      +++
+      Stored in the ``games`` directory. This is what you run.
+
+   .. grid-item-card:: Players
+      :link: workspace/players/index
+      :link-type: doc
+
+      Python **classes** that define the behavior of a player, and inherit from the ``Player`` class provided by the PyRat library.
+      They implement the methods that say how the player moves and reacts to the game state.
+
+      +++
+      Stored in the ``players`` directory. This is what you write.
 
 The PyRat library provides a :doc:`set of modules<pyrat/index>` that can be used to create and manipulate mazes, players, and games.
 You can import these modules in your Python scripts to use their functionalities.
@@ -39,14 +53,23 @@ Depending on the number of players, the winning condition may vary:
 Starting a PyRat Game
 ^^^^^^^^^^^^^^^^^^^^^
 
-To start a PyRat game from a terminal, navigate to your workspace using ``cd pyrat_workspace``, then run ``uv run games/sample_game.py``.
+.. tab-set::
 
-Alternatively, to start a PyRat game from VSCode, you typically follow these steps:
+   .. tab-item:: From a terminal
 
-1. Open VSCode, and add your ``pyrat_workspace`` directory in your VSCode workspace.
-2. Open the file ``sample_game.py`` in directory ``pyrat_workspace/games/``.
-3. Make sure VSCode is using the interpreter located in the ``.venv`` directory of your workspace.
-4. Run ``sample_game.py``.
+      Navigate to your workspace, then run the game:
+
+      .. code-block:: shell
+
+         cd pyrat_workspace
+         uv run games/sample_game.py
+
+   .. tab-item:: From VSCode
+
+      1. Open VSCode, and add your ``pyrat_workspace`` directory in your VSCode workspace.
+      2. Open the file ``sample_game.py`` in directory ``pyrat_workspace/games/``.
+      3. Make sure VSCode is using the interpreter located in the ``.venv`` directory of your workspace.
+      4. Run ``sample_game.py``.
 
 You should see something like this:
 
@@ -68,10 +91,14 @@ In the PyRat interface above, you can see the following elements:
   The former cannot be crossed, and the latter require the number of turns indicated to reach the cell on the other side.
 
 - **Game Elements**: Characters and pieces of cheese are rendered in the maze at their current location.
-  Note however that the GUI is not synchronized with the actual game, to be able to visualize it nicely.
-  Therefore, if you choose to print your current location in your code, you will not see the same cell as in the GUI.
   The color around players is there to indicate their teams.
   You may also notice some small flags in the middle of the maze, which indicate the starting locations.
+
+.. warning::
+
+   The interface is intentionally not synchronized with the actual game, so that the game can be visualized nicely.
+   Therefore, if you print your current location in your code, you will not see the same cell as the one shown in the interface.
+   This surprises everyone once, so keep it in mind when you debug a player.
 
 Needed Elements in a Game
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -121,6 +148,37 @@ Phases of a Game
 ^^^^^^^^^^^^^^^^
 
 A PyRat game consists in four phases, that we illustrate below using the code in :doc:`TemplatePlayer <workspace/players/TemplatePlayer>`.
+
+.. grid:: 1 2 4 4
+   :gutter: 2
+
+   .. grid-item-card:: 1. Constructor
+
+      ``__init__()``
+
+      +++
+      Declare your attributes. No maze yet.
+
+   .. grid-item-card:: 2. Preprocessing
+
+      ``preprocessing()``
+
+      +++
+      Think ahead, once, with more time.
+
+   .. grid-item-card:: 3. Turns
+
+      ``turn()``
+
+      +++
+      Return one action, at each turn.
+
+   .. grid-item-card:: 4. Postprocessing
+
+      ``postprocessing()``
+
+      +++
+      Analyze the finished game.
 
 1. **Before the Game Starts**: When players are instantiated in the game script (see above), the constructor of the player class (``__init__()`` method) is called.
    This is where you can define attributes or perform any setup that is needed before the game starts.

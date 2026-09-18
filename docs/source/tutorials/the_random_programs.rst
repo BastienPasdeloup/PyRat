@@ -9,12 +9,39 @@ Getting Started
 ---------------
 
 Open your VSCode workspace and navigate to the ``players`` directory.
-In addition to the ``TemplatePlayer`` class, that we already mentioned in the :doc:`overview </overview>`, you will find the following files:
+In addition to the ``TemplatePlayer`` class, that we already mentioned in the :doc:`overview </overview>`, you will find four players.
+Each of them fixes a weakness of the previous one.
 
-- :doc:`Random1 </workspace/players/Random1>`
-- :doc:`Random2 </workspace/players/Random2>`
-- :doc:`Random3 </workspace/players/Random3>`
-- :doc:`Random4 </workspace/players/Random4>`
+.. grid:: 1 2 4 4
+   :gutter: 2
+
+   .. grid-item-card:: :doc:`Random1 </workspace/players/Random1>`
+
+      Moves completely at random.
+
+      +++
+      May walk into walls.
+
+   .. grid-item-card:: :doc:`Random2 </workspace/players/Random2>`
+
+      Only picks moves that do not hit a wall.
+
+      +++
+      Takes the maze into account.
+
+   .. grid-item-card:: :doc:`Random3 </workspace/players/Random3>`
+
+      Prefers cells it has not visited yet.
+
+      +++
+      Explores much faster.
+
+   .. grid-item-card:: :doc:`Random4 </workspace/players/Random4>`
+
+      Removes dead ends from the maze before playing.
+
+      +++
+      The smartest of the four.
 
 We also provide in the ``games`` directory a script that visualizes the behavior of these players in a game.
 We will not go through this script in details, but you can find it here:

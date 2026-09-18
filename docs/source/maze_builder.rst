@@ -12,6 +12,91 @@ Use the controls below to build your maze, then save it as a file to use in your
             max-width: 100%;
             margin: 20px 0;
         }
+
+        /* ---------------------------------------------------------------- */
+        /* Colors are defined once here, and overridden below for dark mode. */
+        /* This keeps the builder readable whichever theme the reader uses.  */
+        /* ---------------------------------------------------------------- */
+
+        .maze-builder-container {
+            --mb-surface: #ffffff;
+            --mb-surface-alt: #f1f3f5;
+            --mb-surface-sunken: #e9ecef;
+            --mb-text: #1f2328;
+            --mb-text-muted: #6a737d;
+            --mb-border: #ccd1d5;
+            --mb-border-strong: #333333;
+            --mb-cell: #f0f0f0;
+            --mb-cell-hover: #d6d9dc;
+            --mb-hole: #333333;
+            --mb-wall: #333333;
+            --mb-accent: #1f6feb;
+            --mb-accent-soft: rgba(31, 111, 235, 0.45);
+            --mb-on-accent: #ffffff;
+            --mb-save: #2f9e44;
+            --mb-save-hover: #2b8a3e;
+            --mb-load: #1098ad;
+            --mb-load-hover: #0c8599;
+            --mb-add: #2f9e44;
+            --mb-remove: #e03131;
+            --mb-cheese-hover: #fff9db;
+            --mb-mud-bg: #d4a574;
+            --mb-mud-text: #5c3d1e;
+        }
+
+        body[data-theme="dark"] .maze-builder-container {
+            --mb-surface: #202326;
+            --mb-surface-alt: #2a2e33;
+            --mb-surface-sunken: #2a2e33;
+            --mb-text: #e6e6e6;
+            --mb-text-muted: #a0a6ad;
+            --mb-border: #4a5058;
+            --mb-border-strong: #6a737d;
+            --mb-cell: #3a4047;
+            --mb-cell-hover: #4a5058;
+            --mb-hole: #101214;
+            --mb-wall: #cfd4da;
+            --mb-accent: #4c8dff;
+            --mb-accent-soft: rgba(76, 141, 255, 0.45);
+            --mb-on-accent: #10151c;
+            --mb-save: #51cf66;
+            --mb-save-hover: #40c057;
+            --mb-load: #3bc9db;
+            --mb-load-hover: #22b8cf;
+            --mb-add: #51cf66;
+            --mb-remove: #ff6b6b;
+            --mb-cheese-hover: #4a4426;
+            --mb-mud-bg: #8a6034;
+            --mb-mud-text: #f5e3d0;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body:not([data-theme="light"]) .maze-builder-container {
+                --mb-surface: #202326;
+                --mb-surface-alt: #2a2e33;
+                --mb-surface-sunken: #2a2e33;
+                --mb-text: #e6e6e6;
+                --mb-text-muted: #a0a6ad;
+                --mb-border: #4a5058;
+                --mb-border-strong: #6a737d;
+                --mb-cell: #3a4047;
+                --mb-cell-hover: #4a5058;
+                --mb-hole: #101214;
+                --mb-wall: #cfd4da;
+                --mb-accent: #4c8dff;
+                --mb-accent-soft: rgba(76, 141, 255, 0.45);
+                --mb-on-accent: #10151c;
+                --mb-save: #51cf66;
+                --mb-save-hover: #40c057;
+                --mb-load: #3bc9db;
+                --mb-load-hover: #22b8cf;
+                --mb-add: #51cf66;
+                --mb-remove: #ff6b6b;
+                --mb-cheese-hover: #4a4426;
+                --mb-mud-bg: #8a6034;
+                --mb-mud-text: #f5e3d0;
+            }
+        }
         
         .toolbar {
             display: flex;
@@ -19,7 +104,8 @@ Use the controls below to build your maze, then save it as a file to use in your
             gap: 10px;
             margin-bottom: 15px;
             padding: 10px;
-            background: #f5f5f5;
+            background: var(--mb-surface-alt);
+            border: 1px solid var(--mb-border);
             border-radius: 8px;
             align-items: center;
         }
@@ -29,7 +115,7 @@ Use the controls below to build your maze, then save it as a file to use in your
             align-items: center;
             gap: 5px;
             padding: 5px 10px;
-            border-right: 1px solid #ddd;
+            border-right: 1px solid var(--mb-border);
         }
         
         .tool-group:last-child {
@@ -39,13 +125,14 @@ Use the controls below to build your maze, then save it as a file to use in your
         .tool-group label {
             font-weight: bold;
             font-size: 0.9em;
-            color: #333;
+            color: var(--mb-text);
         }
         
         .tool-btn {
             padding: 8px 12px;
-            border: 2px solid #ccc;
-            background: white;
+            border: 2px solid var(--mb-border);
+            background: var(--mb-surface);
+            color: var(--mb-text);
             border-radius: 5px;
             cursor: pointer;
             font-size: 0.85em;
@@ -53,39 +140,49 @@ Use the controls below to build your maze, then save it as a file to use in your
         }
         
         .tool-btn:hover {
-            background: #e0e0e0;
+            background: var(--mb-cell-hover);
+            border-color: var(--mb-accent);
+        }
+        
+        .tool-btn:focus-visible {
+            outline: 2px solid var(--mb-accent);
+            outline-offset: 2px;
         }
         
         .tool-btn.active {
-            border-color: #007bff;
-            background: #007bff;
-            color: white;
+            border-color: var(--mb-accent);
+            background: var(--mb-accent);
+            color: var(--mb-on-accent);
         }
         
         .tool-btn.action-btn {
-            background: #28a745;
-            color: white;
-            border-color: #28a745;
+            background: var(--mb-save);
+            color: var(--mb-on-accent);
+            border-color: var(--mb-save);
         }
         
         .tool-btn.action-btn:hover {
-            background: #218838;
+            background: var(--mb-save-hover);
+            border-color: var(--mb-save-hover);
         }
         
         .tool-btn.load-btn {
-            background: #17a2b8;
-            color: white;
-            border-color: #17a2b8;
+            background: var(--mb-load);
+            color: var(--mb-on-accent);
+            border-color: var(--mb-load);
         }
         
         .tool-btn.load-btn:hover {
-            background: #138496;
+            background: var(--mb-load-hover);
+            border-color: var(--mb-load-hover);
         }
         
         .mud-value-input {
             width: 50px;
             padding: 5px;
-            border: 1px solid #ccc;
+            border: 1px solid var(--mb-border);
+            background: var(--mb-surface);
+            color: var(--mb-text);
             border-radius: 4px;
             text-align: center;
         }
@@ -114,8 +211,8 @@ Use the controls below to build your maze, then save it as a file to use in your
         
         .maze-grid {
             display: inline-block;
-            border: 2px solid #333;
-            background: #333;
+            border: 2px solid var(--mb-border-strong);
+            background: var(--mb-border-strong);
             flex-shrink: 0;
         }
         
@@ -126,8 +223,8 @@ Use the controls below to build your maze, then save it as a file to use in your
         .maze-cell {
             width: 40px;
             height: 40px;
-            background: #f0f0f0;
-            border: 1px solid #ccc;
+            background: var(--mb-cell);
+            border: 1px solid var(--mb-border);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -138,7 +235,7 @@ Use the controls below to build your maze, then save it as a file to use in your
         }
         
         .maze-cell.hole {
-            background: #333;
+            background: var(--mb-hole);
         }
         
         .maze-cell.hole::after {
@@ -177,7 +274,7 @@ Use the controls below to build your maze, then save it as a file to use in your
         
         /* Cell hover only for cell tool */
         .maze-grid.tool-cell .maze-cell:not(.hole):hover {
-            background: #d0d0d0;
+            background: var(--mb-cell-hover);
         }
         
         .maze-cell .wall-top,
@@ -221,7 +318,7 @@ Use the controls below to build your maze, then save it as a file to use in your
         .maze-cell .wall-bottom.active,
         .maze-cell .wall-left.active,
         .maze-cell .wall-right.active {
-            background: #333;
+            background: var(--mb-wall);
         }
         
         /* Edge hover for wall/mud tools */
@@ -241,7 +338,7 @@ Use the controls below to build your maze, then save it as a file to use in your
         .maze-grid.tool-mud .maze-cell:not(.hole) .wall-bottom.hover-pair,
         .maze-grid.tool-mud .maze-cell:not(.hole) .wall-left.hover-pair,
         .maze-grid.tool-mud .maze-cell:not(.hole) .wall-right.hover-pair {
-            background: rgba(0, 123, 255, 0.5);
+            background: var(--mb-accent-soft);
         }
         
         /* Clickable edges: pointer (hand) to add, red cross to remove */
@@ -275,8 +372,8 @@ Use the controls below to build your maze, then save it as a file to use in your
             justify-content: center;
             font-size: 9px;
             font-weight: bold;
-            color: #5c3d1e;
-            background: #d4a574;
+            color: var(--mb-mud-text);
+            background: var(--mb-mud-bg);
             border-radius: 3px;
             padding: 1px 3px;
             pointer-events: none;
@@ -297,8 +394,8 @@ Use the controls below to build your maze, then save it as a file to use in your
         .add-remove-btn {
             width: 30px;
             height: 30px;
-            border: 1px solid #ccc;
-            background: #f9f9f9;
+            border: 1px solid var(--mb-border);
+            background: var(--mb-surface-alt);
             border-radius: 4px;
             cursor: pointer;
             font-size: 18px;
@@ -310,15 +407,21 @@ Use the controls below to build your maze, then save it as a file to use in your
         }
         
         .add-remove-btn:hover {
-            background: #e0e0e0;
+            background: var(--mb-cell-hover);
+            border-color: var(--mb-accent);
+        }
+        
+        .add-remove-btn:focus-visible {
+            outline: 2px solid var(--mb-accent);
+            outline-offset: 2px;
         }
         
         .add-remove-btn.add {
-            color: #28a745;
+            color: var(--mb-add);
         }
         
         .add-remove-btn.remove {
-            color: #dc3545;
+            color: var(--mb-remove);
         }
         
         .column-controls {
@@ -348,10 +451,11 @@ Use the controls below to build your maze, then save it as a file to use in your
         .status-bar {
             margin-top: 10px;
             padding: 8px;
-            background: #e9ecef;
+            background: var(--mb-surface-sunken);
+            border: 1px solid var(--mb-border);
             border-radius: 4px;
             font-size: 0.9em;
-            color: #495057;
+            color: var(--mb-text-muted);
         }
         
         .hidden-input {
@@ -363,7 +467,7 @@ Use the controls below to build your maze, then save it as a file to use in your
             bottom: 2px;
             right: 2px;
             font-size: 8px;
-            color: #999;
+            color: var(--mb-text-muted);
         }
         
         .cheese-indicator {
@@ -378,7 +482,7 @@ Use the controls below to build your maze, then save it as a file to use in your
         
         /* Cell hover for cheese tool */
         .maze-grid.tool-cheese .maze-cell:not(.hole):hover {
-            background: #fffacd;
+            background: var(--mb-cheese-hover);
         }
     </style>
 
@@ -1120,22 +1224,59 @@ Use the controls below to build your maze, then save it as a file to use in your
 Using the Maze Builder
 ----------------------
 
-**Tools:**
+.. tip::
 
-- **Hole**: Click on a cell to toggle it between a valid cell (light gray) and a hole (dark). Holes are not part of the maze.
-- **Wall**: Click on the edges between cells to add or remove walls. Walls block movement between adjacent cells.
-- **Mud**: Click on edges between cells to add mud. Set the mud value first (the number of turns required to cross). Click again to remove mud.
-- **Cheese**: Click on cells to place or remove cheese. Cheese positions will be saved with your maze.
+   The mouse cursor tells you what a click will do: a hand adds something, a red cross removes it, and a crossed-out circle means that this click is not allowed here.
 
-**Maze Controls:**
+The four tools
+^^^^^^^^^^^^^^
 
-- Use the **+** and **−** buttons around the maze to add or remove rows and columns.
-- Check **Show indices** to display the cell index numbers (useful for debugging).
+Pick a tool in the toolbar, then click on the maze.
+The selected tool is highlighted in blue.
 
-**Save/Load:**
+.. grid:: 1 1 2 2
+   :gutter: 2
+
+   .. grid-item-card:: Hole
+
+      Click on a **cell** to turn it into a hole, and click again to turn it back into a cell.
+      Holes are not part of the maze: no player can ever stand on them.
+
+   .. grid-item-card:: Wall
+
+      Click on an **edge between two cells** to add a wall, and click again to remove it.
+      A wall prevents players from moving between these two cells.
+
+   .. grid-item-card:: Mud
+
+      Set the **Mud value** first, which is the number of turns needed to cross.
+      Then click on an **edge between two cells** to put mud there.
+      Clicking an edge that already holds mud with the same value removes it, and clicking with a different value replaces it.
+
+   .. grid-item-card:: Cheese
+
+      Click on a **cell** to place a piece of cheese, and click again to remove it.
+      Cheese positions are saved together with your maze.
+
+Resizing the maze
+^^^^^^^^^^^^^^^^^
+
+Use the **+** and **−** buttons around the maze to add or remove rows and columns.
+They are placed on the four sides, so you can grow or shrink the maze in the direction you want.
+
+Check **Show indices** to display the number of each cell.
+This is the number that PyRat uses internally, and the one you will see in the saved file, so it is handy when you debug a program.
+
+Saving and loading
+^^^^^^^^^^^^^^^^^^
 
 - Click **Save** to download your maze as a file.
-- Click **Load** to import a previously saved maze.
+- Click **Load** to bring a previously saved maze back into the builder and keep working on it.
+
+.. important::
+
+   The Maze Builder runs entirely in your browser, and nothing is stored between visits.
+   Save your maze before closing the page, or your work will be lost.
 
 Using the Maze in PyRat
 -----------------------

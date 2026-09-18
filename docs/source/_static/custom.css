@@ -1,23 +1,105 @@
+/* ########################################################################## */
+/* ################################### INFO ################################# */
+/* ########################################################################## */
+
+/* This stylesheet customizes the Furo theme used by the PyRat documentation.
+   It only relies on Furo's own color variables, so that everything defined
+   here follows the light/dark theme chosen by the reader. */
+
+/* ########################################################################## */
+/* ################################# CONTENTS ############################### */
+/* ########################################################################## */
+
+/* -------------------------------------------------------------------------- */
+/* Brand colors                                                               */
+/* -------------------------------------------------------------------------- */
+
+:root {
+    --pyrat-yellow: #e8a33d;
+    --pyrat-yellow-soft: rgba(232, 163, 61, 0.14);
+}
+
+body {
+    --color-brand-primary: #b8761b;
+    --color-brand-content: #b8761b;
+    --color-brand-visited: #8c5a14;
+}
+
+body[data-theme="dark"] {
+    --color-brand-primary: var(--pyrat-yellow);
+    --color-brand-content: var(--pyrat-yellow);
+    --color-brand-visited: #c98f38;
+}
+
+@media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) {
+        --color-brand-primary: var(--pyrat-yellow);
+        --color-brand-content: var(--pyrat-yellow);
+        --color-brand-visited: #c98f38;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Page title and lead paragraph                                              */
+/* -------------------------------------------------------------------------- */
+
 .main h1 {
     text-align: center;
 }
 
+/* The first paragraph of a page acts as a lead-in, set apart from the rest */
 .main h1 + p {
-    padding-top: 1em;
-    padding-bottom: 1em;
+    padding: 1.2em 1.4em;
     margin-top: 2em;
-    margin-bottom: 2em;
-    border-top: 5px solid #ddd;
-    border-bottom: 5px solid #ddd;
+    margin-bottom: 2.5em;
+    border: none;
+    border-left: 4px solid var(--color-brand-primary);
+    border-radius: 0 8px 8px 0;
+    background: var(--pyrat-yellow-soft);
     font-style: italic;
+    text-align: left;
 }
+
+/* -------------------------------------------------------------------------- */
+/* Headings                                                                   */
+/* -------------------------------------------------------------------------- */
+
+.main h2 {
+    margin-top: 2em;
+    padding-bottom: 0.3em;
+    border-bottom: 2px solid var(--color-background-border);
+}
+
+.main h3 {
+    margin-top: 1.8em;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Body text                                                                  */
+/* -------------------------------------------------------------------------- */
+
+.main p {
+    text-align: justify;
+    hyphens: auto;
+}
+
+/* Justification reads badly on narrow screens, where lines are very short */
+@media (max-width: 46em) {
+    .main p {
+        text-align: left;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/* API entries (classes, methods and functions)                               */
+/* -------------------------------------------------------------------------- */
 
 .main .method,
 .main .class:not(:first-of-type),
 .main .function:not(:first-of-type) {
     margin-top: 2em;
     padding-top: 2em;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid var(--color-background-border);
 }
 
 .main dt.field-odd,
@@ -25,6 +107,111 @@
     text-decoration: underline;
 }
 
-.main p {
-    text-align: justify;
+/* Signatures stand out a bit more from the description that follows them */
+.main dl.py > dt {
+    border-left: 3px solid var(--color-brand-primary);
+    border-radius: 0 4px 4px 0;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Code blocks                                                                */
+/* -------------------------------------------------------------------------- */
+
+.main div.highlight {
+    border: 1px solid var(--color-background-border);
+    border-radius: 8px;
+}
+
+.main div.highlight pre {
+    border-radius: 8px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Images                                                                     */
+/* -------------------------------------------------------------------------- */
+
+.main img {
+    border-radius: 8px;
+}
+
+/* Screenshots and figures are centered, rather than flush left */
+.main > section img:not(.no-center),
+.main > section > p > img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Videos                                                                     */
+/* -------------------------------------------------------------------------- */
+
+.main video {
+    display: block;
+    max-width: 100%;
+    margin: 1.5em auto;
+    border: 1px solid var(--color-background-border);
+    border-radius: 8px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Tables                                                                     */
+/* -------------------------------------------------------------------------- */
+
+.main table.docutils {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.main table.docutils th {
+    background: var(--color-background-secondary);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Cards and grids (provided by the sphinx-design extension)                  */
+/* -------------------------------------------------------------------------- */
+
+.sd-card {
+    border: 1px solid var(--color-background-border);
+    border-radius: 10px;
+    background: var(--color-background-secondary);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.sd-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-brand-primary);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Cards are narrow, so justification would leave large gaps between words */
+.sd-card p,
+.sd-card li,
+.sd-card .sd-card-text {
+    text-align: left;
+}
+
+.sd-card .sd-card-title {
+    color: var(--color-brand-content);
+    font-weight: 700;
+}
+
+.sd-card .sd-card-footer {
+    border-top: 1px solid var(--color-background-border);
+    color: var(--color-foreground-muted);
+    font-size: 0.85em;
+}
+
+/* A card used on its own (not in a grid) is a highlighted block, not a link */
+.main > section > .sd-card:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Sidebar                                                                    */
+/* -------------------------------------------------------------------------- */
+
+.sidebar-brand-text {
+    font-weight: 700;
 }

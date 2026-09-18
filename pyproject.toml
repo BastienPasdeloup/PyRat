@@ -41,7 +41,7 @@ pyrat-init = "pyrat.src.utils:main"
 [project.optional-dependencies]
 numpy = ["numpy"]
 torch = ["torch"]
-docs = ["sphinx", "sphinx-autodoc-typehints", "furo"]
+docs = ["sphinx", "sphinx-autodoc-typehints", "furo", "sphinx-design", "sphinx-copybutton"]
 
 [tool.setuptools]
 include-package-data = true
