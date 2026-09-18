@@ -90,22 +90,6 @@ Your workspace is a uv project, so you can add any library you need to it.
 To do so, run ``uv add`` from your workspace, as in ``uv add numpy``.
 The library is then available in your players and games, with no need to activate anything.
 
-Use PyRat in an existing project
---------------------------------
-
-PyRat is published on PyPI as the ``pyrat-game`` package, and requires Python 3.12 or 3.13.
-If you already have a project and just want the PyRat library in it, add it as any other dependency:
-
-     - **With uv:** ``uv add pyrat-game``
-     - **With pip:** ``pip install pyrat-game``
-
-You can then create a workspace from Python, which is equivalent to the ``pyrat-init`` command:
-
-.. code-block:: python
-
-     import pyrat
-     pyrat.init_workspace()
-
 Troubleshooting
 ---------------
 
