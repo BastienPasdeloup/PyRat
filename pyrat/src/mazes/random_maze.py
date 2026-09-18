@@ -23,7 +23,7 @@ import random
 import abc
 
 # PyRat imports
-from pyrat.src.Maze import Maze
+from pyrat.src.mazes.maze import Maze
 
 ##########################################################################################
 ######################################### CLASSES ########################################
@@ -87,7 +87,7 @@ class RandomMaze (Maze, abc.ABC):
         assert mud_range is None or 1 < mud_range[0] <= mud_range[1], "Argument 'mud_range' must be a valid interval with minimum value at least 2"
         assert int(self.get_width() * self.get_height() * cell_percentage / 100) > 1, "The maze must have at least two vertices"
 
-        # Protected attributes
+        # Protected attributes
         self._target_nb_vertices = int(self.get_width() * self.get_height() * cell_percentage / 100)
         self._wall_percentage = wall_percentage
         self._mud_percentage = mud_percentage
@@ -169,7 +169,7 @@ class RandomMaze (Maze, abc.ABC):
         It should be called by the constructor of the child classes.
         """
 
-        # Add cells, walls, and mud
+        # Add cells, walls, and mud
         self._add_cells()
         self._add_walls()
         self._add_mud()

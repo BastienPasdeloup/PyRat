@@ -8,9 +8,8 @@
 #     from pyrat import <element_name>
 
 """
-This module provides a player that follows a predetermined list of actions.
-It is used when games are saved and replayed.
-This player can be useful for testing purposes, for instance to evaluate the behavior of other players against a fixed strategy.
+This module provides a maze that is created by removing random cells from a full maze uniformly.
+It makes sure the maze remains connected.
 """
 
 ##########################################################################################
@@ -18,21 +17,19 @@ This player can be useful for testing purposes, for instance to evaluate the beh
 ##########################################################################################
 
 # PyRat imports
-from pyrat.src.Player import Player
-from pyrat.src.Maze import Maze
-from pyrat.src.GameState import GameState
-from pyrat.src.enums import Action
+from pyrat.src.mazes.random_maze import RandomMaze
 
 ##########################################################################################
 ######################################### CLASSES ########################################
 ##########################################################################################
-class FixedPlayer (Player):
+
+class UniformHolesRandomMaze (RandomMaze):
 
     """
-    *(This class inherits from* ``Player`` *).*
-
-    This player follows a predetermined list of actions.
-    This is useful to save and replay a game.
+    *(This class inherits from* ``RandomMaze`` *).*        
+    
+    With this maze, holes are uniformly distributed in the maze.
+    The maze is created by removing random cells from a full maze, and making sure the maze remains connected.
     """
 
     ##################################################################################
@@ -40,56 +37,62 @@ class FixedPlayer (Player):
     ##################################################################################
 
     def __init__ ( self,
-                   actions:  list[Action],
                    *args:    object,
                    **kwargs: object
                  ) ->        None:
 
         """
         Initializes a new instance of the class.
-        The player is given a predetermined list of actions.
-
+        
         Args:
-            actions:  List of actions to perform.
-            *args:    Arguments to pass to the parent constructor.
-            **kwargs: Keyword arguments to pass to the parent constructor.
+            args:   Arguments to pass to the parent constructor.
+            kwargs: Keyword arguments to pass to the parent constructor.
         """
 
         # Inherit from parent class
         super().__init__(*args, **kwargs)
+        
+        # Generate the maze
+        self._create_maze()
 
-        # Debug
-        assert isinstance(actions, list), "Argument 'actions' must be a list"
-        assert all(action in Action for action in actions), "All elements of 'actions' must be of type 'pyrat.Action'"
-
-        # Private attributes
-        self.__actions = actions
-       
     ##################################################################################
-    #                                 PUBLIC METHODS                                 #
+    #                                PROTECTED METHODS                               #
     ##################################################################################
 
-    def turn ( self,
-               maze:       Maze,
-               game_state: GameState
-             ) ->          Action:
-
+    def _add_cells (self) -> None:
+        
         """
         *(This method redefines the method of the parent class with the same name).*
-        
-        Called at each turn of the game to return the next action to perform.
 
-        Args:
-            maze:       An object representing the maze in which the player plays.
-            game_state: An object representing the state of the game.
-
-        Returns:
-            One of the possible actions.
+        It adds cells to the maze by starting from a full maze and removing cells one by one.
         """
 
-        # Get next action
-        action = self.__actions.pop(0)
-        return action
+        # Initialize maze with all cells
+        for row in range(self.get_height()):
+            for col in range(self.get_width()):
+                self.add_vertex(self.rc_to_i(row, col))
+
+        # Connect them
+        for row in range(self.get_height()):
+            for col in range(self.get_width()):
+                if row > 0:
+                    self.add_edge(self.rc_to_i(row, col), self.rc_to_i(row - 1, col))
+                if col > 0:
+                    self.add_edge(self.rc_to_i(row, col), self.rc_to_i(row, col - 1))
+
+        # Remove some vertices until the desired density is reached
+        while self.nb_vertices() > self._target_nb_vertices:
+
+            # Remove a random vertex
+            vertex = self._rng.choice(self.get_vertices())
+            neighbors = self.get_neighbors(vertex)
+            self.remove_vertex(vertex)
+
+            # Make sure the maze is still connected
+            if not self.is_connected():
+                self.add_vertex(vertex)
+                for neighbor in neighbors:
+                    self.add_edge(vertex, neighbor)
 
 ##########################################################################################
 ##########################################################################################

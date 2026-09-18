@@ -26,10 +26,10 @@ import os
 import time
 
 # PyRat imports
-from pyrat.src.RenderingEngine import RenderingEngine
-from pyrat.src.Player import Player
-from pyrat.src.Maze import Maze
-from pyrat.src.GameState import GameState
+from pyrat.src.rendering.rendering_engine import RenderingEngine
+from pyrat.src.players.player import Player
+from pyrat.src.mazes.maze import Maze
+from pyrat.src.game.game_state import GameState
 
 ##########################################################################################
 ######################################### CLASSES ########################################

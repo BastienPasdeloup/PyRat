@@ -1,5 +1,5 @@
 enums
 =====
 
-.. automodule:: enums
+.. automodule:: pyrat.src.game.enums
    :members:

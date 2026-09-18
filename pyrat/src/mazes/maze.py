@@ -33,8 +33,8 @@ except ImportError:
     pass
 
 # PyRat imports
-from pyrat.src.Graph import Graph
-from pyrat.src.enums import Action
+from pyrat.src.mazes.graph import Graph
+from pyrat.src.game.enums import Action
 
 ##########################################################################################
 ######################################### CLASSES ########################################
@@ -365,7 +365,7 @@ class Maze (Graph, abc.ABC):
         assert self.i_exists(source), "Source is not in the maze"
         assert self.i_exists(target), "Target is not in the maze"
 
-        # Get the coordinates difference
+        # Get the coordinates difference
         difference = self.coords_difference(source, target)
 
         # Translate in a move

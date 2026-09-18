@@ -61,7 +61,7 @@ class Random4 (Player):
         # Inherit from parent class
         super().__init__(*args, **kwargs)
 
-        # We create an attribute to keep track of visited cells
+        # We create an attribute to keep track of visited cells
         # We will initialize it in the ``preprocessing()`` method to allow the game to be reset
         # Otherwise, the set would keep the cells visited in previous games
         self.visited_cells = None
@@ -159,7 +159,7 @@ class Random4 (Player):
         if len(unvisited_neighbors) > 0:
             neighbor = random.choice(unvisited_neighbors)
             
-        # If there is no unvisited neighbor, choose one randomly
+        # If there is no unvisited neighbor, choose one randomly
         else:
             neighbor = random.choice(neighbors)
         
@@ -190,7 +190,7 @@ class Random4 (Player):
         # We do not need to make a copy of the maze, as the game sends a copy of the maze at each turn.
         updated_maze = maze
         
-        # Iteratively remove dead-ends from the maze
+        # Iteratively remove dead-ends from the maze
         # We still keep dead ends that contain locations to keep
         removed_something = True
         while removed_something:
@@ -200,7 +200,7 @@ class Random4 (Player):
                     updated_maze.remove_vertex(vertex)
                     removed_something = True
 
-        # Return the updated maze
+        # Return the updated maze
         return updated_maze
 
 ##########################################################################################

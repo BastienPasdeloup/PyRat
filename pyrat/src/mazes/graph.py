@@ -277,7 +277,7 @@ class Graph ():
         assert isinstance(vertex, Hashable), "Argument 'vertex' must be hashable"
         assert vertex in self.__adjacency, "Vertex not in the graph"
 
-        # Get neighbors
+        # Get neighbors
         neighbors = list(self.__adjacency[vertex].keys())
         return neighbors
 
@@ -321,7 +321,7 @@ class Graph ():
         assert vertex_2 in self.__adjacency, "Vertex 2 not in the graph"
         assert self.has_edge(vertex_1, vertex_2), "Edge does not exist"
 
-        # Get weight
+        # Get weight
         weight = self.__adjacency[vertex_1][vertex_2]
         return weight
 
@@ -408,7 +408,7 @@ class Graph ():
         # Initialize a random number generator
         rng = random.Random(random_seed)
 
-        # Shuffle vertices
+        # Shuffle vertices
         vertices_to_add = self.get_vertices()
         rng.shuffle(vertices_to_add)
 
@@ -417,7 +417,7 @@ class Graph ():
         vertex = vertices_to_add.pop(0)
         mst.add_vertex(vertex)
         
-        # Add vertices until all are included
+        # Add vertices until all are included
         while vertices_to_add:
             vertex = vertices_to_add.pop(0)
             neighbors = self.get_neighbors(vertex)

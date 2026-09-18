@@ -3,7 +3,7 @@ PyRat API
 
 This section gives the documentation for functions and classes in the PyRat library.
 All modules below are part of the PyRat library and can be used to create and manipulate mazes, players, etc.
-To use any of them, you can import them as follows: ``from pyrat import <module_name>``.
+To use any of them, you can import them as follows: ``from pyrat import <class_name>``.
 
 .. code-block:: python
 
@@ -101,15 +101,15 @@ Rendering
 
       The text interface, drawn directly in your terminal.
 
-Utilities
----------
+Errors
+------
 
 .. grid:: 1 1 1 1
    :gutter: 2
 
-   .. grid-item-card:: :doc:`utils`
+   .. grid-item-card:: :doc:`PyRatException`
 
-      Helper functions, in particular ``init_workspace()``, which creates your workspace.
+      The exception raised when a game cannot proceed, for instance because a player crashed or returned something that is not an action.
 
 .. toctree::
    :hidden:
@@ -125,10 +125,10 @@ Utilities
    MazeFromDict
    MazeFromMatrix
    Player
+   PyRatException
    PygameRenderingEngine
    RandomMaze
    RenderingEngine
    ShellRenderingEngine
    UniformHolesRandomMaze
    enums
-   utils

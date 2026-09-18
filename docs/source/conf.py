@@ -5,7 +5,6 @@
 
 import os
 import sys
-sys.path.insert(0, os.path.abspath("../../pyrat/src"))
 sys.path.insert(0, os.path.abspath("../../pyrat/workspace"))
 sys.path.insert(0, os.path.abspath("../../pyrat/workspace/games"))
 sys.path.insert(0, os.path.abspath("../../pyrat/workspace/players"))
@@ -46,6 +45,9 @@ autosummary_generate = True
 html_theme = 'furo'
 napoleon_include_init_with_doc = True
 autodoc_member_order = "bysource"
+
+# Classes are documented under the name students import them with (e.g. "Game" rather than "pyrat.src.game.game.Game")
+add_module_names = False
 
 html_static_path = ['_static']
 html_css_files = ["custom.css"]

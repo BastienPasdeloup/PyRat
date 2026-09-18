@@ -96,8 +96,10 @@ In the PyRat interface above, you can see the following elements:
 
 .. warning::
 
-   The interface is intentionally not synchronized with the actual game, so that the game can be visualized nicely.
-   Therefore, if you print your current location in your code, you will not see the same cell as the one shown in the interface.
+   The interface is intentionally not synchronized with the actual game.
+   It runs in its own process, and shows every move at the same readable pace (a third of a second by default, adjustable with the ``rendering_speed`` argument of ``Game``), whatever the ``turn_time`` of the game.
+   The game is never slowed down by the interface, so the interface may lag behind it, and catches up once the game is over.
+   Therefore, if you print your current location in your code, you will not see the same cell as the one shown in the interface at the same moment.
    This surprises everyone once, so keep it in mind when you debug a player.
 
 Needed Elements in a Game

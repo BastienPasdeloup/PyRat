@@ -22,9 +22,9 @@ The ``turn()`` method is mandatory and must be implemented in the subclasses.
 import abc
 
 # PyRat imports
-from pyrat.src.Maze import Maze
-from pyrat.src.GameState import GameState
-from pyrat.src.enums import Action, PlayerSkin
+from pyrat.src.mazes.maze import Maze
+from pyrat.src.game.game_state import GameState
+from pyrat.src.game.enums import Action, PlayerSkin
 
 ##########################################################################################
 ######################################### CLASSES ########################################
@@ -124,7 +124,7 @@ class Player (abc.ABC):
         assert isinstance(stats, dict), "Argument 'stats' must be a dictionary"
         assert all(isinstance(key, str) for key in stats.keys()), "All keys of 'stats' must be strings"
 
-        # By default, this method does nothing unless implemented in the child classes
+        # By default, this method does nothing unless implemented in the child classes
         pass
 
     ##################################################################################
@@ -149,7 +149,7 @@ class Player (abc.ABC):
         assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
         assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
 
-        # By default, this method does nothing unless implemented in the child classes
+        # By default, this method does nothing unless implemented in the child classes
         pass
 
     ##################################################################################

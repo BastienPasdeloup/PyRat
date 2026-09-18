@@ -8,8 +8,8 @@
 #     from pyrat import <element_name>
 
 """
-This module provides a maze that is created by adding cells from the center of the maze.
-It extends ``RandomMaze`` to create a specific type of maze with holes distributed on the sides of the maze.
+This module provides functionality for generating mazes with large holes in them, which can be used in various game scenarios.
+It extends ``RandomMaze`` to create a specific type of maze with larger holes, enhancing the gameplay experience by introducing more complex navigation challenges.
 """
 
 ##########################################################################################
@@ -17,23 +17,24 @@ It extends ``RandomMaze`` to create a specific type of maze with holes distribut
 ##########################################################################################
 
 # PyRat imports
-from pyrat.src.RandomMaze import RandomMaze
+from pyrat.src.mazes.random_maze import RandomMaze
 
 ##########################################################################################
 ######################################### CLASSES ########################################
 ##########################################################################################
 
-class HolesOnSideRandomMaze (RandomMaze):
+class BigHolesRandomMaze (RandomMaze):
 
     """
     *(This class inherits from* ``RandomMaze`` *).*
-    
-    With this maze, holes are distributed on the sides of the maze.
-    The maze is created by adding cells from the center of the maze
-    
+
+    This class defines a random maze with big holes here and there.
+    The maze is created by removing random cells from a full maze, and making sure the maze remains connected.
+    Cells are removed with a larger probability if they are close to an already existing hole.
+
     You can use this class to create a maze with this algorithm.
     However, if you just want to play a game, you can use the ``Game`` class instead, which will create a maze for you.
-    Just make sure to set the ``random_maze_algorithm`` parameter to ``RandomMazeAlgorithm.HOLES_ON_SIDE`` when creating the game.
+    Just make sure to set the ``random_maze_algorithm`` parameter to ``RandomMazeAlgorithm.BIG_HOLES`` when creating the game.
     """
 
     ##################################################################################
@@ -56,7 +57,7 @@ class HolesOnSideRandomMaze (RandomMaze):
         # Inherit from parent class
         super().__init__(*args, **kwargs)
         
-        # Generate the maze
+        # Generate the maze
         self._create_maze()
 
     ##################################################################################
@@ -68,39 +69,42 @@ class HolesOnSideRandomMaze (RandomMaze):
         """
         *(This method redefines the method of the parent class with the same name).*
 
-        It adds cells to the maze by starting from a full maze and removing cells one by one.
+        Adds cells to the maze by starting from a full maze and removing cells one by one.
         """
 
-        # Add cells from the middle of the maze
-        vertices_to_add = [self.rc_to_i(self.get_height() // 2, self.get_width() // 2)]
+        # Initialize maze with all cells
+        for row in range(self.get_height()):
+            for col in range(self.get_width()):
+                self.add_vertex(self.rc_to_i(row, col))
 
-        # Make some sort of breadth-first search to add cells
-        while self.nb_vertices() < self._target_nb_vertices:
+        # Connect them
+        for row in range(self.get_height()):
+            for col in range(self.get_width()):
+                if row > 0:
+                    self.add_edge(self.rc_to_i(row, col), self.rc_to_i(row - 1, col))
+                if col > 0:
+                    self.add_edge(self.rc_to_i(row, col), self.rc_to_i(row, col - 1))
 
-            # Get a random vertex
-            vertex = vertices_to_add.pop(self._rng.randint(0, len(vertices_to_add) - 1))
+        # Remember the number of neighbors per vertex
+        neighbors_per_vertex = {vertex: len(self.get_neighbors(vertex)) for vertex in self.get_vertices()}
 
-            # Add it if it is not already in the maze
-            if vertex in self.get_vertices():
-                continue
-            self.add_vertex(vertex)
+        # Remove some vertices until the desired density is reached
+        while self.nb_vertices() > self._target_nb_vertices:
 
-            # Add neighbors
-            row, col = self.i_to_rc(vertex)
-            if 0 < row < self.get_height():
-                vertices_to_add.append(self.rc_to_i(row - 1, col))
-            if 0 <= row < self.get_height() - 1:
-                vertices_to_add.append(self.rc_to_i(row + 1, col))
-            if 0 < col < self.get_width():
-                vertices_to_add.append(self.rc_to_i(row, col - 1))
-            if 0 <= col < self.get_width() - 1:
-                vertices_to_add.append(self.rc_to_i(row, col + 1))
-        
-        # Connect the vertices
-        for i, vertex_1 in enumerate(self.get_vertices()):
-            for j, vertex_2 in enumerate(self.get_vertices(), i + 1):
-                if self.coords_difference(vertex_1, vertex_2) in [(0, 1), (1, 0), (-1, 0), (0, -1)]:
-                    self.add_edge(vertex_1, vertex_2)
+            # The probability to be removed depends on the number of neighbors already removed
+            vertices = self.get_vertices()
+            selection_weights = [1 + (self.get_width() * self.get_height() - self.nb_vertices()) * (neighbors_per_vertex[vertex] - len(self.get_neighbors(vertex)))**2.0 for vertex in vertices]
+
+            # Remove a random vertex
+            vertex = self._rng.choices(vertices, selection_weights)[0]
+            neighbors = self.get_neighbors(vertex)
+            self.remove_vertex(vertex)
+
+            # Make sure the maze is still connected
+            if not self.is_connected():
+                self.add_vertex(vertex)
+                for neighbor in neighbors:
+                    self.add_edge(vertex, neighbor)
 
 ##########################################################################################
 ##########################################################################################

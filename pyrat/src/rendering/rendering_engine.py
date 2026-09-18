@@ -18,9 +18,9 @@ The default implementation does nothing, but subclasses can override the `render
 ##########################################################################################
 
 # PyRat imports
-from pyrat.src.Player import Player
-from pyrat.src.Maze import Maze
-from pyrat.src.GameState import GameState
+from pyrat.src.players.player import Player
+from pyrat.src.mazes.maze import Maze
+from pyrat.src.game.game_state import GameState
 
 ##########################################################################################
 ######################################### CLASSES ########################################
@@ -53,8 +53,8 @@ class RenderingEngine ():
 
         # Debug
         assert isinstance(render_simplified, bool), "Argument 'render_simplified' must be a boolean"
-        assert isinstance(rendering_speed, float), "Argument 'gui_speed' must be a real number"
-        assert rendering_speed > 0.0, "Argument 'gui_speed' must be positive"
+        assert isinstance(rendering_speed, float), "Argument 'rendering_speed' must be a real number"
+        assert rendering_speed > 0.0, "Argument 'rendering_speed' must be positive"
 
         # Protected attributes
         self._render_simplified = render_simplified

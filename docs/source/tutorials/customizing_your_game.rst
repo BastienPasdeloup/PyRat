@@ -74,7 +74,7 @@ In addition to the game mechanics, you can also customize the graphical elements
 
 - ``render_mode``: Method to display the game.
 - ``render_simplified``: If ``True``, hides non-essential elements in rendering.
-- ``rendering_speed``: Controls the speed of the game when rendering.
+- ``rendering_speed``: Speed of the rendering, relative to the default one (``2.0`` is twice as fast). With the graphical interface, this sets how fast the moves are shown, independently of the pace of the game itself.
 - ``trace_length``: Maximum trace length to display (GUI rendering only).
 - ``fullscreen``: If ``True``, renders the game in fullscreen (GUI only).
 - ``clear_shell_each_turn``: If ``True``, clears the shell each turn (shell rendering only).

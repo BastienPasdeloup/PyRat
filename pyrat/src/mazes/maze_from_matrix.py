@@ -22,7 +22,7 @@ It is also useful to test a player on a fixed maze.
 import math
 
 # PyRat imports
-from pyrat.src.Maze import Maze
+from pyrat.src.mazes.maze import Maze
 
 ##########################################################################################
 ######################################### CLASSES ########################################
@@ -75,7 +75,7 @@ class MazeFromMatrix (Maze):
         # Private attributes
         self.__description = description
 
-        # Generate the maze
+        # Generate the maze
         self._create_maze()
 
     ##################################################################################

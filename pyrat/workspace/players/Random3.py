@@ -62,7 +62,7 @@ class Random3 (Player):
         # Inherit from parent class
         super().__init__(*args, **kwargs)
 
-        # We create an attribute to keep track of visited cells
+        # We create an attribute to keep track of visited cells
         # We will initialize it in the ``preprocessing()`` method to allow the game to be reset
         # Otherwise, the set would keep the cells visited in previous games
         self.visited_cells = None
@@ -150,7 +150,7 @@ class Random3 (Player):
         if len(unvisited_neighbors) > 0:
             neighbor = random.choice(unvisited_neighbors)
             
-        # If there is no unvisited neighbor, choose one randomly
+        # If there is no unvisited neighbor, choose one randomly
         else:
             neighbor = random.choice(neighbors)
         

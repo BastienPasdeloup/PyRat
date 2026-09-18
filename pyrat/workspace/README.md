@@ -28,6 +28,9 @@ It is a [uv](https://docs.astral.sh/uv) project, which means that uv takes care 
 - `.venv/` is the virtual environment of your workspace, created by uv. \
   This is where PyRat and the other libraries you add are installed.
 
+- `.gitignore` lists the files that Git should not version, such as `.venv/` and `__pycache__/`. \
+  Your workspace is thus ready to be put under version control.
+
 # Run a game
 
 From this directory, run a game as follows:
