@@ -260,8 +260,9 @@ def _gui_process_function ( gui_initialized_synchronizer: mpmanagers.BarrierProx
         cheese_score_border_color = (100, 100, 100)
         cheese_score_border_width = 1
         trace_size = wall_size // 2
-        animation_steps = int(max(cell_size / rendering_speed, 1))
-        animation_time = 0.01
+        animation_duration = 0.06 / rendering_speed
+        animation_fps = 60
+        event_poll_interval = 0.02
         medal_size = min(avatars_x_offset, maze_y_offset) * 2
         icon_size = 50
         main_image_factor = 0.8
@@ -665,12 +666,14 @@ def _gui_process_function ( gui_initialized_synchronizer: mpmanagers.BarrierProx
                     break
                 
                 # Get turn info
-                new_state = gui_queue.get(False)
+                # We wait with a timeout rather than polling, so that this process does not consume CPU while idle
+                # The timeout is short enough for the window to stay responsive to the quit events checked above
+                new_state = gui_queue.get(timeout=event_poll_interval)
                 
                 # Indicate when preprocessing is over for a little time
                 if new_state.turn == 1:
                     ___show_maze()
-                    ___show_cheese(current_state.cheese if i != animation_steps - 1 else new_state.cheese)
+                    ___show_cheese(current_state.cheese)
                     ___show_initial_players()
                     gui_screen.blit(go_image, (main_image_x, main_image_y))
                     pygame.display.update((maze_x_offset, maze_y_offset, maze.get_width() * cell_size, maze.get_height() * cell_size))
@@ -704,11 +707,28 @@ def _gui_process_function ( gui_initialized_synchronizer: mpmanagers.BarrierProx
                     player_elements[player.get_name()] = (player_x, player_y, player_neutral, player_north, player_south, player_west, player_east)
 
                 # Move players
-                for i in range(animation_steps):
+                # A move always lasts the same duration, whatever the machine, the operating system, the maze and the window size
+                # If the game is ahead of the display, we shorten the animation to catch up instead of drifting further behind
+                turns_late = 0
+                try:
+                    turns_late = gui_queue.qsize()
+                except NotImplementedError:
+                    pass
+                turn_animation_duration = animation_duration / (turns_late + 1)
+                nb_frames = max(round(turn_animation_duration * animation_fps), 1)
+                animation_start = time.perf_counter()
+                for i in range(nb_frames):
+
+                    # Frames are drawn at fixed instants, so that the whole move takes the expected duration
+                    # A frame that is already late is skipped rather than drawn late, except the last one which sets the final positions
+                    is_last_frame = i == nb_frames - 1
+                    frame_time = animation_start + (i + 1) * turn_animation_duration / nb_frames
+                    if not is_last_frame and time.perf_counter() > frame_time:
+                        continue
                 
                     # Reset background & cheese
                     ___show_maze()
-                    ___show_cheese(current_state.cheese if i != animation_steps - 1 else new_state.cheese)
+                    ___show_cheese(new_state.cheese if is_last_frame else current_state.cheese)
                     
                     # Move player with trace
                     for player in players:
@@ -716,13 +736,13 @@ def _gui_process_function ( gui_initialized_synchronizer: mpmanagers.BarrierProx
                         row, col = maze.i_to_rc(current_state.player_locations[player.get_name()])
                         adjusted_new_location = new_state.player_locations[player.get_name()] if not new_state.is_in_mud(player.get_name()) else new_state.muds[player.get_name()]["target"]
                         new_row, new_col = maze.i_to_rc(adjusted_new_location)
-                        shift = (i + 1) * cell_size / animation_steps
+                        shift = (i + 1) * cell_size / nb_frames
                         if mud_being_crossed[player.get_name()] > 0:
                             shift /= mud_being_crossed[player.get_name()]
                             shift += (mud_being_crossed[player.get_name()] - new_state.muds[player.get_name()]["count"] - 1) * cell_size / mud_being_crossed[player.get_name()]
                         next_x = player_x if col == new_col else player_x + shift if new_col > col else player_x - shift
                         next_y = player_y if row == new_row else player_y + shift if new_row > row else player_y - shift
-                        if i == animation_steps - 1 and new_state.muds[player.get_name()]["count"] == 0:
+                        if is_last_frame and new_state.muds[player.get_name()]["count"] == 0:
                             player_elements[player.get_name()] = (next_x, next_y, player_neutral, player_north, player_south, player_west, player_east)
                         if trace_length > 0:
                             pygame.draw.line(gui_screen, trace_colors[player.get_name()], (next_x + player_surfaces[player.get_name()].get_width() / 2, next_y + player_surfaces[player.get_name()].get_height() / 2), traces[player.get_name()][-1], width=trace_size)
@@ -736,8 +756,11 @@ def _gui_process_function ( gui_initialized_synchronizer: mpmanagers.BarrierProx
                         gui_screen.blit(player_surfaces[player.get_name()], (next_x, next_y))
                     
                     # Update maze & wait for animation
+                    # Drawing faster than the screen refreshes would only waste CPU, as the extra frames are never shown
                     pygame.display.update((maze_x_offset, maze_y_offset, maze.get_width() * cell_size, maze.get_height() * cell_size))
-                    time.sleep(animation_time / animation_steps)
+                    remaining_time = frame_time - time.perf_counter()
+                    if remaining_time > 0.0:
+                        time.sleep(remaining_time)
 
                 # Exit mud?
                 for player in players:
