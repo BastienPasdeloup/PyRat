@@ -143,6 +143,44 @@ body[data-theme="dark"] {
 }
 
 /* -------------------------------------------------------------------------- */
+/* Class diagram (an inline SVG, so that its links are clickable)             */
+/* -------------------------------------------------------------------------- */
+
+.class-diagram {
+    overflow: hidden;
+    margin: 1.5em 0;
+    border-radius: 8px;
+}
+
+.class-diagram svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.2s ease-out;
+}
+
+/* Hovering the diagram magnifies it around the cursor (see diagram_zoom.js) */
+.class-diagram.is-magnified {
+    box-shadow: 0 0 0 1px var(--color-background-border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .class-diagram svg {
+        transition: none;
+    }
+}
+
+/* The theme underlines every link of the page, which would underline the names in the boxes */
+.class-diagram svg a {
+    text-decoration: none;
+}
+
+/* Clickable elements of the diagram are highlighted when hovered */
+.class-diagram svg a:hover text {
+    fill: var(--color-brand-content);
+}
+
+/* -------------------------------------------------------------------------- */
 /* Videos                                                                     */
 /* -------------------------------------------------------------------------- */
 

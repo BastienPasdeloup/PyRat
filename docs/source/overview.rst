@@ -33,6 +33,7 @@ In PyRat, we manipulate two main types of files.
 
 The PyRat library provides a :doc:`set of modules<pyrat/index>` that can be used to create and manipulate mazes, players, and games.
 You can import these modules in your Python scripts to use their functionalities.
+The :ref:`class diagram <class-diagram>` of the library shows how all these elements relate to each other.
 
 How does PyRat Work?
 --------------------

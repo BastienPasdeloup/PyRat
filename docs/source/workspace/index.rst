@@ -38,6 +38,37 @@ Finally, it contains a ``.gitignore`` file listing what Git should not version (
    The programs documented in this section are the ones created in your workspace.
    Reading their source code, linked on each page, is the fastest way to understand how a PyRat program is written.
 
+.. _workspace-diagram:
+
+The big picture
+---------------
+
+The diagram below shows the programs of your workspace, and how they relate to the PyRat library: the players inherit from ``Player``, and the game scripts create a ``Game`` in which they make some of these players compete, using the enumerations of the library to choose their skin and their starting location.
+
+.. container:: class-diagram only-light
+
+   .. raw:: html
+      :file: ../_static/workspace_diagram_light_inline.svg
+
+.. container:: class-diagram only-dark
+
+   .. raw:: html
+      :file: ../_static/workspace_diagram_dark_inline.svg
+
+.. container:: only-light
+
+   .. tip::
+
+      The diagram is interactive: hover it to magnify the area under the cursor, click on the name of a class or of a script to open its documentation page, or on one of the attributes or methods of a class to jump directly to its description.
+      You can also :raw-html:`<a class="reference external" href="../_static/workspace_diagram_light.svg" target="_blank" rel="noopener">open the diagram at full size</a>` in a new tab.
+      The notation is the one of the :ref:`class diagram of the library <class-diagram>`, which explains how to read it.
+.. container:: only-dark
+
+   .. tip::
+
+      The diagram is interactive: hover it to magnify the area under the cursor, click on the name of a class or of a script to open its documentation page, or on one of the attributes or methods of a class to jump directly to its description.
+      You can also :raw-html:`<a class="reference external" href="../_static/workspace_diagram_dark.svg" target="_blank" rel="noopener">open the diagram at full size</a>` in a new tab.
+      The notation is the one of the :ref:`class diagram of the library <class-diagram>`, which explains how to read it.
 .. toctree::
    :hidden:
    :maxdepth: 1

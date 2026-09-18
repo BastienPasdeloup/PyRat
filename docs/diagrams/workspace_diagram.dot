@@ -1,0 +1,262 @@
+//////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////// INFO //////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
+// UML class diagram of the programs of the PyRat workspace, and of the elements of the library they rely on.
+// It is shown in the documentation, on the "Workspace API" page.
+//
+// The SVG files displayed by the documentation are generated from this file with Graphviz.
+// After changing this file (or the programs it describes), regenerate them with:
+//     make -C docs diagrams
+//
+// The rank separation is large, since it is what sets the space between the packages, which are stacked.
+//
+// Links, colors and layout follow the same conventions as class_diagram.dot (see the header of that file):
+// short links such as HREF="Random1#turn" are expanded by "links.sed", the dark variant is obtained with
+// "dark_palette.sed", and inheritance arrows are drawn as buses kept straight by the "group" attribute.
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////// CONTENTS ////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
+digraph PyRatWorkspace {
+
+    // Global settings
+    graph [rankdir=TB, newrank=true, compound=true, nodesep=1.0, ranksep=1.6, splines=polyline, bgcolor="#ffffff",
+           fontname="Helvetica", fontsize=11, fontcolor="#6b6b6b", pad=0.3]
+    node  [shape=plain, fontname="Helvetica", fontsize=11, fontcolor="#1f1f1f"]
+    edge  [fontname="Helvetica", fontsize=10, color="#555555", fontcolor="#555555", arrowsize=0.9, penwidth=1.1]
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Classes of the library used by the workspace
+
+    subgraph cluster_library {
+        label="pyrat"; labeljust=l; style="rounded,dashed,filled"; pencolor="#c9c9c9"; fillcolor="#f6f6f6"; margin=22
+
+        Game [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" HREF="Game" TITLE="Game"><B>Game</B></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="Game#__init__">+ __init__(maze_width, maze_height, nb_cheese, …)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Game#add_player">+ add_player(player, team, location)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Game#reset">+ reset(keep_players, same)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Game#start">+ start() : dict[str, object]</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        Player [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD><FONT POINT-SIZE="9">«abstract»</FONT></TD></TR>
+                    <TR><TD HREF="Player" TITLE="Player"><B><I>Player</I></B></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="Player#__init__">- name : str</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Player#__init__">- skin : PlayerSkin</TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="Player#__init__">+ __init__(name, skin)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Player#get_name">+ get_name() : str</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Player#get_skin">+ get_skin() : PlayerSkin</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Player#preprocessing">+ preprocessing(maze, game_state)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Player#turn"><I>+ turn(maze, game_state) : Action</I></TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Player#postprocessing">+ postprocessing(maze, game_state, stats)</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        // The two enumerations are aligned on their top, like the sibling classes (see the comment in the section below)
+        PlayerSkin [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f7f9fb" COLOR="#5b6b7b">
+                <TR><TD BGCOLOR="#dfe6ee" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD><FONT POINT-SIZE="9">«enumeration»</FONT></TD></TR>
+                    <TR><TD HREF="PlayerSkin" TITLE="PlayerSkin"><B>PlayerSkin</B></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" BALIGN="LEFT" HREF="PlayerSkin" TITLE="PlayerSkin">RAT<BR/>PYTHON<BR/>GHOST<BR/>MARIO</TD></TR>
+            </TABLE>>]
+
+        StartingLocation [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f7f9fb" COLOR="#5b6b7b">
+                <TR><TD BGCOLOR="#dfe6ee" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD><FONT POINT-SIZE="9">«enumeration»</FONT></TD></TR>
+                    <TR><TD HREF="StartingLocation" TITLE="StartingLocation"><B>StartingLocation</B></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" BALIGN="LEFT" HREF="StartingLocation" TITLE="StartingLocation">CENTER<BR/>TOP_LEFT<BR/>TOP_RIGHT<BR/>BOTTOM_LEFT<BR/>BOTTOM_RIGHT<BR/>RANDOM<BR/>SAME</TD></TR>
+            </TABLE>>]
+
+        // Each enumeration keeps the height of its own box, so that the arrow coming from its script reaches its border
+        // (a taller box would end below the drawing, and the arrow would stop short of it)
+        //
+        // Each enumeration is drawn above the script that uses it (same group), and the classes follow on the right
+        // (a flat edge places its tail on the left of its head)
+        StartingLocation [group=visualize]; PlayerSkin [group=sample]
+        { rank=same; StartingLocation; PlayerSkin; Game; Player }
+        StartingLocation -> PlayerSkin -> Game -> Player [style=invis]
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Players of the workspace
+
+    subgraph cluster_players {
+        label="players"; labeljust=l; style="rounded,dashed,filled"; pencolor="#c9c9c9"; fillcolor="#f6f6f6"; margin=22
+
+        TemplatePlayer [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f5faf5" COLOR="#3f7d4a">
+                <TR><TD BGCOLOR="#d7ecd9" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD HREF="TemplatePlayer" TITLE="TemplatePlayer"><B>TemplatePlayer</B></TD></TR>
+                    <TR><TD><FONT POINT-SIZE="9">does nothing, the file to copy for a new player</FONT></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="TemplatePlayer#__init__">+ __init__(*args, **kwargs)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="TemplatePlayer#preprocessing">+ preprocessing(maze, game_state)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="TemplatePlayer#turn">+ turn(maze, game_state) : Action</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="TemplatePlayer#postprocessing">+ postprocessing(maze, game_state, stats)</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        Random1 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f5faf5" COLOR="#3f7d4a">
+                <TR><TD BGCOLOR="#d7ecd9" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD HREF="Random1" TITLE="Random1"><B>Random1</B></TD></TR>
+                    <TR><TD><FONT POINT-SIZE="9">moves at random</FONT></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="Random1#__init__">+ __init__(*args, **kwargs)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Random1#turn">+ turn(maze, game_state) : Action</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Random1#find_next_action">+ find_next_action() : Action</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        Random2 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f5faf5" COLOR="#3f7d4a">
+                <TR><TD BGCOLOR="#d7ecd9" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD HREF="Random2" TITLE="Random2"><B>Random2</B></TD></TR>
+                    <TR><TD><FONT POINT-SIZE="9">avoids walls</FONT></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="Random2#__init__">+ __init__(*args, **kwargs)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Random2#turn">+ turn(maze, game_state) : Action</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Random2#find_next_action">+ find_next_action(maze, game_state) : Action</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        Random3 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f5faf5" COLOR="#3f7d4a">
+                <TR><TD BGCOLOR="#d7ecd9" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD HREF="Random3" TITLE="Random3"><B>Random3</B></TD></TR>
+                    <TR><TD><FONT POINT-SIZE="9">prefers unvisited cells</FONT></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="Random3#__init__">+ visited_cells : set[int]</TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="Random3#__init__">+ __init__(*args, **kwargs)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Random3#preprocessing">+ preprocessing(maze, game_state)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Random3#turn">+ turn(maze, game_state) : Action</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Random3#find_next_action">+ find_next_action(maze, game_state) : Action</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        Random4 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f5faf5" COLOR="#3f7d4a">
+                <TR><TD BGCOLOR="#d7ecd9" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD HREF="Random4" TITLE="Random4"><B>Random4</B></TD></TR>
+                    <TR><TD><FONT POINT-SIZE="9">also avoids dead ends</FONT></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="Random4#__init__">+ visited_cells : set[int]</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Random4#__init__">+ reduced_maze : Maze</TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="Random4#__init__">+ __init__(*args, **kwargs)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Random4#preprocessing">+ preprocessing(maze, game_state)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Random4#turn">+ turn(maze, game_state) : Action</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Random4#find_next_action">+ find_next_action(maze, game_state) : Action</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Random4#remove_dead_ends">+ remove_dead_ends(maze, locations_to_keep) : Maze</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        // Inheritance bus of Player (see the "Inheritance" section below); the trunk drops into the middle player
+        node [shape=point, width=0, height=0, style=invis]
+        bus_template; bus_random1; bus_trunk; bus_random3; bus_random4
+        { rank=same; bus_template; bus_random1; bus_trunk; bus_random3; bus_random4 }
+        Player         [group=trunk];   bus_trunk   [group=trunk]; Random2 [group=trunk]
+        TemplatePlayer [group=template]; bus_template [group=template]
+        Random1        [group=random1]; bus_random1 [group=random1]
+        Random3        [group=random3]; bus_random3 [group=random3]
+        Random4        [group=random4]; bus_random4 [group=random4]
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Games of the workspace
+
+    subgraph cluster_games {
+        label="games"; labeljust=l; style="rounded,dashed,filled"; pencolor="#c9c9c9"; fillcolor="#f6f6f6"; margin=22
+
+        sample_game [group=sample, label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f5faf5" COLOR="#3f7d4a">
+                <TR><TD BGCOLOR="#d7ecd9" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD><FONT POINT-SIZE="9">«script»</FONT></TD></TR>
+                    <TR><TD HREF="sample_game" TITLE="sample_game.py"><B>sample_game.py</B></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" BALIGN="LEFT"><FONT COLOR="#555555">A match between two teams:<BR/>a Random2 against a Random3<BR/>Custom maze size, walls, mud and cheese<BR/>Prints the statistics of the game</FONT></TD></TR>
+            </TABLE>>]
+
+        visualize_random_players [group=visualize, label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f5faf5" COLOR="#3f7d4a">
+                <TR><TD BGCOLOR="#d7ecd9" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD><FONT POINT-SIZE="9">«script»</FONT></TD></TR>
+                    <TR><TD HREF="visualize_random_players" TITLE="visualize_random_players.py"><B>visualize_random_players.py</B></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" BALIGN="LEFT"><FONT COLOR="#555555">Random1 to Random4 in the same maze,<BR/>one after the other<BR/>Fixed random seed, no mud, a single piece of cheese<BR/>Prints the statistics of each player</FONT></TD></TR>
+            </TABLE>>]
+
+        // The two scripts are drawn side by side, aligned on their top, in the order of the enumerations above them
+        sample_game              [shape=none, margin=0, labelloc=t, height=1.33]
+        visualize_random_players [shape=none, margin=0, labelloc=t, height=1.33]
+        { rank=same; visualize_random_players; sample_game }
+        visualize_random_players -> sample_game [style=invis]
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Inheritance (hollow triangle on the parent side), drawn as a bus like in class_diagram.dot
+
+    // Sibling classes under a same bus are aligned on their top, so that the vertical drops all have the same length
+    // (dot centers the nodes of a row vertically; here, siblings are given the height of the tallest of them, and their
+    // label is anchored at the top). If a class grows taller than the given height, update the value below.
+
+    TemplatePlayer [shape=none, margin=0, labelloc=t, height=2.12]
+    Random1        [shape=none, margin=0, labelloc=t, height=2.12]
+    Random2        [shape=none, margin=0, labelloc=t, height=2.12]
+    Random3        [shape=none, margin=0, labelloc=t, height=2.12]
+    Random4        [shape=none, margin=0, labelloc=t, height=2.12]
+
+    edge [dir=back, arrowtail=empty, arrowsize=1.3, style=solid, weight=10]
+    Player -> bus_trunk
+
+    // The bus is placed below the scripts, so that the package of the players does not share a row with the one of the games
+    // (all the attributes are given on the edge itself, so that the default style of the edges that follow is not changed)
+    sample_game -> bus_trunk [style=invis, dir=none, weight=1]
+
+    edge [dir=none, weight=10]
+    bus_template -> TemplatePlayer
+    bus_random1  -> Random1
+    bus_trunk    -> Random2
+    bus_random3  -> Random3
+    bus_random4  -> Random4
+
+    edge [weight=1]
+    bus_template -> bus_random1 -> bus_trunk -> bus_random3 -> bus_random4
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Dependencies of the scripts (dashed)
+    // Both scripts do the same things, so they are drawn once from the border of the "games" package
+    // The edge towards Game is declared from Game, so that the library stays above the scripts
+
+    edge [style=dashed, arrowsize=0.9]
+    Game        -> sample_game    [dir=back,    arrowtail=vee, lhead=cluster_games, label="create a Game", weight=2]
+    sample_game -> TemplatePlayer [dir=forward, arrowhead=vee, ltail=cluster_games, lhead=cluster_players, xlabel="add players"]
+
+    // Enumerations used by the scripts (declared from the enumeration, so that the library stays above the scripts)
+    PlayerSkin       -> sample_game              [dir=back, arrowtail=vee, label="skin of\nthe players"]
+    StartingLocation -> visualize_random_players [dir=back, arrowtail=vee, label="starting location\nof the players"]
+}

@@ -1,0 +1,510 @@
+//////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////// INFO //////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
+// UML class diagram of the public classes of the PyRat library.
+// It is shown in the documentation, on the "Class Diagram" page of the PyRat API section.
+//
+// The SVG files displayed by the documentation are generated from this file with Graphviz.
+// After changing this file (or the classes it describes), regenerate them with:
+//     make -C docs diagrams
+//
+// Links: class names, attributes and methods are clickable in the documentation.
+//     HREF="Game"             opens the documentation page of the class.
+//     HREF="Game#add_player"  jumps to the description of the member on that page.
+//     These short forms are expanded to the actual pages and anchors by "links.sed" (shared with the other diagrams).
+//     Members that have no anchor (protected methods, enumeration values) link to their class.
+//
+// Colors: the light variant is rendered as is, and the dark variant is obtained by
+// substituting the colors listed below with those of "dark_palette.sed".
+//     Classes        header #f6d9a8   body #fffaf2   border #b8761b
+//     Enumerations   header #dfe6ee   body #f7f9fb   border #5b6b7b
+//     Your code      header #d7ecd9   body #f5faf5   border #3f7d4a
+//     Notes          fill   #f2f2f2   border #8a8a8a
+//     Packages       fill   #f6f6f6   border #c9c9c9   labels #6b6b6b
+//     Text #1f1f1f   edges and note text #555555
+//     Background #ffffff
+//
+// The methods of Graph and Maze are laid out in two columns, separated by an empty cell of fixed width.
+//
+// Layout: a rank separation of 0.35 inch is used, and most edges span two ranks (minlen=2).
+// This leaves room, between a parent class and its subclasses, for the invisible points that draw the inheritance
+// arrows as a "bus": a vertical trunk from the bottom of the parent, a horizontal line, and a vertical drop into the
+// top of each subclass. Nodes sharing a "group" attribute are kept vertically aligned by dot, so that lines are straight.
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////// CONTENTS ////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
+digraph PyRat {
+
+    // Global settings
+    graph [rankdir=TB, newrank=true, nodesep=0.45, ranksep=0.35, splines=polyline, bgcolor="#ffffff",
+           fontname="Helvetica", fontsize=11, fontcolor="#6b6b6b", pad=0.3]
+    node  [shape=plain, fontname="Helvetica", fontsize=11, fontcolor="#1f1f1f"]
+    edge  [fontname="Helvetica", fontsize=10, color="#555555", fontcolor="#555555", arrowsize=0.9, penwidth=1.1]
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Players
+
+    subgraph cluster_players {
+        label="players"; labeljust=l; style="rounded,dashed,filled"; pencolor="#c9c9c9"; fillcolor="#f6f6f6"; margin=14
+
+        Player [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD><FONT POINT-SIZE="9">«abstract»</FONT></TD></TR>
+                    <TR><TD HREF="Player" TITLE="Player"><B><I>Player</I></B></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="Player#__init__">- name : str</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Player#__init__">- skin : PlayerSkin</TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="Player#get_name">+ get_name() : str</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Player#get_skin">+ get_skin() : PlayerSkin</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Player#preprocessing">+ preprocessing(maze, game_state)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Player#turn"><I>+ turn(maze, game_state) : Action</I></TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Player#postprocessing">+ postprocessing(maze, game_state, stats)</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        FixedPlayer [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" HREF="FixedPlayer" TITLE="FixedPlayer"><B>FixedPlayer</B></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="FixedPlayer#__init__">- actions : list[Action]</TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="FixedPlayer#turn">+ turn(maze, game_state) : Action</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        YourPlayers [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f5faf5" COLOR="#3f7d4a" STYLE="dashed">
+                <TR><TD BGCOLOR="#d7ecd9" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD><FONT POINT-SIZE="9">«your code»</FONT></TD></TR>
+                    <TR><TD HREF="TemplatePlayer" TITLE="TemplatePlayer"><B>Your players</B></TD></TR>
+                    <TR><TD><FONT POINT-SIZE="9">TemplatePlayer, Random1 … Random4, …</FONT></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="TemplatePlayer#__init__">- your attributes</TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="TemplatePlayer#__init__">+ __init__(*args, **kwargs)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="TemplatePlayer#preprocessing">+ preprocessing(maze, game_state)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="TemplatePlayer#turn">+ turn(maze, game_state) : Action</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="TemplatePlayer#postprocessing">+ postprocessing(maze, game_state, stats)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="TemplatePlayer">+ your methods</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        // Inheritance bus of Player (see the "Inheritance" section below)
+        node [shape=point, width=0, height=0, style=invis]
+        bus_players_left; bus_players_trunk; bus_players_right
+        { rank=same; bus_players_left; bus_players_trunk; bus_players_right }
+        Player      [group=players_trunk]; bus_players_trunk [group=players_trunk]
+        YourPlayers [group=players_left];  bus_players_left  [group=players_left]
+        FixedPlayer [group=players_right]; bus_players_right [group=players_right]
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Game
+
+    subgraph cluster_game {
+        label="game"; labeljust=l; style="rounded,dashed,filled"; pencolor="#c9c9c9"; fillcolor="#f6f6f6"; margin=14
+
+        Game [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" HREF="Game" TITLE="Game"><B>Game</B></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="Game#DEFAULT_RANDOM_SEED">+ DEFAULT_* : default value of each setting</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Game#__init__">- maze_width, maze_height : int</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Game#__init__">- cell_percentage, wall_percentage, mud_percentage : float</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Game#__init__">- nb_cheese : int</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Game#__init__">- fixed_maze, fixed_cheese, random seeds, …</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Game#__init__">- random_maze_algorithm : RandomMazeAlgorithm</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Game#__init__">- render_mode : RenderMode</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Game#__init__">- game_mode : GameMode</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Game#__init__">- preprocessing_time, turn_time : float</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Game#__init__">- continue_on_error, save_game : bool</TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="Game#add_player">+ add_player(player, team, location)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Game#reset">+ reset(keep_players, same)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Game#start">+ start() : dict[str, object]</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        GameState [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" HREF="GameState" TITLE="GameState"><B>GameState</B></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="GameState#__init__">+ player_locations : dict[str, int]</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="GameState#__init__">+ score_per_player : dict[str, float]</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="GameState#__init__">+ muds : dict[str, dict]</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="GameState#__init__">+ teams : dict[str, list[str]]</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="GameState#__init__">+ cheese : list[int]</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="GameState#__init__">+ turn : int</TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="GameState#get_players">+ get_players() : list[str]</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="GameState#get_score_per_team">+ get_score_per_team() : dict[str, float]</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="GameState#is_in_mud">+ is_in_mud(name) : bool</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="GameState#game_over">+ game_over() : bool</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        PyRatException [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD HREF="PyRatException" TITLE="PyRatException"><B>PyRatException</B></TD></TR>
+                    <TR><TD><FONT POINT-SIZE="9">inherits from the built-in Exception</FONT></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" BALIGN="LEFT"><FONT COLOR="#555555">raised when a game cannot proceed<BR/>(crash of a player, invalid action, …)</FONT></TD></TR>
+            </TABLE>>]
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Rendering
+
+    subgraph cluster_rendering {
+        label="rendering"; labeljust=l; style="rounded,dashed,filled"; pencolor="#c9c9c9"; fillcolor="#f6f6f6"; margin=14
+
+        RenderingEngine [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD HREF="RenderingEngine" TITLE="RenderingEngine"><B>RenderingEngine</B></TD></TR>
+                    <TR><TD><FONT POINT-SIZE="9">(renders nothing, used for RenderMode.NO_RENDERING)</FONT></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="RenderingEngine#__init__"># rendering_speed : float</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="RenderingEngine#__init__"># render_simplified : bool</TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="RenderingEngine#render">+ render(players, maze, game_state)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="RenderingEngine#end">+ end()</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        ShellRenderingEngine [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD HREF="ShellRenderingEngine" TITLE="ShellRenderingEngine"><B>ShellRenderingEngine</B></TD></TR>
+                    <TR><TD><FONT POINT-SIZE="9">RenderMode.ANSI / RenderMode.ASCII</FONT></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="ShellRenderingEngine#__init__">- use_colors : bool</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="ShellRenderingEngine#__init__">- clear_each_turn : bool</TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="ShellRenderingEngine#render">+ render(players, maze, game_state)</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        PygameRenderingEngine [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD HREF="PygameRenderingEngine" TITLE="PygameRenderingEngine"><B>PygameRenderingEngine</B></TD></TR>
+                    <TR><TD><FONT POINT-SIZE="9">RenderMode.GUI</FONT></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="PygameRenderingEngine#__init__">- fullscreen : bool</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="PygameRenderingEngine#__init__">- trace_length : int</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="PygameRenderingEngine#__init__">- gui_process : Process</TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="PygameRenderingEngine#render">+ render(players, maze, game_state)</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="PygameRenderingEngine#end">+ end()</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        GUI [shape=note, style=filled, fillcolor="#f2f2f2", color="#8a8a8a", fontcolor="#555555", fontsize=10, margin="0.15,0.08",
+             label="rendering.gui (internal)\lGameWindow, Scene, Layout,\lMazeDecor, Assets\l\lThe window runs in its own\lprocess, fed through a queue.\l"]
+
+        // Inheritance bus of RenderingEngine (see the "Inheritance" section below)
+        node [shape=point, width=0, height=0, style=invis]
+        bus_rendering_left; bus_rendering_trunk; bus_rendering_right
+        { rank=same; bus_rendering_left; bus_rendering_trunk; bus_rendering_right }
+        RenderingEngine       [group=rendering_trunk]; bus_rendering_trunk [group=rendering_trunk]
+        ShellRenderingEngine  [group=rendering_left];  bus_rendering_left  [group=rendering_left]
+        PygameRenderingEngine [group=rendering_right]; bus_rendering_right [group=rendering_right]; GUI [group=rendering_right]
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Mazes
+
+    subgraph cluster_mazes {
+        label="mazes"; labeljust=l; style="rounded,dashed,filled"; pencolor="#c9c9c9"; fillcolor="#f6f6f6"; margin=14
+
+        "Graph" [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" HREF="Graph" TITLE="Graph"><B>Graph</B></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="Graph#__init__">- adjacency : dict[Hashable, dict[Hashable, float | int]]</TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="Graph#add_vertex">+ add_vertex(vertex)</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Graph#get_neighbors">+ get_neighbors(vertex) : list[Hashable]</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Graph#remove_vertex">+ remove_vertex(vertex)</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Graph#nb_vertices">+ nb_vertices() : int</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Graph#add_edge">+ add_edge(vertex_1, vertex_2, weight, symmetric)</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Graph#nb_edges">+ nb_edges() : int</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Graph#remove_edge">+ remove_edge(vertex_1, vertex_2, symmetric)</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Graph#is_connected">+ is_connected() : bool</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Graph#has_edge">+ has_edge(vertex_1, vertex_2) : bool</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Graph#minimum_spanning_tree">+ minimum_spanning_tree(random_seed) : Graph</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Graph#edge_is_symmetric">+ edge_is_symmetric(vertex_1, vertex_2) : bool</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Graph#as_dict">+ as_dict() : dict</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Graph#get_weight">+ get_weight(vertex_1, vertex_2) : float | int</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Graph#as_numpy_ndarray">+ as_numpy_ndarray() : numpy.ndarray</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Graph#get_vertices">+ get_vertices() : list[Hashable]</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Graph#as_torch_tensor">+ as_torch_tensor() : torch.Tensor</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Graph#get_edges">+ get_edges() : list[tuple[Hashable, Hashable]]</TD><TD WIDTH="22"></TD><TD></TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        Maze [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD><FONT POINT-SIZE="9">«abstract»</FONT></TD></TR>
+                    <TR><TD HREF="Maze" TITLE="Maze"><B><I>Maze</I></B></TD></TR>
+                    <TR><TD><FONT POINT-SIZE="9">a Graph whose vertices are cells, numbered from 0 to width × height - 1</FONT></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="Maze#__init__"># width : int</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Maze#__init__"># height : int</TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="Maze#get_width">+ get_width() : int</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Maze#rc_exists">+ rc_exists(row, col) : bool</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Maze#get_height">+ get_height() : int</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Maze#coords_difference">+ coords_difference(vertex_1, vertex_2) : tuple[int, int]</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Maze#i_to_rc">+ i_to_rc(index) : tuple[int, int]</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Maze#locations_to_action">+ locations_to_action(source, target) : Action | None</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Maze#rc_to_i">+ rc_to_i(row, col) : int</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Maze#locations_to_actions">+ locations_to_actions(locations) : list[Action | None]</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Maze#i_exists">+ i_exists(index) : bool</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Maze"><I># _create_maze()</I></TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        RandomMaze [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD><FONT POINT-SIZE="9">«abstract»</FONT></TD></TR>
+                    <TR><TD HREF="RandomMaze" TITLE="RandomMaze"><B><I>RandomMaze</I></B></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="RandomMaze#__init__"># target_nb_vertices : int</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="RandomMaze#__init__"># wall_percentage : float</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="RandomMaze#__init__"># mud_percentage : float</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="RandomMaze#__init__"># mud_range : tuple[int, int]</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="RandomMaze#__init__"># rng : random.Random</TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="RandomMaze"># _create_maze()</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="RandomMaze"><I># _add_cells()</I></TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="RandomMaze"># _add_walls()</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="RandomMaze"># _add_mud()</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        MazeFromDict [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" HREF="MazeFromDict" TITLE="MazeFromDict"><B>MazeFromDict</B></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="MazeFromDict#__init__">- description : dict[int, dict[int, int]]</TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="MazeFromDict"># _create_maze()</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        MazeFromMatrix [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" HREF="MazeFromMatrix" TITLE="MazeFromMatrix"><B>MazeFromMatrix</B></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="MazeFromMatrix#__init__">- description : numpy.ndarray | torch.Tensor</TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="MazeFromMatrix"># _create_maze()</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        BigHolesRandomMaze [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" HREF="BigHolesRandomMaze" TITLE="BigHolesRandomMaze"><B>BigHolesRandomMaze</B></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="BigHolesRandomMaze"># _add_cells()</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        UniformHolesRandomMaze [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" HREF="UniformHolesRandomMaze" TITLE="UniformHolesRandomMaze"><B>UniformHolesRandomMaze</B></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="UniformHolesRandomMaze"># _add_cells()</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        HolesOnSideRandomMaze [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" HREF="HolesOnSideRandomMaze" TITLE="HolesOnSideRandomMaze"><B>HolesOnSideRandomMaze</B></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="HolesOnSideRandomMaze"># _add_cells()</TD></TR>
+                </TABLE></TD></TR>
+            </TABLE>>]
+
+        // Inheritance buses of Maze and RandomMaze (see the "Inheritance" section below)
+        // The trunk of each bus also drops into the middle subclass, so that the parent is centered above its subclasses
+        node [shape=point, width=0, height=0, style=invis]
+        bus_mazes_left; bus_mazes_trunk; bus_mazes_right
+        bus_random_mazes_left; bus_random_mazes_trunk; bus_random_mazes_right
+        { rank=same; bus_mazes_left; bus_mazes_trunk; bus_mazes_right }
+        { rank=same; bus_random_mazes_left; bus_random_mazes_trunk; bus_random_mazes_right }
+        "Graph" [group=mazes_trunk]; Maze [group=mazes_trunk]; bus_mazes_trunk [group=mazes_trunk]; MazeFromDict [group=mazes_trunk]
+        MazeFromMatrix [group=mazes_right]; bus_mazes_right [group=mazes_right]
+        bus_mazes_left [group=random_mazes_trunk]; RandomMaze [group=random_mazes_trunk]; bus_random_mazes_trunk [group=random_mazes_trunk]; UniformHolesRandomMaze [group=random_mazes_trunk]
+        BigHolesRandomMaze    [group=random_mazes_left];  bus_random_mazes_left  [group=random_mazes_left]
+        HolesOnSideRandomMaze [group=random_mazes_right]; bus_random_mazes_right [group=random_mazes_right]
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Enumerations
+
+    subgraph cluster_enums {
+        label="game.enums"; labeljust=l; style="rounded,dashed,filled"; pencolor="#c9c9c9"; fillcolor="#f6f6f6"; margin=14
+
+        Action [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f7f9fb" COLOR="#5b6b7b">
+                <TR><TD BGCOLOR="#dfe6ee" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD><FONT POINT-SIZE="9">«enumeration»</FONT></TD></TR>
+                    <TR><TD HREF="Action" TITLE="Action"><B>Action</B></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" BALIGN="LEFT" HREF="Action" TITLE="Action">NOTHING<BR/>NORTH<BR/>SOUTH<BR/>EAST<BR/>WEST</TD></TR>
+            </TABLE>>]
+
+        GameMode [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f7f9fb" COLOR="#5b6b7b">
+                <TR><TD BGCOLOR="#dfe6ee" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD><FONT POINT-SIZE="9">«enumeration»</FONT></TD></TR>
+                    <TR><TD HREF="GameMode" TITLE="GameMode"><B>GameMode</B></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" BALIGN="LEFT" HREF="GameMode" TITLE="GameMode">MATCH<BR/>SYNCHRONOUS<BR/>SEQUENTIAL<BR/>SIMULATION</TD></TR>
+            </TABLE>>]
+
+        RenderMode [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f7f9fb" COLOR="#5b6b7b">
+                <TR><TD BGCOLOR="#dfe6ee" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD><FONT POINT-SIZE="9">«enumeration»</FONT></TD></TR>
+                    <TR><TD HREF="RenderMode" TITLE="RenderMode"><B>RenderMode</B></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" BALIGN="LEFT" HREF="RenderMode" TITLE="RenderMode">GUI<BR/>ANSI<BR/>ASCII<BR/>NO_RENDERING</TD></TR>
+            </TABLE>>]
+
+        PlayerSkin [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f7f9fb" COLOR="#5b6b7b">
+                <TR><TD BGCOLOR="#dfe6ee" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD><FONT POINT-SIZE="9">«enumeration»</FONT></TD></TR>
+                    <TR><TD HREF="PlayerSkin" TITLE="PlayerSkin"><B>PlayerSkin</B></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" BALIGN="LEFT" HREF="PlayerSkin" TITLE="PlayerSkin">RAT<BR/>PYTHON<BR/>GHOST<BR/>MARIO</TD></TR>
+            </TABLE>>]
+
+        RandomMazeAlgorithm [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f7f9fb" COLOR="#5b6b7b">
+                <TR><TD BGCOLOR="#dfe6ee" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD><FONT POINT-SIZE="9">«enumeration»</FONT></TD></TR>
+                    <TR><TD HREF="RandomMazeAlgorithm" TITLE="RandomMazeAlgorithm"><B>RandomMazeAlgorithm</B></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" BALIGN="LEFT" HREF="RandomMazeAlgorithm" TITLE="RandomMazeAlgorithm">BIG_HOLES<BR/>UNIFORM_HOLES<BR/>HOLES_ON_SIDE</TD></TR>
+            </TABLE>>]
+
+        StartingLocation [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f7f9fb" COLOR="#5b6b7b">
+                <TR><TD BGCOLOR="#dfe6ee" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD><FONT POINT-SIZE="9">«enumeration»</FONT></TD></TR>
+                    <TR><TD HREF="StartingLocation" TITLE="StartingLocation"><B>StartingLocation</B></TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" BALIGN="LEFT" HREF="StartingLocation" TITLE="StartingLocation">CENTER<BR/>TOP_LEFT<BR/>TOP_RIGHT<BR/>BOTTOM_LEFT<BR/>BOTTOM_RIGHT<BR/>RANDOM<BR/>SAME</TD></TR>
+            </TABLE>>]
+
+        // Invisible edges, only there to arrange the enumerations in two columns
+        Action -> GameMode -> RenderMode [style=invis, minlen=2]
+        PlayerSkin -> RandomMazeAlgorithm -> StartingLocation [style=invis, minlen=2]
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Layout hints
+
+    // Sibling classes under a same bus are aligned on their top, so that the vertical drops all have the same length
+    // (dot centers the nodes of a row vertically; here, siblings are given the height of the tallest of them, and their
+    // label is anchored at the top). If a class grows taller than the given height, update the value below.
+
+    FixedPlayer [shape=none, margin=0, labelloc=t, height=2.05]
+    YourPlayers [shape=none, margin=0, labelloc=t, height=2.05]
+    ShellRenderingEngine  [shape=none, margin=0, labelloc=t, height=1.73]
+    PygameRenderingEngine [shape=none, margin=0, labelloc=t, height=1.73]
+    RandomMaze     [shape=none, margin=0, labelloc=t, height=2.50]
+    MazeFromDict   [shape=none, margin=0, labelloc=t, height=2.50]
+    MazeFromMatrix [shape=none, margin=0, labelloc=t, height=2.50]
+
+    // Player, Game and RenderingEngine are drawn on the same row, in this order
+    // The order is fixed by the out-edges of an invisible root node (dot draws them from left to right)
+    { rank=same; Player; Game; RenderingEngine }
+    root [shape=point, style=invis, width=0, height=0, label="", ordering=out]
+    root -> Player          [style=invis]
+    root -> Game            [style=invis]
+    root -> RenderingEngine [style=invis]
+
+    // Invisible edges, only there to place the enumerations right below the players (on the left, away from the mazes), and the mazes below the game and the rendering
+    // Keeping the enumerations close to the players shortens the arrow that goes from Player to Action
+    // (without the last one, dot may swap the players and the game, which makes the edge to RenderingEngine go around the players)
+    YourPlayers -> Action     [style=invis, minlen=2]
+    YourPlayers -> PlayerSkin [style=invis, minlen=2]
+    GameState   -> "Graph"    [style=invis]
+    GUI         -> "Graph"    [style=invis]
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Inheritance (hollow triangle on the parent side)
+    // Each arrow is drawn as a bus: a vertical trunk leaving the bottom of the parent, a horizontal line,
+    // and a vertical drop into the top of each subclass (edges are drawn from the parent to the child,
+    // so that parents are placed above children)
+
+    // Trunks
+    edge [dir=back, arrowtail=empty, arrowsize=1.3, style=solid, weight=10]
+    Player          -> bus_players_trunk
+    RenderingEngine -> bus_rendering_trunk
+    Maze            -> bus_mazes_trunk
+    RandomMaze      -> bus_random_mazes_trunk
+    "Graph"         -> Maze [minlen=2]
+
+    // Drops
+    edge [dir=none, weight=10]
+    bus_players_left       -> YourPlayers
+    bus_players_right      -> FixedPlayer
+    bus_rendering_left     -> ShellRenderingEngine
+    bus_rendering_right    -> PygameRenderingEngine
+    bus_mazes_left         -> RandomMaze
+    bus_mazes_trunk        -> MazeFromDict
+    bus_mazes_right        -> MazeFromMatrix
+    bus_random_mazes_left  -> BigHolesRandomMaze
+    bus_random_mazes_trunk -> UniformHolesRandomMaze
+    bus_random_mazes_right -> HolesOnSideRandomMaze
+
+    // Horizontal lines (flat edges, whose tail is placed on the left of their head)
+    edge [weight=1]
+    bus_players_left      -> bus_players_trunk      -> bus_players_right
+    bus_rendering_left    -> bus_rendering_trunk    -> bus_rendering_right
+    bus_mazes_left        -> bus_mazes_trunk        -> bus_mazes_right
+    bus_random_mazes_left -> bus_random_mazes_trunk -> bus_random_mazes_right
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Composition and aggregation (diamond on the owner side)
+
+    // The label at the owned end gives the multiplicity, and the name and visibility of the attribute of Game
+    // These labels are clickable: headURL and tailURL use the same short links as the classes (see links.sed)
+    edge [dir=both, arrowhead=vee, arrowsize=0.9, style=solid, weight=1]
+    Game   -> Maze            [arrowtail=diamond,  headlabel="1\n- maze",             labelangle=-35, labeldistance=2.6, headURL="Game#start", headtooltip="Game.start()", label="creates at start()", minlen=8]
+    Game   -> RenderingEngine [arrowtail=diamond,  headlabel="1\n- rendering_engine", labelangle=19,  labeldistance=5.6, headURL="Game#start", headtooltip="Game.start()", xlabel="creates according\nto render_mode"]
+    Player -> Game            [arrowhead=odiamond, arrowtail=vee, taillabel="1..*\n- players", labelangle=-28, labeldistance=3.4, tailURL="Game#add_player", tailtooltip="Game.add_player()", xlabel="add_player()"]
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Dependencies (dashed)
+
+    edge [dir=forward, style=dashed, arrowhead=vee]
+    Game   -> GameState      [label="creates one\nper turn", minlen=2, weight=2]
+    Game   -> PyRatException [label="raises", minlen=2]
+    Player -> Maze           [label="receives"]
+    Player -> GameState      [label="receives"]
+    Player -> Action         [label="turn() returns"]
+    PygameRenderingEngine -> GUI [label="launches", minlen=2, weight=3]
+}

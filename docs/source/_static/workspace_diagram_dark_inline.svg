@@ -1,0 +1,390 @@
+<svg
+ viewBox="0.00 0.00 1942.00 911.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="dark_graph0" class="graph" transform="scale(1 1) rotate(0) translate(21.6 889.25)">
+<polygon fill="#131416" stroke="none" points="-21.6,21.6 -21.6,-889.25 1920.6,-889.25 1920.6,21.6 -21.6,21.6"/>
+<g id="dark_clust1" class="cluster">
+<path fill="#1a1c1e" stroke="#3a3d41" stroke-dasharray="5,2" d="M104,-629.9C104,-629.9 1215,-629.9 1215,-629.9 1221,-629.9 1227,-635.9 1227,-641.9 1227,-641.9 1227,-847.65 1227,-847.65 1227,-853.65 1221,-859.65 1215,-859.65 1215,-859.65 104,-859.65 104,-859.65 98,-859.65 92,-853.65 92,-847.65 92,-847.65 92,-641.9 92,-641.9 92,-635.9 98,-629.9 104,-629.9"/>
+<text xml:space="preserve" text-anchor="middle" x="112" y="-845.2" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#9a9a9a">pyrat</text>
+</g>
+<g id="dark_clust3" class="cluster">
+<path fill="#1a1c1e" stroke="#3a3d41" stroke-dasharray="5,2" d="M432,-8C432,-8 1879,-8 1879,-8 1885,-8 1891,-14 1891,-20 1891,-20 1891,-330.5 1891,-330.5 1891,-336.5 1885,-342.5 1879,-342.5 1879,-342.5 432,-342.5 432,-342.5 426,-342.5 420,-336.5 420,-330.5 420,-330.5 420,-20 420,-20 420,-14 426,-8 432,-8"/>
+<text xml:space="preserve" text-anchor="middle" x="445.25" y="-328.05" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#9a9a9a">players</text>
+</g>
+<g id="dark_clust5" class="cluster">
+<path fill="#1a1c1e" stroke="#3a3d41" stroke-dasharray="5,2" d="M20,-395.64C20,-395.64 671,-395.64 671,-395.64 677,-395.64 683,-401.64 683,-407.64 683,-407.64 683,-543.4 683,-543.4 683,-549.4 677,-555.4 671,-555.4 671,-555.4 20,-555.4 20,-555.4 14,-555.4 8,-549.4 8,-543.4 8,-543.4 8,-407.64 8,-407.64 8,-401.64 14,-395.64 20,-395.64"/>
+<text xml:space="preserve" text-anchor="middle" x="32.12" y="-540.95" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#9a9a9a">games</text>
+</g>
+<!-- Game -->
+<g id="dark_node1" class="node">
+<polygon fill="#1f2124" stroke="none" points="575.12,-688.77 575.12,-780.77 842.88,-780.77 842.88,-688.77 575.12,-688.77"/>
+<g id="dark_a_node1_0"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game" xlink:title="Game">
+<polygon fill="#6b4512" stroke="none" points="575.12,-754.77 575.12,-780.77 842.88,-780.77 842.88,-754.77 575.12,-754.77"/>
+<polygon fill="none" stroke="#e8a33d" points="575.12,-754.77 575.12,-780.77 842.88,-780.77 842.88,-754.77 575.12,-754.77"/>
+<text xml:space="preserve" text-anchor="start" x="694" y="-764.32" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#e6e6e6">Game</text>
+</a>
+</g>
+<polygon fill="none" stroke="#e8a33d" points="575.12,-688.77 575.12,-754.77 842.88,-754.77 842.88,-688.77 575.12,-688.77"/>
+<g id="dark_a_node1_1"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.__init__">
+<text xml:space="preserve" text-anchor="start" x="581.12" y="-739.77" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ __init__(maze_width, maze_height, nb_cheese, …)</text>
+</a>
+</g>
+<g id="dark_a_node1_2"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.add_player">
+<text xml:space="preserve" text-anchor="start" x="581.12" y="-725.77" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ add_player(player, team, location)</text>
+</a>
+</g>
+<g id="dark_a_node1_3"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.reset">
+<text xml:space="preserve" text-anchor="start" x="581.12" y="-711.77" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ reset(keep_players, same)</text>
+</a>
+</g>
+<g id="dark_a_node1_4"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.start">
+<text xml:space="preserve" text-anchor="start" x="581.12" y="-697.77" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ start() : dict[str, object]</text>
+</a>
+</g>
+</g>
+<!-- Player -->
+<g id="dark_node2" class="node">
+<polygon fill="#1f2124" stroke="none" points="986.88,-651.9 986.88,-817.65 1205.12,-817.65 1205.12,-651.9 986.88,-651.9"/>
+<polygon fill="#6b4512" stroke="none" points="986.88,-783.9 986.88,-817.65 1205.12,-817.65 1205.12,-783.9 986.88,-783.9"/>
+<polygon fill="none" stroke="#e8a33d" points="986.88,-783.9 986.88,-817.65 1205.12,-817.65 1205.12,-783.9 986.88,-783.9"/>
+<text xml:space="preserve" text-anchor="start" x="1074.62" y="-805.15" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#e6e6e6">«abstract»</text>
+<g id="dark_a_node2_5"><a xlink:href="../pyrat/Player.html#pyrat.src.players.player.Player" xlink:title="Player">
+<text xml:space="preserve" text-anchor="start" x="1079.5" y="-791.45" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-style="italic" font-size="11.00" fill="#e6e6e6">Player</text>
+</a>
+</g>
+<polygon fill="none" stroke="#e8a33d" points="986.88,-745.9 986.88,-783.9 1205.12,-783.9 1205.12,-745.9 986.88,-745.9"/>
+<g id="dark_a_node2_6"><a xlink:href="../pyrat/Player.html#pyrat.src.players.player.Player.__init__">
+<text xml:space="preserve" text-anchor="start" x="992.88" y="-768.9" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">&#45; name : str</text>
+</a>
+</g>
+<g id="dark_a_node2_7"><a xlink:href="../pyrat/Player.html#pyrat.src.players.player.Player.__init__">
+<text xml:space="preserve" text-anchor="start" x="992.88" y="-754.9" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">&#45; skin : PlayerSkin</text>
+</a>
+</g>
+<polygon fill="none" stroke="#e8a33d" points="986.88,-651.9 986.88,-745.9 1205.12,-745.9 1205.12,-651.9 986.88,-651.9"/>
+<g id="dark_a_node2_8"><a xlink:href="../pyrat/Player.html#pyrat.src.players.player.Player.__init__">
+<text xml:space="preserve" text-anchor="start" x="992.88" y="-730.9" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ __init__(name, skin)</text>
+</a>
+</g>
+<g id="dark_a_node2_9"><a xlink:href="../pyrat/Player.html#pyrat.src.players.player.Player.get_name">
+<text xml:space="preserve" text-anchor="start" x="992.88" y="-716.9" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ get_name() : str</text>
+</a>
+</g>
+<g id="dark_a_node2_10"><a xlink:href="../pyrat/Player.html#pyrat.src.players.player.Player.get_skin">
+<text xml:space="preserve" text-anchor="start" x="992.88" y="-702.9" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ get_skin() : PlayerSkin</text>
+</a>
+</g>
+<g id="dark_a_node2_11"><a xlink:href="../pyrat/Player.html#pyrat.src.players.player.Player.preprocessing">
+<text xml:space="preserve" text-anchor="start" x="992.88" y="-688.9" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ preprocessing(maze, game_state)</text>
+</a>
+</g>
+<g id="dark_a_node2_12"><a xlink:href="../pyrat/Player.html#pyrat.src.players.player.Player.turn">
+<text xml:space="preserve" text-anchor="start" x="992.88" y="-674.45" font-family="Helvetica, Arial, sans-serif" font-style="italic" font-size="11.00" fill="#e6e6e6">+ turn(maze, game_state) : Action</text>
+</a>
+</g>
+<g id="dark_a_node2_13"><a xlink:href="../pyrat/Player.html#pyrat.src.players.player.Player.postprocessing">
+<text xml:space="preserve" text-anchor="start" x="992.88" y="-660.9" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ postprocessing(maze, game_state, stats)</text>
+</a>
+</g>
+</g>
+<!-- Game&#45;&gt;Player -->
+<!-- sample_game -->
+<g id="dark_node15" class="node">
+<polygon fill="#1f2124" stroke="none" points="443,-416.65 443,-512.4 661,-512.4 661,-416.65 443,-416.65"/>
+<polygon fill="#264d2c" stroke="none" points="443,-478.65 443,-512.4 661,-512.4 661,-478.65 443,-478.65"/>
+<polygon fill="none" stroke="#7cc48a" points="443,-478.65 443,-512.4 661,-512.4 661,-478.65 443,-478.65"/>
+<text xml:space="preserve" text-anchor="start" x="535.88" y="-499.9" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#e6e6e6">«script»</text>
+<g id="dark_a_node15_14"><a xlink:href="../workspace/games/sample_game.html" xlink:title="sample_game.py">
+<text xml:space="preserve" text-anchor="start" x="508.12" y="-486.2" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#e6e6e6">sample_game.py</text>
+</a>
+</g>
+<polygon fill="none" stroke="#7cc48a" points="443,-416.65 443,-478.65 661,-478.65 661,-416.65 443,-416.65"/>
+<text xml:space="preserve" text-anchor="start" x="450" y="-462.65" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#a8a8a8">A match between two teams:</text>
+<text xml:space="preserve" text-anchor="start" x="450" y="-450.65" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#a8a8a8">a Random2 against a Random3</text>
+<text xml:space="preserve" text-anchor="start" x="450" y="-438.65" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#a8a8a8">Custom maze size, walls, mud and cheese</text>
+<text xml:space="preserve" text-anchor="start" x="450" y="-426.65" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#a8a8a8">Prints the statistics of the game</text>
+</g>
+<!-- Game&#45;&gt;sample_game -->
+<g id="dark_edge16" class="edge">
+<path fill="none" stroke="#a8a8a8" stroke-width="1.1" stroke-dasharray="5,2" d="M677.52,-680.19C656.55,-644.49 628.48,-596.72 604.21,-555.4"/>
+<polygon fill="#a8a8a8" stroke="#a8a8a8" stroke-width="1.1" points="682.04,-687.89 673.99,-682.18 680.4,-685.19 677.44,-680.15 677.48,-680.13 677.53,-680.1 680.49,-685.14 680.98,-678.08 682.04,-687.89"/>
+<text xml:space="preserve" text-anchor="middle" x="658.04" y="-578.77" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#a8a8a8">create a Game</text>
+</g>
+<!-- bus_trunk -->
+<!-- Player&#45;&gt;bus_trunk -->
+<g id="dark_edge5" class="edge">
+<path fill="none" stroke="#a8a8a8" stroke-width="1.1" d="M1096,-637.64C1096,-512.24 1096,-307.91 1096,-301.3"/>
+<polygon fill="none" stroke="#a8a8a8" stroke-width="1.1" points="1091.45,-637.48 1096,-650.48 1100.55,-637.48 1091.45,-637.48"/>
+</g>
+<!-- PlayerSkin -->
+<g id="dark_node3" class="node">
+<polygon fill="#1f2124" stroke="none" points="358.88,-686.9 358.88,-782.65 431.12,-782.65 431.12,-686.9 358.88,-686.9"/>
+<polygon fill="#2e3a47" stroke="none" points="358.88,-748.9 358.88,-782.65 431.12,-782.65 431.12,-748.9 358.88,-748.9"/>
+<polygon fill="none" stroke="#8fa3b8" points="358.88,-748.9 358.88,-782.65 431.12,-782.65 431.12,-748.9 358.88,-748.9"/>
+<text xml:space="preserve" text-anchor="start" x="363.88" y="-770.15" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#e6e6e6">«enumeration»</text>
+<g id="dark_a_node3_15"><a xlink:href="../pyrat/enums.html#pyrat.src.game.enums.PlayerSkin" xlink:title="PlayerSkin">
+<text xml:space="preserve" text-anchor="start" x="366.88" y="-756.45" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#e6e6e6">PlayerSkin</text>
+</a>
+</g>
+<g id="dark_a_node3_16"><a xlink:href="../pyrat/enums.html#pyrat.src.game.enums.PlayerSkin" xlink:title="PlayerSkin">
+<polygon fill="none" stroke="#8fa3b8" points="358.88,-686.9 358.88,-748.9 431.12,-748.9 431.12,-686.9 358.88,-686.9"/>
+<text xml:space="preserve" text-anchor="start" x="365.88" y="-732.9" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">RAT</text>
+<text xml:space="preserve" text-anchor="start" x="365.88" y="-720.9" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">PYTHON</text>
+<text xml:space="preserve" text-anchor="start" x="365.88" y="-708.9" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">GHOST</text>
+<text xml:space="preserve" text-anchor="start" x="365.88" y="-696.9" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">MARIO</text>
+</a>
+</g>
+</g>
+<!-- PlayerSkin&#45;&gt;Game -->
+<!-- PlayerSkin&#45;&gt;sample_game -->
+<g id="dark_edge18" class="edge">
+<path fill="none" stroke="#a8a8a8" stroke-width="1.1" stroke-dasharray="5,2" d="M427.72,-678.07C456.37,-629.3 497.53,-559.25 524.5,-513.32"/>
+<polygon fill="#a8a8a8" stroke="#a8a8a8" stroke-width="1.1" points="423.21,-685.76 424.27,-675.95 424.76,-683.01 427.72,-677.98 427.76,-678 427.81,-678.03 424.85,-683.06 431.26,-680.05 423.21,-685.76"/>
+<text xml:space="preserve" text-anchor="middle" x="511.56" y="-584.4" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#a8a8a8">skin of</text>
+<text xml:space="preserve" text-anchor="middle" x="511.56" y="-573.15" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#a8a8a8">the players</text>
+</g>
+<!-- StartingLocation -->
+<g id="dark_node4" class="node">
+<polygon fill="#1f2124" stroke="none" points="114.5,-668.9 114.5,-800.65 215.5,-800.65 215.5,-668.9 114.5,-668.9"/>
+<polygon fill="#2e3a47" stroke="none" points="114.5,-766.9 114.5,-800.65 215.5,-800.65 215.5,-766.9 114.5,-766.9"/>
+<polygon fill="none" stroke="#8fa3b8" points="114.5,-766.9 114.5,-800.65 215.5,-800.65 215.5,-766.9 114.5,-766.9"/>
+<text xml:space="preserve" text-anchor="start" x="133.88" y="-788.15" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#e6e6e6">«enumeration»</text>
+<g id="dark_a_node4_17"><a xlink:href="../pyrat/enums.html#pyrat.src.game.enums.StartingLocation" xlink:title="StartingLocation">
+<text xml:space="preserve" text-anchor="start" x="121.12" y="-774.45" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#e6e6e6">StartingLocation</text>
+</a>
+</g>
+<g id="dark_a_node4_18"><a xlink:href="../pyrat/enums.html#pyrat.src.game.enums.StartingLocation" xlink:title="StartingLocation">
+<polygon fill="none" stroke="#8fa3b8" points="114.5,-668.9 114.5,-766.9 215.5,-766.9 215.5,-668.9 114.5,-668.9"/>
+<text xml:space="preserve" text-anchor="start" x="121.5" y="-750.9" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">CENTER</text>
+<text xml:space="preserve" text-anchor="start" x="121.5" y="-738.9" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">TOP_LEFT</text>
+<text xml:space="preserve" text-anchor="start" x="121.5" y="-726.9" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">TOP_RIGHT</text>
+<text xml:space="preserve" text-anchor="start" x="121.5" y="-714.9" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">BOTTOM_LEFT</text>
+<text xml:space="preserve" text-anchor="start" x="121.5" y="-702.9" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">BOTTOM_RIGHT</text>
+<text xml:space="preserve" text-anchor="start" x="121.5" y="-690.9" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">RANDOM</text>
+<text xml:space="preserve" text-anchor="start" x="121.5" y="-678.9" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">SAME</text>
+</a>
+</g>
+</g>
+<!-- StartingLocation&#45;&gt;PlayerSkin -->
+<!-- visualize_random_players -->
+<g id="dark_node16" class="node">
+<polygon fill="#1f2124" stroke="none" points="30.5,-416.65 30.5,-512.4 299.5,-512.4 299.5,-416.65 30.5,-416.65"/>
+<polygon fill="#264d2c" stroke="none" points="30.5,-478.65 30.5,-512.4 299.5,-512.4 299.5,-478.65 30.5,-478.65"/>
+<polygon fill="none" stroke="#7cc48a" points="30.5,-478.65 30.5,-512.4 299.5,-512.4 299.5,-478.65 30.5,-478.65"/>
+<text xml:space="preserve" text-anchor="start" x="148.88" y="-499.9" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#e6e6e6">«script»</text>
+<g id="dark_a_node16_19"><a xlink:href="../workspace/games/visualize_random_players.html" xlink:title="visualize_random_players.py">
+<text xml:space="preserve" text-anchor="start" x="89.25" y="-486.2" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#e6e6e6">visualize_random_players.py</text>
+</a>
+</g>
+<polygon fill="none" stroke="#7cc48a" points="30.5,-416.65 30.5,-478.65 299.5,-478.65 299.5,-416.65 30.5,-416.65"/>
+<text xml:space="preserve" text-anchor="start" x="37.5" y="-462.65" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#a8a8a8">Random1 to Random4 in the same maze,</text>
+<text xml:space="preserve" text-anchor="start" x="37.5" y="-450.65" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#a8a8a8">one after the other</text>
+<text xml:space="preserve" text-anchor="start" x="37.5" y="-438.65" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#a8a8a8">Fixed random seed, no mud, a single piece of cheese</text>
+<text xml:space="preserve" text-anchor="start" x="37.5" y="-426.65" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#a8a8a8">Prints the statistics of each player</text>
+</g>
+<!-- StartingLocation&#45;&gt;visualize_random_players -->
+<g id="dark_edge19" class="edge">
+<path fill="none" stroke="#a8a8a8" stroke-width="1.1" stroke-dasharray="5,2" d="M165,-658.98C165,-612.14 165,-553.26 165,-513.03"/>
+<polygon fill="#a8a8a8" stroke="#a8a8a8" stroke-width="1.1" points="165,-667.74 160.95,-658.74 164.95,-664.58 164.95,-658.74 165,-658.74 165.05,-658.74 165.05,-664.58 169.05,-658.74 165,-667.74"/>
+<text xml:space="preserve" text-anchor="middle" x="199.5" y="-584.4" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#a8a8a8">starting location</text>
+<text xml:space="preserve" text-anchor="middle" x="199.5" y="-573.15" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#a8a8a8">of the players</text>
+</g>
+<!-- TemplatePlayer -->
+<g id="dark_node5" class="node">
+<polygon fill="#1f2124" stroke="none" points="441.88,-81.89 441.88,-181.64 660.12,-181.64 660.12,-81.89 441.88,-81.89"/>
+<polygon fill="#264d2c" stroke="none" points="441.88,-147.89 441.88,-181.64 660.12,-181.64 660.12,-147.89 441.88,-147.89"/>
+<polygon fill="none" stroke="#7cc48a" points="441.88,-147.89 441.88,-181.64 660.12,-181.64 660.12,-147.89 441.88,-147.89"/>
+<g id="dark_a_node5_20"><a xlink:href="../workspace/players/TemplatePlayer.html" xlink:title="TemplatePlayer">
+<text xml:space="preserve" text-anchor="start" x="510.88" y="-167.19" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#e6e6e6">TemplatePlayer</text>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="start" x="459.12" y="-155.14" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#e6e6e6">does nothing, the file to copy for a new player</text>
+<polygon fill="none" stroke="#7cc48a" points="441.88,-81.89 441.88,-147.89 660.12,-147.89 660.12,-81.89 441.88,-81.89"/>
+<g id="dark_a_node5_21"><a xlink:href="../workspace/players/TemplatePlayer.html#TemplatePlayer.TemplatePlayer.__init__">
+<text xml:space="preserve" text-anchor="start" x="447.88" y="-132.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ __init__(*args, **kwargs)</text>
+</a>
+</g>
+<g id="dark_a_node5_22"><a xlink:href="../workspace/players/TemplatePlayer.html#TemplatePlayer.TemplatePlayer.preprocessing">
+<text xml:space="preserve" text-anchor="start" x="447.88" y="-118.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ preprocessing(maze, game_state)</text>
+</a>
+</g>
+<g id="dark_a_node5_23"><a xlink:href="../workspace/players/TemplatePlayer.html#TemplatePlayer.TemplatePlayer.turn">
+<text xml:space="preserve" text-anchor="start" x="447.88" y="-104.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ turn(maze, game_state) : Action</text>
+</a>
+</g>
+<g id="dark_a_node5_24"><a xlink:href="../workspace/players/TemplatePlayer.html#TemplatePlayer.TemplatePlayer.postprocessing">
+<text xml:space="preserve" text-anchor="start" x="447.88" y="-90.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ postprocessing(maze, game_state, stats)</text>
+</a>
+</g>
+</g>
+<!-- Random1 -->
+<g id="dark_node6" class="node">
+<polygon fill="#1f2124" stroke="none" points="732.62,-95.89 732.62,-181.64 907.38,-181.64 907.38,-95.89 732.62,-95.89"/>
+<polygon fill="#264d2c" stroke="none" points="732.62,-147.89 732.62,-181.64 907.38,-181.64 907.38,-147.89 732.62,-147.89"/>
+<polygon fill="none" stroke="#7cc48a" points="732.62,-147.89 732.62,-181.64 907.38,-181.64 907.38,-147.89 732.62,-147.89"/>
+<g id="dark_a_node6_25"><a xlink:href="../workspace/players/Random1.html" xlink:title="Random1">
+<text xml:space="preserve" text-anchor="start" x="794.88" y="-167.19" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#e6e6e6">Random1</text>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="start" x="784.75" y="-155.14" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#e6e6e6">moves at random</text>
+<polygon fill="none" stroke="#7cc48a" points="732.62,-95.89 732.62,-147.89 907.38,-147.89 907.38,-95.89 732.62,-95.89"/>
+<g id="dark_a_node6_26"><a xlink:href="../workspace/players/Random1.html#Random1.Random1.__init__">
+<text xml:space="preserve" text-anchor="start" x="738.62" y="-132.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ __init__(*args, **kwargs)</text>
+</a>
+</g>
+<g id="dark_a_node6_27"><a xlink:href="../workspace/players/Random1.html#Random1.Random1.turn">
+<text xml:space="preserve" text-anchor="start" x="738.62" y="-118.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ turn(maze, game_state) : Action</text>
+</a>
+</g>
+<g id="dark_a_node6_28"><a xlink:href="../workspace/players/Random1.html#Random1.Random1.find_next_action">
+<text xml:space="preserve" text-anchor="start" x="738.62" y="-104.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ find_next_action() : Action</text>
+</a>
+</g>
+</g>
+<!-- Random2 -->
+<g id="dark_node7" class="node">
+<polygon fill="#1f2124" stroke="none" points="979,-95.89 979,-181.64 1213,-181.64 1213,-95.89 979,-95.89"/>
+<polygon fill="#264d2c" stroke="none" points="979,-147.89 979,-181.64 1213,-181.64 1213,-147.89 979,-147.89"/>
+<polygon fill="none" stroke="#7cc48a" points="979,-147.89 979,-181.64 1213,-181.64 1213,-147.89 979,-147.89"/>
+<g id="dark_a_node7_29"><a xlink:href="../workspace/players/Random2.html" xlink:title="Random2">
+<text xml:space="preserve" text-anchor="start" x="1070.88" y="-167.19" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#e6e6e6">Random2</text>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="start" x="1070.88" y="-155.14" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#e6e6e6">avoids walls</text>
+<polygon fill="none" stroke="#7cc48a" points="979,-95.89 979,-147.89 1213,-147.89 1213,-95.89 979,-95.89"/>
+<g id="dark_a_node7_30"><a xlink:href="../workspace/players/Random2.html#Random2.Random2.__init__">
+<text xml:space="preserve" text-anchor="start" x="985" y="-132.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ __init__(*args, **kwargs)</text>
+</a>
+</g>
+<g id="dark_a_node7_31"><a xlink:href="../workspace/players/Random2.html#Random2.Random2.turn">
+<text xml:space="preserve" text-anchor="start" x="985" y="-118.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ turn(maze, game_state) : Action</text>
+</a>
+</g>
+<g id="dark_a_node7_32"><a xlink:href="../workspace/players/Random2.html#Random2.Random2.find_next_action">
+<text xml:space="preserve" text-anchor="start" x="985" y="-104.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ find_next_action(maze, game_state) : Action</text>
+</a>
+</g>
+</g>
+<!-- Random3 -->
+<g id="dark_node8" class="node">
+<polygon fill="#1f2124" stroke="none" points="1285,-57.89 1285,-181.64 1519,-181.64 1519,-57.89 1285,-57.89"/>
+<polygon fill="#264d2c" stroke="none" points="1285,-147.89 1285,-181.64 1519,-181.64 1519,-147.89 1285,-147.89"/>
+<polygon fill="none" stroke="#7cc48a" points="1285,-147.89 1285,-181.64 1519,-181.64 1519,-147.89 1285,-147.89"/>
+<g id="dark_a_node8_33"><a xlink:href="../workspace/players/Random3.html" xlink:title="Random3">
+<text xml:space="preserve" text-anchor="start" x="1376.88" y="-167.19" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#e6e6e6">Random3</text>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="start" x="1357.75" y="-155.14" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#e6e6e6">prefers unvisited cells</text>
+<polygon fill="none" stroke="#7cc48a" points="1285,-123.89 1285,-147.89 1519,-147.89 1519,-123.89 1285,-123.89"/>
+<g id="dark_a_node8_34"><a xlink:href="../workspace/players/Random3.html#Random3.Random3.__init__">
+<text xml:space="preserve" text-anchor="start" x="1291" y="-132.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ visited_cells : set[int]</text>
+</a>
+</g>
+<polygon fill="none" stroke="#7cc48a" points="1285,-57.89 1285,-123.89 1519,-123.89 1519,-57.89 1285,-57.89"/>
+<g id="dark_a_node8_35"><a xlink:href="../workspace/players/Random3.html#Random3.Random3.__init__">
+<text xml:space="preserve" text-anchor="start" x="1291" y="-108.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ __init__(*args, **kwargs)</text>
+</a>
+</g>
+<g id="dark_a_node8_36"><a xlink:href="../workspace/players/Random3.html#Random3.Random3.preprocessing">
+<text xml:space="preserve" text-anchor="start" x="1291" y="-94.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ preprocessing(maze, game_state)</text>
+</a>
+</g>
+<g id="dark_a_node8_37"><a xlink:href="../workspace/players/Random3.html#Random3.Random3.turn">
+<text xml:space="preserve" text-anchor="start" x="1291" y="-80.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ turn(maze, game_state) : Action</text>
+</a>
+</g>
+<g id="dark_a_node8_38"><a xlink:href="../workspace/players/Random3.html#Random3.Random3.find_next_action">
+<text xml:space="preserve" text-anchor="start" x="1291" y="-66.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ find_next_action(maze, game_state) : Action</text>
+</a>
+</g>
+</g>
+<!-- Random4 -->
+<g id="dark_node9" class="node">
+<polygon fill="#1f2124" stroke="none" points="1590.88,-29.89 1590.88,-181.64 1869.12,-181.64 1869.12,-29.89 1590.88,-29.89"/>
+<polygon fill="#264d2c" stroke="none" points="1590.88,-147.89 1590.88,-181.64 1869.12,-181.64 1869.12,-147.89 1590.88,-147.89"/>
+<polygon fill="none" stroke="#7cc48a" points="1590.88,-147.89 1590.88,-181.64 1869.12,-181.64 1869.12,-147.89 1590.88,-147.89"/>
+<g id="dark_a_node9_39"><a xlink:href="../workspace/players/Random4.html" xlink:title="Random4">
+<text xml:space="preserve" text-anchor="start" x="1704.88" y="-167.19" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#e6e6e6">Random4</text>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="start" x="1683.88" y="-155.14" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#e6e6e6">also avoids dead ends</text>
+<polygon fill="none" stroke="#7cc48a" points="1590.88,-109.89 1590.88,-147.89 1869.12,-147.89 1869.12,-109.89 1590.88,-109.89"/>
+<g id="dark_a_node9_40"><a xlink:href="../workspace/players/Random4.html#Random4.Random4.__init__">
+<text xml:space="preserve" text-anchor="start" x="1596.88" y="-132.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ visited_cells : set[int]</text>
+</a>
+</g>
+<g id="dark_a_node9_41"><a xlink:href="../workspace/players/Random4.html#Random4.Random4.__init__">
+<text xml:space="preserve" text-anchor="start" x="1596.88" y="-118.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ reduced_maze : Maze</text>
+</a>
+</g>
+<polygon fill="none" stroke="#7cc48a" points="1590.88,-29.89 1590.88,-109.89 1869.12,-109.89 1869.12,-29.89 1590.88,-29.89"/>
+<g id="dark_a_node9_42"><a xlink:href="../workspace/players/Random4.html#Random4.Random4.__init__">
+<text xml:space="preserve" text-anchor="start" x="1596.88" y="-94.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ __init__(*args, **kwargs)</text>
+</a>
+</g>
+<g id="dark_a_node9_43"><a xlink:href="../workspace/players/Random4.html#Random4.Random4.preprocessing">
+<text xml:space="preserve" text-anchor="start" x="1596.88" y="-80.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ preprocessing(maze, game_state)</text>
+</a>
+</g>
+<g id="dark_a_node9_44"><a xlink:href="../workspace/players/Random4.html#Random4.Random4.turn">
+<text xml:space="preserve" text-anchor="start" x="1596.88" y="-66.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ turn(maze, game_state) : Action</text>
+</a>
+</g>
+<g id="dark_a_node9_45"><a xlink:href="../workspace/players/Random4.html#Random4.Random4.find_next_action">
+<text xml:space="preserve" text-anchor="start" x="1596.88" y="-52.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ find_next_action(maze, game_state) : Action</text>
+</a>
+</g>
+<g id="dark_a_node9_46"><a xlink:href="../workspace/players/Random4.html#Random4.Random4.remove_dead_ends">
+<text xml:space="preserve" text-anchor="start" x="1596.88" y="-38.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ remove_dead_ends(maze, locations_to_keep) : Maze</text>
+</a>
+</g>
+</g>
+<!-- bus_template -->
+<!-- bus_template&#45;&gt;TemplatePlayer -->
+<g id="dark_edge7" class="edge">
+<path fill="none" stroke="#a8a8a8" stroke-width="1.1" d="M551,-299.5C551,-296.2 551,-234.99 551,-182.52"/>
+</g>
+<!-- bus_random1 -->
+<!-- bus_template&#45;&gt;bus_random1 -->
+<g id="dark_edge12" class="edge">
+<path fill="none" stroke="#a8a8a8" stroke-width="1.1" d="M551.57,-300.14C559.21,-300.14 640.67,-300.14 640.67,-300.14 640.67,-300.14 730.33,-300.14 730.33,-300.14 730.33,-300.14 811.79,-300.14 819.43,-300.14"/>
+</g>
+<!-- bus_random1&#45;&gt;Random1 -->
+<g id="dark_edge8" class="edge">
+<path fill="none" stroke="#a8a8a8" stroke-width="1.1" d="M820,-299.5C820,-296.2 820,-234.99 820,-182.52"/>
+</g>
+<!-- bus_random1&#45;&gt;bus_trunk -->
+<g id="dark_edge13" class="edge">
+<path fill="none" stroke="#a8a8a8" stroke-width="1.1" d="M820.59,-300.14C828.42,-300.14 912,-300.14 912,-300.14 912,-300.14 1004,-300.14 1004,-300.14 1004,-300.14 1087.58,-300.14 1095.41,-300.14"/>
+</g>
+<!-- bus_trunk&#45;&gt;Random2 -->
+<g id="dark_edge9" class="edge">
+<path fill="none" stroke="#a8a8a8" stroke-width="1.1" d="M1096,-299.5C1096,-296.2 1096,-234.99 1096,-182.52"/>
+</g>
+<!-- bus_random3 -->
+<!-- bus_trunk&#45;&gt;bus_random3 -->
+<g id="dark_edge14" class="edge">
+<path fill="none" stroke="#a8a8a8" stroke-width="1.1" d="M1096.65,-300.14C1105.34,-300.14 1198,-300.14 1198,-300.14 1198,-300.14 1300,-300.14 1300,-300.14 1300,-300.14 1392.66,-300.14 1401.35,-300.14"/>
+</g>
+<!-- bus_random3&#45;&gt;Random3 -->
+<g id="dark_edge10" class="edge">
+<path fill="none" stroke="#a8a8a8" stroke-width="1.1" d="M1402,-299.5C1402,-296.2 1402,-234.99 1402,-182.52"/>
+</g>
+<!-- bus_random4 -->
+<!-- bus_random3&#45;&gt;bus_random4 -->
+<g id="dark_edge15" class="edge">
+<path fill="none" stroke="#a8a8a8" stroke-width="1.1" d="M1402.7,-300.14C1412.01,-300.14 1511.33,-300.14 1511.33,-300.14 1511.33,-300.14 1620.67,-300.14 1620.67,-300.14 1620.67,-300.14 1719.99,-300.14 1729.3,-300.14"/>
+</g>
+<!-- bus_random4&#45;&gt;Random4 -->
+<g id="dark_edge11" class="edge">
+<path fill="none" stroke="#a8a8a8" stroke-width="1.1" d="M1730,-299.5C1730,-296.2 1730,-234.99 1730,-182.52"/>
+</g>
+<!-- sample_game&#45;&gt;TemplatePlayer -->
+<g id="dark_edge17" class="edge">
+<path fill="none" stroke="#a8a8a8" stroke-width="1.1" stroke-dasharray="5,2" d="M531.11,-395.64C525.88,-378.37 520.9,-361.95 517.9,-352.05"/>
+<polygon fill="#a8a8a8" stroke="#a8a8a8" stroke-width="1.1" points="515.39,-343.78 521.88,-351.22 516.35,-346.79 518.05,-352.38 518,-352.4 517.95,-352.41 516.26,-346.82 514.12,-353.57 515.39,-343.78"/>
+<text xml:space="preserve" text-anchor="middle" x="499.38" y="-375.6" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#a8a8a8">add players</text>
+</g>
+<!-- sample_game&#45;&gt;bus_trunk -->
+<!-- visualize_random_players&#45;&gt;sample_game -->
+</g>
+</svg>

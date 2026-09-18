@@ -51,6 +51,13 @@ add_module_names = False
 
 html_static_path = ['_static']
 html_css_files = ["custom.css"]
+html_js_files = ["diagram_zoom.js"]
+
+# A role to insert raw HTML inline, used for the links that must open in a new tab (the diagrams at full size)
+rst_prolog = """
+.. role:: raw-html(raw)
+   :format: html
+"""
 
 html_logo = "../../pyrat/gui/drawings/pyrat.png"
 html_favicon = "../../pyrat/gui/icon/pyrat.png"
