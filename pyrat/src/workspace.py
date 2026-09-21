@@ -43,6 +43,9 @@ PYRAT_REQUIREMENT = "pyrat-game"
 # Name of the file that adds the workspace to the Python path of its virtual environment
 PATH_FILE_NAME = "pyrat_workspace_path.pth"
 
+# Comment written in that file, to explain its contents to whoever opens it
+PATH_FILE_COMMENT = "# Path of the PyRat workspace, relative to this file, so that games can import players"
+
 # Description written in the "pyproject.toml" file of the created workspaces
 WORKSPACE_DESCRIPTION = "Workspace for the PyRat software"
 
@@ -62,6 +65,7 @@ def init_workspace ( target_directory:  str = "pyrat_workspace",
     The workspace is initialized with ``uv init``, which fixes the Python version to use and creates the files needed by uv.
     Then, a few default programs are added to start with, and the PyRat library is added to the dependencies of the workspace.
     This function also takes care of adding the workspace to the Python path of its virtual environment, so that players can be imported from games.
+    The path is registered relatively to the virtual environment, which is located in the workspace, so that the workspace can be moved or renamed afterwards.
     If the workspace already exists, its contents are not modified, but we make sure it is a uv project with PyRat available anyway.
 
     Args:
@@ -107,9 +111,11 @@ def init_workspace ( target_directory:  str = "pyrat_workspace",
     print("PyRat added to the dependencies of the workspace", file=sys.stderr)
 
     # Add the workspace to the Python path of its virtual environment, so that players can be imported from games
+    # The path is written relatively to the file that contains it, which lives in the workspace, so that moving or renaming the workspace does not break it
     site_packages = _workspace_site_packages(target_workspace)
+    relative_workspace = os.path.relpath(os.path.realpath(target_workspace), os.path.realpath(site_packages))
     with open(os.path.join(site_packages, PATH_FILE_NAME), "w", encoding="utf-8") as pth_file:
-        pth_file.write(target_workspace + "\n")
+        pth_file.write(PATH_FILE_COMMENT + "\n" + relative_workspace + "\n")
     if os.path.realpath(site_packages) == os.path.realpath(sysconfig.get_paths()["purelib"]):
         site.addsitedir(site_packages)
     print("Workspace added to Python path", file=sys.stderr)

@@ -123,7 +123,8 @@ Here is what this directory contains:
 
    The command registers the path of your workspace in its virtual environment.
    This is what allows a script in ``games`` to import a player from ``players``.
-   If you move or rename the workspace, or if you get it from a Git repository, just run the same command again on that directory to repair it.
+   The path is registered relatively to the ``.venv`` directory, so you can move or rename your workspace later on without breaking anything.
+   If you get your workspace from a Git repository, or if you delete its ``.venv`` directory, just run the same command again on that directory to recreate it.
 
 Step 3 -- Check your installation
 ---------------------------------
@@ -175,7 +176,7 @@ Troubleshooting
    :icon: alert
 
    The path of your workspace is no longer registered in its virtual environment.
-   This happens when the workspace is moved, renamed, or cloned from a Git repository.
+   This happens when the workspace comes with no ``.venv`` directory, typically when it is cloned from a Git repository.
 
    Run ``uvx --from pyrat-game pyrat-init`` again on that directory.
    It does not touch your files: it only recreates the ``.venv`` and registers the path again.
