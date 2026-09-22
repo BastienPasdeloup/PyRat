@@ -20,7 +20,7 @@ It is a [uv](https://docs.astral.sh/uv) project, which means that uv takes care 
   It is installed as a package in the virtual environment of your workspace, which is what lets your programs import each other.
 
 - `pyrat_workspace/players/` contains the programs that control a character in a game. \
-  A few random players are provided as examples, as well as a `TemplatePlayer.py` file to start your own.
+  A few random players are provided as examples, as well as a `template_player.py` file to start your own.
 
 - `pyrat_workspace/games/` contains the scripts that create a game and make players compete in it. \
   Start with `sample_game.py` to check that everything works.

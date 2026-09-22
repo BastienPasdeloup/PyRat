@@ -59,7 +59,7 @@ Documentation
 The program starts with a global documentation that explains what it contains.
 It is always good to add a small text like this, for you (or the other users of you code) to remember what you do.
 Also, this particular type of comments (``""" ... """``) is parsed when producing the documentation files, as you did during installation.
-You will find multiple places in ``Random1.py`` with documentation.
+You will find multiple places in ``random1.py`` with documentation.
 In the following blocks of code, we will drop them for readability.
 
 .. code-block:: python
@@ -68,7 +68,7 @@ In the following blocks of code, we will drop them for readability.
     # It describes a player that can be used in a PyRat game.
     # It is meant to be used as a library, and not to be executed directly.
     # Please import this file from a game script using the following syntax:
-    #     from players.Random1 import Random1
+    #     from pyrat_workspace.players.random1 import Random1
 
     """
     This module provides a player that performs random actions in a PyRat game.
@@ -187,7 +187,7 @@ Let's do that for the sake of this tutorial.
 
        # PyRat imports
        from pyrat import Game
-       from players.Random1 import Random1
+       from pyrat_workspace.players.random1 import Random1
 
        # Instantiate a game with a few arguments
        game = Game(maze_width=15, maze_height=13, nb_cheese=1)
@@ -220,7 +220,7 @@ To obtain this information, we will use the arguments provided by the PyRat game
 Definition of the Class
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Let's start from file ``Random1.py`` to build file ``Random2.py``.
+Let's start from file ``random1.py`` to build file ``random2.py``.
 First, we change the class name to ``Random2``:
 
 .. code-block:: python
@@ -287,7 +287,7 @@ Here is the complete code of the game script:
 
     # PyRat imports
     from pyrat import Game
-    from players.Random2 import Random2
+    from pyrat_workspace.players.random2 import Random2
 
     # Instantiate a game with a few arguments
     game = Game(maze_width=15, maze_height=13, nb_cheese=1)
@@ -322,7 +322,7 @@ At each turn, we will add the current cell to this set of visited cells.
 Definition of the Class
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Let's start from file ``Random2.py`` to build file ``Random3.py``.
+Let's start from file ``random2.py`` to build file ``random3.py``.
 First, we change the class name to ``Random3``:
 
 .. code-block:: python
@@ -438,7 +438,7 @@ Here is the complete code of the game script:
 
     # PyRat imports
     from pyrat import Game
-    from players.Random3 import Random3
+    from pyrat_workspace.players.random3 import Random3
 
     # Instantiate a game with a few arguments
     game = Game(maze_width=15, maze_height=13, nb_cheese=1)
@@ -471,7 +471,7 @@ This attribute will be a reduced version of the maze, where dead-ends have been 
 Definition of the Class
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Let's start from file ``Random3.py`` to build file ``Random4.py``.
+Let's start from file ``random3.py`` to build file ``random4.py``.
 First, we change the class name to ``Random4``:
 
 .. code-block:: python
@@ -583,7 +583,7 @@ Let's also reduce a bit the number of cells to have more dead-ends in the maze, 
 
     # PyRat imports
     from pyrat import Game
-    from players.Random4 import Random4
+    from pyrat_workspace.players.random4 import Random4
 
     # Instantiate a game with a few arguments
     game = Game(maze_width=15, maze_height=13, nb_cheese=1, cell_percentage=70.0)
@@ -626,10 +626,10 @@ You can save it in a file called ``evaluate_random_players.py`` in the ``games``
 
     # PyRat imports
     from pyrat import Game, GameMode
-    from players.Random1 import Random1
-    from players.Random2 import Random2
-    from players.Random3 import Random3
-    from players.Random4 import Random4
+    from pyrat_workspace.players.random1 import Random1
+    from pyrat_workspace.players.random2 import Random2
+    from pyrat_workspace.players.random3 import Random3
+    from pyrat_workspace.players.random4 import Random4
 
     # Determines how many games will be played for each player
     nb_games = 1000

@@ -24,10 +24,10 @@ import pprint
 
 # PyRat imports
 from pyrat import Game, StartingLocation
-from pyrat_workspace.players.Random1 import Random1
-from pyrat_workspace.players.Random2 import Random2
-from pyrat_workspace.players.Random3 import Random3
-from pyrat_workspace.players.Random4 import Random4
+from pyrat_workspace.players.random1 import Random1
+from pyrat_workspace.players.random2 import Random2
+from pyrat_workspace.players.random3 import Random3
+from pyrat_workspace.players.random4 import Random4
 
 ##########################################################################################
 ######################################### SCRIPT #########################################

@@ -1,6 +1,6 @@
 Random1
 =======
 
-.. automodule:: Random1
+.. automodule:: random1
    :members:
    :undoc-members:

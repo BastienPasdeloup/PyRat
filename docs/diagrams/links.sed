@@ -47,15 +47,15 @@ s~(HREF|URL|headURL|tailURL|labelURL)="PlayerSkin"~\1="@DOCS_ROOT@pyrat/enums.ht
 s~(HREF|URL|headURL|tailURL|labelURL)="RandomMazeAlgorithm"~\1="@DOCS_ROOT@pyrat/enums.html#pyrat.src.game.enums.RandomMazeAlgorithm"~g
 s~(HREF|URL|headURL|tailURL|labelURL)="StartingLocation"~\1="@DOCS_ROOT@pyrat/enums.html#pyrat.src.game.enums.StartingLocation"~g
 # Players of the workspace
-s~(HREF|URL|headURL|tailURL|labelURL)="TemplatePlayer#~\1="@DOCS_ROOT@workspace/players/TemplatePlayer.html#TemplatePlayer.TemplatePlayer.~g
+s~(HREF|URL|headURL|tailURL|labelURL)="TemplatePlayer#~\1="@DOCS_ROOT@workspace/players/TemplatePlayer.html#template_player.TemplatePlayer.~g
 s~(HREF|URL|headURL|tailURL|labelURL)="TemplatePlayer"~\1="@DOCS_ROOT@workspace/players/TemplatePlayer.html"~g
-s~(HREF|URL|headURL|tailURL|labelURL)="Random1#~\1="@DOCS_ROOT@workspace/players/Random1.html#Random1.Random1.~g
+s~(HREF|URL|headURL|tailURL|labelURL)="Random1#~\1="@DOCS_ROOT@workspace/players/Random1.html#random1.Random1.~g
 s~(HREF|URL|headURL|tailURL|labelURL)="Random1"~\1="@DOCS_ROOT@workspace/players/Random1.html"~g
-s~(HREF|URL|headURL|tailURL|labelURL)="Random2#~\1="@DOCS_ROOT@workspace/players/Random2.html#Random2.Random2.~g
+s~(HREF|URL|headURL|tailURL|labelURL)="Random2#~\1="@DOCS_ROOT@workspace/players/Random2.html#random2.Random2.~g
 s~(HREF|URL|headURL|tailURL|labelURL)="Random2"~\1="@DOCS_ROOT@workspace/players/Random2.html"~g
-s~(HREF|URL|headURL|tailURL|labelURL)="Random3#~\1="@DOCS_ROOT@workspace/players/Random3.html#Random3.Random3.~g
+s~(HREF|URL|headURL|tailURL|labelURL)="Random3#~\1="@DOCS_ROOT@workspace/players/Random3.html#random3.Random3.~g
 s~(HREF|URL|headURL|tailURL|labelURL)="Random3"~\1="@DOCS_ROOT@workspace/players/Random3.html"~g
-s~(HREF|URL|headURL|tailURL|labelURL)="Random4#~\1="@DOCS_ROOT@workspace/players/Random4.html#Random4.Random4.~g
+s~(HREF|URL|headURL|tailURL|labelURL)="Random4#~\1="@DOCS_ROOT@workspace/players/Random4.html#random4.Random4.~g
 s~(HREF|URL|headURL|tailURL|labelURL)="Random4"~\1="@DOCS_ROOT@workspace/players/Random4.html"~g
 # Games of the workspace
 s~(HREF|URL|headURL|tailURL|labelURL)="sample_game"~\1="@DOCS_ROOT@workspace/games/sample_game.html"~g

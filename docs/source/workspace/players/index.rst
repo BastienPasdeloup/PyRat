@@ -6,8 +6,8 @@ In PyRat, you define the behavior of a player by creating a class that inherits 
 This class must implement the methods that define how the player behaves in the game.
 In the default workspace, you will find a few sample players that you can use as a template to create your own players:
 
-- ``TemplatePlayer`` shows the minimal implementation of a player, and is the file to copy when you start a new one.
-- ``Random1`` to ``Random4`` are four players that move at random, each one smarter than the previous one.
+- ``TemplatePlayer``, in ``template_player.py``, shows the minimal implementation of a player, and is the file to copy when you start a new one.
+- ``Random1`` to ``Random4``, in ``random1.py`` to ``random4.py``, are four players that move at random, each one smarter than the previous one.
 
 .. tip::
 

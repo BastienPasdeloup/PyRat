@@ -205,19 +205,19 @@
 </g>
 <text xml:space="preserve" text-anchor="start" x="459.12" y="-155.14" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#e6e6e6">does nothing, the file to copy for a new player</text>
 <polygon fill="none" stroke="#7cc48a" points="441.88,-81.89 441.88,-147.89 660.12,-147.89 660.12,-81.89 441.88,-81.89"/>
-<g id="a_node5_21"><a xlink:href="../workspace/players/TemplatePlayer.html#TemplatePlayer.TemplatePlayer.__init__">
+<g id="a_node5_21"><a xlink:href="../workspace/players/TemplatePlayer.html#template_player.TemplatePlayer.__init__">
 <text xml:space="preserve" text-anchor="start" x="447.88" y="-132.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ __init__(*args, **kwargs)</text>
 </a>
 </g>
-<g id="a_node5_22"><a xlink:href="../workspace/players/TemplatePlayer.html#TemplatePlayer.TemplatePlayer.preprocessing">
+<g id="a_node5_22"><a xlink:href="../workspace/players/TemplatePlayer.html#template_player.TemplatePlayer.preprocessing">
 <text xml:space="preserve" text-anchor="start" x="447.88" y="-118.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ preprocessing(maze, game_state)</text>
 </a>
 </g>
-<g id="a_node5_23"><a xlink:href="../workspace/players/TemplatePlayer.html#TemplatePlayer.TemplatePlayer.turn">
+<g id="a_node5_23"><a xlink:href="../workspace/players/TemplatePlayer.html#template_player.TemplatePlayer.turn">
 <text xml:space="preserve" text-anchor="start" x="447.88" y="-104.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ turn(maze, game_state) : Action</text>
 </a>
 </g>
-<g id="a_node5_24"><a xlink:href="../workspace/players/TemplatePlayer.html#TemplatePlayer.TemplatePlayer.postprocessing">
+<g id="a_node5_24"><a xlink:href="../workspace/players/TemplatePlayer.html#template_player.TemplatePlayer.postprocessing">
 <text xml:space="preserve" text-anchor="start" x="447.88" y="-90.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ postprocessing(maze, game_state, stats)</text>
 </a>
 </g>
@@ -233,15 +233,15 @@
 </g>
 <text xml:space="preserve" text-anchor="start" x="784.75" y="-155.14" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#e6e6e6">moves at random</text>
 <polygon fill="none" stroke="#7cc48a" points="732.62,-95.89 732.62,-147.89 907.38,-147.89 907.38,-95.89 732.62,-95.89"/>
-<g id="a_node6_26"><a xlink:href="../workspace/players/Random1.html#Random1.Random1.__init__">
+<g id="a_node6_26"><a xlink:href="../workspace/players/Random1.html#random1.Random1.__init__">
 <text xml:space="preserve" text-anchor="start" x="738.62" y="-132.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ __init__(*args, **kwargs)</text>
 </a>
 </g>
-<g id="a_node6_27"><a xlink:href="../workspace/players/Random1.html#Random1.Random1.turn">
+<g id="a_node6_27"><a xlink:href="../workspace/players/Random1.html#random1.Random1.turn">
 <text xml:space="preserve" text-anchor="start" x="738.62" y="-118.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ turn(maze, game_state) : Action</text>
 </a>
 </g>
-<g id="a_node6_28"><a xlink:href="../workspace/players/Random1.html#Random1.Random1.find_next_action">
+<g id="a_node6_28"><a xlink:href="../workspace/players/Random1.html#random1.Random1.find_next_action">
 <text xml:space="preserve" text-anchor="start" x="738.62" y="-104.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ find_next_action() : Action</text>
 </a>
 </g>
@@ -257,15 +257,15 @@
 </g>
 <text xml:space="preserve" text-anchor="start" x="1070.88" y="-155.14" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#e6e6e6">avoids walls</text>
 <polygon fill="none" stroke="#7cc48a" points="979,-95.89 979,-147.89 1213,-147.89 1213,-95.89 979,-95.89"/>
-<g id="a_node7_30"><a xlink:href="../workspace/players/Random2.html#Random2.Random2.__init__">
+<g id="a_node7_30"><a xlink:href="../workspace/players/Random2.html#random2.Random2.__init__">
 <text xml:space="preserve" text-anchor="start" x="985" y="-132.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ __init__(*args, **kwargs)</text>
 </a>
 </g>
-<g id="a_node7_31"><a xlink:href="../workspace/players/Random2.html#Random2.Random2.turn">
+<g id="a_node7_31"><a xlink:href="../workspace/players/Random2.html#random2.Random2.turn">
 <text xml:space="preserve" text-anchor="start" x="985" y="-118.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ turn(maze, game_state) : Action</text>
 </a>
 </g>
-<g id="a_node7_32"><a xlink:href="../workspace/players/Random2.html#Random2.Random2.find_next_action">
+<g id="a_node7_32"><a xlink:href="../workspace/players/Random2.html#random2.Random2.find_next_action">
 <text xml:space="preserve" text-anchor="start" x="985" y="-104.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ find_next_action(maze, game_state) : Action</text>
 </a>
 </g>
@@ -281,24 +281,24 @@
 </g>
 <text xml:space="preserve" text-anchor="start" x="1357.75" y="-155.14" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#e6e6e6">prefers unvisited cells</text>
 <polygon fill="none" stroke="#7cc48a" points="1285,-123.89 1285,-147.89 1519,-147.89 1519,-123.89 1285,-123.89"/>
-<g id="a_node8_34"><a xlink:href="../workspace/players/Random3.html#Random3.Random3.__init__">
+<g id="a_node8_34"><a xlink:href="../workspace/players/Random3.html#random3.Random3.__init__">
 <text xml:space="preserve" text-anchor="start" x="1291" y="-132.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ visited_cells : set[int]</text>
 </a>
 </g>
 <polygon fill="none" stroke="#7cc48a" points="1285,-57.89 1285,-123.89 1519,-123.89 1519,-57.89 1285,-57.89"/>
-<g id="a_node8_35"><a xlink:href="../workspace/players/Random3.html#Random3.Random3.__init__">
+<g id="a_node8_35"><a xlink:href="../workspace/players/Random3.html#random3.Random3.__init__">
 <text xml:space="preserve" text-anchor="start" x="1291" y="-108.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ __init__(*args, **kwargs)</text>
 </a>
 </g>
-<g id="a_node8_36"><a xlink:href="../workspace/players/Random3.html#Random3.Random3.preprocessing">
+<g id="a_node8_36"><a xlink:href="../workspace/players/Random3.html#random3.Random3.preprocessing">
 <text xml:space="preserve" text-anchor="start" x="1291" y="-94.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ preprocessing(maze, game_state)</text>
 </a>
 </g>
-<g id="a_node8_37"><a xlink:href="../workspace/players/Random3.html#Random3.Random3.turn">
+<g id="a_node8_37"><a xlink:href="../workspace/players/Random3.html#random3.Random3.turn">
 <text xml:space="preserve" text-anchor="start" x="1291" y="-80.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ turn(maze, game_state) : Action</text>
 </a>
 </g>
-<g id="a_node8_38"><a xlink:href="../workspace/players/Random3.html#Random3.Random3.find_next_action">
+<g id="a_node8_38"><a xlink:href="../workspace/players/Random3.html#random3.Random3.find_next_action">
 <text xml:space="preserve" text-anchor="start" x="1291" y="-66.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ find_next_action(maze, game_state) : Action</text>
 </a>
 </g>
@@ -314,32 +314,32 @@
 </g>
 <text xml:space="preserve" text-anchor="start" x="1683.88" y="-155.14" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#e6e6e6">also avoids dead ends</text>
 <polygon fill="none" stroke="#7cc48a" points="1590.88,-109.89 1590.88,-147.89 1869.12,-147.89 1869.12,-109.89 1590.88,-109.89"/>
-<g id="a_node9_40"><a xlink:href="../workspace/players/Random4.html#Random4.Random4.__init__">
+<g id="a_node9_40"><a xlink:href="../workspace/players/Random4.html#random4.Random4.__init__">
 <text xml:space="preserve" text-anchor="start" x="1596.88" y="-132.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ visited_cells : set[int]</text>
 </a>
 </g>
-<g id="a_node9_41"><a xlink:href="../workspace/players/Random4.html#Random4.Random4.__init__">
+<g id="a_node9_41"><a xlink:href="../workspace/players/Random4.html#random4.Random4.__init__">
 <text xml:space="preserve" text-anchor="start" x="1596.88" y="-118.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ reduced_maze : Maze</text>
 </a>
 </g>
 <polygon fill="none" stroke="#7cc48a" points="1590.88,-29.89 1590.88,-109.89 1869.12,-109.89 1869.12,-29.89 1590.88,-29.89"/>
-<g id="a_node9_42"><a xlink:href="../workspace/players/Random4.html#Random4.Random4.__init__">
+<g id="a_node9_42"><a xlink:href="../workspace/players/Random4.html#random4.Random4.__init__">
 <text xml:space="preserve" text-anchor="start" x="1596.88" y="-94.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ __init__(*args, **kwargs)</text>
 </a>
 </g>
-<g id="a_node9_43"><a xlink:href="../workspace/players/Random4.html#Random4.Random4.preprocessing">
+<g id="a_node9_43"><a xlink:href="../workspace/players/Random4.html#random4.Random4.preprocessing">
 <text xml:space="preserve" text-anchor="start" x="1596.88" y="-80.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ preprocessing(maze, game_state)</text>
 </a>
 </g>
-<g id="a_node9_44"><a xlink:href="../workspace/players/Random4.html#Random4.Random4.turn">
+<g id="a_node9_44"><a xlink:href="../workspace/players/Random4.html#random4.Random4.turn">
 <text xml:space="preserve" text-anchor="start" x="1596.88" y="-66.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ turn(maze, game_state) : Action</text>
 </a>
 </g>
-<g id="a_node9_45"><a xlink:href="../workspace/players/Random4.html#Random4.Random4.find_next_action">
+<g id="a_node9_45"><a xlink:href="../workspace/players/Random4.html#random4.Random4.find_next_action">
 <text xml:space="preserve" text-anchor="start" x="1596.88" y="-52.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ find_next_action(maze, game_state) : Action</text>
 </a>
 </g>
-<g id="a_node9_46"><a xlink:href="../workspace/players/Random4.html#Random4.Random4.remove_dead_ends">
+<g id="a_node9_46"><a xlink:href="../workspace/players/Random4.html#random4.Random4.remove_dead_ends">
 <text xml:space="preserve" text-anchor="start" x="1596.88" y="-38.89" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#e6e6e6">+ remove_dead_ends(maze, locations_to_keep) : Maze</text>
 </a>
 </g>

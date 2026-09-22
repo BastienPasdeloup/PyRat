@@ -43,7 +43,7 @@ PYRAT_REQUIREMENT = "pyrat-game"
 WORKSPACE_PACKAGE_NAME = "pyrat_workspace"
 
 # Configuration added to the "pyproject.toml" file of the workspaces, so that they are installed in their virtual environment
-# Installing the workspace is what makes its package importable from anywhere, as in "from pyrat_workspace.players.Random1 import Random1"
+# Installing the workspace is what makes its package importable from anywhere, as in "from pyrat_workspace.players.random1 import Random1"
 # uv installs it in editable mode, so the files that run are the ones the student edits, and directories added later need no new declaration
 BUILD_CONFIGURATION = '''
 [build-system]
@@ -124,7 +124,7 @@ def init_workspace ( target_directory:  str = "pyrat_workspace",
         print(f"Workspace {target_workspace} already exists, its contents were left unchanged", file=sys.stderr)
 
     # Make the workspace installable, so that its package becomes available in its virtual environment
-    # This is what allows games to import players, as in "from pyrat_workspace.players.Random1 import Random1"
+    # This is what allows games to import players, as in "from pyrat_workspace.players.random1 import Random1"
     if _add_build_configuration(target_workspace):
         print("Workspace configured to be installed in its virtual environment", file=sys.stderr)
 

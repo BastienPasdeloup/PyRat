@@ -149,7 +149,7 @@ Let's extend the code above with this script:
 
     # Pyrat imports
     from pyrat import Game, MazeFromDict
-    from players.Random1 import Random1
+    from pyrat_workspace.players.random1 import Random1
 
     # Define the maze as a dictionary
     maze_dict = {
@@ -199,7 +199,7 @@ For instance, let's say you want to place the cheese pieces at vertices 1 and 5,
 
     # Pyrat imports
     from pyrat import Game, MazeFromDict
-    from players.Random1 import Random1
+    from pyrat_workspace.players.random1 import Random1
 
     # Define the maze as a dictionary
     maze_dict = {

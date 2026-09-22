@@ -23,8 +23,8 @@ import pprint
 
 # PyRat imports
 from pyrat import Game, PlayerSkin
-from pyrat_workspace.players.Random2 import Random2
-from pyrat_workspace.players.Random3 import Random3
+from pyrat_workspace.players.random2 import Random2
+from pyrat_workspace.players.random3 import Random3
 
 ##########################################################################################
 ######################################### SCRIPT #########################################

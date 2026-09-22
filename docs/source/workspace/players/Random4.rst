@@ -1,6 +1,6 @@
 Random4
 =======
 
-.. automodule:: Random4
+.. automodule:: random4
    :members:
    :undoc-members:

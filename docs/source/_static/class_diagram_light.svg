@@ -335,24 +335,24 @@
 </g>
 <text xml:space="preserve" text-anchor="start" x="42.88" y="-1189.44" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#1f1f1f">TemplatePlayer, Random1 … Random4, …</text>
 <polygon fill="none" stroke="#3f7d4a" points="21.88,-1158.19 21.88,-1182.19 240.12,-1182.19 240.12,-1158.19 21.88,-1158.19"/>
-<g id="a_node3_52"><a xlink:href="../workspace/players/TemplatePlayer.html#TemplatePlayer.TemplatePlayer.__init__">
+<g id="a_node3_52"><a xlink:href="../workspace/players/TemplatePlayer.html#template_player.TemplatePlayer.__init__">
 <text xml:space="preserve" text-anchor="start" x="27.88" y="-1167.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; your attributes</text>
 </a>
 </g>
 <polygon fill="none" stroke="#3f7d4a" points="21.88,-1078.19 21.88,-1158.19 240.12,-1158.19 240.12,-1078.19 21.88,-1078.19"/>
-<g id="a_node3_53"><a xlink:href="../workspace/players/TemplatePlayer.html#TemplatePlayer.TemplatePlayer.__init__">
+<g id="a_node3_53"><a xlink:href="../workspace/players/TemplatePlayer.html#template_player.TemplatePlayer.__init__">
 <text xml:space="preserve" text-anchor="start" x="27.88" y="-1143.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ __init__(*args, **kwargs)</text>
 </a>
 </g>
-<g id="a_node3_54"><a xlink:href="../workspace/players/TemplatePlayer.html#TemplatePlayer.TemplatePlayer.preprocessing">
+<g id="a_node3_54"><a xlink:href="../workspace/players/TemplatePlayer.html#template_player.TemplatePlayer.preprocessing">
 <text xml:space="preserve" text-anchor="start" x="27.88" y="-1129.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ preprocessing(maze, game_state)</text>
 </a>
 </g>
-<g id="a_node3_55"><a xlink:href="../workspace/players/TemplatePlayer.html#TemplatePlayer.TemplatePlayer.turn">
+<g id="a_node3_55"><a xlink:href="../workspace/players/TemplatePlayer.html#template_player.TemplatePlayer.turn">
 <text xml:space="preserve" text-anchor="start" x="27.88" y="-1115.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ turn(maze, game_state) : Action</text>
 </a>
 </g>
-<g id="a_node3_56"><a xlink:href="../workspace/players/TemplatePlayer.html#TemplatePlayer.TemplatePlayer.postprocessing">
+<g id="a_node3_56"><a xlink:href="../workspace/players/TemplatePlayer.html#template_player.TemplatePlayer.postprocessing">
 <text xml:space="preserve" text-anchor="start" x="27.88" y="-1101.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ postprocessing(maze, game_state, stats)</text>
 </a>
 </g>
