@@ -42,7 +42,8 @@ PYTHON_VERSION = ">=3.12,<3.14"
 PYRAT_REQUIREMENT = "pyrat-game"
 
 # Directory in which a workspace is created when none is given, unless the command is run from an existing workspace
-DEFAULT_WORKSPACE_DIRECTORY = "pyrat_workspace"
+# It is not named after the package it contains, so that the two are told apart when reading a path such as "pyrat_project/pyrat_workspace/players"
+DEFAULT_WORKSPACE_DIRECTORY = "pyrat_project"
 
 # Name of the package that contains the programs of a workspace
 # Its directories, such as "players" and "games", are subpackages, and so are those the student creates
@@ -94,7 +95,7 @@ def init_workspace ( target_directory:  str | None = None,
     Running this on a workspace that already exists repairs it: the programs of the student are left untouched, but the workspace is given a brand new virtual environment.
     That environment is created relocatable, so that renaming or moving the workspace keeps its commands working, and everything the workspace declares is installed in it again.
     This is how a workspace is fixed when its virtual environment was damaged, or when it was recreated by uv itself and thus lost the ability to be moved around.
-    When no directory is given, the workspace to repair is the current directory if it is already a PyRat workspace, and a new workspace is created in a ``pyrat_workspace`` directory otherwise.
+    When no directory is given, the workspace to repair is the current directory if it is already a PyRat workspace, and a new workspace is created in a ``pyrat_project`` directory otherwise.
 
     Args:
         target_directory:  The directory in which to create the workspace, or ``None`` to determine it from the current directory.

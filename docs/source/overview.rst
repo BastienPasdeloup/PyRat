@@ -62,12 +62,12 @@ Starting a PyRat Game
 
       .. code-block:: shell
 
-         cd pyrat_workspace
+         cd pyrat_project
          uv run pyrat_workspace/games/sample_game.py
 
    .. tab-item:: From VSCode
 
-      1. Open VSCode, and add your ``pyrat_workspace`` directory in your VSCode workspace.
+      1. Open VSCode, and add your ``pyrat_project`` directory in your VSCode workspace.
       2. Open the file ``sample_game.py`` in directory ``pyrat_workspace/games/``.
       3. Make sure VSCode is using the interpreter located in the ``.venv`` directory of your workspace.
       4. Run ``sample_game.py``.

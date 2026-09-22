@@ -16,7 +16,7 @@ If you are in a hurry, and already have `uv <https://docs.astral.sh/uv>`_ instal
 .. code-block:: shell
 
    uvx --from pyrat-game pyrat-init
-   cd pyrat_workspace
+   cd pyrat_project
    uv run pyrat_workspace/games/sample_game.py
 
 The rest of this page explains each of these steps.
@@ -87,9 +87,9 @@ You should see something like this:
 
 .. code-block:: text
 
-   Initialized project `pyrat-workspace` at `/path/to/pyrat_workspace`
+   Initialized project `pyrat-project` at `/path/to/pyrat_project`
    Workspace initialized as a uv project using Python >=3.12,<3.14
-   Workspace created in /path/to/pyrat_workspace
+   Workspace created in /path/to/pyrat_project
    Workspace configured to be installed in its virtual environment
    Using CPython 3.13.13
    Creating virtual environment at: .venv
@@ -98,19 +98,19 @@ You should see something like this:
    Installed 19 packages in 45ms
    PyRat added to the dependencies of the workspace
    Your workspace is ready! You can now start coding your players and run games.
-   To run a game, go to the workspace using 'cd pyrat_workspace', then use for instance 'uv run pyrat_workspace/games/sample_game.py'.
+   To run a game, go to the workspace using 'cd pyrat_project', then use for instance 'uv run pyrat_workspace/games/sample_game.py'.
 
-You should have a new directory called ``pyrat_workspace`` in the directory where you ran the command.
+You should have a new directory called ``pyrat_project`` in the directory where you ran the command.
 
 .. tip::
 
-   If you prefer another name, pass it to the command, as in ``uvx --from pyrat-game pyrat-init my_workspace``.
+   If you prefer another name, pass it to the command, as in ``uvx --from pyrat-game pyrat-init my_project``.
 
 Here is what this directory contains:
 
 .. code-block:: text
 
-   pyrat_workspace
+   pyrat_project
    |_ pyrat_workspace     # Your programs, installed as a package in the virtual environment
    |  |_ games            # The scripts that start a game
    |  |_ players          # The programs that control a character
@@ -137,7 +137,7 @@ Now, we are going to verify that PyRat works properly.
 
    .. tab-item:: From a terminal
 
-      1. Open a terminal, and navigate to your workspace using ``cd pyrat_workspace``.
+      1. Open a terminal, and navigate to your workspace using ``cd pyrat_project``.
       2. Run the sample game:
 
          .. code-block:: shell
@@ -146,7 +146,7 @@ Now, we are going to verify that PyRat works properly.
 
    .. tab-item:: From VSCode
 
-      1. Open VSCode, and add your ``pyrat_workspace`` directory in your VSCode workspace.
+      1. Open VSCode, and add your ``pyrat_project`` directory in your VSCode workspace.
       2. Open the file ``sample_game.py`` in directory ``pyrat_workspace/games/``.
       3. Make sure VSCode is using the interpreter located in the ``.venv`` directory of your workspace.
       4. Run ``sample_game.py``.
