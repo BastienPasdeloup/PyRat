@@ -21,10 +21,8 @@ It is created from a terminal using the ``pyrat-init`` command, which is install
 import argparse
 import os
 import shutil
-import site
 import subprocess
 import sys
-import sysconfig
 
 # PyRat imports
 from pyrat.src.game.exceptions import PyRatException
@@ -40,11 +38,30 @@ PYTHON_VERSION = ">=3.12,<3.14"
 # Requirement added to the dependencies of the workspaces to make the PyRat library available
 PYRAT_REQUIREMENT = "pyrat-game"
 
-# Name of the file that adds the workspace to the Python path of its virtual environment
-PATH_FILE_NAME = "pyrat_workspace_path.pth"
+# Name of the package that contains the programs of a workspace
+# Its directories, such as "players" and "games", are subpackages, and so are those the student creates
+WORKSPACE_PACKAGE_NAME = "pyrat_workspace"
 
-# Comment written in that file, to explain its contents to whoever opens it
-PATH_FILE_COMMENT = "# Path of the PyRat workspace, relative to this file, so that games can import players"
+# Configuration added to the "pyproject.toml" file of the workspaces, so that they are installed in their virtual environment
+# Installing the workspace is what makes its package importable from anywhere, as in "from pyrat_workspace.players.Random1 import Random1"
+# uv installs it in editable mode, so the files that run are the ones the student edits, and directories added later need no new declaration
+BUILD_CONFIGURATION = '''
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["{package}"]
+
+[tool.uv]
+package = true
+'''
+
+# Name of the virtual environment directory of a workspace, and of the script in it that records the directory it was created for
+# A virtual environment contains absolute paths, so it stops working when the workspace is renamed or moved, and has to be created again
+VENV_DIRECTORY_NAME = ".venv"
+VENV_MARKER_FILES = [os.path.join("bin", "activate"), os.path.join("Scripts", "activate")]
+VENV_MARKER_VARIABLE = "VIRTUAL_ENV="
 
 # Description written in the "pyproject.toml" file of the created workspaces
 WORKSPACE_DESCRIPTION = "Workspace for the PyRat software"
@@ -64,8 +81,9 @@ def init_workspace ( target_directory:  str = "pyrat_workspace",
     Creates a clean student workspace, as a `uv <https://docs.astral.sh/uv>`_ project.
     The workspace is initialized with ``uv init``, which fixes the Python version to use and creates the files needed by uv.
     Then, a few default programs are added to start with, and the PyRat library is added to the dependencies of the workspace.
-    This function also takes care of adding the workspace to the Python path of its virtual environment, so that players can be imported from games.
-    The path is registered relatively to the virtual environment, which is located in the workspace, so that the workspace can be moved or renamed afterwards.
+    This function also takes care of making the workspace installable, so that its package is available in its virtual environment and players can be imported from games.
+    The workspace is installed in editable mode, so that the files run are always the ones the student edits, and it is reinstalled by uv whenever it is needed.
+    The programs live in a ``pyrat_workspace`` package, whose subdirectories, including those the student creates later, are importable without any further declaration.
     If the workspace already exists, its contents are not modified, but we make sure it is a uv project with PyRat available anyway.
 
     Args:
@@ -105,24 +123,23 @@ def init_workspace ( target_directory:  str = "pyrat_workspace",
     else:
         print(f"Workspace {target_workspace} already exists, its contents were left unchanged", file=sys.stderr)
 
+    # Make the workspace installable, so that its package becomes available in its virtual environment
+    # This is what allows games to import players, as in "from pyrat_workspace.players.Random1 import Random1"
+    if _add_build_configuration(target_workspace):
+        print("Workspace configured to be installed in its virtual environment", file=sys.stderr)
+
+    # Create the virtual environment again if it was made for another directory, as renaming or moving a workspace breaks the paths it contains
+    if _reset_moved_virtual_environment(target_workspace):
+        print("Virtual environment was created for another directory, it will be created again", file=sys.stderr)
+
     # Add PyRat to the dependencies of the workspace
-    # This also creates the virtual environment of the workspace if needed
+    # This also creates the virtual environment of the workspace if needed, and installs the workspace in it
     _run_uv(["add", pyrat_requirement], cwd=target_workspace)
     print("PyRat added to the dependencies of the workspace", file=sys.stderr)
 
-    # Add the workspace to the Python path of its virtual environment, so that players can be imported from games
-    # The path is written relatively to the file that contains it, which lives in the workspace, so that moving or renaming the workspace does not break it
-    site_packages = _workspace_site_packages(target_workspace)
-    relative_workspace = os.path.relpath(os.path.realpath(target_workspace), os.path.realpath(site_packages))
-    with open(os.path.join(site_packages, PATH_FILE_NAME), "w", encoding="utf-8") as pth_file:
-        pth_file.write(PATH_FILE_COMMENT + "\n" + relative_workspace + "\n")
-    if os.path.realpath(site_packages) == os.path.realpath(sysconfig.get_paths()["purelib"]):
-        site.addsitedir(site_packages)
-    print("Workspace added to Python path", file=sys.stderr)
-
     # Confirmation
     print("Your workspace is ready! You can now start coding your players and run games.", file=sys.stderr)
-    print(f"To run a game, go to the workspace using 'cd {target_directory}', then use for instance 'uv run games/sample_game.py'.", file=sys.stderr)
+    print(f"To run a game, go to the workspace using 'cd {target_directory}', then use for instance 'uv run {WORKSPACE_PACKAGE_NAME}/games/sample_game.py'.", file=sys.stderr)
 
 ##########################################################################################
 
@@ -209,34 +226,85 @@ def _run_uv ( arguments:      list[str],
 
 ##########################################################################################
 
-def _workspace_site_packages ( target_workspace: str
-                             ) ->                str:
+def _add_build_configuration ( target_workspace: str
+                             ) ->                bool:
 
     """
-    Returns the directory where dependencies are installed in the virtual environment of a workspace.
-    We ask uv rather than building the path ourselves, as it depends on the operating system and on the Python version.
+    Adds to the ``pyproject.toml`` file of a workspace the configuration that makes it installable.
+    Once installed, the package of the workspace is available in its virtual environment, so games can import players from anywhere.
+    uv installs the workspace in editable mode, which means that the files run are always the ones the student edits.
+    Nothing is written if the file already describes how to build the workspace, so that a customized configuration is preserved.
 
     Args:
         target_workspace: The directory of the workspace.
 
     Returns:
-        The site-packages directory of the virtual environment of the workspace.
-
-    Raises:
-        PyRatException: If the uv command cannot be found on the system, or if the location cannot be determined.
+        ``True`` if the configuration was added, ``False`` if the file already had one.
     """
 
     # Debug
     assert isinstance(target_workspace, str), "Argument 'target_workspace' must be a string"
 
-    # Ask the Python of the workspace where its dependencies are installed
-    command = "import sysconfig; print(sysconfig.get_paths()['purelib'])"
-    site_packages = _run_uv(["run", "python", "-c", command], cwd=target_workspace, capture_output=True).strip()
-    if not os.path.isdir(site_packages):
-        raise PyRatException(f"Could not locate the virtual environment of workspace {target_workspace}")
+    # Do nothing if the workspace already describes how it should be built
+    pyproject_file = os.path.join(target_workspace, "pyproject.toml")
+    with open(pyproject_file, "r", encoding="utf-8") as f:
+        contents = f.read()
+    if "[build-system]" in contents:
+        return False
 
-    # Done
-    return site_packages
+    # Append the configuration, making sure it starts on its own line
+    with open(pyproject_file, "a", encoding="utf-8") as f:
+        f.write(("" if contents.endswith("\n") else "\n") + BUILD_CONFIGURATION.format(package=WORKSPACE_PACKAGE_NAME))
+    return True
+
+##########################################################################################
+
+def _reset_moved_virtual_environment ( target_workspace: str
+                                     ) ->                bool:
+
+    """
+    Removes the virtual environment of a workspace when it was created for another directory.
+    A virtual environment records the absolute path it was created for, in the scripts that activate it and in the commands it installs.
+    Renaming or moving a workspace therefore leaves it with a virtual environment that no longer works, which this function detects and deletes.
+    It is then created again, with PyRat and the workspace installed in it, by the uv command that follows.
+
+    Args:
+        target_workspace: The directory of the workspace.
+
+    Returns:
+        ``True`` if a virtual environment was removed, ``False`` if there was none or if it belongs to this workspace.
+    """
+
+    # Debug
+    assert isinstance(target_workspace, str), "Argument 'target_workspace' must be a string"
+
+    # Nothing to do if the workspace has no virtual environment yet
+    venv_directory = os.path.join(target_workspace, VENV_DIRECTORY_NAME)
+    if not os.path.isdir(venv_directory):
+        return False
+
+    # Read the directory the virtual environment was created for, which its activation script records
+    # We keep the virtual environment if we cannot tell, as deleting it would make us lose the installed libraries for no reason
+    recorded_directory = None
+    for marker_file in VENV_MARKER_FILES:
+        marker_path = os.path.join(venv_directory, marker_file)
+        if not os.path.isfile(marker_path):
+            continue
+        with open(marker_path, "r", encoding="utf-8", errors="replace") as f:
+            for line in f:
+                if line.startswith(VENV_MARKER_VARIABLE):
+                    recorded_directory = line[len(VENV_MARKER_VARIABLE):].strip().strip("'\"")
+                    break
+        if recorded_directory is not None:
+            break
+    if not recorded_directory:
+        return False
+
+    # Compare with where the virtual environment actually is, and start over if they differ
+    if os.path.realpath(recorded_directory) == os.path.realpath(venv_directory):
+        return False
+    shutil.rmtree(venv_directory, ignore_errors=True)
+    return True
 
 ##########################################################################################
 

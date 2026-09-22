@@ -6,11 +6,11 @@
 # It describes a player that can be used in a PyRat game.
 # This file is meant to be imported, and not to be executed directly.
 # Please import this file from a game script using the following syntax:
-#     from players.Random2 import Random2
+#     from pyrat_workspace.players.Random1 import Random1
 
 """
 This module provides a player that performs random actions in a PyRat game.
-Contrary to the ``Random1`` player, this one takes into account the maze structure to avoid hitting walls.
+It is a simple player that does not take into account the maze structure.
 """
 
 ##########################################################################################
@@ -27,14 +27,14 @@ from pyrat import Player, Maze, GameState, Action
 ######################################### CLASSES ########################################
 ##########################################################################################
 
-class Random2 (Player):
+class Random1 (Player):
 
     """
     *(This class inherits from* ``Player`` *).*
 
-    This player is an improvement of the ``Random1`` player.
-    Contrary to that previous version, here we take into account the maze structure.
-    More precisely, we select at each turn a random move among those that don't hit a wall.
+    This player controls a PyRat character by performing random actions.
+    More precisely, at each turn, a random choice among all possible actions is selected.
+    Note that this doesn't take into account the structure of the maze.
     """
 
     ##################################################################################
@@ -83,37 +83,25 @@ class Random2 (Player):
         """
 
         # Return an action
-        action = self.find_next_action(maze, game_state)
+        action = self.find_next_action()
         return action
 
     ##################################################################################
     #                                  OTHER METHODS                                 #
     ##################################################################################
 
-    def find_next_action ( self,
-                           maze:       Maze,
-                           game_state: GameState,
-                         ) ->          Action:
+    def find_next_action (self) -> Action:
 
         """
         This method returns an action to perform among the possible actions, defined in the ``Action`` enumeration.
-        Here, the action is chosen randomly among those that don't hit a wall.
-
-        Args:
-            maze:       An object representing the maze in which the player plays.
-            game_state: An object representing the state of the game.
+        Here, the action is chosen randomly.
 
         Returns:
-            One of the possible actions that leads to a valid neighbor.
+            One of the possible actions.
         """
 
-        # Choose a random neighbor
-        my_location = game_state.player_locations[self.get_name()]
-        neighbors = maze.get_neighbors(my_location)
-        neighbor = random.choice(neighbors)
-        
-        # Retrieve the corresponding action
-        action = maze.locations_to_action(my_location, neighbor)
+        # Choose a random action to perform
+        action = random.choice(list(Action))
         return action
 
 ##########################################################################################

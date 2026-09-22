@@ -16,14 +16,21 @@ It is a [uv](https://docs.astral.sh/uv) project, which means that uv takes care 
 
 # Contents of the workspace
 
-- `players/` contains the programs that control a character in a game. \
+- `pyrat_workspace/` contains your programs. \
+  It is installed as a package in the virtual environment of your workspace, which is what lets your programs import each other.
+
+- `pyrat_workspace/players/` contains the programs that control a character in a game. \
   A few random players are provided as examples, as well as a `TemplatePlayer.py` file to start your own.
 
-- `games/` contains the scripts that create a game and make players compete in it. \
+- `pyrat_workspace/games/` contains the scripts that create a game and make players compete in it. \
   Start with `sample_game.py` to check that everything works.
 
+- Any other directory you create in `pyrat_workspace/` can be imported the same way, with nothing to declare. \
+  For instance, a file `pyrat_workspace/utils/Tools.py` is imported using `from pyrat_workspace.utils.Tools import Tools`.
+
 - `pyproject.toml`, `.python-version` and `uv.lock` are the files used by uv to describe your project. \
-  They are updated by uv, you usually do not need to edit them by hand.
+  They are updated by uv, you usually do not need to edit them by hand. \
+  uv installs your workspace in its virtual environment, so the files that run are always the ones you edit.
 
 - `.venv/` is the virtual environment of your workspace, created by uv. \
   This is where PyRat and the other libraries you add are installed.
@@ -36,7 +43,7 @@ It is a [uv](https://docs.astral.sh/uv) project, which means that uv takes care 
 From this directory, run a game as follows:
 
 ```shell
-uv run games/sample_game.py
+uv run pyrat_workspace/games/sample_game.py
 ```
 
 Note that uv installs what is missing before running the script, so you do not need to activate the virtual environment yourself.

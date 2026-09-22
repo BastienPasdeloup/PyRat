@@ -8,6 +8,6 @@ visualize_random_players
 Source Code
 -----------
 
-.. literalinclude:: ../../../../pyrat/workspace/games/visualize_random_players.py
+.. literalinclude:: ../../../../pyrat/workspace/pyrat_workspace/games/visualize_random_players.py
    :language: python
    :linenos:

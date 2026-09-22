@@ -63,7 +63,7 @@ Starting a PyRat Game
       .. code-block:: shell
 
          cd pyrat_workspace
-         uv run games/sample_game.py
+         uv run pyrat_workspace/games/sample_game.py
 
    .. tab-item:: From VSCode
 

@@ -6,7 +6,7 @@
 # It describes a script that creates a PyRat game.
 # Please import necessary elements using the following syntax:
 #     from pyrat import <element_name>
-#     from players.<player_name> import <player_name>
+#     from pyrat_workspace.players.<player_name> import <player_name>
 
 """
 This file is a script that creates a PyRat game.
@@ -23,8 +23,8 @@ import pprint
 
 # PyRat imports
 from pyrat import Game, PlayerSkin
-from players.Random2 import Random2
-from players.Random3 import Random3
+from pyrat_workspace.players.Random2 import Random2
+from pyrat_workspace.players.Random3 import Random3
 
 ##########################################################################################
 ######################################### SCRIPT #########################################
