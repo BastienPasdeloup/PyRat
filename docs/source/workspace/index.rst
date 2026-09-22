@@ -2,9 +2,9 @@ Workspace API
 =============
 
 PyRat comes with a workspace that you should use to start working on your games.
-It is created with the ``pyrat-init`` command that we ask you to run in the :doc:`installation instructions <../install>`.
+It is created with the ``pyrat-init`` command that we ask you to run in the :doc:`installation instructions <../install>`, which puts it in a ``pyrat_project`` directory.
 
-Your workspace is organized around two directories, documented in this section.
+Your programs live in the ``pyrat_workspace`` package of that directory, organized around the two subpackages documented in this section.
 
 .. grid:: 1 1 2 2
    :gutter: 3
@@ -29,7 +29,7 @@ Your workspace is organized around two directories, documented in this section.
       +++
       Your workspace comes with two of them.
 
-You can later add more directories if you want to organize your workspace differently.
+You can later add more directories in ``pyrat_workspace`` if you want to organize your programs differently, and they are importable the same way, with nothing to declare.
 Your workspace also contains the files used by `uv <https://docs.astral.sh/uv>`_ to describe the Python version and the libraries of your project, which you usually do not need to edit by hand.
 Finally, it contains a ``.gitignore`` file listing what Git should not version (the virtual environment, temporary files, etc.), so that it is ready to be put under version control.
 
