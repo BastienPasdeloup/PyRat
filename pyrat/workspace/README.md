@@ -58,6 +58,26 @@ If you need a library that is not installed yet, add it to your workspace as fol
 uv add numpy
 ```
 
+# Repair your workspace
+
+Your workspace describes everything it needs in `pyproject.toml` and `uv.lock`, so it can always be rebuilt. \
+If you rename or move it, or if one of the libraries it uses goes missing, run this from the workspace:
+
+```shell
+uv sync
+```
+
+This installs again everything your workspace declares, and makes your programs importable from wherever the workspace now is.
+
+If that is not enough, for instance because your terminal no longer finds the right Python, rebuild the environment from scratch:
+
+```shell
+uvx --from pyrat-game pyrat-init
+```
+
+Run from a workspace, this command leaves your programs untouched. \
+It replaces the `.venv` directory with a brand new one, in which everything your workspace declares is installed again.
+
 # More information
 
 - The PyRat documentation is available at [https://bastienpasdeloup.github.io/PyRat](https://bastienpasdeloup.github.io/PyRat).

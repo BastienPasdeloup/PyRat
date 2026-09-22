@@ -63,12 +63,13 @@ You should see something like this:
 Initialized project `pyrat-workspace` at `/path/to/pyrat_workspace`
 Workspace initialized as a uv project using Python >=3.12,<3.14
 Workspace created in /path/to/pyrat_workspace
+Workspace configured to be installed in its virtual environment
 Using CPython 3.13.13
 Creating virtual environment at: .venv
-Resolved 19 packages in 132ms
-Installed 18 packages in 48ms
+Clean relocatable virtual environment created for the workspace
+Resolved 20 packages in 178ms
+Installed 19 packages in 45ms
 PyRat added to the dependencies of the workspace
-Workspace added to Python path
 Your workspace is ready! You can now start coding your players and run games.
 To run a game, go to the workspace using 'cd pyrat_workspace', then use for instance 'uv run pyrat_workspace/games/sample_game.py'.
 ```
@@ -99,6 +100,21 @@ In both cases, you should see something like this:
 Your workspace is a uv project, so you can add any library you need to it. \
 To do so, run `uv add` from your workspace, as in `uv add numpy`. \
 The library is then available in your players and games, with no need to activate anything.
+
+# Repair your workspace
+
+A workspace describes everything it needs in its `pyproject.toml` and `uv.lock` files, so it can always be rebuilt. \
+If it is renamed or moved, or if one of its libraries goes missing, running `uv sync` from the workspace installs everything again and makes its programs importable from their new location.
+
+If that is not enough, run the very same command that created the workspace, from the workspace itself:
+
+```shell
+uvx --from pyrat-game pyrat-init
+```
+
+Run from a workspace, this command does not create a new one inside it, and does not touch the programs it contains. \
+It replaces the `.venv` directory with a brand new one, in which everything the workspace declares is installed again. \
+This is also how a workspace obtained from a Git repository, which comes with no `.venv` directory, is prepared.
 
 # Troubleshooting
 
