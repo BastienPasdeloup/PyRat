@@ -116,125 +116,56 @@ Your own players (in green) are the only classes you write: they inherit from ``
         - ``RenderMode.NO_RENDERING``
         - :doc:`RenderingEngine` (renders nothing)
 
-Running a game
---------------
+The packages of the library
+---------------------------
 
-.. grid:: 1 1 3 3
-   :gutter: 2
-
-   .. grid-item-card:: :doc:`Game`
-
-      The central class: it builds the maze, registers the players, runs the turns and returns the statistics.
-
-   .. grid-item-card:: :doc:`GameState`
-
-      The snapshot your player receives at each turn: scores, locations, remaining cheese, mud, turn number.
-
-   .. grid-item-card:: :doc:`enums`
-
-      All the constants you pass around, such as ``Action``, ``GameMode``, ``RenderMode`` and ``PlayerSkin``.
-
-Writing a player
-----------------
+The classes of the library are grouped in four subpackages, which also appear as gray frames in the diagram above.
+Each one has its own page, listing the classes it contains.
 
 .. grid:: 1 1 2 2
-   :gutter: 2
+   :gutter: 3
 
-   .. grid-item-card:: :doc:`Player`
+   .. grid-item-card:: ``game``
+      :link: game/index
+      :link-type: doc
 
-      The class your own players inherit from, with the ``preprocessing()``, ``turn()`` and ``postprocessing()`` methods.
+      What runs a game: the class you instantiate to start one, what your player is given at each turn, the constants you pass around, and the exception raised when a game cannot go on.
 
-   .. grid-item-card:: :doc:`FixedPlayer`
+      +++
+      ``Game``, ``GameState``, ``enums``, ``PyRatException``.
 
-      A player that replays a predefined list of actions, used in particular by the game replays saved by PyRat.
+   .. grid-item-card:: ``players``
+      :link: players/index
+      :link-type: doc
 
-Describing a maze
------------------
+      What a character in a game is: the class your own programs inherit from, and one ready-made player.
 
-.. grid:: 1 1 3 3
-   :gutter: 2
+      +++
+      ``Player``, ``FixedPlayer``.
 
-   .. grid-item-card:: :doc:`Maze`
+   .. grid-item-card:: ``mazes``
+      :link: mazes/index
+      :link-type: doc
 
-      The base class of all mazes, with the methods shared by every maze.
+      The place a game is played in: the graph a maze is built upon, the mazes you describe yourself, and the ones PyRat generates at random.
 
-   .. grid-item-card:: :doc:`Graph`
+      +++
+      ``Maze``, ``Graph``, and five kinds of maze.
 
-      The graph structure a maze is built upon, useful when you write your own path-finding code.
+   .. grid-item-card:: ``rendering``
+      :link: rendering/index
+      :link-type: doc
 
-   .. grid-item-card:: :doc:`MazeFromDict`
+      What shows a game while it is played, in a window or directly in your terminal.
 
-      A maze described explicitly by a dictionary, for instance one produced by the :doc:`Maze Builder <../maze_builder>`.
-
-   .. grid-item-card:: :doc:`MazeFromMatrix`
-
-      A maze described by an adjacency matrix, handy when you generate mazes with ``numpy`` or ``torch``.
-
-   .. grid-item-card:: :doc:`RandomMaze`
-
-      The base class of the randomly generated mazes.
-
-   .. grid-item-card:: :doc:`UniformHolesRandomMaze`
-
-      A random maze whose holes are spread uniformly.
-
-.. grid:: 1 1 2 2
-   :gutter: 2
-
-   .. grid-item-card:: :doc:`BigHolesRandomMaze`
-
-      A random maze whose holes are grouped into large areas.
-
-   .. grid-item-card:: :doc:`HolesOnSideRandomMaze`
-
-      A random maze whose holes are pushed towards the sides.
-
-Rendering
----------
-
-.. grid:: 1 1 3 3
-   :gutter: 2
-
-   .. grid-item-card:: :doc:`RenderingEngine`
-
-      The base class of all rendering engines.
-
-   .. grid-item-card:: :doc:`PygameRenderingEngine`
-
-      The graphical interface, shown in a window.
-
-   .. grid-item-card:: :doc:`ShellRenderingEngine`
-
-      The text interface, drawn directly in your terminal.
-
-Errors
-------
-
-.. grid:: 1 1 1 1
-   :gutter: 2
-
-   .. grid-item-card:: :doc:`PyRatException`
-
-      The exception raised when a game cannot proceed, for instance because a player crashed or returned something that is not an action.
+      +++
+      ``RenderingEngine`` and its two implementations.
 
 .. toctree::
    :hidden:
-   :maxdepth: 1
+   :maxdepth: 2
 
-   BigHolesRandomMaze
-   FixedPlayer
-   Game
-   GameState
-   Graph
-   HolesOnSideRandomMaze
-   Maze
-   MazeFromDict
-   MazeFromMatrix
-   Player
-   PyRatException
-   PygameRenderingEngine
-   RandomMaze
-   RenderingEngine
-   ShellRenderingEngine
-   UniformHolesRandomMaze
-   enums
+   game/index
+   players/index
+   mazes/index
+   rendering/index
