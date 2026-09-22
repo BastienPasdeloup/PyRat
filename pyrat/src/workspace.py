@@ -38,11 +38,12 @@ PYTHON_VERSION = ">=3.12,<3.14"
 # Requirement added to the dependencies of the workspaces to make the PyRat library available
 PYRAT_REQUIREMENT = "pyrat-game"
 
-# Directories of a workspace that are installed as packages in its virtual environment
-WORKSPACE_PACKAGES = ["players", "games"]
+# Name of the package that contains the programs of a workspace
+# Its directories, such as "players" and "games", are subpackages, and so are those the student creates
+WORKSPACE_PACKAGE_NAME = "pyrat_workspace"
 
 # Configuration added to the "pyproject.toml" file of the workspaces, so that they are installed in their virtual environment
-# Installing the workspace is what makes its directories importable from anywhere, as in "from players.Random1 import Random1"
+# Installing the workspace is what makes its package importable from anywhere, as in "from pyrat_workspace.players.Random1 import Random1"
 # uv installs it in editable mode, so the files that run are the ones the student edits, and directories added later need no new declaration
 BUILD_CONFIGURATION = '''
 [build-system]
@@ -50,7 +51,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = [{packages}]
+packages = ["{package}"]
 
 [tool.uv]
 package = true
@@ -80,9 +81,9 @@ def init_workspace ( target_directory:  str = "pyrat_workspace",
     Creates a clean student workspace, as a `uv <https://docs.astral.sh/uv>`_ project.
     The workspace is initialized with ``uv init``, which fixes the Python version to use and creates the files needed by uv.
     Then, a few default programs are added to start with, and the PyRat library is added to the dependencies of the workspace.
-    This function also takes care of making the workspace installable, so that its directories are packages of its virtual environment and players can be imported from games.
+    This function also takes care of making the workspace installable, so that its package is available in its virtual environment and players can be imported from games.
     The workspace is installed in editable mode, so that the files run are always the ones the student edits, and it is reinstalled by uv whenever it is needed.
-    Directories that the student adds to the workspace afterwards are importable too, without any further declaration.
+    The programs live in a ``pyrat_workspace`` package, whose subdirectories, including those the student creates later, are importable without any further declaration.
     If the workspace already exists, its contents are not modified, but we make sure it is a uv project with PyRat available anyway.
 
     Args:
@@ -122,8 +123,8 @@ def init_workspace ( target_directory:  str = "pyrat_workspace",
     else:
         print(f"Workspace {target_workspace} already exists, its contents were left unchanged", file=sys.stderr)
 
-    # Make the workspace installable, so that its directories become packages of its virtual environment
-    # This is what allows games to import players, as in "from players.Random1 import Random1"
+    # Make the workspace installable, so that its package becomes available in its virtual environment
+    # This is what allows games to import players, as in "from pyrat_workspace.players.Random1 import Random1"
     if _add_build_configuration(target_workspace):
         print("Workspace configured to be installed in its virtual environment", file=sys.stderr)
 
@@ -138,7 +139,7 @@ def init_workspace ( target_directory:  str = "pyrat_workspace",
 
     # Confirmation
     print("Your workspace is ready! You can now start coding your players and run games.", file=sys.stderr)
-    print(f"To run a game, go to the workspace using 'cd {target_directory}', then use for instance 'uv run games/sample_game.py'.", file=sys.stderr)
+    print(f"To run a game, go to the workspace using 'cd {target_directory}', then use for instance 'uv run {WORKSPACE_PACKAGE_NAME}/games/sample_game.py'.", file=sys.stderr)
 
 ##########################################################################################
 
@@ -230,7 +231,7 @@ def _add_build_configuration ( target_workspace: str
 
     """
     Adds to the ``pyproject.toml`` file of a workspace the configuration that makes it installable.
-    Once installed, the directories of the workspace are packages of its virtual environment, so games can import players from anywhere.
+    Once installed, the package of the workspace is available in its virtual environment, so games can import players from anywhere.
     uv installs the workspace in editable mode, which means that the files run are always the ones the student edits.
     Nothing is written if the file already describes how to build the workspace, so that a customized configuration is preserved.
 
@@ -252,9 +253,8 @@ def _add_build_configuration ( target_workspace: str
         return False
 
     # Append the configuration, making sure it starts on its own line
-    packages = ", ".join(f'"{package}"' for package in WORKSPACE_PACKAGES)
     with open(pyproject_file, "a", encoding="utf-8") as f:
-        f.write(("" if contents.endswith("\n") else "\n") + BUILD_CONFIGURATION.format(packages=packages))
+        f.write(("" if contents.endswith("\n") else "\n") + BUILD_CONFIGURATION.format(package=WORKSPACE_PACKAGE_NAME))
     return True
 
 ##########################################################################################

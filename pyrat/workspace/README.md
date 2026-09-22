@@ -16,15 +16,17 @@ It is a [uv](https://docs.astral.sh/uv) project, which means that uv takes care 
 
 # Contents of the workspace
 
-- `players/` contains the programs that control a character in a game. \
+- `pyrat_workspace/` contains your programs. \
+  It is installed as a package in the virtual environment of your workspace, which is what lets your programs import each other.
+
+- `pyrat_workspace/players/` contains the programs that control a character in a game. \
   A few random players are provided as examples, as well as a `TemplatePlayer.py` file to start your own.
 
-- `games/` contains the scripts that create a game and make players compete in it. \
+- `pyrat_workspace/games/` contains the scripts that create a game and make players compete in it. \
   Start with `sample_game.py` to check that everything works.
 
-- `players/` and `games/` are installed as packages in the virtual environment of your workspace, which is what lets a game write `from players.Random1 import Random1`. \
-  Any other directory you create in your workspace can be imported the same way, with nothing to declare. \
-  For instance, a file `utils/Tools.py` is imported using `from utils.Tools import Tools`.
+- Any other directory you create in `pyrat_workspace/` can be imported the same way, with nothing to declare. \
+  For instance, a file `pyrat_workspace/utils/Tools.py` is imported using `from pyrat_workspace.utils.Tools import Tools`.
 
 - `pyproject.toml`, `.python-version` and `uv.lock` are the files used by uv to describe your project. \
   They are updated by uv, you usually do not need to edit them by hand. \
