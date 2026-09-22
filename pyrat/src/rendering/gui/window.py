@@ -262,7 +262,15 @@ class GameWindow ():
             if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                 self.__running = False
             elif event.type == pygame.VIDEORESIZE and not self.__fullscreen:
-                self.__stretch_to(event.w, event.h)
+                # Ignore resize events echoed by our own set_mode call:
+                # on Wayland compositors, confirming a size re-emits the size
+                # even when it is unchanged, which would otherwise stretch the window forever
+                if (event.w, event.h) != self.__screen.get_size():
+                    self.__stretch_to(event.w, event.h)
+            elif event.type in (pygame.VIDEOEXPOSE, getattr(pygame, "WINDOWEXPOSED", pygame.VIDEOEXPOSE)) and self.__pending_resize is None:
+                # The compositor asked for a repaint (window uncovered, workspace switch...):
+                # present the current frame again, otherwise the window stays black
+                self.__redraw_everything()
 
     ##################################################################################
 
