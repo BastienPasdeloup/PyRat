@@ -26,7 +26,7 @@ It is a [uv](https://docs.astral.sh/uv) project, which means that uv takes care 
   Start with `sample_game.py` to check that everything works.
 
 - Any other directory you create in `pyrat_workspace/` can be imported the same way, with nothing to declare. \
-  For instance, a file `pyrat_workspace/utils/Tools.py` is imported using `from pyrat_workspace.utils.Tools import Tools`.
+  For instance, a file `pyrat_workspace/utils/tools.py` is imported using `from pyrat_workspace.utils.tools import Tools`.
 
 - `pyproject.toml`, `.python-version` and `uv.lock` are the files used by uv to describe your project. \
   They are updated by uv, you usually do not need to edit them by hand. \

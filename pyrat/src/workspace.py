@@ -57,8 +57,9 @@ packages = ["{package}"]
 package = true
 '''
 
-# Name of the virtual environment directory of a workspace, and of the script in it that records the directory it was created for
-# A virtual environment contains absolute paths, so it stops working when the workspace is renamed or moved, and has to be created again
+# Name of the virtual environment directory of a workspace, and of the script in it that tells us how it was created
+# uv can create a "relocatable" virtual environment, whose scripts find their own location instead of storing it once and for all
+# A virtual environment that is not relocatable records an absolute path, and stops working as soon as the workspace is renamed or moved
 VENV_DIRECTORY_NAME = ".venv"
 VENV_MARKER_FILES = [os.path.join("bin", "activate"), os.path.join("Scripts", "activate")]
 VENV_MARKER_VARIABLE = "VIRTUAL_ENV="
@@ -83,6 +84,7 @@ def init_workspace ( target_directory:  str = "pyrat_workspace",
     Then, a few default programs are added to start with, and the PyRat library is added to the dependencies of the workspace.
     This function also takes care of making the workspace installable, so that its package is available in its virtual environment and players can be imported from games.
     The workspace is installed in editable mode, so that the files run are always the ones the student edits, and it is reinstalled by uv whenever it is needed.
+    The virtual environment is created relocatable, so that renaming or moving a workspace keeps its commands working; uv reinstalls the workspace itself on the next command it runs there.
     The programs live in a ``pyrat_workspace`` package, whose subdirectories, including those the student creates later, are importable without any further declaration.
     If the workspace already exists, its contents are not modified, but we make sure it is a uv project with PyRat available anyway.
 
@@ -128,12 +130,12 @@ def init_workspace ( target_directory:  str = "pyrat_workspace",
     if _add_build_configuration(target_workspace):
         print("Workspace configured to be installed in its virtual environment", file=sys.stderr)
 
-    # Create the virtual environment again if it was made for another directory, as renaming or moving a workspace breaks the paths it contains
-    if _reset_moved_virtual_environment(target_workspace):
-        print("Virtual environment was created for another directory, it will be created again", file=sys.stderr)
+    # Give the workspace a relocatable virtual environment, so that renaming or moving it does not break its commands
+    if _prepare_virtual_environment(target_workspace):
+        print("Relocatable virtual environment created for the workspace", file=sys.stderr)
 
     # Add PyRat to the dependencies of the workspace
-    # This also creates the virtual environment of the workspace if needed, and installs the workspace in it
+    # This also installs the workspace itself in the virtual environment
     _run_uv(["add", pyrat_requirement], cwd=target_workspace)
     print("PyRat added to the dependencies of the workspace", file=sys.stderr)
 
@@ -259,33 +261,60 @@ def _add_build_configuration ( target_workspace: str
 
 ##########################################################################################
 
-def _reset_moved_virtual_environment ( target_workspace: str
-                                     ) ->                bool:
+def _prepare_virtual_environment ( target_workspace: str
+                                 ) ->                bool:
 
     """
-    Removes the virtual environment of a workspace when it was created for another directory.
-    A virtual environment records the absolute path it was created for, in the scripts that activate it and in the commands it installs.
-    Renaming or moving a workspace therefore leaves it with a virtual environment that no longer works, which this function detects and deletes.
-    It is then created again, with PyRat and the workspace installed in it, by the uv command that follows.
+    Makes sure the workspace has a relocatable virtual environment, creating it if needed.
+    A virtual environment normally records the absolute path it was created for, in the scripts that activate it and in the commands it installs.
+    Renaming or moving a workspace would therefore break it, which is why we ask uv for a relocatable one, whose scripts find their own location.
+    An existing virtual environment that still records an absolute path was created by an older version of PyRat, or by uv itself, and is replaced.
 
     Args:
         target_workspace: The directory of the workspace.
 
     Returns:
-        ``True`` if a virtual environment was removed, ``False`` if there was none or if it belongs to this workspace.
+        ``True`` if a virtual environment was created, ``False`` if a relocatable one was already there.
+
+    Raises:
+        PyRatException: If the uv command cannot be found on the system, or if the virtual environment cannot be created.
     """
 
     # Debug
     assert isinstance(target_workspace, str), "Argument 'target_workspace' must be a string"
 
-    # Nothing to do if the workspace has no virtual environment yet
+    # Replace a virtual environment that records an absolute path, as it would stop working as soon as the workspace moves
     venv_directory = os.path.join(target_workspace, VENV_DIRECTORY_NAME)
-    if not os.path.isdir(venv_directory):
-        return False
+    if os.path.isdir(venv_directory) and _records_absolute_path(venv_directory):
+        shutil.rmtree(venv_directory, ignore_errors=True)
 
-    # Read the directory the virtual environment was created for, which its activation script records
-    # We keep the virtual environment if we cannot tell, as deleting it would make us lose the installed libraries for no reason
-    recorded_directory = None
+    # Keep the virtual environment already there, otherwise ask uv for a relocatable one
+    if os.path.isdir(venv_directory):
+        return False
+    _run_uv(["venv", "--relocatable"], cwd=target_workspace)
+    return True
+
+##########################################################################################
+
+def _records_absolute_path ( venv_directory: str
+                           ) ->              bool:
+
+    """
+    Tells whether a virtual environment stores the absolute path it was created for, rather than finding its own location.
+    We read the activation script, which sets the location of the virtual environment: a relocatable one computes it, a regular one writes it down.
+    We answer ``False`` when we cannot tell, as deleting a working virtual environment would make us lose the libraries installed in it.
+
+    Args:
+        venv_directory: The virtual environment directory of a workspace.
+
+    Returns:
+        ``True`` if the virtual environment records an absolute path, ``False`` otherwise.
+    """
+
+    # Debug
+    assert isinstance(venv_directory, str), "Argument 'venv_directory' must be a string"
+
+    # Read the location the activation script gives to the virtual environment
     for marker_file in VENV_MARKER_FILES:
         marker_path = os.path.join(venv_directory, marker_file)
         if not os.path.isfile(marker_path):
@@ -293,18 +322,11 @@ def _reset_moved_virtual_environment ( target_workspace: str
         with open(marker_path, "r", encoding="utf-8", errors="replace") as f:
             for line in f:
                 if line.startswith(VENV_MARKER_VARIABLE):
-                    recorded_directory = line[len(VENV_MARKER_VARIABLE):].strip().strip("'\"")
-                    break
-        if recorded_directory is not None:
-            break
-    if not recorded_directory:
-        return False
+                    recorded = line[len(VENV_MARKER_VARIABLE):].strip().strip("'\"")
+                    return os.path.isabs(recorded)
 
-    # Compare with where the virtual environment actually is, and start over if they differ
-    if os.path.realpath(recorded_directory) == os.path.realpath(venv_directory):
-        return False
-    shutil.rmtree(venv_directory, ignore_errors=True)
-    return True
+    # Nothing conclusive
+    return False
 
 ##########################################################################################
 
