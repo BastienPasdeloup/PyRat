@@ -6,12 +6,12 @@
 # It describes a player that can be used in a PyRat game.
 # This file is meant to be imported, and not to be executed directly.
 # Please import this file from a game script using the following syntax:
-#     from pyrat_workspace.players.Random4 import Random4
+#     from players.Random3 import Random3
 
 """
 This module provides a player that performs random actions in a PyRat game.
-It is an improvement of the ``Random3`` player.
-Here, we illustrate how to use the ``preprocessing()`` method to do things at the beginning of the game.
+It is an improvement of the ``Random2`` player.
+Here, we illustrate how attributes can be used to keep track of visited cells.
 """
 
 ##########################################################################################
@@ -28,16 +28,16 @@ from pyrat import Player, Maze, GameState, Action
 ######################################### CLASSES ########################################
 ##########################################################################################
 
-class Random4 (Player):
+class Random3 (Player):
 
     """
     *(This class inherits from* ``Player`` *).*
 
-    This player is an improvement of the ``Random3`` player.
-    A limitation of ``Random3`` is that it can easily enter its fallback mode when visiting a dead-end.
-    In this case, it may move randomly for a long time before reaching an unvisited cell
-    To improve our algorithm, we are going to create a new maze attribute that is the same as the original maze, but with the dead-end cells removed.
-    Since the maze is only provided at the beginning of the game, we will use the ``preprocessing()`` method to create this new maze.
+    This player is an improvement of the ``Random2`` player.
+    Here, we add elements that help us explore better the maze.
+    More precisely, we keep a set of cells that have already been visited in the game.
+    Then, at each turn, we choose in priority a random move among those that lead us to an unvisited cell.
+    If no such move exists, we move randomly.
     """
 
     ##################################################################################
@@ -51,7 +51,8 @@ class Random4 (Player):
 
         """
         Initializes a new instance of the class.
-        Here, in addition to the attributes developed in the ``Random3`` player, we also create an attribute for our reduced maze.
+        Here, the constructor is only used to initialize a set that will keep track of visited cells.
+        This set can later be updated at each turn of the game to avoid going back to cells that have already been visited.
 
         Args:
             args:   Arguments to pass to the parent constructor.
@@ -65,9 +66,6 @@ class Random4 (Player):
         # We will initialize it in the ``preprocessing()`` method to allow the game to be reset
         # Otherwise, the set would keep the cells visited in previous games
         self.visited_cells = None
-
-        # We also create an attribute for the reduced maze
-        self.reduced_maze = None
        
     ##################################################################################
     #                                  PYRAT METHODS                                 #
@@ -82,9 +80,7 @@ class Random4 (Player):
         *(This method redefines the method of the parent class with the same name).*
 
         This method is called once at the beginning of the game.
-        Here, we use it to create a reduced maze that contains only the cells that are not dead-ends.
-        We define a dead-end as a cell that has only one neighbor and does not contain cheese or the player.
-        Note that this is not the best way to define a dead-end, but it is a simple one.
+        Here, we just initialize the set of visited cells.
 
         Args:
             maze:       An object representing the maze in which the player plays.
@@ -93,10 +89,6 @@ class Random4 (Player):
 
         # Initialize visited cells
         self.visited_cells = set()
-
-        # Reduce the maze
-        my_location = game_state.player_locations[self.get_name()]
-        self.reduced_maze = self.remove_dead_ends(maze, [my_location] + game_state.cheese)
 
     ##################################################################################
 
@@ -111,7 +103,6 @@ class Random4 (Player):
         It is called at each turn of the game.
         It returns an action to perform among the possible actions, defined in the ``Action`` enumeration.
         We also update the set of visited cells at each turn.
-        Now, we work with the reduced maze to find the next action.
 
         Args:
             maze:       An object representing the maze in which the player plays.
@@ -127,9 +118,9 @@ class Random4 (Player):
             self.visited_cells.add(my_location)
 
         # Return an action
-        action = self.find_next_action(self.reduced_maze, game_state)
+        action = self.find_next_action(maze, game_state)
         return action
-    
+
     ##################################################################################
     #                                  OTHER METHODS                                 #
     ##################################################################################
@@ -167,41 +158,5 @@ class Random4 (Player):
         action = maze.locations_to_action(my_location, neighbor)
         return action
     
-    ##################################################################################
-
-    def remove_dead_ends ( self,
-                           maze:              Maze,
-                           locations_to_keep: list[tuple[int, int]]
-                         ) ->                 Maze:
-        
-        """
-        This method returns a new maze that contains only the cells that are not dead-ends.
-        A dead-end is defined as a cell that has only one neighbor and does not contain cheese or the player.
-
-        Args:
-            maze:              An object representing the maze in which the player plays.
-            locations_to_keep: A list of locations to keep in the reduced maze.
-
-        Returns:
-            A new maze with only the cells that are not dead-ends.
-        """
-
-        # Initialize the reduced maze as the original one
-        # We do not need to make a copy of the maze, as the game sends a copy of the maze at each turn.
-        updated_maze = maze
-        
-        # Iteratively remove dead-ends from the maze
-        # We still keep dead ends that contain locations to keep
-        removed_something = True
-        while removed_something:
-            removed_something = False
-            for vertex in updated_maze.get_vertices():
-                if len(updated_maze.get_neighbors(vertex)) == 1 and vertex not in locations_to_keep:
-                    updated_maze.remove_vertex(vertex)
-                    removed_something = True
-
-        # Return the updated maze
-        return updated_maze
-
 ##########################################################################################
 ##########################################################################################

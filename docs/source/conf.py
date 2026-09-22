@@ -6,8 +6,8 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath("../../pyrat/workspace"))
-sys.path.insert(0, os.path.abspath("../../pyrat/workspace/pyrat_workspace/games"))
-sys.path.insert(0, os.path.abspath("../../pyrat/workspace/pyrat_workspace/players"))
+sys.path.insert(0, os.path.abspath("../../pyrat/workspace/games"))
+sys.path.insert(0, os.path.abspath("../../pyrat/workspace/players"))
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information

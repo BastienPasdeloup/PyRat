@@ -70,7 +70,7 @@ Installed 18 packages in 48ms
 PyRat added to the dependencies of the workspace
 Workspace added to Python path
 Your workspace is ready! You can now start coding your players and run games.
-To run a game, go to the workspace using 'cd pyrat_workspace', then use for instance 'uv run pyrat_workspace/games/sample_game.py'.
+To run a game, go to the workspace using 'cd pyrat_workspace', then use for instance 'uv run games/sample_game.py'.
 ```
 
 You should have a new directory called `pyrat_workspace` in the directory where you ran the command. \
@@ -81,7 +81,7 @@ If you prefer another name, pass it to the command, as in `uvx --from pyrat-game
 Now, we are going to verify that PyRat works properly. \
 To do so, follow these steps:
 1) Open a terminal, and navigate to your workspace using `cd pyrat_workspace`.
-2) Run the sample game as follows: `uv run pyrat_workspace/games/sample_game.py`.
+2) Run the sample game as follows: `uv run games/sample_game.py`.
 
 You can also run your games from VSCode. \
 To do so, follow these steps:

@@ -9,7 +9,7 @@ Each page contains the full source code of the program, which is the best way to
 
 .. tip::
 
-   From your workspace, run a game with ``uv run pyrat_workspace/games/sample_game.py``.
+   From your workspace, run a game with ``uv run games/sample_game.py``.
 
 .. toctree::
    :maxdepth: 1

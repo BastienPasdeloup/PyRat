@@ -8,6 +8,6 @@ sample_game
 Source Code
 -----------
 
-.. literalinclude:: ../../../../pyrat/workspace/pyrat_workspace/games/sample_game.py
+.. literalinclude:: ../../../../pyrat/workspace/games/sample_game.py
    :language: python
    :linenos:

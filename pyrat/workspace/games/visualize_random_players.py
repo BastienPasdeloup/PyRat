@@ -6,7 +6,7 @@
 # It describes a script that creates a PyRat game.
 # Please import necessary elements using the following syntax:
 #     from pyrat import <element_name>
-#     from pyrat_workspace.players.<player_name> import <player_name>
+#     from players.<player_name> import <player_name>
 
 """
 In this script, we visualize four players in the same maze, one after the other.
@@ -24,10 +24,10 @@ import pprint
 
 # PyRat imports
 from pyrat import Game, StartingLocation
-from pyrat_workspace.players.Random1 import Random1
-from pyrat_workspace.players.Random2 import Random2
-from pyrat_workspace.players.Random3 import Random3
-from pyrat_workspace.players.Random4 import Random4
+from players.Random1 import Random1
+from players.Random2 import Random2
+from players.Random3 import Random3
+from players.Random4 import Random4
 
 ##########################################################################################
 ######################################### SCRIPT #########################################

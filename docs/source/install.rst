@@ -17,7 +17,7 @@ If you are in a hurry, and already have `uv <https://docs.astral.sh/uv>`_ instal
 
    uvx --from pyrat-game pyrat-init
    cd pyrat_workspace
-   uv run pyrat_workspace/games/sample_game.py
+   uv run games/sample_game.py
 
 The rest of this page explains each of these steps.
 
@@ -97,7 +97,7 @@ You should see something like this:
    PyRat added to the dependencies of the workspace
    Workspace added to Python path
    Your workspace is ready! You can now start coding your players and run games.
-   To run a game, go to the workspace using 'cd pyrat_workspace', then use for instance 'uv run pyrat_workspace/games/sample_game.py'.
+   To run a game, go to the workspace using 'cd pyrat_workspace', then use for instance 'uv run games/sample_game.py'.
 
 You should have a new directory called ``pyrat_workspace`` in the directory where you ran the command.
 
@@ -140,7 +140,7 @@ Now, we are going to verify that PyRat works properly.
 
          .. code-block:: shell
 
-            uv run pyrat_workspace/games/sample_game.py
+            uv run games/sample_game.py
 
    .. tab-item:: From VSCode
 
