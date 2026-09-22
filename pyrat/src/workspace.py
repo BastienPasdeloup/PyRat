@@ -96,13 +96,14 @@ def init_workspace ( target_directory:  str | None = None,
     That environment is created relocatable, so that renaming or moving the workspace keeps its commands working, and everything the workspace declares is installed in it again.
     This is how a workspace is fixed when its virtual environment was damaged, or when it was recreated by uv itself and thus lost the ability to be moved around.
     When no directory is given, the workspace to repair is the current directory if it is already a PyRat workspace, and a new workspace is created in a ``pyrat_project`` directory otherwise.
+    Creating a workspace inside another one is refused, as uv rejects every command run in nested projects.
 
     Args:
         target_directory:  The directory in which to create the workspace, or ``None`` to determine it from the current directory.
         pyrat_requirement: The requirement to add to the workspace to make the PyRat library available.
 
     Raises:
-        PyRatException: If uv cannot be found, if the command runs from the virtual environment it has to rebuild, or if one of the uv commands used to prepare the workspace fails.
+        PyRatException: If uv cannot be found, if the workspace to create is inside another one, if the command runs from the virtual environment it has to rebuild, or if one of the uv commands used to prepare the workspace fails.
     """
 
     # Debug
@@ -122,9 +123,17 @@ def init_workspace ( target_directory:  str | None = None,
     existing_files = set(os.listdir(target_workspace)) if os.path.isdir(target_workspace) else set()
     workspace_existed = "pyproject.toml" in existing_files
 
-    # Make the target directory a uv project if not already the case
+    # Refuse to create a workspace inside another one, as nesting uv projects makes uv reject every command in both of them
+    # This happens when "pyrat-init" is given the package directory of a workspace, for instance by following instructions written for an older version
     if not workspace_existed:
-        _run_uv(["init", "--no-package", "--vcs", "git", "--python", PYTHON_VERSION, target_workspace])
+        enclosing_workspace = _enclosing_workspace(target_workspace)
+        if enclosing_workspace is not None:
+            raise PyRatException(f"Directory {target_workspace} is inside the PyRat workspace {enclosing_workspace} -- Please run 'pyrat-init' from {enclosing_workspace} to repair that workspace, or choose a directory outside it to create a new one")
+
+    # Make the target directory a uv project if not already the case
+    # We ask uv for a standalone project, so that it never registers the workspace as a member of a uv project that happens to contain it
+    if not workspace_existed:
+        _run_uv(["init", "--no-package", "--no-workspace", "--vcs", "git", "--python", PYTHON_VERSION, target_workspace])
         _set_workspace_description(target_workspace, WORKSPACE_DESCRIPTION)
         print(f"Workspace initialized as a uv project using Python {PYTHON_VERSION}", file=sys.stderr)
 
@@ -366,6 +375,36 @@ def _is_pyrat_workspace ( directory: str
     project = contents.get("project")
     dependencies = project.get("dependencies", []) if isinstance(project, dict) else []
     return any(isinstance(dependency, str) and _requirement_name(dependency) == PYRAT_REQUIREMENT for dependency in dependencies)
+
+##########################################################################################
+
+def _enclosing_workspace ( directory: str
+                         ) ->         str | None:
+
+    """
+    Looks for a PyRat workspace among the directories that contain the given one.
+    Creating a workspace inside another one would nest two uv projects, and uv then refuses to run any command in either of them.
+    The directory itself is not examined, as we are asking what a new workspace created there would end up inside of.
+
+    Args:
+        directory: The directory to examine.
+
+    Returns:
+        The directory of the workspace that contains it, or ``None`` if there is none.
+    """
+
+    # Debug
+    assert isinstance(directory, str), "Argument 'directory' must be a string"
+
+    # Climb toward the root of the filesystem, stopping at the first workspace found
+    current_directory = os.path.dirname(os.path.abspath(directory))
+    while True:
+        if _is_pyrat_workspace(current_directory):
+            return current_directory
+        parent_directory = os.path.dirname(current_directory)
+        if parent_directory == current_directory:
+            return None
+        current_directory = parent_directory
 
 ##########################################################################################
 
