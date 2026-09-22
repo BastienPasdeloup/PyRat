@@ -94,6 +94,7 @@ def init_workspace ( target_directory:  str | None = None,
 
     Running this on a workspace that already exists repairs it: the programs of the student are left untouched, but the workspace is given a brand new virtual environment.
     That environment is created relocatable, so that renaming or moving the workspace keeps its commands working, and everything the workspace declares is installed in it again.
+    The uv configuration of the workspace is repaired as well, by removing the elements that PyRat never writes and that keep uv from working, such as those a ``uv init`` run by mistake in the package directory leaves behind.
     This is how a workspace is fixed when its virtual environment was damaged, or when it was recreated by uv itself and thus lost the ability to be moved around.
     When no directory is given, the workspace to repair is the current directory if it is already a PyRat workspace, and a new workspace is created in a ``pyrat_project`` directory otherwise.
     Creating a workspace inside another one is refused, as uv rejects every command run in nested projects.
@@ -123,6 +124,10 @@ def init_workspace ( target_directory:  str | None = None,
     existing_files = set(os.listdir(target_workspace)) if os.path.isdir(target_workspace) else set()
     workspace_existed = "pyproject.toml" in existing_files
 
+    # Stop on a description of the project that cannot be read, rather than write into a file we do not understand and let uv complain about it much later
+    if workspace_existed:
+        _check_pyproject_file(target_workspace)
+
     # Refuse to create a workspace inside another one, as nesting uv projects makes uv reject every command in both of them
     # This happens when "pyrat-init" is given the package directory of a workspace, for instance by following instructions written for an older version
     if not workspace_existed:
@@ -149,6 +154,8 @@ def init_workspace ( target_directory:  str | None = None,
         print(f"Workspace created in {target_workspace}", file=sys.stderr)
     else:
         print(f"Workspace {target_workspace} already exists, its contents are left unchanged", file=sys.stderr)
+        for repair in _repair_uv_configuration(target_workspace):
+            print(repair, file=sys.stderr)
 
     # Make the workspace installable, so that its package becomes available in its virtual environment
     # This is what allows games to import players, as in "from pyrat_workspace.players.random1 import Random1"
@@ -347,9 +354,10 @@ def _is_pyrat_workspace ( directory: str
                         ) ->         bool:
 
     """
-    Tells whether a directory is already a PyRat workspace, rather than a directory in which one should be created.
-    A workspace is recognized by its ``pyproject.toml`` file declaring PyRat among its dependencies, which is what :func:`init_workspace` writes in it.
-    We answer ``False`` when that file is missing or cannot be understood, so that a directory we know nothing about is never taken for a workspace to repair.
+    Tells whether a directory is the root of a PyRat workspace, rather than a directory in which one should be created.
+    A workspace is normally recognized by its ``pyproject.toml`` file declaring PyRat among its dependencies, which is what :func:`init_workspace` writes in it.
+    A second trace is accepted, the package of programs that a workspace is built around, so that a workspace whose ``pyproject.toml`` file was emptied, damaged or lost is recognized all the same.
+    Recognizing it is what makes :func:`init_workspace` repair the workspace instead of creating a new one inside it, which would nest two uv projects.
 
     Args:
         directory: The directory to examine.
@@ -361,20 +369,139 @@ def _is_pyrat_workspace ( directory: str
     # Debug
     assert isinstance(directory, str), "Argument 'directory' must be a string"
 
-    # Read the project description of the directory, if it has one we can make sense of
+    # A workspace is a project that depends on PyRat
+    # A description we cannot make sense of is exactly the kind of damage we want to repair, so we keep looking rather than give up here
     pyproject_file = os.path.join(directory, "pyproject.toml")
+    if os.path.isfile(pyproject_file):
+        try:
+            with open(pyproject_file, "rb") as f:
+                contents = tomllib.load(f)
+        except (OSError, tomllib.TOMLDecodeError):
+            contents = {}
+        project = contents.get("project")
+        dependencies = project.get("dependencies", []) if isinstance(project, dict) else []
+        if any(isinstance(dependency, str) and _requirement_name(dependency) == PYRAT_REQUIREMENT for dependency in dependencies):
+            return True
+
+    # A workspace is also recognized by the package of programs it contains, which survives the loss of the description of the project
+    # That package is a plain directory of programs: a directory of the same name that is a project of its own is a workspace sitting next to us, not the one we are in
+    package_directory = os.path.join(directory, WORKSPACE_PACKAGE_NAME)
+    return os.path.isdir(package_directory) and not os.path.isfile(os.path.join(package_directory, "pyproject.toml"))
+
+##########################################################################################
+
+def _check_pyproject_file ( target_workspace: str
+                          ) ->                None:
+
+    """
+    Makes sure the description of the project of an existing workspace can still be read.
+    Every step that follows either writes into that file or asks uv to read it, so going on would bury the real problem under a less helpful error.
+    We never rewrite the file ourselves, as this is where the student declares the libraries they added to their workspace, and we would lose them.
+
+    Args:
+        target_workspace: The directory of the workspace.
+
+    Raises:
+        PyRatException: If the ``pyproject.toml`` file of the workspace exists but cannot be read.
+    """
+
+    # Debug
+    assert isinstance(target_workspace, str), "Argument 'target_workspace' must be a string"
+
+    # Read the file, and explain what to do rather than write into something we do not understand
+    pyproject_file = os.path.join(target_workspace, "pyproject.toml")
     if not os.path.isfile(pyproject_file):
-        return False
+        return
     try:
         with open(pyproject_file, "rb") as f:
-            contents = tomllib.load(f)
-    except (OSError, tomllib.TOMLDecodeError):
+            tomllib.load(f)
+    except (OSError, tomllib.TOMLDecodeError) as error:
+        raise PyRatException(f"File {pyproject_file} cannot be read ({error}) -- Please correct it, or delete it and run 'pyrat-init' again to have a new one written for you")
+
+##########################################################################################
+
+def _repair_uv_configuration ( target_workspace: str
+                             ) ->                list[str]:
+
+    """
+    Removes from an existing workspace the uv elements that have no reason to be there, and that keep uv from working.
+    They all come from a ``uv init`` run by mistake in the package directory of a workspace, which turns that directory into a second project and declares it a member of the workspace.
+    uv then sees two projects with the same name and refuses every command, in a way that no amount of reinstalling can fix, as the problem is in the files rather than in the virtual environment.
+    Only elements that :func:`init_workspace` never writes are removed, so the programs of the student, and any configuration they added themselves, are left untouched.
+
+    Args:
+        target_workspace: The directory of the workspace.
+
+    Returns:
+        A description of each repair made, to be reported to the student, empty if there was nothing to repair.
+    """
+
+    # Debug
+    assert isinstance(target_workspace, str), "Argument 'target_workspace' must be a string"
+
+    # Remove the declaration that makes the workspace a uv workspace with members, which PyRat never writes
+    repairs = []
+    if _remove_workspace_members(os.path.join(target_workspace, "pyproject.toml")):
+        repairs.append("Removed from 'pyproject.toml' the uv workspace members, which a PyRat workspace does not use")
+
+    # Remove the project a "uv init" may have created in the package directory, as uv would work on it instead of the workspace
+    package_directory = os.path.join(target_workspace, WORKSPACE_PACKAGE_NAME)
+    stray_pyproject_file = os.path.join(package_directory, "pyproject.toml")
+    if os.path.isfile(stray_pyproject_file):
+        os.remove(stray_pyproject_file)
+        repairs.append(f"Removed the 'pyproject.toml' file found in {WORKSPACE_PACKAGE_NAME}, as the project is the workspace itself")
+    stray_venv_directory = os.path.join(package_directory, VENV_DIRECTORY_NAME)
+    if os.path.isdir(stray_venv_directory) and not _runs_from_virtual_environment(stray_venv_directory):
+        shutil.rmtree(stray_venv_directory, ignore_errors=True)
+        repairs.append(f"Removed the '{VENV_DIRECTORY_NAME}' directory found in {WORKSPACE_PACKAGE_NAME}, as the workspace has its own")
+
+    # Done
+    return repairs
+
+##########################################################################################
+
+def _remove_workspace_members ( pyproject_file: str
+                              ) ->              bool:
+
+    """
+    Removes the ``[tool.uv.workspace]`` section from the ``pyproject.toml`` file of a workspace.
+    That section tells uv that the project gathers several others, which a PyRat workspace never does; uv adds it on its own when a project is created inside another one.
+    The file is rewritten only if it can still be read afterwards, so that a file we did not understand is left as it is rather than damaged further.
+
+    Args:
+        pyproject_file: The ``pyproject.toml`` file of a workspace.
+
+    Returns:
+        ``True`` if the section was removed, ``False`` if there was none.
+    """
+
+    # Debug
+    assert isinstance(pyproject_file, str), "Argument 'pyproject_file' must be a string"
+
+    # Copy the file, leaving out the lines of the section and of the subsections it may have
+    with open(pyproject_file, "r", encoding="utf-8") as f:
+        contents = f.read()
+    kept_lines = []
+    in_removed_section = False
+    for line in contents.splitlines(keepends=True):
+        header = line.strip()
+        if header.startswith("[") and header.endswith("]"):
+            section = header.strip("[]").strip()
+            in_removed_section = section == "tool.uv.workspace" or section.startswith("tool.uv.workspace.")
+        if not in_removed_section:
+            kept_lines.append(line)
+    if len(kept_lines) == len(contents.splitlines()):
         return False
 
-    # A workspace is a project that depends on PyRat
-    project = contents.get("project")
-    dependencies = project.get("dependencies", []) if isinstance(project, dict) else []
-    return any(isinstance(dependency, str) and _requirement_name(dependency) == PYRAT_REQUIREMENT for dependency in dependencies)
+    # Write the result back, unless we made something uv can no longer read
+    repaired_contents = "".join(kept_lines).rstrip("\n") + "\n"
+    try:
+        tomllib.loads(repaired_contents)
+    except tomllib.TOMLDecodeError:
+        return False
+    with open(pyproject_file, "w", encoding="utf-8") as f:
+        f.write(repaired_contents)
+    return True
 
 ##########################################################################################
 

@@ -191,6 +191,7 @@ If that is not enough, run the very same command that created the workspace, fro
 
 Run from a workspace, this command does not create a new one inside it, and does not touch the programs it contains.
 It replaces the ``.venv`` directory with a brand new one, in which everything the workspace declares is installed again.
+It also repairs the configuration of the workspace: should uv refuse to work in it, for instance because a project was created by mistake inside it, running this command puts the workspace back in a state uv accepts.
 
 .. note::
 

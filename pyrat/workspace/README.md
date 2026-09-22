@@ -76,7 +76,8 @@ uvx --from pyrat-game pyrat-init
 ```
 
 Run from a workspace, this command leaves your programs untouched. \
-It replaces the `.venv` directory with a brand new one, in which everything your workspace declares is installed again.
+It replaces the `.venv` directory with a brand new one, in which everything your workspace declares is installed again. \
+It also repairs the configuration of your workspace, should uv refuse to work in it.
 
 # More information
 
