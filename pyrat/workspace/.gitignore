@@ -22,8 +22,26 @@ __pycache__/
 # Cache of pytest, if you write tests
 .pytest_cache/
 
+# Files created when building your workspace as a package
+build/
+dist/
+*.egg-info/
+
+# Checkpoints created by Jupyter, if you write notebooks
+.ipynb_checkpoints/
+
+# Settings of your editor
+# They describe your own machine, for instance the path to your Python interpreter, so sharing them breaks the workspace of the others
+.vscode/
+.idea/
+
 # Files created by macOS
 .DS_Store
+
+# Files created by Windows, and by OneDrive when it synchronizes a directory
+Thumbs.db
+ehthumbs.db
+desktop.ini
 
 ##########################################################################################
 ##########################################################################################

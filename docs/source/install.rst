@@ -218,7 +218,6 @@ Troubleshooting
    :icon: alert
 
    The scripts that activate a virtual environment remember where that environment was created, unless it was made relocatable.
-   PyRat asks uv for a relocatable one, but uv writes a regular one whenever it has to create the environment itself, for instance after you deleted it.
 
    Rebuild the environment as described in `Repair your workspace`_, which makes it relocatable again.
 

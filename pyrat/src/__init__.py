@@ -15,8 +15,7 @@ The code is organized in the following packages:
     * ``mazes`` defines graphs, mazes, and the algorithms that generate random mazes.
     * ``rendering`` displays games, in a terminal or in a window.
 
-Two modules complete these packages:
-    * ``utils`` provides small helpers shared by the packages above.
+One module completes these packages:
     * ``workspace`` creates the workspace of the students, and implements the ``pyrat-init`` command.
 """
 

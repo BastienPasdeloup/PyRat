@@ -43,7 +43,6 @@ from pyrat.src.rendering.shell_rendering_engine import ShellRenderingEngine
 from pyrat.src.rendering.pygame_rendering_engine import PygameRenderingEngine
 from pyrat.src.game.enums import RenderMode, GameMode, Action, StartingLocation, PlayerSkin, RandomMazeAlgorithm
 from pyrat.src.game.exceptions import PyRatException
-from pyrat.src.utils import is_valid_directory
 
 ##########################################################################################
 ######################################### CLASSES ########################################
@@ -188,7 +187,6 @@ class Game ():
         assert isinstance(random_maze_algorithm, (RandomMazeAlgorithm, type(None))), "Argument 'random_maze_algorithm' must be of type 'pyrat.RandomMazeAlgorithm' or None (if so, default value 'Game.DEFAULT_RANDOM_MAZE_ALGORITHM' is used)"
         assert isinstance(save_game, (bool, type(None))), "Argument 'save_game' must be a boolean or None (if so, default value 'Game.DEFAULT_SAVE_GAME' is used)"
         assert isinstance(save_path, (str, type(None))), "Argument 'save_path' must be a string or None (if so, default value 'Game.DEFAULT_SAVE_PATH' is used)"
-        assert save_path is None or is_valid_directory(save_path), "Argument 'save_path' must be a valid directory"
 
         # Store given parameters or default values
         self.__random_seed = random_seed if random_seed is not None else Game.DEFAULT_RANDOM_SEED

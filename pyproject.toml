@@ -11,7 +11,7 @@
 
 [project]
 name            = "pyrat-game"
-version         = "6.4.8"
+version         = "6.4.9"
 description     = "PyRat software used in the computer science course at IMT Atlantique"
 readme          = "README.md"
 license         = "MIT"
@@ -25,8 +25,7 @@ dependencies    = ["pygame",
                    "distinctipy",
                    "scipy",
                    "tqdm",
-                   "matplotlib",
-                   "pyfakefs"]
+                   "matplotlib"]
 
 [project.urls]
 Homepage      = "https://github.com/BastienPasdeloup/PyRat"
