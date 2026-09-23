@@ -169,6 +169,14 @@ class GameWindow ():
         self.__pending_resize = None
         self.__last_resize_time = 0.0
 
+        # Size we last asked the window to take
+        # Resize events carrying it are the echoes of our own request, and are the ones to ignore, as opposed to the sizes the user asks for
+        self.__requested_size = self.__screen.get_size()
+
+        # Copy of the last image shown, kept to fill the window while the user resizes it
+        # The surface of the window cannot serve for that, as the system resizes it before telling us, which leaves it holding anything but the image we drew
+        self.__last_frame = None
+
         # Image currently drawn over the maze, remembered so that painting the window again does not make it disappear
         self.__main_image_name = "pyrat_preprocessing.png"
 
@@ -273,7 +281,8 @@ class GameWindow ():
             elif event.type == pygame.VIDEORESIZE and not self.__fullscreen:
                 # Ignore the resize events that our own call to "set_mode" echoes back to us
                 # Some systems, such as the Wayland compositors, confirm a size by re-emitting it even when it did not change, which would otherwise stretch the window forever
-                if (event.w, event.h) != self.__screen.get_size():
+                # The comparison is with the size we asked for, and not with the size of the window, which the system has already changed by the time it tells us
+                if (event.w, event.h) != self.__requested_size:
                     self.__stretch_to(event.w, event.h)
             elif event.type in EXPOSE_EVENTS:
                 must_repaint = True
@@ -300,12 +309,17 @@ class GameWindow ():
             height: New height of the window.
         """
 
-        # Remember that the interface must be rebuilt, and show a stretched image in the meantime
+        # Remember that the interface must be rebuilt, and ask the window for the size the user chose
         self.__pending_resize = (width, height)
         self.__last_resize_time = time.perf_counter()
-        stretched = pygame.transform.smoothscale(self.__screen.copy(), (width, height))
+        self.__requested_size = (width, height)
         self.__screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
-        self.__screen.blit(stretched, (0, 0))
+
+        # Show the last image we drew, stretched to the new size, so that the window shows something while the interface is rebuilt
+        # The window is filled first, as the stretched image is missing until the first one is drawn, and as the surface of the window holds anything but our image at this point
+        self.__screen.fill(layout_module.BACKGROUND_COLOR)
+        if self.__last_frame is not None:
+            self.__screen.blit(pygame.transform.smoothscale(self.__last_frame, (width, height)), (0, 0))
         pygame.display.flip()
 
     ##################################################################################
@@ -518,8 +532,10 @@ class GameWindow ():
         """
 
         # Present the screen
+        # A copy is kept, as it is the only image we still have once the system resizes the window, and it is what we stretch while the user drags the border
         if self.__pending_resize is None:
             pygame.display.flip()
+            self.__last_frame = self.__screen.copy()
 
 ##########################################################################################
 ##########################################################################################
