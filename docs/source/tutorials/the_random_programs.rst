@@ -68,7 +68,7 @@ In the following blocks of code, we will drop them for readability.
     # It describes a player that can be used in a PyRat game.
     # It is meant to be used as a library, and not to be executed directly.
     # Please import this file from a game script using the following syntax:
-    #     from pyrat_workspace.players.random1 import Random1
+    #     from players.random1 import Random1
 
     """
     This module provides a player that performs random actions in a PyRat game.
@@ -187,7 +187,7 @@ Let's do that for the sake of this tutorial.
 
        # PyRat imports
        from pyrat import Game
-       from pyrat_workspace.players.random1 import Random1
+       from players.random1 import Random1
 
        # Instantiate a game with a few arguments
        game = Game(maze_width=15, maze_height=13, nb_cheese=1)
@@ -287,7 +287,7 @@ Here is the complete code of the game script:
 
     # PyRat imports
     from pyrat import Game
-    from pyrat_workspace.players.random2 import Random2
+    from players.random2 import Random2
 
     # Instantiate a game with a few arguments
     game = Game(maze_width=15, maze_height=13, nb_cheese=1)
@@ -438,7 +438,7 @@ Here is the complete code of the game script:
 
     # PyRat imports
     from pyrat import Game
-    from pyrat_workspace.players.random3 import Random3
+    from players.random3 import Random3
 
     # Instantiate a game with a few arguments
     game = Game(maze_width=15, maze_height=13, nb_cheese=1)
@@ -583,7 +583,7 @@ Let's also reduce a bit the number of cells to have more dead-ends in the maze, 
 
     # PyRat imports
     from pyrat import Game
-    from pyrat_workspace.players.random4 import Random4
+    from players.random4 import Random4
 
     # Instantiate a game with a few arguments
     game = Game(maze_width=15, maze_height=13, nb_cheese=1, cell_percentage=70.0)
@@ -626,10 +626,10 @@ You can save it in a file called ``evaluate_random_players.py`` in the ``games``
 
     # PyRat imports
     from pyrat import Game, GameMode
-    from pyrat_workspace.players.random1 import Random1
-    from pyrat_workspace.players.random2 import Random2
-    from pyrat_workspace.players.random3 import Random3
-    from pyrat_workspace.players.random4 import Random4
+    from players.random1 import Random1
+    from players.random2 import Random2
+    from players.random3 import Random3
+    from players.random4 import Random4
 
     # Determines how many games will be played for each player
     nb_games = 1000

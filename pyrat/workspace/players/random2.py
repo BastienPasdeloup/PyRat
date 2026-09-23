@@ -6,7 +6,7 @@
 # It describes a player that can be used in a PyRat game.
 # This file is meant to be imported, and not to be executed directly.
 # Please import this file from a game script using the following syntax:
-#     from pyrat_workspace.players.random2 import Random2
+#     from players.random2 import Random2
 
 """
 This module provides a player that performs random actions in a PyRat game.

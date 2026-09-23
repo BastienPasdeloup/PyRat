@@ -1,0 +1,11 @@
+# This file is provided as a starting point by the PyRat library.
+# It is installed in the virtual environment of your workspace, where Python reads it on startup.
+# A file with this extension tells Python where to look for the programs it has to import.
+# The line below adds your workspace to the directories Python imports from, which is what makes
+# "from players.random1 import Random1" work in every program, wherever you run it from.
+# Every directory of your workspace is importable that way, including those you create later.
+# Your workspace is deduced from the virtual environment it contains, rather than written down here,
+# so renaming or moving your workspace changes nothing and there is no command to run afterwards.
+# Installing your workspace also records its location the usual way, which covers the rarer setups
+# in which the virtual environment is kept outside of it. Either way is enough on its own.
+import os, sys; os.path.dirname(sys.prefix) in sys.path or sys.path.append(os.path.dirname(sys.prefix))
