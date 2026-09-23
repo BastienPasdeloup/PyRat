@@ -59,6 +59,10 @@ EVENT_POLL_INTERVAL = 0.02
 # Time without a resize event after which the interface is rebuilt at the new size, in seconds
 RESIZE_SETTLE_DELAY = 0.2
 
+# Events by which the system asks for the window to be painted again, for instance after it was uncovered
+# One such request reaches us as several events, as pygame reports it both in its own way and in the way SDL describes it, hence a set rather than a single value
+EXPOSE_EVENTS = frozenset({pygame.VIDEOEXPOSE, getattr(pygame, "WINDOWEXPOSED", pygame.VIDEOEXPOSE)})
+
 # Proportion of the screen occupied by the window when it is not fullscreen
 WINDOW_SCREEN_RATIO = 0.8
 
@@ -165,9 +169,12 @@ class GameWindow ():
         self.__pending_resize = None
         self.__last_resize_time = 0.0
 
+        # Image currently drawn over the maze, remembered so that painting the window again does not make it disappear
+        self.__main_image_name = "pyrat_preprocessing.png"
+
         # Show the initial state, with the image announcing the preprocessing
         # Some systems only compose the window once its events have been handled a first time, so we show it twice
-        self.__redraw_everything("pyrat_preprocessing.png")
+        self.__redraw_everything()
         pygame.event.pump()
         time.sleep(0.1)
         pygame.display.flip()
@@ -258,19 +265,23 @@ class GameWindow ():
         """
 
         # Process all pending events
+        # A repaint is only remembered here, as one request reaches us as several events, and as several requests may be waiting for us at once
+        must_repaint = False
         for event in pygame.event.get():
             if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                 self.__running = False
             elif event.type == pygame.VIDEORESIZE and not self.__fullscreen:
-                # Ignore resize events echoed by our own set_mode call:
-                # on Wayland compositors, confirming a size re-emits the size
-                # even when it is unchanged, which would otherwise stretch the window forever
+                # Ignore the resize events that our own call to "set_mode" echoes back to us
+                # Some systems, such as the Wayland compositors, confirm a size by re-emitting it even when it did not change, which would otherwise stretch the window forever
                 if (event.w, event.h) != self.__screen.get_size():
                     self.__stretch_to(event.w, event.h)
-            elif event.type in (pygame.VIDEOEXPOSE, getattr(pygame, "WINDOWEXPOSED", pygame.VIDEOEXPOSE)) and self.__pending_resize is None:
-                # The compositor asked for a repaint (window uncovered, workspace switch...):
-                # present the current frame again, otherwise the window stays black
-                self.__redraw_everything()
+            elif event.type in EXPOSE_EVENTS:
+                must_repaint = True
+
+        # Paint the window again if the system asked for it, for instance because the window was uncovered
+        # Nothing is done while the user is resizing, as the stretched image is kept until the interface is rebuilt
+        if must_repaint and self.__pending_resize is None:
+            self.__redraw_everything()
 
     ##################################################################################
 
@@ -328,12 +339,12 @@ class GameWindow ():
             new_state: State of the game at the end of the turn.
         """
 
-        # Indicate for a little time that the preprocessing is over
+        # Indicate for a little time that the preprocessing is over, then uncover the maze
         if new_state.turn == 1:
-            self.__draw_frame(self.__current_state.cheese)
-            self.__scene.draw_main_image(self.__screen, "pyrat_go.png")
-            self.__present()
+            self.__main_image_name = "pyrat_go.png"
+            self.__redraw_everything()
             time.sleep(GO_IMAGE_DURATION)
+            self.__main_image_name = None
 
         # Decide where each player goes, then animate the move
         self.__start_move(new_state)
@@ -481,23 +492,20 @@ class GameWindow ():
 
     ##################################################################################
 
-    def __redraw_everything ( self,
-                              main_image_name: str | None = None
-                            ) ->               None:
+    def __redraw_everything ( self ) -> None:
 
         """
         Draws the whole window from what it currently shows, and presents it.
-
-        Args:
-            main_image_name: Name of an image to draw over the maze, or ``None`` for no image.
+        Everything is drawn from the state of the window, including the image that may cover the maze, so that calling this again shows the very same thing.
+        This is what allows the window to be painted again at any time, for instance when the system asks for it, without anything disappearing.
         """
 
-        # Background, maze, scores, and optionally the main image
+        # Background, maze, scores, and the image covering the maze if there is one
         self.__scene.draw_background(self.__screen)
         self.__draw_frame(self.__current_state.cheese)
         self.__draw_scores()
-        if main_image_name is not None:
-            self.__scene.draw_main_image(self.__screen, main_image_name)
+        if self.__main_image_name is not None:
+            self.__scene.draw_main_image(self.__screen, self.__main_image_name)
         self.__present()
 
     ##################################################################################
