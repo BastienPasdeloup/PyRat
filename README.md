@@ -99,20 +99,18 @@ Your workspace is a uv project, so you can add any library you need to it. \
 To do so, run `uv add` from your workspace, as in `uv add numpy`. \
 The library is then available in your players and games, with no need to activate anything.
 
-# Repair your workspace
+# Rebuild your workspace
 
 A workspace describes everything it needs in its `pyproject.toml` and `uv.lock` files, so it can always be rebuilt. \
-If it is renamed or moved, or if one of its libraries goes missing, running `uv sync` from the workspace installs everything again and makes its programs importable from their new location.
-
-If that is not enough, run the very same command that created the workspace, from the workspace itself:
+Run this from the workspace, for instance after cloning it on another machine, or if one of its libraries goes missing:
 
 ```shell
-uvx --from pyrat-game pyrat-init
+uv sync
 ```
 
-Run from a workspace, this command does not create a new one inside it, and does not touch the programs it contains. \
-It replaces the `.venv` directory with a brand new one, in which everything the workspace declares is installed again, and it repairs the configuration of the workspace, should uv refuse to work in it. \
-This is also how a workspace obtained from a Git repository, which comes with no `.venv` directory, is prepared.
+This installs again everything the workspace declares, in a virtual environment created for the machine it runs on.
+
+Renaming or moving a workspace needs nothing: its programs keep importing each other, wherever the workspace is.
 
 # Troubleshooting
 

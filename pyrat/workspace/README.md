@@ -28,7 +28,7 @@ It is a [uv](https://docs.astral.sh/uv) project, which means that uv takes care 
 - `pyproject.toml` and `uv.lock` are the files used by uv to describe your project. \
   They are updated by uv, you usually do not need to edit them by hand.
 
-- `_pyrat_relocatable.pth` is what makes the directories above importable from your programs. \
+- `_pyrat_relocatable.pth` is what keeps your programs importable when you rename or move your workspace. \
   uv installs it in your virtual environment, where Python reads it when it starts.
 
 - `.venv/` is the virtual environment of your workspace, created by uv. \
