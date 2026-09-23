@@ -113,7 +113,6 @@ Here is what this directory contains:
    |_ .venv                   # The virtual environment of the workspace, created by uv
    |_ pyproject.toml          # The description of your project and of the libraries it needs
    |_ uv.lock                 # The exact versions of the installed libraries
-   |_ _pyrat_relocatable.pth  # What keeps your directories importable when you move your workspace
    |_ README.md               # A description of the workspace
    |_ .gitignore              # The files that Git should ignore
 
@@ -123,8 +122,9 @@ Here is what this directory contains:
    This is what allows a script in ``games`` to import a player from ``players``, as in ``from players.random1 import Random1``.
    Any directory you add to your workspace is importable the same way, with nothing to declare.
 
-   The location of your workspace is recorded twice: once by uv, as for any installed project, and once by ``_pyrat_relocatable.pth``, which finds your workspace from the virtual environment it contains rather than writing its path down.
+   The location of your workspace is recorded twice: once by uv, as for any installed project, and once by a file PyRat installs in your virtual environment, which finds your workspace from that environment rather than writing its path down.
    The second one is what lets you rename or move your workspace with no command to run afterwards.
+   Neither of them puts anything in your workspace, which holds nothing but your programs and the files uv needs.
 
 Step 3 -- Check your installation
 ---------------------------------

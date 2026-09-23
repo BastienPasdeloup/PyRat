@@ -43,12 +43,6 @@ PYRAT_REQUIREMENT = "pyrat-game"
 # Directory in which a workspace is created when none is given
 DEFAULT_WORKSPACE_DIRECTORY = "pyrat_workspace"
 
-# File that makes the directories of a workspace importable, as in "from players.random1 import Random1"
-# Python reads it when it starts, and it deduces the workspace from the virtual environment that contains it, so moving a workspace does not break it
-# Installing the workspace records its location a second time, in the usual way, which covers the rarer setups in which the virtual environment is kept outside of it
-# Its name must differ from the one uv gives to the file it writes for the workspace itself, which is built from the name of the project
-PATH_FILE_NAME = "_pyrat_relocatable.pth"
-
 # uv feature asking for relocatable virtual environments, declared by the workspaces in their description
 # Without it, the commands installed in the virtual environment record the absolute path of the workspace, and stop working as soon as it is renamed or moved
 RELOCATABLE_FEATURE = "relocatable-envs-default"
@@ -64,9 +58,8 @@ WORKSPACE_DESCRIPTION = "Workspace for the PyRat software"
 TEMPLATE_DIRECTORY = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "workspace")
 
 # Description of the project written in every new workspace, which is what uv reads to prepare it
-# The workspace is a uv project that installs itself, and installing it is what makes its directories importable, in two complementary ways
-# The "dev-mode-dirs" setting records where the workspace is, as any project installed in editable mode does, which uv rewrites whenever it reinstalls the workspace
-# The file added by "force-include" finds the workspace on its own instead, which is what keeps a renamed or moved workspace working with no command to run
+# The workspace is a uv project that installs itself, and "dev-mode-dirs" is what records where it is, as for any project installed in editable mode
+# PyRat completes this with the path file it installs in the virtual environment, which finds the workspace on its own and thus survives a rename or a move
 # Neither of them lists the directories of the workspace, so the ones the student creates later are importable without any new declaration
 PYPROJECT_TEMPLATE = '''\
 [project]
@@ -83,7 +76,6 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 bypass-selection = true
 dev-mode-dirs = ["."]
-force-include = {{"{path_file}" = "{path_file}"}}
 
 [tool.uv]
 package = true
@@ -105,8 +97,9 @@ def init_workspace ( target_directory:  str | None = None,
 
     Installing the workspace adds it to the directories Python imports from, which is what makes every one of its directories importable, as in ``from players.random1 import Random1``.
     Nothing lists those directories, so the ones the student creates later are importable as well, with nothing to declare.
-    This is recorded in two complementary ways: where the workspace is, as for any project installed in editable mode, and a file that finds the workspace from the virtual environment it contains.
+    This is recorded in two complementary ways: where the workspace is, as for any project installed in editable mode, and a path file that PyRat installs in the virtual environment, which finds the workspace from that environment instead.
     The latter is what keeps a renamed or moved workspace working with no command to run, while the former covers the rarer setups in which the virtual environment is kept outside the workspace.
+    Neither of them puts anything in the workspace itself, which contains nothing but the programs of the student and the files uv needs.
 
     Nothing else is ever needed from PyRat: a workspace describes everything it needs, so ``uv sync`` is what rebuilds it, whether it was just cloned or its virtual environment was damaged.
 
@@ -132,7 +125,7 @@ def init_workspace ( target_directory:  str | None = None,
     if os.path.isfile(os.path.join(target_workspace, "pyproject.toml")):
         raise PyRatException(f"Directory {target_workspace} already contains a project -- Please run 'uv sync' from it to rebuild its virtual environment, or choose another directory to create a new workspace")
 
-    # Copy the programs to start with, as well as the file that makes the directories of the workspace importable
+    # Copy the programs to start with, which are all the workspace receives from us
     shutil.copytree(TEMPLATE_DIRECTORY, target_workspace, dirs_exist_ok=True, ignore=shutil.ignore_patterns("__pycache__"))
 
     # Describe the project, which is what tells uv the Python version to use, the libraries to install, and how to install the workspace itself
@@ -140,7 +133,6 @@ def init_workspace ( target_directory:  str | None = None,
         f.write(PYPROJECT_TEMPLATE.format(description=WORKSPACE_DESCRIPTION,
                                           python_version=PYTHON_VERSION,
                                           pyrat_requirement=pyrat_requirement,
-                                          path_file=PATH_FILE_NAME,
                                           relocatable_feature=RELOCATABLE_FEATURE))
     print(f"Workspace created in {target_workspace}, as a uv project using Python {PYTHON_VERSION}", file=sys.stderr)
 

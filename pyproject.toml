@@ -11,7 +11,7 @@
 
 [project]
 name            = "pyrat-game"
-version         = "6.5.1"
+version         = "6.5.2"
 description     = "PyRat software used in the computer science course at IMT Atlantique"
 readme          = "README.md"
 license         = "MIT"
@@ -42,17 +42,17 @@ numpy = ["numpy"]
 torch = ["torch"]
 docs = ["sphinx", "sphinx-autodoc-typehints", "furo", "sphinx-design", "sphinx-copybutton"]
 
-[tool.setuptools]
-include-package-data = true
-
-[tool.setuptools.package-data]
-"*" = ["*.md",
-       "LICENSE",
-       "MANIFEST.in"]
-
 [build-system]
-requires      = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+requires      = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["pyrat"]
+
+# Installed at the root of the virtual environment of a workspace, where Python reads it on startup
+# This is what makes the directories of a workspace importable, wherever the workspace is
+[tool.hatch.build.targets.wheel.force-include]
+"pyrat/_pyrat_relocatable.pth" = "_pyrat_relocatable.pth"
 
 ##########################################################################################
 ##########################################################################################
