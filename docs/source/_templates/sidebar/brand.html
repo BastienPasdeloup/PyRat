@@ -1,0 +1,22 @@
+{#-
+
+This template replaces the one of the Furo theme that shows the logo and the name of the project at the top of the left sidebar.
+It is the same, followed by a badge showing the latest version of PyRat published on PyPI, which links to its history of releases.
+The badge is served by shields.io, which asks PyPI each time the page is shown, so it stays right between two builds of the documentation.
+If it cannot be loaded, the version the documentation was built for is shown instead, in the same place.
+
+-#}
+<a class="sidebar-brand{% if logo %} centered{% endif %}" href="{{ pathto(master_doc) }}">
+  {%- if logo_url %}
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="{{ logo_url }}" alt="Logo"/>
+  </div>
+  {%- endif %}
+  {% if not theme_sidebar_hide_name %}
+  <span class="sidebar-brand-text">{{ docstitle if docstitle else project }}</span>
+  {%- endif %}
+</a>
+<a class="sidebar-version-badge" href="https://pypi.org/project/pyrat-game/#history" title="Latest version of PyRat, on PyPI">
+  <img src="https://img.shields.io/pypi/v/pyrat-game?label=latest%20version&color=e8a33d&logo=pypi&logoColor=white" alt="Latest version on PyPI" height="20" onerror="this.hidden = true; this.nextElementSibling.hidden = false;"/>
+  <span class="sidebar-version-fallback" hidden>version {{ release }}</span>
+</a>

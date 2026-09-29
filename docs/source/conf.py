@@ -5,6 +5,7 @@
 
 import os
 import sys
+import tomllib
 sys.path.insert(0, os.path.abspath("../../pyrat/workspace"))
 sys.path.insert(0, os.path.abspath("../../pyrat/workspace/games"))
 sys.path.insert(0, os.path.abspath("../../pyrat/workspace/players"))
@@ -15,6 +16,14 @@ sys.path.insert(0, os.path.abspath("../../pyrat/workspace/players"))
 project = 'PyRat'
 copyright = '2025, Bastien Pasdeloup & IMT Atlantique'
 author = 'Bastien Pasdeloup'
+
+# The version is read from the package, so that it never has to be updated here
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "pyproject.toml"), "rb") as pyproject_file:
+    release = tomllib.load(pyproject_file)["project"]["version"]
+version = release
+
+# Without it, Sphinx would add the version to the title of each page, which the badge of the sidebar already shows
+html_title = "PyRat documentation"
 
 
 # -- General configuration ---------------------------------------------------

@@ -35,7 +35,13 @@ diagrams:
 	    sed -E -f "$(DIAGRAMSDIR)/links.sed" -f "$(DIAGRAMSDIR)/dark_palette.sed" "$(DIAGRAMSDIR)/$$diagram.dot" | dot -Tsvg | sed $(SVG_INLINE) -e 's/ id="/ id="dark_/g' > "$(STATICDIR)/$${diagram}_dark_inline.svg"; \
 	done
 
-.PHONY: help diagrams Makefile
+# Produce the video and the images shown on the home page of the documentation (requires the "ffmpeg" command).
+# As for the diagrams, the files are committed, so that neither the CI nor the readers need ffmpeg.
+# The video is a match recorded from the real PyRat window, drawn off screen, so it follows any change made to the interface.
+home:
+	@python home/make_home_assets.py
+
+.PHONY: help diagrams home Makefile
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).

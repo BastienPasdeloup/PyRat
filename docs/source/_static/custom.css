@@ -253,3 +253,303 @@ body[data-theme="dark"] {
 .sidebar-brand-text {
     font-weight: 700;
 }
+
+/* Badge showing the latest version, right under the name of the project (see _templates/sidebar/brand.html) */
+.sidebar-version-badge {
+    display: flex;
+    justify-content: center;
+    margin: -0.25rem var(--sidebar-item-spacing-horizontal) 0.75rem;
+    text-decoration: none;
+}
+
+.sidebar-version-badge img {
+    display: block;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.sidebar-version-badge:hover img {
+    filter: brightness(1.08);
+}
+
+/* Shown instead of the badge when it cannot be loaded, and styled like it */
+.sidebar-version-fallback {
+    padding: 0.15em 0.6em;
+    border-radius: 4px;
+    background: var(--pyrat-yellow);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.sidebar-version-fallback[hidden] {
+    display: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Home page                                                                  */
+/* -------------------------------------------------------------------------- */
+
+/* The title of the home page is kept for Sphinx and screen readers, but the banner stands for it on screen */
+.main section:has(> .pyrat-hero) > h1 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+/* Banner, with the mascot next to the name of the project and the first steps */
+.pyrat-hero {
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    align-items: center;
+    gap: 2.5rem;
+    margin: 0.5rem 0 1rem;
+    padding: 2rem 2.5rem;
+    border: 1px solid var(--color-background-border);
+    border-radius: 16px;
+    background: radial-gradient(circle at 20% 30%, var(--pyrat-yellow-soft), transparent 70%), var(--color-background-secondary);
+}
+
+.main .pyrat-hero img.pyrat-hero-image {
+    flex: 0 0 auto;
+    width: 12rem;
+    height: auto;
+    margin: 0;
+    border-radius: 0;
+}
+
+.pyrat-hero-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.main .pyrat-hero p {
+    margin: 0;
+    text-align: left;
+    hyphens: manual;
+}
+
+.main .pyrat-hero .pyrat-hero-kicker {
+    color: var(--color-brand-content);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.main .pyrat-hero .pyrat-hero-title {
+    margin: 0.1rem 0 0.4rem;
+    font-size: 3.2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.main .pyrat-hero .pyrat-hero-tagline {
+    color: var(--color-foreground-secondary);
+    font-size: 1.2rem;
+    line-height: 1.45;
+    text-wrap: balance;
+}
+
+.pyrat-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1.5rem 0 1.25rem;
+}
+
+.pyrat-button {
+    display: inline-block;
+    padding: 0.55em 1.2em;
+    border: 1px solid var(--color-background-border);
+    border-radius: 8px;
+    background: var(--color-background-primary);
+    color: var(--color-foreground-primary);
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.pyrat-button:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-brand-primary);
+    color: var(--color-foreground-primary);
+}
+
+.pyrat-button.pyrat-button-primary {
+    border-color: var(--color-brand-primary);
+    background: var(--color-brand-primary);
+    color: #ffffff;
+}
+
+.pyrat-button.pyrat-button-primary:hover {
+    color: #ffffff;
+    filter: brightness(1.08);
+}
+
+/* The command that creates a workspace, with what it does next to it */
+.main .pyrat-hero .pyrat-hero-command {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 0.75rem;
+    color: var(--color-foreground-muted);
+    font-size: 0.85rem;
+}
+
+.pyrat-hero-command code {
+    padding: 0.3em 0.6em;
+    border: 1px solid var(--color-background-border);
+    border-radius: 6px;
+    background: var(--color-code-background);
+    color: var(--color-code-foreground);
+    font-size: 0.9rem;
+}
+
+.pyrat-hero-command code::before {
+    content: "$ ";
+    color: var(--color-foreground-muted);
+    user-select: none;
+}
+
+@media (max-width: 40em) {
+    .pyrat-hero {
+        flex-direction: column;
+        gap: 1.25rem;
+        padding: 1.5rem 1.25rem;
+        text-align: center;
+    }
+    .main .pyrat-hero img.pyrat-hero-image {
+        width: 9rem;
+    }
+    .main .pyrat-hero p,
+    .main .pyrat-hero .pyrat-hero-tagline {
+        text-align: center;
+    }
+    .pyrat-hero-actions,
+    .main .pyrat-hero .pyrat-hero-command {
+        justify-content: center;
+    }
+    .main .pyrat-hero .pyrat-hero-title {
+        font-size: 2.6rem;
+    }
+}
+
+/* Video of a match, shown as the window of the game */
+.pyrat-video {
+    margin: 1.5rem 0;
+}
+
+.main .pyrat-video video {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    background: #000000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+.pyrat-video figcaption {
+    margin-top: 0.75rem;
+    color: var(--color-foreground-muted);
+    font-size: 0.9em;
+    text-align: center;
+}
+
+/* The features are not links, so they do not react to the mouse like the cards of the documentation */
+.pyrat-features .sd-card:hover {
+    transform: none;
+    border-color: var(--color-background-border);
+    box-shadow: none;
+}
+
+.pyrat-features .sd-card-title,
+.main .sd-card .sd-card-title .sd-octicon {
+    color: var(--color-brand-content);
+}
+
+/* Learning path: the steps are joined by a line, each with a drawing of the game */
+.pyrat-path {
+    position: relative;
+    margin: 1.5rem 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: step;
+}
+
+.pyrat-path::before {
+    content: "";
+    position: absolute;
+    top: 2.5rem;
+    bottom: 2.5rem;
+    left: 2.5rem;
+    border-left: 2px dashed var(--color-background-border);
+}
+
+.pyrat-path li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin: 0 0 0.75rem;
+    counter-increment: step;
+}
+
+/* The drawing of each step sits in a disc, above the line joining the steps */
+.main .pyrat-path li > img,
+.pyrat-path-cheeses {
+    flex: 0 0 5rem;
+    box-sizing: border-box;
+    width: 5rem;
+    height: 5rem;
+    margin: 0;
+    padding: 0.9rem;
+    border: 1px solid var(--color-background-border);
+    border-radius: 50%;
+    background: var(--color-background-secondary);
+    object-fit: contain;
+}
+
+.pyrat-path-cheeses {
+    position: relative;
+    display: block;
+}
+
+.main .pyrat-path-cheeses img {
+    position: absolute;
+    width: 2rem;
+    height: auto;
+    margin: 0;
+    border-radius: 0;
+}
+
+.main .pyrat-path-cheeses img:nth-child(1) { left: 0.75rem; top: 1.1rem; }
+.main .pyrat-path-cheeses img:nth-child(2) { left: 2.25rem; top: 0.9rem; }
+.main .pyrat-path-cheeses img:nth-child(3) { left: 1.5rem; top: 2.3rem; }
+
+.pyrat-path li > div {
+    flex: 1 1 auto;
+    padding: 0.8rem 1.1rem;
+    border: 1px solid var(--color-background-border);
+    border-radius: 10px;
+    background: var(--color-background-primary);
+}
+
+.pyrat-path strong {
+    display: block;
+    color: var(--color-brand-content);
+}
+
+.pyrat-path strong::before {
+    content: counter(step) ". ";
+}
+
+.pyrat-path span {
+    display: block;
+    color: var(--color-foreground-secondary);
+    font-size: 0.95em;
+}
