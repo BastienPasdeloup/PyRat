@@ -206,7 +206,7 @@ Let's do that for the sake of this tutorial.
 .. raw:: html
 
     <video width="100%" controls>
-      <source src="../_static/random1.webm" type="video/webm">
+      <source src="../_static/random1.mp4" type="video/mp4">
     </video>
 
 The ``Random2`` Player
@@ -305,7 +305,7 @@ Running this script will open a window with the player moving randomly in the ma
 .. raw:: html
 
     <video width="100%" controls>
-      <source src="../_static/random2.webm" type="video/webm">
+      <source src="../_static/random2.mp4" type="video/mp4">
     </video>
 
 The ``Random3`` Player
@@ -456,7 +456,7 @@ Running this script will open a window with the player moving randomly in the ma
 .. raw:: html
 
     <video width="100%" controls>
-      <source src="../_static/random3.webm" type="video/webm">
+      <source src="../_static/random3.mp4" type="video/mp4">
     </video>
 
 The ``Random4`` Player
@@ -601,7 +601,7 @@ Running this script will open a window with the player moving randomly in the ma
 .. raw:: html
 
     <video width="100%" controls>
-      <source src="../_static/random4.webm" type="video/webm">
+      <source src="../_static/random4.mp4" type="video/mp4">
     </video>
 
 Conclusion
