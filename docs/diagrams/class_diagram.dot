@@ -157,7 +157,7 @@ digraph PyRat {
 
         PyRatException [label=<
             <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
-                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" CELLPADDING="3" WIDTH="200"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
                     <TR><TD HREF="PyRatException" TITLE="PyRatException"><B>PyRatException</B></TD></TR>
                     <TR><TD><FONT POINT-SIZE="9">inherits from the built-in Exception</FONT></TD></TR>
                 </TABLE></TD></TR>
@@ -166,7 +166,7 @@ digraph PyRat {
 
         PyRatPlayerException [label=<
             <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
-                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" HREF="PyRatPlayerException" TITLE="PyRatPlayerException"><B>PyRatPlayerException</B></TD></TR>
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" WIDTH="200" HREF="PyRatPlayerException" TITLE="PyRatPlayerException"><B>PyRatPlayerException</B></TD></TR>
                 <TR><TD ALIGN="LEFT" BALIGN="LEFT"><FONT COLOR="#555555">raised when a player causes an error<BR/>(crash, invalid action, …)</FONT></TD></TR>
             </TABLE>>]
     }
@@ -488,7 +488,8 @@ digraph PyRat {
     Maze            -> bus_mazes_trunk
     RandomMaze      -> bus_random_mazes_trunk
     "Graph"         -> Maze [minlen=2]
-    PyRatException  -> PyRatPlayerException [minlen=1]
+    // Both exceptions have the same width, so that this heavy edge, which dot draws as straight as it can, is vertical
+    PyRatException  -> PyRatPlayerException [minlen=1, weight=100]
 
     // Drops
     edge [dir=none, weight=10]

@@ -1,22 +1,22 @@
 <svg
- viewBox="0.00 0.00 1804.00 1742.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ viewBox="0.00 0.00 1825.00 1742.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(21.6 1720.51)">
-<polygon fill="#ffffff" stroke="none" points="-21.6,21.6 -21.6,-1720.51 1782.6,-1720.51 1782.6,21.6 -21.6,21.6"/>
+<polygon fill="#ffffff" stroke="none" points="-21.6,21.6 -21.6,-1720.51 1803.6,-1720.51 1803.6,21.6 -21.6,21.6"/>
 <g id="clust1" class="cluster">
 <path fill="#f6f6f6" stroke="#c9c9c9" stroke-dasharray="5,2" d="M20,-1155.94C20,-1155.94 449,-1155.94 449,-1155.94 455,-1155.94 461,-1161.94 461,-1167.94 461,-1167.94 461,-1626.07 461,-1626.07 461,-1632.07 455,-1638.07 449,-1638.07 449,-1638.07 20,-1638.07 20,-1638.07 14,-1638.07 8,-1632.07 8,-1626.07 8,-1626.07 8,-1167.94 8,-1167.94 8,-1161.94 14,-1155.94 20,-1155.94"/>
 <text xml:space="preserve" text-anchor="middle" x="33.25" y="-1623.62" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#6b6b6b">players</text>
 </g>
 <g id="clust3" class="cluster">
-<path fill="#f6f6f6" stroke="#c9c9c9" stroke-dasharray="5,2" d="M663,-1046.69C663,-1046.69 1096,-1046.69 1096,-1046.69 1102,-1046.69 1108,-1052.69 1108,-1058.69 1108,-1058.69 1108,-1664.19 1108,-1664.19 1108,-1670.19 1102,-1676.19 1096,-1676.19 1096,-1676.19 663,-1676.19 663,-1676.19 657,-1676.19 651,-1670.19 651,-1664.19 651,-1664.19 651,-1058.69 651,-1058.69 651,-1052.69 657,-1046.69 663,-1046.69"/>
+<path fill="#f6f6f6" stroke="#c9c9c9" stroke-dasharray="5,2" d="M663,-1046.69C663,-1046.69 1128,-1046.69 1128,-1046.69 1134,-1046.69 1140,-1052.69 1140,-1058.69 1140,-1058.69 1140,-1664.19 1140,-1664.19 1140,-1670.19 1134,-1676.19 1128,-1676.19 1128,-1676.19 663,-1676.19 663,-1676.19 657,-1676.19 651,-1670.19 651,-1664.19 651,-1664.19 651,-1058.69 651,-1058.69 651,-1052.69 657,-1046.69 663,-1046.69"/>
 <text xml:space="preserve" text-anchor="middle" x="672.5" y="-1661.74" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#6b6b6b">game</text>
 </g>
 <g id="clust4" class="cluster">
-<path fill="#f6f6f6" stroke="#c9c9c9" stroke-dasharray="5,2" d="M1325,-887.93C1325,-887.93 1741,-887.93 1741,-887.93 1747,-887.93 1753,-893.93 1753,-899.93 1753,-899.93 1753,-1605.07 1753,-1605.07 1753,-1611.07 1747,-1617.07 1741,-1617.07 1741,-1617.07 1325,-1617.07 1325,-1617.07 1319,-1617.07 1313,-1611.07 1313,-1605.07 1313,-1605.07 1313,-899.93 1313,-899.93 1313,-893.93 1319,-887.93 1325,-887.93"/>
-<text xml:space="preserve" text-anchor="middle" x="1343.88" y="-1602.62" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#6b6b6b">rendering</text>
+<path fill="#f6f6f6" stroke="#c9c9c9" stroke-dasharray="5,2" d="M1346,-887.93C1346,-887.93 1762,-887.93 1762,-887.93 1768,-887.93 1774,-893.93 1774,-899.93 1774,-899.93 1774,-1605.07 1774,-1605.07 1774,-1611.07 1768,-1617.07 1762,-1617.07 1762,-1617.07 1346,-1617.07 1346,-1617.07 1340,-1617.07 1334,-1611.07 1334,-1605.07 1334,-1605.07 1334,-899.93 1334,-899.93 1334,-893.93 1340,-887.93 1346,-887.93"/>
+<text xml:space="preserve" text-anchor="middle" x="1364.88" y="-1602.62" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#6b6b6b">rendering</text>
 </g>
 <g id="clust6" class="cluster">
-<path fill="#f6f6f6" stroke="#c9c9c9" stroke-dasharray="5,2" d="M493,-8C493,-8 1265,-8 1265,-8 1271,-8 1277,-14 1277,-20 1277,-20 1277,-825.94 1277,-825.94 1277,-831.94 1271,-837.94 1265,-837.94 1265,-837.94 493,-837.94 493,-837.94 487,-837.94 481,-831.94 481,-825.94 481,-825.94 481,-20 481,-20 481,-14 487,-8 493,-8"/>
-<text xml:space="preserve" text-anchor="middle" x="504.75" y="-823.49" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#6b6b6b">mazes</text>
+<path fill="#f6f6f6" stroke="#c9c9c9" stroke-dasharray="5,2" d="M505,-8C505,-8 1277,-8 1277,-8 1283,-8 1289,-14 1289,-20 1289,-20 1289,-825.94 1289,-825.94 1289,-831.94 1283,-837.94 1277,-837.94 1277,-837.94 505,-837.94 505,-837.94 499,-837.94 493,-831.94 493,-825.94 493,-825.94 493,-20 493,-20 493,-14 499,-8 505,-8"/>
+<text xml:space="preserve" text-anchor="middle" x="516.75" y="-823.49" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#6b6b6b">mazes</text>
 </g>
 <g id="clust9" class="cluster">
 <path fill="#f6f6f6" stroke="#c9c9c9" stroke-dasharray="5,2" d="M61,-401.32C61,-401.32 333,-401.32 333,-401.32 339,-401.32 345,-407.32 345,-413.32 345,-413.32 345,-1017.69 345,-1017.69 345,-1023.69 339,-1029.69 333,-1029.69 333,-1029.69 61,-1029.69 61,-1029.69 55,-1029.69 49,-1023.69 49,-1017.69 49,-1017.69 49,-413.31 49,-413.31 49,-407.32 55,-401.32 61,-401.32"/>
@@ -71,77 +71,77 @@
 </g>
 <!-- Game -->
 <g id="node7" class="node">
-<polygon fill="#fffaf2" stroke="none" points="706.25,-1414.19 706.25,-1642.19 1001.75,-1642.19 1001.75,-1414.19 706.25,-1414.19"/>
+<polygon fill="#fffaf2" stroke="none" points="714.25,-1414.19 714.25,-1642.19 1009.75,-1642.19 1009.75,-1414.19 714.25,-1414.19"/>
 <g id="a_node7_8"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game" xlink:title="Game">
-<polygon fill="#f6d9a8" stroke="none" points="706.25,-1616.19 706.25,-1642.19 1001.75,-1642.19 1001.75,-1616.19 706.25,-1616.19"/>
-<polygon fill="none" stroke="#b8761b" points="706.25,-1616.19 706.25,-1642.19 1001.75,-1642.19 1001.75,-1616.19 706.25,-1616.19"/>
-<text xml:space="preserve" text-anchor="start" x="839" y="-1625.74" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">Game</text>
+<polygon fill="#f6d9a8" stroke="none" points="714.25,-1616.19 714.25,-1642.19 1009.75,-1642.19 1009.75,-1616.19 714.25,-1616.19"/>
+<polygon fill="none" stroke="#b8761b" points="714.25,-1616.19 714.25,-1642.19 1009.75,-1642.19 1009.75,-1616.19 714.25,-1616.19"/>
+<text xml:space="preserve" text-anchor="start" x="847" y="-1625.74" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">Game</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="706.25,-1466.19 706.25,-1616.19 1001.75,-1616.19 1001.75,-1466.19 706.25,-1466.19"/>
+<polygon fill="none" stroke="#b8761b" points="714.25,-1466.19 714.25,-1616.19 1009.75,-1616.19 1009.75,-1466.19 714.25,-1466.19"/>
 <g id="a_node7_9"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.DEFAULT_RANDOM_SEED">
-<text xml:space="preserve" text-anchor="start" x="712.25" y="-1601.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ DEFAULT_* : default value of each setting</text>
+<text xml:space="preserve" text-anchor="start" x="720.25" y="-1601.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ DEFAULT_* : default value of each setting</text>
 </a>
 </g>
 <g id="a_node7_10"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.__init__">
-<text xml:space="preserve" text-anchor="start" x="712.25" y="-1587.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; maze_width, maze_height : int</text>
+<text xml:space="preserve" text-anchor="start" x="720.25" y="-1587.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; maze_width, maze_height : int</text>
 </a>
 </g>
 <g id="a_node7_11"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.__init__">
-<text xml:space="preserve" text-anchor="start" x="712.25" y="-1573.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; cell_percentage, wall_percentage, mud_percentage : float</text>
+<text xml:space="preserve" text-anchor="start" x="720.25" y="-1573.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; cell_percentage, wall_percentage, mud_percentage : float</text>
 </a>
 </g>
 <g id="a_node7_12"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.__init__">
-<text xml:space="preserve" text-anchor="start" x="712.25" y="-1559.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; nb_cheese : int</text>
+<text xml:space="preserve" text-anchor="start" x="720.25" y="-1559.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; nb_cheese : int</text>
 </a>
 </g>
 <g id="a_node7_13"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.__init__">
-<text xml:space="preserve" text-anchor="start" x="712.25" y="-1545.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; fixed_maze, fixed_cheese, random seeds, …</text>
+<text xml:space="preserve" text-anchor="start" x="720.25" y="-1545.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; fixed_maze, fixed_cheese, random seeds, …</text>
 </a>
 </g>
 <g id="a_node7_14"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.__init__">
-<text xml:space="preserve" text-anchor="start" x="712.25" y="-1531.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; random_maze_algorithm : RandomMazeAlgorithm</text>
+<text xml:space="preserve" text-anchor="start" x="720.25" y="-1531.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; random_maze_algorithm : RandomMazeAlgorithm</text>
 </a>
 </g>
 <g id="a_node7_15"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.__init__">
-<text xml:space="preserve" text-anchor="start" x="712.25" y="-1517.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; render_mode : RenderMode</text>
+<text xml:space="preserve" text-anchor="start" x="720.25" y="-1517.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; render_mode : RenderMode</text>
 </a>
 </g>
 <g id="a_node7_16"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.__init__">
-<text xml:space="preserve" text-anchor="start" x="712.25" y="-1503.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; game_mode : GameMode</text>
+<text xml:space="preserve" text-anchor="start" x="720.25" y="-1503.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; game_mode : GameMode</text>
 </a>
 </g>
 <g id="a_node7_17"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.__init__">
-<text xml:space="preserve" text-anchor="start" x="712.25" y="-1489.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; preprocessing_time, turn_time : float</text>
+<text xml:space="preserve" text-anchor="start" x="720.25" y="-1489.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; preprocessing_time, turn_time : float</text>
 </a>
 </g>
 <g id="a_node7_18"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.__init__">
-<text xml:space="preserve" text-anchor="start" x="712.25" y="-1475.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; continue_on_error, save_game : bool</text>
+<text xml:space="preserve" text-anchor="start" x="720.25" y="-1475.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; continue_on_error, save_game : bool</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="706.25,-1414.19 706.25,-1466.19 1001.75,-1466.19 1001.75,-1414.19 706.25,-1414.19"/>
+<polygon fill="none" stroke="#b8761b" points="714.25,-1414.19 714.25,-1466.19 1009.75,-1466.19 1009.75,-1414.19 714.25,-1414.19"/>
 <g id="a_node7_19"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.add_player">
-<text xml:space="preserve" text-anchor="start" x="712.25" y="-1451.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ add_player(player, team, location)</text>
+<text xml:space="preserve" text-anchor="start" x="720.25" y="-1451.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ add_player(player, team, location)</text>
 </a>
 </g>
 <g id="a_node7_20"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.reset">
-<text xml:space="preserve" text-anchor="start" x="712.25" y="-1437.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ reset(keep_players, same)</text>
+<text xml:space="preserve" text-anchor="start" x="720.25" y="-1437.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ reset(keep_players, same)</text>
 </a>
 </g>
 <g id="a_node7_21"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.start">
-<text xml:space="preserve" text-anchor="start" x="712.25" y="-1423.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ start() : dict[str, object]</text>
+<text xml:space="preserve" text-anchor="start" x="720.25" y="-1423.19" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ start() : dict[str, object]</text>
 </a>
 </g>
 </g>
 <!-- Player&#45;&gt;Game -->
 <g id="edge39" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M414.89,-1528.19C451.33,-1528.19 482,-1528.19 482,-1528.19 482,-1528.19 668,-1528.19 668,-1528.19 668,-1528.19 678.54,-1528.19 694.6,-1528.19"/>
-<polygon fill="#555555" stroke="#555555" stroke-width="1.1" points="406.34,-1528.19 415.34,-1524.14 409.5,-1528.14 415.34,-1528.14 415.34,-1528.19 415.34,-1528.24 409.5,-1528.24 415.34,-1532.24 406.34,-1528.19"/>
-<polygon fill="none" stroke="#555555" stroke-width="1.1" points="694.75,-1528.19 700.15,-1524.59 705.55,-1528.19 700.15,-1531.79 694.75,-1528.19"/>
-<text xml:space="preserve" text-anchor="middle" x="528.12" y="-1529.94" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">add_player()</text>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M415.12,-1528.19C452.72,-1528.19 484.67,-1528.19 484.67,-1528.19 484.67,-1528.19 673.33,-1528.19 673.33,-1528.19 673.33,-1528.19 685.04,-1528.19 702.62,-1528.19"/>
+<polygon fill="#555555" stroke="#555555" stroke-width="1.1" points="406.27,-1528.19 415.27,-1524.14 409.43,-1528.14 415.27,-1528.14 415.27,-1528.19 415.27,-1528.24 409.43,-1528.24 415.27,-1532.24 406.27,-1528.19"/>
+<polygon fill="none" stroke="#555555" stroke-width="1.1" points="702.48,-1528.19 707.88,-1524.59 713.28,-1528.19 707.88,-1531.79 702.48,-1528.19"/>
+<text xml:space="preserve" text-anchor="middle" x="532.25" y="-1529.94" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">add_player()</text>
 <g id="a_edge39&#45;taillabel"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.add_player" xlink:title="Game.add_player()">
-<text xml:space="preserve" text-anchor="middle" x="435.02" y="-1513.98" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">1..*</text>
-<text xml:space="preserve" text-anchor="middle" x="435.02" y="-1502.73" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">&#45; players</text>
+<text xml:space="preserve" text-anchor="middle" x="434.95" y="-1513.98" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">1..*</text>
+<text xml:space="preserve" text-anchor="middle" x="434.95" y="-1502.73" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">&#45; players</text>
 </a>
 </g>
 </g>
@@ -205,70 +205,70 @@
 </g>
 <!-- Maze -->
 <g id="node19" class="node">
-<polygon fill="#fffaf2" stroke="none" points="708.12,-399.44 708.12,-562.94 1143.88,-562.94 1143.88,-399.44 708.12,-399.44"/>
-<polygon fill="#f6d9a8" stroke="none" points="708.12,-517.44 708.12,-562.94 1143.88,-562.94 1143.88,-517.44 708.12,-517.44"/>
-<polygon fill="none" stroke="#b8761b" points="708.12,-517.44 708.12,-562.94 1143.88,-562.94 1143.88,-517.44 708.12,-517.44"/>
-<text xml:space="preserve" text-anchor="start" x="904.62" y="-550.44" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#1f1f1f">«abstract»</text>
+<polygon fill="#fffaf2" stroke="none" points="720.12,-399.44 720.12,-562.94 1155.88,-562.94 1155.88,-399.44 720.12,-399.44"/>
+<polygon fill="#f6d9a8" stroke="none" points="720.12,-517.44 720.12,-562.94 1155.88,-562.94 1155.88,-517.44 720.12,-517.44"/>
+<polygon fill="none" stroke="#b8761b" points="720.12,-517.44 720.12,-562.94 1155.88,-562.94 1155.88,-517.44 720.12,-517.44"/>
+<text xml:space="preserve" text-anchor="start" x="916.62" y="-550.44" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#1f1f1f">«abstract»</text>
 <g id="a_node19_33"><a xlink:href="../pyrat/Maze.html#pyrat.src.mazes.maze.Maze" xlink:title="Maze">
-<text xml:space="preserve" text-anchor="start" x="912.88" y="-536.74" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-style="italic" font-size="11.00" fill="#1f1f1f">Maze</text>
+<text xml:space="preserve" text-anchor="start" x="924.88" y="-536.74" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-style="italic" font-size="11.00" fill="#1f1f1f">Maze</text>
 </a>
 </g>
-<text xml:space="preserve" text-anchor="start" x="781.62" y="-524.69" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#1f1f1f">a Graph whose vertices are cells, numbered from 0 to width × height &#45; 1</text>
-<polygon fill="none" stroke="#b8761b" points="708.12,-479.44 708.12,-517.44 1143.88,-517.44 1143.88,-479.44 708.12,-479.44"/>
+<text xml:space="preserve" text-anchor="start" x="793.62" y="-524.69" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#1f1f1f">a Graph whose vertices are cells, numbered from 0 to width × height &#45; 1</text>
+<polygon fill="none" stroke="#b8761b" points="720.12,-479.44 720.12,-517.44 1155.88,-517.44 1155.88,-479.44 720.12,-479.44"/>
 <g id="a_node19_34"><a xlink:href="../pyrat/Maze.html#pyrat.src.mazes.maze.Maze.__init__">
-<text xml:space="preserve" text-anchor="start" x="714.12" y="-502.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># width : int</text>
+<text xml:space="preserve" text-anchor="start" x="726.12" y="-502.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># width : int</text>
 </a>
 </g>
 <g id="a_node19_35"><a xlink:href="../pyrat/Maze.html#pyrat.src.mazes.maze.Maze.__init__">
-<text xml:space="preserve" text-anchor="start" x="714.12" y="-488.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># height : int</text>
+<text xml:space="preserve" text-anchor="start" x="726.12" y="-488.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># height : int</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="708.12,-399.44 708.12,-479.44 1143.88,-479.44 1143.88,-399.44 708.12,-399.44"/>
+<polygon fill="none" stroke="#b8761b" points="720.12,-399.44 720.12,-479.44 1155.88,-479.44 1155.88,-399.44 720.12,-399.44"/>
 <g id="a_node19_36"><a xlink:href="../pyrat/Maze.html#pyrat.src.mazes.maze.Maze.get_width">
-<text xml:space="preserve" text-anchor="start" x="714.12" y="-464.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ get_width() : int</text>
+<text xml:space="preserve" text-anchor="start" x="726.12" y="-464.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ get_width() : int</text>
 </a>
 </g>
 <g id="a_node19_37"><a xlink:href="../pyrat/Maze.html#pyrat.src.mazes.maze.Maze.rc_exists">
-<text xml:space="preserve" text-anchor="start" x="879.88" y="-464.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ rc_exists(row, col) : bool</text>
+<text xml:space="preserve" text-anchor="start" x="891.88" y="-464.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ rc_exists(row, col) : bool</text>
 </a>
 </g>
 <g id="a_node19_38"><a xlink:href="../pyrat/Maze.html#pyrat.src.mazes.maze.Maze.get_height">
-<text xml:space="preserve" text-anchor="start" x="714.12" y="-450.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ get_height() : int</text>
+<text xml:space="preserve" text-anchor="start" x="726.12" y="-450.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ get_height() : int</text>
 </a>
 </g>
 <g id="a_node19_39"><a xlink:href="../pyrat/Maze.html#pyrat.src.mazes.maze.Maze.coords_difference">
-<text xml:space="preserve" text-anchor="start" x="879.88" y="-450.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ coords_difference(vertex_1, vertex_2) : tuple[int, int]</text>
+<text xml:space="preserve" text-anchor="start" x="891.88" y="-450.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ coords_difference(vertex_1, vertex_2) : tuple[int, int]</text>
 </a>
 </g>
 <g id="a_node19_40"><a xlink:href="../pyrat/Maze.html#pyrat.src.mazes.maze.Maze.i_to_rc">
-<text xml:space="preserve" text-anchor="start" x="714.12" y="-436.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ i_to_rc(index) : tuple[int, int]</text>
+<text xml:space="preserve" text-anchor="start" x="726.12" y="-436.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ i_to_rc(index) : tuple[int, int]</text>
 </a>
 </g>
 <g id="a_node19_41"><a xlink:href="../pyrat/Maze.html#pyrat.src.mazes.maze.Maze.locations_to_action">
-<text xml:space="preserve" text-anchor="start" x="879.88" y="-436.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ locations_to_action(source, target) : Action | None</text>
+<text xml:space="preserve" text-anchor="start" x="891.88" y="-436.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ locations_to_action(source, target) : Action | None</text>
 </a>
 </g>
 <g id="a_node19_42"><a xlink:href="../pyrat/Maze.html#pyrat.src.mazes.maze.Maze.rc_to_i">
-<text xml:space="preserve" text-anchor="start" x="714.12" y="-422.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ rc_to_i(row, col) : int</text>
+<text xml:space="preserve" text-anchor="start" x="726.12" y="-422.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ rc_to_i(row, col) : int</text>
 </a>
 </g>
 <g id="a_node19_43"><a xlink:href="../pyrat/Maze.html#pyrat.src.mazes.maze.Maze.locations_to_actions">
-<text xml:space="preserve" text-anchor="start" x="879.88" y="-422.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ locations_to_actions(locations) : list[Action | None]</text>
+<text xml:space="preserve" text-anchor="start" x="891.88" y="-422.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ locations_to_actions(locations) : list[Action | None]</text>
 </a>
 </g>
 <g id="a_node19_44"><a xlink:href="../pyrat/Maze.html#pyrat.src.mazes.maze.Maze.i_exists">
-<text xml:space="preserve" text-anchor="start" x="714.12" y="-408.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ i_exists(index) : bool</text>
+<text xml:space="preserve" text-anchor="start" x="726.12" y="-408.44" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ i_exists(index) : bool</text>
 </a>
 </g>
 <g id="a_node19_45"><a xlink:href="../pyrat/Maze.html#pyrat.src.mazes.maze.Maze">
-<text xml:space="preserve" text-anchor="start" x="879.88" y="-407.99" font-family="Helvetica, Arial, sans-serif" font-style="italic" font-size="11.00" fill="#1f1f1f"># _create_maze()</text>
+<text xml:space="preserve" text-anchor="start" x="891.88" y="-407.99" font-family="Helvetica, Arial, sans-serif" font-style="italic" font-size="11.00" fill="#1f1f1f"># _create_maze()</text>
 </a>
 </g>
 </g>
 <!-- Player&#45;&gt;Maze -->
 <g id="edge42" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" stroke-dasharray="5,2" d="M404.78,-1476.11C497.55,-1432.55 616,-1376.94 616,-1376.94 616,-1376.94 616,-1376.94 616,-589.94 616,-589.94 651.57,-577.58 698.62,-561.22"/>
-<polygon fill="#555555" stroke="#555555" stroke-width="1.1" points="706.9,-558.34 699.73,-565.12 703.94,-559.43 698.42,-561.35 698.4,-561.3 698.39,-561.25 703.9,-559.33 697.07,-557.47 706.9,-558.34"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" stroke-dasharray="5,2" d="M404.78,-1476.11C497.55,-1432.55 616,-1376.94 616,-1376.94 616,-1376.94 616,-1376.94 616,-589.94 616,-589.94 657.57,-576.03 710.83,-558.21"/>
+<polygon fill="#555555" stroke="#555555" stroke-width="1.1" points="719.27,-555.38 712.02,-562.08 716.29,-556.43 710.75,-558.29 710.74,-558.24 710.72,-558.19 716.26,-556.34 709.45,-554.4 719.27,-555.38"/>
 <text xml:space="preserve" text-anchor="middle" x="634.38" y="-937.94" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">receives</text>
 </g>
 <!-- Action -->
@@ -396,507 +396,507 @@
 </g>
 <!-- Game&#45;&gt;GameState -->
 <g id="edge40" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" stroke-dasharray="5,2" d="M817.91,-1414.32C810.8,-1392.06 803.37,-1368.84 796.39,-1347"/>
-<polygon fill="#555555" stroke="#555555" stroke-width="1.1" points="793.73,-1338.68 800.33,-1346.02 794.74,-1341.68 796.52,-1347.24 796.47,-1347.25 796.42,-1347.27 794.65,-1341.71 792.61,-1348.49 793.73,-1338.68"/>
-<text xml:space="preserve" text-anchor="middle" x="834.5" y="-1377.69" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">creates one</text>
-<text xml:space="preserve" text-anchor="middle" x="834.5" y="-1366.44" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">per turn</text>
+<path fill="none" stroke="#555555" stroke-width="1.1" stroke-dasharray="5,2" d="M822.7,-1414.32C814.96,-1392.06 806.87,-1368.84 799.27,-1347"/>
+<polygon fill="#555555" stroke="#555555" stroke-width="1.1" points="796.37,-1338.67 803.15,-1345.84 797.46,-1341.64 799.38,-1347.15 799.33,-1347.17 799.28,-1347.19 797.36,-1341.67 795.5,-1348.5 796.37,-1338.67"/>
+<text xml:space="preserve" text-anchor="middle" x="838.5" y="-1377.69" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">creates one</text>
+<text xml:space="preserve" text-anchor="middle" x="838.5" y="-1366.44" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">per turn</text>
 </g>
 <!-- PyRatException -->
 <g id="node9" class="node">
-<polygon fill="#fffaf2" stroke="none" points="926.5,-1202.82 926.5,-1286.57 1093.5,-1286.57 1093.5,-1202.82 926.5,-1202.82"/>
-<polygon fill="#f6d9a8" stroke="none" points="926.5,-1252.82 926.5,-1286.57 1093.5,-1286.57 1093.5,-1252.82 926.5,-1252.82"/>
-<polygon fill="none" stroke="#b8761b" points="926.5,-1252.82 926.5,-1286.57 1093.5,-1286.57 1093.5,-1252.82 926.5,-1252.82"/>
+<polygon fill="#fffaf2" stroke="none" points="926,-1202.82 926,-1286.57 1126,-1286.57 1126,-1202.82 926,-1202.82"/>
+<polygon fill="#f6d9a8" stroke="none" points="926,-1252.82 926,-1286.57 1126,-1286.57 1126,-1252.82 926,-1252.82"/>
+<polygon fill="none" stroke="#b8761b" points="926,-1252.82 926,-1286.57 1126,-1286.57 1126,-1252.82 926,-1252.82"/>
 <g id="a_node9_60"><a xlink:href="../pyrat/PyRatException.html#pyrat.src.game.exceptions.PyRatException" xlink:title="PyRatException">
-<text xml:space="preserve" text-anchor="start" x="968" y="-1272.12" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">PyRatException</text>
+<text xml:space="preserve" text-anchor="start" x="984" y="-1272.12" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">PyRatException</text>
 </a>
 </g>
-<text xml:space="preserve" text-anchor="start" x="941" y="-1260.07" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#1f1f1f">inherits from the built&#45;in Exception</text>
-<polygon fill="none" stroke="#b8761b" points="926.5,-1202.82 926.5,-1252.82 1093.5,-1252.82 1093.5,-1202.82 926.5,-1202.82"/>
-<text xml:space="preserve" text-anchor="start" x="933.5" y="-1236.82" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#555555">raised by any class of the library</text>
-<text xml:space="preserve" text-anchor="start" x="933.5" y="-1224.82" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#555555">when it is used incorrectly</text>
-<text xml:space="preserve" text-anchor="start" x="933.5" y="-1212.82" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#555555">(invalid argument, …)</text>
+<text xml:space="preserve" text-anchor="start" x="957" y="-1260.07" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#1f1f1f">inherits from the built&#45;in Exception</text>
+<polygon fill="none" stroke="#b8761b" points="926,-1202.82 926,-1252.82 1126,-1252.82 1126,-1202.82 926,-1202.82"/>
+<text xml:space="preserve" text-anchor="start" x="933" y="-1236.82" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#555555">raised by any class of the library</text>
+<text xml:space="preserve" text-anchor="start" x="933" y="-1224.82" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#555555">when it is used incorrectly</text>
+<text xml:space="preserve" text-anchor="start" x="933" y="-1212.82" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#555555">(invalid argument, …)</text>
 </g>
 <!-- Game&#45;&gt;PyRatException -->
 <g id="edge41" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" stroke-dasharray="5,2" d="M916.55,-1414.32C939.49,-1372.93 964.28,-1328.2 982.56,-1295.21"/>
-<polygon fill="#555555" stroke="#555555" stroke-width="1.1" points="986.89,-1287.4 986.07,-1297.24 985.4,-1290.19 982.57,-1295.3 982.52,-1295.27 982.48,-1295.25 985.31,-1290.14 978.98,-1293.31 986.89,-1287.4"/>
-<text xml:space="preserve" text-anchor="middle" x="956.79" y="-1372.07" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">raises</text>
+<path fill="none" stroke="#555555" stroke-width="1.1" stroke-dasharray="5,2" d="M927.76,-1414.32C951.97,-1372.75 978.16,-1327.81 997.4,-1294.79"/>
+<polygon fill="#555555" stroke="#555555" stroke-width="1.1" points="1001.71,-1287.39 1000.68,-1297.2 1000.16,-1290.14 997.22,-1295.19 997.18,-1295.16 997.13,-1295.14 1000.07,-1290.09 993.68,-1293.12 1001.71,-1287.39"/>
+<text xml:space="preserve" text-anchor="middle" x="969.38" y="-1372.07" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">raises</text>
 </g>
 <!-- RenderingEngine -->
 <g id="node11" class="node">
-<polygon fill="#fffaf2" stroke="none" points="1361,-1473.32 1361,-1583.07 1611,-1583.07 1611,-1473.32 1361,-1473.32"/>
-<polygon fill="#f6d9a8" stroke="none" points="1361,-1549.32 1361,-1583.07 1611,-1583.07 1611,-1549.32 1361,-1549.32"/>
-<polygon fill="none" stroke="#b8761b" points="1361,-1549.32 1361,-1583.07 1611,-1583.07 1611,-1549.32 1361,-1549.32"/>
+<polygon fill="#fffaf2" stroke="none" points="1382,-1473.32 1382,-1583.07 1632,-1583.07 1632,-1473.32 1382,-1473.32"/>
+<polygon fill="#f6d9a8" stroke="none" points="1382,-1549.32 1382,-1583.07 1632,-1583.07 1632,-1549.32 1382,-1549.32"/>
+<polygon fill="none" stroke="#b8761b" points="1382,-1549.32 1382,-1583.07 1632,-1583.07 1632,-1549.32 1382,-1549.32"/>
 <g id="a_node11_61"><a xlink:href="../pyrat/RenderingEngine.html#pyrat.src.rendering.rendering_engine.RenderingEngine" xlink:title="RenderingEngine">
-<text xml:space="preserve" text-anchor="start" x="1440.25" y="-1568.62" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">RenderingEngine</text>
+<text xml:space="preserve" text-anchor="start" x="1461.25" y="-1568.62" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">RenderingEngine</text>
 </a>
 </g>
-<text xml:space="preserve" text-anchor="start" x="1366" y="-1556.57" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#1f1f1f">(renders nothing, used for RenderMode.NO_RENDERING)</text>
-<polygon fill="none" stroke="#b8761b" points="1361,-1511.32 1361,-1549.32 1611,-1549.32 1611,-1511.32 1361,-1511.32"/>
+<text xml:space="preserve" text-anchor="start" x="1387" y="-1556.57" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#1f1f1f">(renders nothing, used for RenderMode.NO_RENDERING)</text>
+<polygon fill="none" stroke="#b8761b" points="1382,-1511.32 1382,-1549.32 1632,-1549.32 1632,-1511.32 1382,-1511.32"/>
 <g id="a_node11_62"><a xlink:href="../pyrat/RenderingEngine.html#pyrat.src.rendering.rendering_engine.RenderingEngine.__init__">
-<text xml:space="preserve" text-anchor="start" x="1367" y="-1534.32" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># rendering_speed : float</text>
+<text xml:space="preserve" text-anchor="start" x="1388" y="-1534.32" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># rendering_speed : float</text>
 </a>
 </g>
 <g id="a_node11_63"><a xlink:href="../pyrat/RenderingEngine.html#pyrat.src.rendering.rendering_engine.RenderingEngine.__init__">
-<text xml:space="preserve" text-anchor="start" x="1367" y="-1520.32" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># render_simplified : bool</text>
+<text xml:space="preserve" text-anchor="start" x="1388" y="-1520.32" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># render_simplified : bool</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="1361,-1473.32 1361,-1511.32 1611,-1511.32 1611,-1473.32 1361,-1473.32"/>
+<polygon fill="none" stroke="#b8761b" points="1382,-1473.32 1382,-1511.32 1632,-1511.32 1632,-1473.32 1382,-1473.32"/>
 <g id="a_node11_64"><a xlink:href="../pyrat/RenderingEngine.html#pyrat.src.rendering.rendering_engine.RenderingEngine.render">
-<text xml:space="preserve" text-anchor="start" x="1367" y="-1496.32" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ render(players, maze, game_state)</text>
+<text xml:space="preserve" text-anchor="start" x="1388" y="-1496.32" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ render(players, maze, game_state)</text>
 </a>
 </g>
 <g id="a_node11_65"><a xlink:href="../pyrat/RenderingEngine.html#pyrat.src.rendering.rendering_engine.RenderingEngine.end">
-<text xml:space="preserve" text-anchor="start" x="1367" y="-1482.32" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ end()</text>
+<text xml:space="preserve" text-anchor="start" x="1388" y="-1482.32" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ end()</text>
 </a>
 </g>
 </g>
 <!-- Game&#45;&gt;RenderingEngine -->
 <g id="edge38" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M1013.41,-1528.19C1042.92,-1528.19 1064.67,-1528.19 1064.67,-1528.19 1064.67,-1528.19 1275.33,-1528.19 1275.33,-1528.19 1275.33,-1528.19 1309.75,-1528.19 1350.76,-1528.19"/>
-<polygon fill="#555555" stroke="#555555" stroke-width="1.1" points="1013.54,-1528.19 1008.14,-1531.79 1002.74,-1528.19 1008.14,-1524.59 1013.54,-1528.19"/>
-<polygon fill="#555555" stroke="#555555" stroke-width="1.1" points="1359.68,-1528.19 1350.68,-1532.24 1356.52,-1528.24 1350.68,-1528.24 1350.68,-1528.19 1350.68,-1528.14 1356.52,-1528.14 1350.68,-1524.14 1359.68,-1528.19"/>
-<text xml:space="preserve" text-anchor="middle" x="1143.46" y="-1541.19" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">creates according</text>
-<text xml:space="preserve" text-anchor="middle" x="1143.46" y="-1529.94" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">to render_mode</text>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M1021.15,-1528.19C1053.06,-1528.19 1077,-1528.19 1077,-1528.19 1077,-1528.19 1292,-1528.19 1292,-1528.19 1292,-1528.19 1328.86,-1528.19 1372.05,-1528.19"/>
+<polygon fill="#555555" stroke="#555555" stroke-width="1.1" points="1021.35,-1528.19 1015.95,-1531.79 1010.55,-1528.19 1015.95,-1524.59 1021.35,-1528.19"/>
+<polygon fill="#555555" stroke="#555555" stroke-width="1.1" points="1380.9,-1528.19 1371.9,-1532.24 1377.74,-1528.24 1371.9,-1528.24 1371.9,-1528.19 1371.9,-1528.14 1377.74,-1528.14 1371.9,-1524.14 1380.9,-1528.19"/>
+<text xml:space="preserve" text-anchor="middle" x="1157.98" y="-1541.19" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">creates according</text>
+<text xml:space="preserve" text-anchor="middle" x="1157.98" y="-1529.94" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">to render_mode</text>
 <g id="a_edge38&#45;headlabel"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.start" xlink:title="Game.start()">
-<text xml:space="preserve" text-anchor="middle" x="1308.07" y="-1511.71" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">1</text>
-<text xml:space="preserve" text-anchor="middle" x="1308.07" y="-1500.46" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">&#45; rendering_engine</text>
+<text xml:space="preserve" text-anchor="middle" x="1329.3" y="-1511.71" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">1</text>
+<text xml:space="preserve" text-anchor="middle" x="1329.3" y="-1500.46" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">&#45; rendering_engine</text>
 </a>
 </g>
 </g>
 <!-- Game&#45;&gt;Maze -->
 <g id="edge37" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M1012.73,-1463.25C1114.25,-1422.36 1227,-1376.94 1227,-1376.94 1227,-1376.94 1227,-1376.94 1227,-1037.69 1227,-1037.69 1203,-617.94 1203,-617.94 1203,-617.94 1155.44,-594.63 1099.74,-567.33"/>
-<polygon fill="#555555" stroke="#555555" stroke-width="1.1" points="1012.62,-1463.29 1008.96,-1468.65 1002.61,-1467.33 1006.27,-1461.97 1012.62,-1463.29"/>
-<polygon fill="#555555" stroke="#555555" stroke-width="1.1" points="1091.94,-563.51 1101.8,-563.83 1094.8,-564.86 1100.04,-567.43 1100.02,-567.47 1100,-567.52 1094.75,-564.95 1098.24,-571.11 1091.94,-563.51"/>
-<text xml:space="preserve" text-anchor="middle" x="1262.53" y="-937.94" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">creates at start()</text>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M1020.5,-1465.49C1127.01,-1424.04 1248,-1376.94 1248,-1376.94 1248,-1376.94 1248,-1376.94 1248,-589.94 1248,-589.94 1212.43,-577.58 1165.38,-561.22"/>
+<polygon fill="#555555" stroke="#555555" stroke-width="1.1" points="1020.57,-1465.47 1016.84,-1470.78 1010.51,-1469.38 1014.23,-1464.07 1020.57,-1465.47"/>
+<polygon fill="#555555" stroke="#555555" stroke-width="1.1" points="1157.1,-558.34 1166.93,-557.47 1160.1,-559.33 1165.61,-561.25 1165.6,-561.3 1165.58,-561.35 1160.06,-559.43 1164.27,-565.12 1157.1,-558.34"/>
+<text xml:space="preserve" text-anchor="middle" x="1284" y="-937.94" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">creates at start()</text>
 <g id="a_edge37&#45;headlabel"><a xlink:href="../pyrat/Game.html#pyrat.src.game.game.Game.start" xlink:title="Game.start()">
-<text xml:space="preserve" text-anchor="middle" x="1116.42" y="-560.65" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">1</text>
-<text xml:space="preserve" text-anchor="middle" x="1116.42" y="-549.4" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">&#45; maze</text>
+<text xml:space="preserve" text-anchor="middle" x="1180.84" y="-552.56" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">1</text>
+<text xml:space="preserve" text-anchor="middle" x="1180.84" y="-541.31" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">&#45; maze</text>
 </a>
 </g>
 </g>
 <!-- GameState&#45;&gt;PyRatException -->
 <!-- Graph -->
 <g id="node18" class="node">
-<polygon fill="#fffaf2" stroke="none" points="665,-617.94 665,-803.94 1187,-803.94 1187,-617.94 665,-617.94"/>
+<polygon fill="#fffaf2" stroke="none" points="677,-617.94 677,-803.94 1199,-803.94 1199,-617.94 677,-617.94"/>
 <g id="a_node18_66"><a xlink:href="../pyrat/Graph.html#pyrat.src.mazes.graph.Graph" xlink:title="Graph">
-<polygon fill="#f6d9a8" stroke="none" points="665,-777.94 665,-803.94 1187,-803.94 1187,-777.94 665,-777.94"/>
-<polygon fill="none" stroke="#b8761b" points="665,-777.94 665,-803.94 1187,-803.94 1187,-777.94 665,-777.94"/>
-<text xml:space="preserve" text-anchor="start" x="909.88" y="-787.49" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">Graph</text>
+<polygon fill="#f6d9a8" stroke="none" points="677,-777.94 677,-803.94 1199,-803.94 1199,-777.94 677,-777.94"/>
+<polygon fill="none" stroke="#b8761b" points="677,-777.94 677,-803.94 1199,-803.94 1199,-777.94 677,-777.94"/>
+<text xml:space="preserve" text-anchor="start" x="921.88" y="-787.49" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">Graph</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="665,-753.94 665,-777.94 1187,-777.94 1187,-753.94 665,-753.94"/>
+<polygon fill="none" stroke="#b8761b" points="677,-753.94 677,-777.94 1199,-777.94 1199,-753.94 677,-753.94"/>
 <g id="a_node18_67"><a xlink:href="../pyrat/Graph.html#pyrat.src.mazes.graph.Graph.__init__">
-<text xml:space="preserve" text-anchor="start" x="671" y="-762.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; adjacency : dict[Hashable, dict[Hashable, float | int]]</text>
+<text xml:space="preserve" text-anchor="start" x="683" y="-762.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; adjacency : dict[Hashable, dict[Hashable, float | int]]</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="665,-617.94 665,-753.94 1187,-753.94 1187,-617.94 665,-617.94"/>
+<polygon fill="none" stroke="#b8761b" points="677,-617.94 677,-753.94 1199,-753.94 1199,-617.94 677,-617.94"/>
 <g id="a_node18_68"><a xlink:href="../pyrat/Graph.html#pyrat.src.mazes.graph.Graph.add_vertex">
-<text xml:space="preserve" text-anchor="start" x="671" y="-738.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ add_vertex(vertex)</text>
+<text xml:space="preserve" text-anchor="start" x="683" y="-738.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ add_vertex(vertex)</text>
 </a>
 </g>
 <g id="a_node18_69"><a xlink:href="../pyrat/Graph.html#pyrat.src.mazes.graph.Graph.get_neighbors">
-<text xml:space="preserve" text-anchor="start" x="941" y="-738.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ get_neighbors(vertex) : list[Hashable]</text>
+<text xml:space="preserve" text-anchor="start" x="953" y="-738.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ get_neighbors(vertex) : list[Hashable]</text>
 </a>
 </g>
 <g id="a_node18_70"><a xlink:href="../pyrat/Graph.html#pyrat.src.mazes.graph.Graph.remove_vertex">
-<text xml:space="preserve" text-anchor="start" x="671" y="-724.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ remove_vertex(vertex)</text>
+<text xml:space="preserve" text-anchor="start" x="683" y="-724.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ remove_vertex(vertex)</text>
 </a>
 </g>
 <g id="a_node18_71"><a xlink:href="../pyrat/Graph.html#pyrat.src.mazes.graph.Graph.nb_vertices">
-<text xml:space="preserve" text-anchor="start" x="941" y="-724.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ nb_vertices() : int</text>
+<text xml:space="preserve" text-anchor="start" x="953" y="-724.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ nb_vertices() : int</text>
 </a>
 </g>
 <g id="a_node18_72"><a xlink:href="../pyrat/Graph.html#pyrat.src.mazes.graph.Graph.add_edge">
-<text xml:space="preserve" text-anchor="start" x="671" y="-710.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ add_edge(vertex_1, vertex_2, weight, symmetric)</text>
+<text xml:space="preserve" text-anchor="start" x="683" y="-710.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ add_edge(vertex_1, vertex_2, weight, symmetric)</text>
 </a>
 </g>
 <g id="a_node18_73"><a xlink:href="../pyrat/Graph.html#pyrat.src.mazes.graph.Graph.nb_edges">
-<text xml:space="preserve" text-anchor="start" x="941" y="-710.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ nb_edges() : int</text>
+<text xml:space="preserve" text-anchor="start" x="953" y="-710.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ nb_edges() : int</text>
 </a>
 </g>
 <g id="a_node18_74"><a xlink:href="../pyrat/Graph.html#pyrat.src.mazes.graph.Graph.remove_edge">
-<text xml:space="preserve" text-anchor="start" x="671" y="-696.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ remove_edge(vertex_1, vertex_2, symmetric)</text>
+<text xml:space="preserve" text-anchor="start" x="683" y="-696.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ remove_edge(vertex_1, vertex_2, symmetric)</text>
 </a>
 </g>
 <g id="a_node18_75"><a xlink:href="../pyrat/Graph.html#pyrat.src.mazes.graph.Graph.is_connected">
-<text xml:space="preserve" text-anchor="start" x="941" y="-696.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ is_connected() : bool</text>
+<text xml:space="preserve" text-anchor="start" x="953" y="-696.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ is_connected() : bool</text>
 </a>
 </g>
 <g id="a_node18_76"><a xlink:href="../pyrat/Graph.html#pyrat.src.mazes.graph.Graph.has_edge">
-<text xml:space="preserve" text-anchor="start" x="671" y="-682.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ has_edge(vertex_1, vertex_2) : bool</text>
+<text xml:space="preserve" text-anchor="start" x="683" y="-682.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ has_edge(vertex_1, vertex_2) : bool</text>
 </a>
 </g>
 <g id="a_node18_77"><a xlink:href="../pyrat/Graph.html#pyrat.src.mazes.graph.Graph.minimum_spanning_tree">
-<text xml:space="preserve" text-anchor="start" x="941" y="-682.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ minimum_spanning_tree(random_seed) : Graph</text>
+<text xml:space="preserve" text-anchor="start" x="953" y="-682.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ minimum_spanning_tree(random_seed) : Graph</text>
 </a>
 </g>
 <g id="a_node18_78"><a xlink:href="../pyrat/Graph.html#pyrat.src.mazes.graph.Graph.edge_is_symmetric">
-<text xml:space="preserve" text-anchor="start" x="671" y="-668.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ edge_is_symmetric(vertex_1, vertex_2) : bool</text>
+<text xml:space="preserve" text-anchor="start" x="683" y="-668.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ edge_is_symmetric(vertex_1, vertex_2) : bool</text>
 </a>
 </g>
 <g id="a_node18_79"><a xlink:href="../pyrat/Graph.html#pyrat.src.mazes.graph.Graph.as_dict">
-<text xml:space="preserve" text-anchor="start" x="941" y="-668.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ as_dict() : dict</text>
+<text xml:space="preserve" text-anchor="start" x="953" y="-668.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ as_dict() : dict</text>
 </a>
 </g>
 <g id="a_node18_80"><a xlink:href="../pyrat/Graph.html#pyrat.src.mazes.graph.Graph.get_weight">
-<text xml:space="preserve" text-anchor="start" x="671" y="-654.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ get_weight(vertex_1, vertex_2) : float | int</text>
+<text xml:space="preserve" text-anchor="start" x="683" y="-654.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ get_weight(vertex_1, vertex_2) : float | int</text>
 </a>
 </g>
 <g id="a_node18_81"><a xlink:href="../pyrat/Graph.html#pyrat.src.mazes.graph.Graph.as_numpy_ndarray">
-<text xml:space="preserve" text-anchor="start" x="941" y="-654.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ as_numpy_ndarray() : numpy.ndarray</text>
+<text xml:space="preserve" text-anchor="start" x="953" y="-654.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ as_numpy_ndarray() : numpy.ndarray</text>
 </a>
 </g>
 <g id="a_node18_82"><a xlink:href="../pyrat/Graph.html#pyrat.src.mazes.graph.Graph.get_vertices">
-<text xml:space="preserve" text-anchor="start" x="671" y="-640.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ get_vertices() : list[Hashable]</text>
+<text xml:space="preserve" text-anchor="start" x="683" y="-640.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ get_vertices() : list[Hashable]</text>
 </a>
 </g>
 <g id="a_node18_83"><a xlink:href="../pyrat/Graph.html#pyrat.src.mazes.graph.Graph.as_torch_tensor">
-<text xml:space="preserve" text-anchor="start" x="941" y="-640.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ as_torch_tensor() : torch.Tensor</text>
+<text xml:space="preserve" text-anchor="start" x="953" y="-640.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ as_torch_tensor() : torch.Tensor</text>
 </a>
 </g>
 <g id="a_node18_84"><a xlink:href="../pyrat/Graph.html#pyrat.src.mazes.graph.Graph.get_edges">
-<text xml:space="preserve" text-anchor="start" x="671" y="-626.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ get_edges() : list[tuple[Hashable, Hashable]]</text>
+<text xml:space="preserve" text-anchor="start" x="683" y="-626.94" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ get_edges() : list[tuple[Hashable, Hashable]]</text>
 </a>
 </g>
 </g>
 <!-- GameState&#45;&gt;Graph -->
 <!-- PyRatPlayerException -->
 <g id="node10" class="node">
-<polygon fill="#fffaf2" stroke="none" points="902.12,-1060.69 902.12,-1124.69 1093.88,-1124.69 1093.88,-1060.69 902.12,-1060.69"/>
+<polygon fill="#fffaf2" stroke="none" points="926,-1060.69 926,-1124.69 1126,-1124.69 1126,-1060.69 926,-1060.69"/>
 <g id="a_node10_85"><a xlink:href="../pyrat/PyRatPlayerException.html#pyrat.src.game.exceptions.PyRatPlayerException" xlink:title="PyRatPlayerException">
-<polygon fill="#f6d9a8" stroke="none" points="902.12,-1098.69 902.12,-1124.69 1093.88,-1124.69 1093.88,-1098.69 902.12,-1098.69"/>
-<polygon fill="none" stroke="#b8761b" points="902.12,-1098.69 902.12,-1124.69 1093.88,-1124.69 1093.88,-1098.69 902.12,-1098.69"/>
-<text xml:space="preserve" text-anchor="start" x="939.5" y="-1108.24" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">PyRatPlayerException</text>
+<polygon fill="#f6d9a8" stroke="none" points="926,-1098.69 926,-1124.69 1126,-1124.69 1126,-1098.69 926,-1098.69"/>
+<polygon fill="none" stroke="#b8761b" points="926,-1098.69 926,-1124.69 1126,-1124.69 1126,-1098.69 926,-1098.69"/>
+<text xml:space="preserve" text-anchor="start" x="967.5" y="-1108.24" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">PyRatPlayerException</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="902.12,-1060.69 902.12,-1098.69 1093.88,-1098.69 1093.88,-1060.69 902.12,-1060.69"/>
-<text xml:space="preserve" text-anchor="start" x="909.12" y="-1082.69" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#555555">raised when a player causes an error</text>
-<text xml:space="preserve" text-anchor="start" x="909.12" y="-1070.69" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#555555">(crash, invalid action, …)</text>
+<polygon fill="none" stroke="#b8761b" points="926,-1060.69 926,-1098.69 1126,-1098.69 1126,-1060.69 926,-1060.69"/>
+<text xml:space="preserve" text-anchor="start" x="933" y="-1082.69" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#555555">raised when a player causes an error</text>
+<text xml:space="preserve" text-anchor="start" x="933" y="-1070.69" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#555555">(crash, invalid action, …)</text>
 </g>
 <!-- PyRatException&#45;&gt;PyRatPlayerException -->
 <g id="edge18" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M1005.59,-1188.56C1003.85,-1166.87 1001.93,-1142.79 1000.45,-1124.32"/>
-<polygon fill="none" stroke="#555555" stroke-width="1.1" points="1001.05,-1188.84 1006.62,-1201.44 1010.12,-1188.12 1001.05,-1188.84"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M1026,-1188.56C1026,-1166.87 1026,-1142.79 1026,-1124.32"/>
+<polygon fill="none" stroke="#555555" stroke-width="1.1" points="1021.45,-1188.43 1026,-1201.43 1030.55,-1188.43 1021.45,-1188.43"/>
 </g>
 <!-- bus_rendering_trunk -->
 <!-- RenderingEngine&#45;&gt;bus_rendering_trunk -->
 <g id="edge14" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M1486,-1458.89C1486,-1420.59 1486,-1379.9 1486,-1377.09"/>
-<polygon fill="none" stroke="#555555" stroke-width="1.1" points="1481.45,-1458.71 1486,-1471.71 1490.55,-1458.71 1481.45,-1458.71"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M1507,-1458.89C1507,-1420.59 1507,-1379.9 1507,-1377.09"/>
+<polygon fill="none" stroke="#555555" stroke-width="1.1" points="1502.45,-1458.71 1507,-1471.71 1511.55,-1458.71 1502.45,-1458.71"/>
 </g>
 <!-- ShellRenderingEngine -->
 <g id="node12" class="node">
-<polygon fill="#fffaf2" stroke="none" points="1327.12,-1210.22 1327.12,-1305.97 1516.88,-1305.97 1516.88,-1210.22 1327.12,-1210.22"/>
-<polygon fill="#f6d9a8" stroke="none" points="1327.12,-1272.22 1327.12,-1305.97 1516.88,-1305.97 1516.88,-1272.22 1327.12,-1272.22"/>
-<polygon fill="none" stroke="#b8761b" points="1327.12,-1272.22 1327.12,-1305.97 1516.88,-1305.97 1516.88,-1272.22 1327.12,-1272.22"/>
+<polygon fill="#fffaf2" stroke="none" points="1348.12,-1210.22 1348.12,-1305.97 1537.88,-1305.97 1537.88,-1210.22 1348.12,-1210.22"/>
+<polygon fill="#f6d9a8" stroke="none" points="1348.12,-1272.22 1348.12,-1305.97 1537.88,-1305.97 1537.88,-1272.22 1348.12,-1272.22"/>
+<polygon fill="none" stroke="#b8761b" points="1348.12,-1272.22 1348.12,-1305.97 1537.88,-1305.97 1537.88,-1272.22 1348.12,-1272.22"/>
 <g id="a_node12_86"><a xlink:href="../pyrat/ShellRenderingEngine.html#pyrat.src.rendering.shell_rendering_engine.ShellRenderingEngine" xlink:title="ShellRenderingEngine">
-<text xml:space="preserve" text-anchor="start" x="1363.12" y="-1291.52" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">ShellRenderingEngine</text>
+<text xml:space="preserve" text-anchor="start" x="1384.12" y="-1291.52" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">ShellRenderingEngine</text>
 </a>
 </g>
-<text xml:space="preserve" text-anchor="start" x="1340.25" y="-1279.47" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#1f1f1f">RenderMode.ANSI / RenderMode.ASCII</text>
-<polygon fill="none" stroke="#b8761b" points="1327.12,-1234.22 1327.12,-1272.22 1516.88,-1272.22 1516.88,-1234.22 1327.12,-1234.22"/>
+<text xml:space="preserve" text-anchor="start" x="1361.25" y="-1279.47" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#1f1f1f">RenderMode.ANSI / RenderMode.ASCII</text>
+<polygon fill="none" stroke="#b8761b" points="1348.12,-1234.22 1348.12,-1272.22 1537.88,-1272.22 1537.88,-1234.22 1348.12,-1234.22"/>
 <g id="a_node12_87"><a xlink:href="../pyrat/ShellRenderingEngine.html#pyrat.src.rendering.shell_rendering_engine.ShellRenderingEngine.__init__">
-<text xml:space="preserve" text-anchor="start" x="1333.12" y="-1257.22" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; use_colors : bool</text>
+<text xml:space="preserve" text-anchor="start" x="1354.12" y="-1257.22" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; use_colors : bool</text>
 </a>
 </g>
 <g id="a_node12_88"><a xlink:href="../pyrat/ShellRenderingEngine.html#pyrat.src.rendering.shell_rendering_engine.ShellRenderingEngine.__init__">
-<text xml:space="preserve" text-anchor="start" x="1333.12" y="-1243.22" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; clear_each_turn : bool</text>
+<text xml:space="preserve" text-anchor="start" x="1354.12" y="-1243.22" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; clear_each_turn : bool</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="1327.12,-1210.22 1327.12,-1234.22 1516.88,-1234.22 1516.88,-1210.22 1327.12,-1210.22"/>
+<polygon fill="none" stroke="#b8761b" points="1348.12,-1210.22 1348.12,-1234.22 1537.88,-1234.22 1537.88,-1210.22 1348.12,-1210.22"/>
 <g id="a_node12_89"><a xlink:href="../pyrat/ShellRenderingEngine.html#pyrat.src.rendering.shell_rendering_engine.ShellRenderingEngine.render">
-<text xml:space="preserve" text-anchor="start" x="1333.12" y="-1219.22" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ render(players, maze, game_state)</text>
+<text xml:space="preserve" text-anchor="start" x="1354.12" y="-1219.22" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ render(players, maze, game_state)</text>
 </a>
 </g>
 </g>
 <!-- PygameRenderingEngine -->
 <g id="node13" class="node">
-<polygon fill="#fffaf2" stroke="none" points="1549.12,-1182.22 1549.12,-1305.97 1738.88,-1305.97 1738.88,-1182.22 1549.12,-1182.22"/>
-<polygon fill="#f6d9a8" stroke="none" points="1549.12,-1272.22 1549.12,-1305.97 1738.88,-1305.97 1738.88,-1272.22 1549.12,-1272.22"/>
-<polygon fill="none" stroke="#b8761b" points="1549.12,-1272.22 1549.12,-1305.97 1738.88,-1305.97 1738.88,-1272.22 1549.12,-1272.22"/>
+<polygon fill="#fffaf2" stroke="none" points="1570.12,-1182.22 1570.12,-1305.97 1759.88,-1305.97 1759.88,-1182.22 1570.12,-1182.22"/>
+<polygon fill="#f6d9a8" stroke="none" points="1570.12,-1272.22 1570.12,-1305.97 1759.88,-1305.97 1759.88,-1272.22 1570.12,-1272.22"/>
+<polygon fill="none" stroke="#b8761b" points="1570.12,-1272.22 1570.12,-1305.97 1759.88,-1305.97 1759.88,-1272.22 1570.12,-1272.22"/>
 <g id="a_node13_90"><a xlink:href="../pyrat/PygameRenderingEngine.html#pyrat.src.rendering.pygame_rendering_engine.PygameRenderingEngine" xlink:title="PygameRenderingEngine">
-<text xml:space="preserve" text-anchor="start" x="1577.25" y="-1291.52" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">PygameRenderingEngine</text>
+<text xml:space="preserve" text-anchor="start" x="1598.25" y="-1291.52" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">PygameRenderingEngine</text>
 </a>
 </g>
-<text xml:space="preserve" text-anchor="start" x="1608" y="-1279.47" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#1f1f1f">RenderMode.GUI</text>
-<polygon fill="none" stroke="#b8761b" points="1549.12,-1220.22 1549.12,-1272.22 1738.88,-1272.22 1738.88,-1220.22 1549.12,-1220.22"/>
+<text xml:space="preserve" text-anchor="start" x="1629" y="-1279.47" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#1f1f1f">RenderMode.GUI</text>
+<polygon fill="none" stroke="#b8761b" points="1570.12,-1220.22 1570.12,-1272.22 1759.88,-1272.22 1759.88,-1220.22 1570.12,-1220.22"/>
 <g id="a_node13_91"><a xlink:href="../pyrat/PygameRenderingEngine.html#pyrat.src.rendering.pygame_rendering_engine.PygameRenderingEngine.__init__">
-<text xml:space="preserve" text-anchor="start" x="1555.12" y="-1257.22" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; fullscreen : bool</text>
+<text xml:space="preserve" text-anchor="start" x="1576.12" y="-1257.22" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; fullscreen : bool</text>
 </a>
 </g>
 <g id="a_node13_92"><a xlink:href="../pyrat/PygameRenderingEngine.html#pyrat.src.rendering.pygame_rendering_engine.PygameRenderingEngine.__init__">
-<text xml:space="preserve" text-anchor="start" x="1555.12" y="-1243.22" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; trace_length : int</text>
+<text xml:space="preserve" text-anchor="start" x="1576.12" y="-1243.22" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; trace_length : int</text>
 </a>
 </g>
 <g id="a_node13_93"><a xlink:href="../pyrat/PygameRenderingEngine.html#pyrat.src.rendering.pygame_rendering_engine.PygameRenderingEngine.__init__">
-<text xml:space="preserve" text-anchor="start" x="1555.12" y="-1229.22" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; gui_process : Process</text>
+<text xml:space="preserve" text-anchor="start" x="1576.12" y="-1229.22" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; gui_process : Process</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="1549.12,-1182.22 1549.12,-1220.22 1738.88,-1220.22 1738.88,-1182.22 1549.12,-1182.22"/>
+<polygon fill="none" stroke="#b8761b" points="1570.12,-1182.22 1570.12,-1220.22 1759.88,-1220.22 1759.88,-1182.22 1570.12,-1182.22"/>
 <g id="a_node13_94"><a xlink:href="../pyrat/PygameRenderingEngine.html#pyrat.src.rendering.pygame_rendering_engine.PygameRenderingEngine.render">
-<text xml:space="preserve" text-anchor="start" x="1555.12" y="-1205.22" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ render(players, maze, game_state)</text>
+<text xml:space="preserve" text-anchor="start" x="1576.12" y="-1205.22" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ render(players, maze, game_state)</text>
 </a>
 </g>
 <g id="a_node13_95"><a xlink:href="../pyrat/PygameRenderingEngine.html#pyrat.src.rendering.pygame_rendering_engine.PygameRenderingEngine.end">
-<text xml:space="preserve" text-anchor="start" x="1555.12" y="-1191.22" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ end()</text>
+<text xml:space="preserve" text-anchor="start" x="1576.12" y="-1191.22" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">+ end()</text>
 </a>
 </g>
 </g>
 <!-- GUI -->
 <g id="node14" class="node">
-<polygon fill="#f2f2f2" stroke="#8a8a8a" points="1714.8,-981.7 1567.2,-981.7 1567.2,-901.93 1720.8,-901.93 1720.8,-975.7 1714.8,-981.7"/>
-<polyline fill="none" stroke="#8a8a8a" points="1714.8,-981.7 1714.8,-975.7"/>
-<polyline fill="none" stroke="#8a8a8a" points="1720.8,-975.7 1714.8,-975.7"/>
-<text xml:space="preserve" text-anchor="start" x="1578" y="-966.44" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">rendering.gui (internal)</text>
-<text xml:space="preserve" text-anchor="start" x="1578" y="-955.19" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">GameWindow, Scene, Layout,</text>
-<text xml:space="preserve" text-anchor="start" x="1578" y="-943.94" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">MazeDecor, Assets</text>
-<text xml:space="preserve" text-anchor="start" x="1578" y="-920.69" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">The window runs in its own</text>
-<text xml:space="preserve" text-anchor="start" x="1578" y="-909.44" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">process, fed through a queue.</text>
+<polygon fill="#f2f2f2" stroke="#8a8a8a" points="1735.8,-981.7 1588.2,-981.7 1588.2,-901.93 1741.8,-901.93 1741.8,-975.7 1735.8,-981.7"/>
+<polyline fill="none" stroke="#8a8a8a" points="1735.8,-981.7 1735.8,-975.7"/>
+<polyline fill="none" stroke="#8a8a8a" points="1741.8,-975.7 1735.8,-975.7"/>
+<text xml:space="preserve" text-anchor="start" x="1599" y="-966.44" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">rendering.gui (internal)</text>
+<text xml:space="preserve" text-anchor="start" x="1599" y="-955.19" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">GameWindow, Scene, Layout,</text>
+<text xml:space="preserve" text-anchor="start" x="1599" y="-943.94" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">MazeDecor, Assets</text>
+<text xml:space="preserve" text-anchor="start" x="1599" y="-920.69" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">The window runs in its own</text>
+<text xml:space="preserve" text-anchor="start" x="1599" y="-909.44" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">process, fed through a queue.</text>
 </g>
 <!-- PygameRenderingEngine&#45;&gt;GUI -->
 <g id="edge45" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" stroke-dasharray="5,2" d="M1644,-1182.44C1644,-1126.34 1644,-1044.34 1644,-992.29"/>
-<polygon fill="#555555" stroke="#555555" stroke-width="1.1" points="1644,-983.32 1648.05,-992.32 1644.05,-986.48 1644.05,-992.32 1644,-992.32 1643.95,-992.32 1643.95,-986.48 1639.95,-992.32 1644,-983.32"/>
-<text xml:space="preserve" text-anchor="middle" x="1663.5" y="-1088.82" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">launches</text>
+<path fill="none" stroke="#555555" stroke-width="1.1" stroke-dasharray="5,2" d="M1665,-1182.44C1665,-1126.34 1665,-1044.34 1665,-992.29"/>
+<polygon fill="#555555" stroke="#555555" stroke-width="1.1" points="1665,-983.32 1669.05,-992.32 1665.05,-986.48 1665.05,-992.32 1665,-992.32 1664.95,-992.32 1664.95,-986.48 1660.95,-992.32 1665,-983.32"/>
+<text xml:space="preserve" text-anchor="middle" x="1684.5" y="-1088.82" font-family="Helvetica, Arial, sans-serif" font-size="10.00" fill="#555555">launches</text>
 </g>
 <!-- GUI&#45;&gt;Graph -->
 <!-- bus_rendering_left -->
 <!-- bus_rendering_left&#45;&gt;ShellRenderingEngine -->
 <g id="edge21" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M1422,-1374.85C1422,-1372.85 1422,-1339.33 1422,-1306.94"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M1443,-1374.85C1443,-1372.85 1443,-1339.33 1443,-1306.94"/>
 </g>
 <!-- bus_rendering_left&#45;&gt;bus_rendering_trunk -->
 <g id="edge31" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M1422.53,-1375.94C1425.81,-1375.94 1443.33,-1375.94 1443.33,-1375.94 1443.33,-1375.94 1464.67,-1375.94 1464.67,-1375.94 1464.67,-1375.94 1482.19,-1375.94 1485.47,-1375.94"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M1443.53,-1375.94C1446.81,-1375.94 1464.33,-1375.94 1464.33,-1375.94 1464.33,-1375.94 1485.67,-1375.94 1485.67,-1375.94 1485.67,-1375.94 1503.19,-1375.94 1506.47,-1375.94"/>
 </g>
 <!-- bus_rendering_right -->
 <!-- bus_rendering_trunk&#45;&gt;bus_rendering_right -->
 <g id="edge32" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M1486.59,-1375.94C1492.38,-1375.94 1538.67,-1375.94 1538.67,-1375.94 1538.67,-1375.94 1591.33,-1375.94 1591.33,-1375.94 1591.33,-1375.94 1637.62,-1375.94 1643.41,-1375.94"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M1507.59,-1375.94C1513.38,-1375.94 1559.67,-1375.94 1559.67,-1375.94 1559.67,-1375.94 1612.33,-1375.94 1612.33,-1375.94 1612.33,-1375.94 1658.62,-1375.94 1664.41,-1375.94"/>
 </g>
 <!-- bus_rendering_right&#45;&gt;PygameRenderingEngine -->
 <g id="edge22" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M1644,-1374.85C1644,-1372.85 1644,-1339.33 1644,-1306.94"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M1665,-1374.85C1665,-1372.85 1665,-1339.33 1665,-1306.94"/>
 </g>
 <!-- Graph&#45;&gt;Maze -->
 <g id="edge17" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M926,-603.71C926,-589.95 926,-576.03 926,-562.78"/>
-<polygon fill="none" stroke="#555555" stroke-width="1.1" points="921.45,-603.3 926,-616.3 930.55,-603.3 921.45,-603.3"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M938,-603.71C938,-589.95 938,-576.03 938,-562.78"/>
+<polygon fill="none" stroke="#555555" stroke-width="1.1" points="933.45,-603.3 938,-616.3 942.55,-603.3 933.45,-603.3"/>
 </g>
 <!-- bus_mazes_trunk -->
 <!-- Maze&#45;&gt;bus_mazes_trunk -->
 <g id="edge15" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M926,-385C926,-378.06 926,-373.41 926,-372.57"/>
-<polygon fill="none" stroke="#555555" stroke-width="1.1" points="921.45,-384.96 926,-397.96 930.55,-384.97 921.45,-384.96"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M938,-385C938,-378.06 938,-373.41 938,-372.57"/>
+<polygon fill="none" stroke="#555555" stroke-width="1.1" points="933.45,-384.96 938,-397.96 942.55,-384.97 933.45,-384.96"/>
 </g>
 <!-- RandomMaze -->
 <g id="node20" class="node">
-<polygon fill="#fffaf2" stroke="none" points="666.75,-177.97 666.75,-343.72 809.25,-343.72 809.25,-177.97 666.75,-177.97"/>
-<polygon fill="#f6d9a8" stroke="none" points="666.75,-309.97 666.75,-343.72 809.25,-343.72 809.25,-309.97 666.75,-309.97"/>
-<polygon fill="none" stroke="#b8761b" points="666.75,-309.97 666.75,-343.72 809.25,-343.72 809.25,-309.97 666.75,-309.97"/>
+<polygon fill="#fffaf2" stroke="none" points="678.75,-177.97 678.75,-343.72 821.25,-343.72 821.25,-177.97 678.75,-177.97"/>
+<polygon fill="#f6d9a8" stroke="none" points="678.75,-309.97 678.75,-343.72 821.25,-343.72 821.25,-309.97 678.75,-309.97"/>
+<polygon fill="none" stroke="#b8761b" points="678.75,-309.97 678.75,-343.72 821.25,-343.72 821.25,-309.97 678.75,-309.97"/>
 <g id="a_node20_96"><a xlink:href="../pyrat/RandomMaze.html#pyrat.src.mazes.random_maze.RandomMaze" xlink:title="RandomMaze">
-<text xml:space="preserve" text-anchor="start" x="702.75" y="-329.27" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">RandomMaze</text>
+<text xml:space="preserve" text-anchor="start" x="714.75" y="-329.27" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">RandomMaze</text>
 </a>
 </g>
-<text xml:space="preserve" text-anchor="start" x="678" y="-317.22" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#1f1f1f">a random maze with no holes</text>
-<polygon fill="none" stroke="#b8761b" points="666.75,-243.97 666.75,-309.97 809.25,-309.97 809.25,-243.97 666.75,-243.97"/>
+<text xml:space="preserve" text-anchor="start" x="690" y="-317.22" font-family="Helvetica, Arial, sans-serif" font-size="9.00" fill="#1f1f1f">a random maze with no holes</text>
+<polygon fill="none" stroke="#b8761b" points="678.75,-243.97 678.75,-309.97 821.25,-309.97 821.25,-243.97 678.75,-243.97"/>
 <g id="a_node20_97"><a xlink:href="../pyrat/RandomMaze.html#pyrat.src.mazes.random_maze.RandomMaze.__init__">
-<text xml:space="preserve" text-anchor="start" x="672.75" y="-294.97" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># wall_percentage : float</text>
+<text xml:space="preserve" text-anchor="start" x="684.75" y="-294.97" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># wall_percentage : float</text>
 </a>
 </g>
 <g id="a_node20_98"><a xlink:href="../pyrat/RandomMaze.html#pyrat.src.mazes.random_maze.RandomMaze.__init__">
-<text xml:space="preserve" text-anchor="start" x="672.75" y="-280.97" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># mud_percentage : float</text>
+<text xml:space="preserve" text-anchor="start" x="684.75" y="-280.97" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># mud_percentage : float</text>
 </a>
 </g>
 <g id="a_node20_99"><a xlink:href="../pyrat/RandomMaze.html#pyrat.src.mazes.random_maze.RandomMaze.__init__">
-<text xml:space="preserve" text-anchor="start" x="672.75" y="-266.97" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># mud_range : tuple[int, int]</text>
+<text xml:space="preserve" text-anchor="start" x="684.75" y="-266.97" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># mud_range : tuple[int, int]</text>
 </a>
 </g>
 <g id="a_node20_100"><a xlink:href="../pyrat/RandomMaze.html#pyrat.src.mazes.random_maze.RandomMaze.__init__">
-<text xml:space="preserve" text-anchor="start" x="672.75" y="-252.97" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># rng : random.Random</text>
+<text xml:space="preserve" text-anchor="start" x="684.75" y="-252.97" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># rng : random.Random</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="666.75,-177.97 666.75,-243.97 809.25,-243.97 809.25,-177.97 666.75,-177.97"/>
+<polygon fill="none" stroke="#b8761b" points="678.75,-177.97 678.75,-243.97 821.25,-243.97 821.25,-177.97 678.75,-177.97"/>
 <g id="a_node20_101"><a xlink:href="../pyrat/RandomMaze.html#pyrat.src.mazes.random_maze.RandomMaze">
-<text xml:space="preserve" text-anchor="start" x="672.75" y="-228.97" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># _create_maze()</text>
+<text xml:space="preserve" text-anchor="start" x="684.75" y="-228.97" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># _create_maze()</text>
 </a>
 </g>
 <g id="a_node20_102"><a xlink:href="../pyrat/RandomMaze.html#pyrat.src.mazes.random_maze.RandomMaze">
-<text xml:space="preserve" text-anchor="start" x="672.75" y="-214.97" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># _add_cells()</text>
+<text xml:space="preserve" text-anchor="start" x="684.75" y="-214.97" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># _add_cells()</text>
 </a>
 </g>
 <g id="a_node20_103"><a xlink:href="../pyrat/RandomMaze.html#pyrat.src.mazes.random_maze.RandomMaze">
-<text xml:space="preserve" text-anchor="start" x="672.75" y="-200.97" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># _add_walls()</text>
+<text xml:space="preserve" text-anchor="start" x="684.75" y="-200.97" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># _add_walls()</text>
 </a>
 </g>
 <g id="a_node20_104"><a xlink:href="../pyrat/RandomMaze.html#pyrat.src.mazes.random_maze.RandomMaze">
-<text xml:space="preserve" text-anchor="start" x="672.75" y="-186.97" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># _add_mud()</text>
+<text xml:space="preserve" text-anchor="start" x="684.75" y="-186.97" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># _add_mud()</text>
 </a>
 </g>
 </g>
 <!-- bus_random_mazes_trunk -->
 <!-- RandomMaze&#45;&gt;bus_random_mazes_trunk -->
 <g id="edge16" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M738,-150.48C738,-143.4 738,-138.69 738,-137.85"/>
-<polygon fill="none" stroke="#555555" stroke-width="1.1" points="733.45,-150.25 738,-163.25 742.55,-150.25 733.45,-150.25"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M750,-150.48C750,-143.4 750,-138.69 750,-137.85"/>
+<polygon fill="none" stroke="#555555" stroke-width="1.1" points="745.45,-150.25 750,-163.25 754.55,-150.25 745.45,-150.25"/>
 </g>
 <!-- MazeFromDict -->
 <g id="node21" class="node">
-<polygon fill="#fffaf2" stroke="none" points="840.88,-269.72 840.88,-343.72 1011.12,-343.72 1011.12,-269.72 840.88,-269.72"/>
+<polygon fill="#fffaf2" stroke="none" points="852.88,-269.72 852.88,-343.72 1023.12,-343.72 1023.12,-269.72 852.88,-269.72"/>
 <g id="a_node21_105"><a xlink:href="../pyrat/MazeFromDict.html#pyrat.src.mazes.maze_from_dict.MazeFromDict" xlink:title="MazeFromDict">
-<polygon fill="#f6d9a8" stroke="none" points="840.88,-317.72 840.88,-343.72 1011.12,-343.72 1011.12,-317.72 840.88,-317.72"/>
-<polygon fill="none" stroke="#b8761b" points="840.88,-317.72 840.88,-343.72 1011.12,-343.72 1011.12,-317.72 840.88,-317.72"/>
-<text xml:space="preserve" text-anchor="start" x="888.5" y="-327.27" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">MazeFromDict</text>
+<polygon fill="#f6d9a8" stroke="none" points="852.88,-317.72 852.88,-343.72 1023.12,-343.72 1023.12,-317.72 852.88,-317.72"/>
+<polygon fill="none" stroke="#b8761b" points="852.88,-317.72 852.88,-343.72 1023.12,-343.72 1023.12,-317.72 852.88,-317.72"/>
+<text xml:space="preserve" text-anchor="start" x="900.5" y="-327.27" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">MazeFromDict</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="840.88,-293.72 840.88,-317.72 1011.12,-317.72 1011.12,-293.72 840.88,-293.72"/>
+<polygon fill="none" stroke="#b8761b" points="852.88,-293.72 852.88,-317.72 1023.12,-317.72 1023.12,-293.72 852.88,-293.72"/>
 <g id="a_node21_106"><a xlink:href="../pyrat/MazeFromDict.html#pyrat.src.mazes.maze_from_dict.MazeFromDict.__init__">
-<text xml:space="preserve" text-anchor="start" x="846.88" y="-302.72" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; description : dict[int, dict[int, int]]</text>
+<text xml:space="preserve" text-anchor="start" x="858.88" y="-302.72" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; description : dict[int, dict[int, int]]</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="840.88,-269.72 840.88,-293.72 1011.12,-293.72 1011.12,-269.72 840.88,-269.72"/>
+<polygon fill="none" stroke="#b8761b" points="852.88,-269.72 852.88,-293.72 1023.12,-293.72 1023.12,-269.72 852.88,-269.72"/>
 <g id="a_node21_107"><a xlink:href="../pyrat/MazeFromDict.html#pyrat.src.mazes.maze_from_dict.MazeFromDict">
-<text xml:space="preserve" text-anchor="start" x="846.88" y="-278.72" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># _create_maze()</text>
+<text xml:space="preserve" text-anchor="start" x="858.88" y="-278.72" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># _create_maze()</text>
 </a>
 </g>
 </g>
 <!-- MazeFromMatrix -->
 <g id="node22" class="node">
-<polygon fill="#fffaf2" stroke="none" points="1043.12,-269.72 1043.12,-343.72 1262.88,-343.72 1262.88,-269.72 1043.12,-269.72"/>
+<polygon fill="#fffaf2" stroke="none" points="1055.12,-269.72 1055.12,-343.72 1274.88,-343.72 1274.88,-269.72 1055.12,-269.72"/>
 <g id="a_node22_108"><a xlink:href="../pyrat/MazeFromMatrix.html#pyrat.src.mazes.maze_from_matrix.MazeFromMatrix" xlink:title="MazeFromMatrix">
-<polygon fill="#f6d9a8" stroke="none" points="1043.12,-317.72 1043.12,-343.72 1262.88,-343.72 1262.88,-317.72 1043.12,-317.72"/>
-<polygon fill="none" stroke="#b8761b" points="1043.12,-317.72 1043.12,-343.72 1262.88,-343.72 1262.88,-317.72 1043.12,-317.72"/>
-<text xml:space="preserve" text-anchor="start" x="1109.88" y="-327.27" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">MazeFromMatrix</text>
+<polygon fill="#f6d9a8" stroke="none" points="1055.12,-317.72 1055.12,-343.72 1274.88,-343.72 1274.88,-317.72 1055.12,-317.72"/>
+<polygon fill="none" stroke="#b8761b" points="1055.12,-317.72 1055.12,-343.72 1274.88,-343.72 1274.88,-317.72 1055.12,-317.72"/>
+<text xml:space="preserve" text-anchor="start" x="1121.88" y="-327.27" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">MazeFromMatrix</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="1043.12,-293.72 1043.12,-317.72 1262.88,-317.72 1262.88,-293.72 1043.12,-293.72"/>
+<polygon fill="none" stroke="#b8761b" points="1055.12,-293.72 1055.12,-317.72 1274.88,-317.72 1274.88,-293.72 1055.12,-293.72"/>
 <g id="a_node22_109"><a xlink:href="../pyrat/MazeFromMatrix.html#pyrat.src.mazes.maze_from_matrix.MazeFromMatrix.__init__">
-<text xml:space="preserve" text-anchor="start" x="1049.12" y="-302.72" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; description : numpy.ndarray | torch.Tensor</text>
+<text xml:space="preserve" text-anchor="start" x="1061.12" y="-302.72" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f">&#45; description : numpy.ndarray | torch.Tensor</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="1043.12,-269.72 1043.12,-293.72 1262.88,-293.72 1262.88,-269.72 1043.12,-269.72"/>
+<polygon fill="none" stroke="#b8761b" points="1055.12,-269.72 1055.12,-293.72 1274.88,-293.72 1274.88,-269.72 1055.12,-269.72"/>
 <g id="a_node22_110"><a xlink:href="../pyrat/MazeFromMatrix.html#pyrat.src.mazes.maze_from_matrix.MazeFromMatrix">
-<text xml:space="preserve" text-anchor="start" x="1049.12" y="-278.72" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># _create_maze()</text>
+<text xml:space="preserve" text-anchor="start" x="1061.12" y="-278.72" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># _create_maze()</text>
 </a>
 </g>
 </g>
 <!-- BigHolesRandomMaze -->
 <g id="node23" class="node">
-<polygon fill="#fffaf2" stroke="none" points="494.75,-22 494.75,-110 627.25,-110 627.25,-22 494.75,-22"/>
+<polygon fill="#fffaf2" stroke="none" points="506.75,-22 506.75,-110 639.25,-110 639.25,-22 506.75,-22"/>
 <g id="a_node23_111"><a xlink:href="../pyrat/BigHolesRandomMaze.html#pyrat.src.mazes.big_holes_random_maze.BigHolesRandomMaze" xlink:title="BigHolesRandomMaze">
-<polygon fill="#f6d9a8" stroke="none" points="494.75,-84 494.75,-110 627.25,-110 627.25,-84 494.75,-84"/>
-<polygon fill="none" stroke="#b8761b" points="494.75,-84 494.75,-110 627.25,-110 627.25,-84 494.75,-84"/>
-<text xml:space="preserve" text-anchor="start" x="501.75" y="-93.55" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">BigHolesRandomMaze</text>
+<polygon fill="#f6d9a8" stroke="none" points="506.75,-84 506.75,-110 639.25,-110 639.25,-84 506.75,-84"/>
+<polygon fill="none" stroke="#b8761b" points="506.75,-84 506.75,-110 639.25,-110 639.25,-84 506.75,-84"/>
+<text xml:space="preserve" text-anchor="start" x="513.75" y="-93.55" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">BigHolesRandomMaze</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="494.75,-46 494.75,-84 627.25,-84 627.25,-46 494.75,-46"/>
+<polygon fill="none" stroke="#b8761b" points="506.75,-46 506.75,-84 639.25,-84 639.25,-46 506.75,-46"/>
 <g id="a_node23_112"><a xlink:href="../pyrat/BigHolesRandomMaze.html#pyrat.src.mazes.big_holes_random_maze.BigHolesRandomMaze.__init__">
-<text xml:space="preserve" text-anchor="start" x="500.75" y="-69" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># cell_percentage : float</text>
+<text xml:space="preserve" text-anchor="start" x="512.75" y="-69" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># cell_percentage : float</text>
 </a>
 </g>
 <g id="a_node23_113"><a xlink:href="../pyrat/BigHolesRandomMaze.html#pyrat.src.mazes.big_holes_random_maze.BigHolesRandomMaze.__init__">
-<text xml:space="preserve" text-anchor="start" x="500.75" y="-55" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># target_nb_vertices : int</text>
+<text xml:space="preserve" text-anchor="start" x="512.75" y="-55" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># target_nb_vertices : int</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="494.75,-22 494.75,-46 627.25,-46 627.25,-22 494.75,-22"/>
+<polygon fill="none" stroke="#b8761b" points="506.75,-22 506.75,-46 639.25,-46 639.25,-22 506.75,-22"/>
 <g id="a_node23_114"><a xlink:href="../pyrat/BigHolesRandomMaze.html#pyrat.src.mazes.big_holes_random_maze.BigHolesRandomMaze">
-<text xml:space="preserve" text-anchor="start" x="500.75" y="-31" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># _add_cells()</text>
+<text xml:space="preserve" text-anchor="start" x="512.75" y="-31" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># _add_cells()</text>
 </a>
 </g>
 </g>
 <!-- UniformHolesRandomMaze -->
 <g id="node24" class="node">
-<polygon fill="#fffaf2" stroke="none" points="659.38,-22 659.38,-110 816.62,-110 816.62,-22 659.38,-22"/>
+<polygon fill="#fffaf2" stroke="none" points="671.38,-22 671.38,-110 828.62,-110 828.62,-22 671.38,-22"/>
 <g id="a_node24_115"><a xlink:href="../pyrat/UniformHolesRandomMaze.html#pyrat.src.mazes.uniform_holes_random_maze.UniformHolesRandomMaze" xlink:title="UniformHolesRandomMaze">
-<polygon fill="#f6d9a8" stroke="none" points="659.38,-84 659.38,-110 816.62,-110 816.62,-84 659.38,-84"/>
-<polygon fill="none" stroke="#b8761b" points="659.38,-84 659.38,-110 816.62,-110 816.62,-84 659.38,-84"/>
-<text xml:space="preserve" text-anchor="start" x="666.38" y="-93.55" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">UniformHolesRandomMaze</text>
+<polygon fill="#f6d9a8" stroke="none" points="671.38,-84 671.38,-110 828.62,-110 828.62,-84 671.38,-84"/>
+<polygon fill="none" stroke="#b8761b" points="671.38,-84 671.38,-110 828.62,-110 828.62,-84 671.38,-84"/>
+<text xml:space="preserve" text-anchor="start" x="678.38" y="-93.55" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">UniformHolesRandomMaze</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="659.38,-46 659.38,-84 816.62,-84 816.62,-46 659.38,-46"/>
+<polygon fill="none" stroke="#b8761b" points="671.38,-46 671.38,-84 828.62,-84 828.62,-46 671.38,-46"/>
 <g id="a_node24_116"><a xlink:href="../pyrat/UniformHolesRandomMaze.html#pyrat.src.mazes.uniform_holes_random_maze.UniformHolesRandomMaze.__init__">
-<text xml:space="preserve" text-anchor="start" x="665.38" y="-69" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># cell_percentage : float</text>
+<text xml:space="preserve" text-anchor="start" x="677.38" y="-69" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># cell_percentage : float</text>
 </a>
 </g>
 <g id="a_node24_117"><a xlink:href="../pyrat/UniformHolesRandomMaze.html#pyrat.src.mazes.uniform_holes_random_maze.UniformHolesRandomMaze.__init__">
-<text xml:space="preserve" text-anchor="start" x="665.38" y="-55" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># target_nb_vertices : int</text>
+<text xml:space="preserve" text-anchor="start" x="677.38" y="-55" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># target_nb_vertices : int</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="659.38,-22 659.38,-46 816.62,-46 816.62,-22 659.38,-22"/>
+<polygon fill="none" stroke="#b8761b" points="671.38,-22 671.38,-46 828.62,-46 828.62,-22 671.38,-22"/>
 <g id="a_node24_118"><a xlink:href="../pyrat/UniformHolesRandomMaze.html#pyrat.src.mazes.uniform_holes_random_maze.UniformHolesRandomMaze">
-<text xml:space="preserve" text-anchor="start" x="665.38" y="-31" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># _add_cells()</text>
+<text xml:space="preserve" text-anchor="start" x="677.38" y="-31" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># _add_cells()</text>
 </a>
 </g>
 </g>
 <!-- HolesOnSideRandomMaze -->
 <g id="node25" class="node">
-<polygon fill="#fffaf2" stroke="none" points="848.62,-22 848.62,-110 1001.38,-110 1001.38,-22 848.62,-22"/>
+<polygon fill="#fffaf2" stroke="none" points="860.62,-22 860.62,-110 1013.38,-110 1013.38,-22 860.62,-22"/>
 <g id="a_node25_119"><a xlink:href="../pyrat/HolesOnSideRandomMaze.html#pyrat.src.mazes.holes_on_side_random_maze.HolesOnSideRandomMaze" xlink:title="HolesOnSideRandomMaze">
-<polygon fill="#f6d9a8" stroke="none" points="848.62,-84 848.62,-110 1001.38,-110 1001.38,-84 848.62,-84"/>
-<polygon fill="none" stroke="#b8761b" points="848.62,-84 848.62,-110 1001.38,-110 1001.38,-84 848.62,-84"/>
-<text xml:space="preserve" text-anchor="start" x="855.62" y="-93.55" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">HolesOnSideRandomMaze</text>
+<polygon fill="#f6d9a8" stroke="none" points="860.62,-84 860.62,-110 1013.38,-110 1013.38,-84 860.62,-84"/>
+<polygon fill="none" stroke="#b8761b" points="860.62,-84 860.62,-110 1013.38,-110 1013.38,-84 860.62,-84"/>
+<text xml:space="preserve" text-anchor="start" x="867.62" y="-93.55" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="11.00" fill="#1f1f1f">HolesOnSideRandomMaze</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="848.62,-46 848.62,-84 1001.38,-84 1001.38,-46 848.62,-46"/>
+<polygon fill="none" stroke="#b8761b" points="860.62,-46 860.62,-84 1013.38,-84 1013.38,-46 860.62,-46"/>
 <g id="a_node25_120"><a xlink:href="../pyrat/HolesOnSideRandomMaze.html#pyrat.src.mazes.holes_on_side_random_maze.HolesOnSideRandomMaze.__init__">
-<text xml:space="preserve" text-anchor="start" x="854.62" y="-69" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># cell_percentage : float</text>
+<text xml:space="preserve" text-anchor="start" x="866.62" y="-69" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># cell_percentage : float</text>
 </a>
 </g>
 <g id="a_node25_121"><a xlink:href="../pyrat/HolesOnSideRandomMaze.html#pyrat.src.mazes.holes_on_side_random_maze.HolesOnSideRandomMaze.__init__">
-<text xml:space="preserve" text-anchor="start" x="854.62" y="-55" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># target_nb_vertices : int</text>
+<text xml:space="preserve" text-anchor="start" x="866.62" y="-55" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># target_nb_vertices : int</text>
 </a>
 </g>
-<polygon fill="none" stroke="#b8761b" points="848.62,-22 848.62,-46 1001.38,-46 1001.38,-22 848.62,-22"/>
+<polygon fill="none" stroke="#b8761b" points="860.62,-22 860.62,-46 1013.38,-46 1013.38,-22 860.62,-22"/>
 <g id="a_node25_122"><a xlink:href="../pyrat/HolesOnSideRandomMaze.html#pyrat.src.mazes.holes_on_side_random_maze.HolesOnSideRandomMaze">
-<text xml:space="preserve" text-anchor="start" x="854.62" y="-31" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># _add_cells()</text>
+<text xml:space="preserve" text-anchor="start" x="866.62" y="-31" font-family="Helvetica, Arial, sans-serif" font-size="11.00" fill="#1f1f1f"># _add_cells()</text>
 </a>
 </g>
 </g>
 <!-- bus_mazes_left -->
 <!-- bus_mazes_left&#45;&gt;RandomMaze -->
 <g id="edge23" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M738,-371.39C738,-369.41 738,-358.78 738,-344.72"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M750,-371.39C750,-369.41 750,-358.78 750,-344.72"/>
 </g>
 <!-- bus_mazes_left&#45;&gt;bus_mazes_trunk -->
 <g id="edge33" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M738.7,-372.08C745.59,-372.08 800.67,-372.08 800.67,-372.08 800.67,-372.08 863.33,-372.08 863.33,-372.08 863.33,-372.08 918.41,-372.08 925.3,-372.08"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M750.7,-372.08C757.59,-372.08 812.67,-372.08 812.67,-372.08 812.67,-372.08 875.33,-372.08 875.33,-372.08 875.33,-372.08 930.41,-372.08 937.3,-372.08"/>
 </g>
 <!-- bus_mazes_trunk&#45;&gt;MazeFromDict -->
 <g id="edge24" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M926,-371.39C926,-369.41 926,-358.78 926,-344.72"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M938,-371.39C938,-369.41 938,-358.78 938,-344.72"/>
 </g>
 <!-- bus_mazes_right -->
 <!-- bus_mazes_trunk&#45;&gt;bus_mazes_right -->
 <g id="edge34" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M926.85,-372.08C935.16,-372.08 1001.67,-372.08 1001.67,-372.08 1001.67,-372.08 1077.33,-372.08 1077.33,-372.08 1077.33,-372.08 1143.84,-372.08 1152.15,-372.08"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M938.85,-372.08C947.16,-372.08 1013.67,-372.08 1013.67,-372.08 1013.67,-372.08 1089.33,-372.08 1089.33,-372.08 1089.33,-372.08 1155.84,-372.08 1164.15,-372.08"/>
 </g>
 <!-- bus_mazes_right&#45;&gt;MazeFromMatrix -->
 <g id="edge25" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M1153,-371.39C1153,-369.41 1153,-358.78 1153,-344.72"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M1165,-371.39C1165,-369.41 1165,-358.78 1165,-344.72"/>
 </g>
 <!-- bus_random_mazes_left -->
 <!-- bus_random_mazes_left&#45;&gt;BigHolesRandomMaze -->
 <g id="edge26" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M561,-136.55C561,-134.18 561,-122.65 561,-109.65"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M573,-136.55C573,-134.18 573,-122.65 573,-109.65"/>
 </g>
 <!-- bus_random_mazes_left&#45;&gt;bus_random_mazes_trunk -->
 <g id="edge35" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M561.66,-137.36C568.14,-137.36 620,-137.36 620,-137.36 620,-137.36 679,-137.36 679,-137.36 679,-137.36 730.86,-137.36 737.34,-137.36"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M573.66,-137.36C580.14,-137.36 632,-137.36 632,-137.36 632,-137.36 691,-137.36 691,-137.36 691,-137.36 742.86,-137.36 749.34,-137.36"/>
 </g>
 <!-- bus_random_mazes_trunk&#45;&gt;UniformHolesRandomMaze -->
 <g id="edge27" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M738,-136.55C738,-134.18 738,-122.65 738,-109.65"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M750,-136.55C750,-134.18 750,-122.65 750,-109.65"/>
 </g>
 <!-- bus_random_mazes_right -->
 <!-- bus_random_mazes_trunk&#45;&gt;bus_random_mazes_right -->
 <g id="edge36" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M738.7,-137.36C745.55,-137.36 800.33,-137.36 800.33,-137.36 800.33,-137.36 862.67,-137.36 862.67,-137.36 862.67,-137.36 917.45,-137.36 924.3,-137.36"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M750.7,-137.36C757.55,-137.36 812.33,-137.36 812.33,-137.36 812.33,-137.36 874.67,-137.36 874.67,-137.36 874.67,-137.36 929.45,-137.36 936.3,-137.36"/>
 </g>
 <!-- bus_random_mazes_right&#45;&gt;HolesOnSideRandomMaze -->
 <g id="edge28" class="edge">
-<path fill="none" stroke="#555555" stroke-width="1.1" d="M925,-136.55C925,-134.18 925,-122.65 925,-109.65"/>
+<path fill="none" stroke="#555555" stroke-width="1.1" d="M937,-136.55C937,-134.18 937,-122.65 937,-109.65"/>
 </g>
 <!-- GameMode -->
 <g id="node33" class="node">
