@@ -18,6 +18,7 @@ It extends ``RandomMaze`` to create a specific type of maze with holes distribut
 
 # PyRat imports
 from pyrat.src.mazes.random_maze import RandomMaze
+from pyrat.src.game.exceptions import PyRatException
 
 ##########################################################################################
 ######################################### CLASSES ########################################
@@ -41,23 +42,32 @@ class HolesOnSideRandomMaze (RandomMaze):
     ##################################################################################
 
     def __init__ ( self,
-                   *args:    object,
-                   **kwargs: object
-                 ) ->        None:
+                   cell_percentage: float,
+                   *args:           object,
+                   **kwargs:        object
+                 ) ->               None:
 
         """
-        Initializes a new instance of the class.
+        Initializes a new instance of the class, and generates the maze.
 
         Args:
-            *args:    Arguments to pass to the parent constructor.
-            **kwargs: Keyword arguments to pass to the parent constructor.
+            cell_percentage: Percentage of cells to be reachable.
+            *args:           Arguments to pass to the parent constructor.
+            **kwargs:        Keyword arguments to pass to the parent constructor.
         """
+
+        # Check validity
+        if not isinstance(cell_percentage, float):
+            raise PyRatException("Argument 'cell_percentage' must be a real number")
+        if not (0.0 <= cell_percentage <= 100.0):
+            raise PyRatException("Argument 'cell_percentage' must be a percentage")
+
+        # Protected attributes
+        # They must be set before calling the parent constructor, which generates the maze
+        self._cell_percentage = cell_percentage
 
         # Inherit from parent class
         super().__init__(*args, **kwargs)
-        
-        # Generate the maze
-        self._create_maze()
 
     ##################################################################################
     #                                PROTECTED METHODS                               #
@@ -68,8 +78,14 @@ class HolesOnSideRandomMaze (RandomMaze):
         """
         *(This method redefines the method of the parent class with the same name).*
 
-        It adds cells to the maze by starting from a full maze and removing cells one by one.
+        It adds cells to the maze by growing it from its center, adding neighbors of already added cells in a random order.
+        Contrary to the parent class, it does not start from a full maze, so missing cells end up on the sides.
         """
+
+        # Determine the number of cells to keep
+        self._target_nb_vertices = int(self.get_width() * self.get_height() * self._cell_percentage / 100)
+        if not (self._target_nb_vertices > 1):
+            raise PyRatException("The maze must have at least two vertices")
 
         # Add cells from the middle of the maze
         vertices_to_add = [self.rc_to_i(self.get_height() // 2, self.get_width() // 2)]

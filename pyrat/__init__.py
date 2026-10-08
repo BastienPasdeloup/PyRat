@@ -15,7 +15,7 @@
 from .src.game.game import Game
 from .src.game.game_state import GameState
 from .src.game.enums import Action, GameMode, PlayerSkin, RandomMazeAlgorithm, RenderMode, StartingLocation
-from .src.game.exceptions import PyRatException
+from .src.game.exceptions import PyRatException, PyRatPlayerException
 
 # Players
 from .src.players.player import Player
@@ -41,7 +41,7 @@ from .src.rendering.pygame_rendering_engine import PygameRenderingEngine
 ##########################################################################################
 
 # Names that are part of the public interface of the library
-__all__ = ["Game", "GameState", "Action", "GameMode", "PlayerSkin", "RandomMazeAlgorithm", "RenderMode", "StartingLocation", "PyRatException",
+__all__ = ["Game", "GameState", "Action", "GameMode", "PlayerSkin", "RandomMazeAlgorithm", "RenderMode", "StartingLocation", "PyRatException", "PyRatPlayerException",
            "Player", "FixedPlayer",
            "Graph", "Maze", "RandomMaze", "BigHolesRandomMaze", "HolesOnSideRandomMaze", "UniformHolesRandomMaze", "MazeFromDict", "MazeFromMatrix",
            "RenderingEngine", "ShellRenderingEngine", "PygameRenderingEngine"]

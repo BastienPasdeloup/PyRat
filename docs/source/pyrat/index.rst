@@ -129,10 +129,10 @@ Each one has its own page, listing the classes it contains.
       :link: game/index
       :link-type: doc
 
-      What runs a game: the class you instantiate to start one, what your player is given at each turn, the constants you pass around, and the exception raised when a game cannot go on.
+      What runs a game: the class you instantiate to start one, what your player is given at each turn, the constants you pass around, and the exceptions raised when something goes wrong.
 
       +++
-      ``Game``, ``GameState``, ``enums``, ``PyRatException``.
+      ``Game``, ``GameState``, ``enums``, ``PyRatException``, ``PyRatPlayerException``.
 
    .. grid-item-card:: ``players``
       :link: players/index

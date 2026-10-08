@@ -25,6 +25,7 @@ import abc
 from pyrat.src.mazes.maze import Maze
 from pyrat.src.game.game_state import GameState
 from pyrat.src.game.enums import Action, PlayerSkin
+from pyrat.src.game.exceptions import PyRatException
 
 ##########################################################################################
 ######################################### CLASSES ########################################
@@ -61,9 +62,11 @@ class Player (abc.ABC):
             skin: Skin of the player.
         """
 
-        # Debug
-        assert isinstance(name, (str, type(None))), "Argument 'name' must be a string or None (if None, we take the name of the class)"
-        assert isinstance(skin, PlayerSkin), "Argument 'skin' must be of type 'pyrat.PlayerSkin'"
+        # Check validity
+        if not isinstance(name, (str, type(None))):
+            raise PyRatException("Argument 'name' must be a string or None (if None, we take the name of the class)")
+        if not isinstance(skin, PlayerSkin):
+            raise PyRatException("Argument 'skin' must be of type 'pyrat.PlayerSkin'")
 
         # Private attributes
         self.__name = name if name is not None else self.__class__.__name__
@@ -118,11 +121,15 @@ class Player (abc.ABC):
             stats:      A dictionary containing statistics about the game.
         """
 
-        # Debug
-        assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
-        assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
-        assert isinstance(stats, dict), "Argument 'stats' must be a dictionary"
-        assert all(isinstance(key, str) for key in stats.keys()), "All keys of 'stats' must be strings"
+        # Check validity
+        if not isinstance(maze, Maze):
+            raise PyRatException("Argument 'maze' must be of type 'pyrat.Maze'")
+        if not isinstance(game_state, GameState):
+            raise PyRatException("Argument 'game_state' must be of type 'pyrat.GameState'")
+        if not isinstance(stats, dict):
+            raise PyRatException("Argument 'stats' must be a dictionary")
+        if not all(isinstance(key, str) for key in stats.keys()):
+            raise PyRatException("All keys of 'stats' must be strings")
 
         # By default, this method does nothing unless implemented in the child classes
         pass
@@ -145,9 +152,11 @@ class Player (abc.ABC):
             game_state: An object representing the state of the game.
         """
 
-        # Debug
-        assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
-        assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
+        # Check validity
+        if not isinstance(maze, Maze):
+            raise PyRatException("Argument 'maze' must be of type 'pyrat.Maze'")
+        if not isinstance(game_state, GameState):
+            raise PyRatException("Argument 'game_state' must be of type 'pyrat.GameState'")
 
         # By default, this method does nothing unless implemented in the child classes
         pass
@@ -179,9 +188,11 @@ class Player (abc.ABC):
             NotImplementedError: If the method is not implemented in the subclass.
         """
 
-        # Debug
-        assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
-        assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
+        # Check validity
+        if not isinstance(maze, Maze):
+            raise PyRatException("Argument 'maze' must be of type 'pyrat.Maze'")
+        if not isinstance(game_state, GameState):
+            raise PyRatException("Argument 'game_state' must be of type 'pyrat.GameState'")
 
         # This method must be implemented in the child classes
         # By default we raise an error

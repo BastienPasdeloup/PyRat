@@ -23,6 +23,7 @@ import math
 
 # PyRat imports
 from pyrat.src.mazes.maze import Maze
+from pyrat.src.game.exceptions import PyRatException
 
 ##########################################################################################
 ######################################### CLASSES ########################################
@@ -61,16 +62,25 @@ class MazeFromDict (Maze):
         # Inherit from parent class
         super().__init__(*args, **kwargs)
 
-        # Debug
-        assert isinstance(description, dict), "Argument 'description' must be a dictionary"
-        assert all(isinstance(vertex, int) for vertex in description), "All keys of 'description' must be integers"
-        assert all(isinstance(neighbor, int) for vertex in description for neighbor in description[vertex]), "All keys of subdictionaries of 'description' must be integers"
-        assert all(isinstance(description[vertex][neighbor], int) for vertex in description for neighbor in description[vertex]), "All values of subdictionaries of 'description' must be integers"
-        assert len(description) > 1, "The maze must have at least two vertices"
-        assert all(len(description[vertex]) > 0 for vertex in description), "All vertices must have at least one neighbor"
-        assert all(vertex in description[neighbor] for vertex in description for neighbor in description[vertex]), "The maze must be symmetric"
-        assert all(description[vertex][neighbor] == description[neighbor][vertex] for vertex in description for neighbor in description[vertex]), "The maze must have symmetric weights"
-        assert all(description[vertex][neighbor] > 0 for vertex in description for neighbor in description[vertex]), "All weights must be positive"
+        # Check validity
+        if not isinstance(description, dict):
+            raise PyRatException("Argument 'description' must be a dictionary")
+        if not all(isinstance(vertex, int) for vertex in description):
+            raise PyRatException("All keys of 'description' must be integers")
+        if not all(isinstance(neighbor, int) for vertex in description for neighbor in description[vertex]):
+            raise PyRatException("All keys of subdictionaries of 'description' must be integers")
+        if not all(isinstance(description[vertex][neighbor], int) for vertex in description for neighbor in description[vertex]):
+            raise PyRatException("All values of subdictionaries of 'description' must be integers")
+        if not (len(description) > 1):
+            raise PyRatException("The maze must have at least two vertices")
+        if not all(len(description[vertex]) > 0 for vertex in description):
+            raise PyRatException("All vertices must have at least one neighbor")
+        if not all(vertex in description[neighbor] for vertex in description for neighbor in description[vertex]):
+            raise PyRatException("The maze must be symmetric")
+        if not all(description[vertex][neighbor] == description[neighbor][vertex] for vertex in description for neighbor in description[vertex]):
+            raise PyRatException("The maze must have symmetric weights")
+        if not all(description[vertex][neighbor] > 0 for vertex in description for neighbor in description[vertex]):
+            raise PyRatException("All weights must be positive")
 
         # Private attributes
         self.__description = description

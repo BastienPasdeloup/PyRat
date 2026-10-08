@@ -30,6 +30,7 @@ from pyrat.src.rendering.rendering_engine import RenderingEngine
 from pyrat.src.players.player import Player
 from pyrat.src.mazes.maze import Maze
 from pyrat.src.game.game_state import GameState
+from pyrat.src.game.exceptions import PyRatException
 
 ##########################################################################################
 ######################################### CLASSES ########################################
@@ -68,9 +69,11 @@ class ShellRenderingEngine (RenderingEngine):
         # Inherit from parent class
         super().__init__(*args, **kwargs)
 
-        # Debug
-        assert isinstance(use_colors, bool), "Argument 'use_colors' must be a boolean"
-        assert isinstance(clear_each_turn, bool), "Argument 'clear_each_turn' must be a boolean"
+        # Check validity
+        if not isinstance(use_colors, bool):
+            raise PyRatException("Argument 'use_colors' must be a boolean")
+        if not isinstance(clear_each_turn, bool):
+            raise PyRatException("Argument 'clear_each_turn' must be a boolean")
 
         # Private attributes
         self.__use_colors = use_colors
@@ -98,11 +101,15 @@ class ShellRenderingEngine (RenderingEngine):
             game_state: State of the game.
         """
 
-        # Debug
-        assert isinstance(players, list), "Argument 'players' must be a list"
-        assert all(isinstance(player, Player) for player in players), "All elements of 'players' must be of type 'pyrat.Player'"
-        assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
-        assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
+        # Check validity
+        if not isinstance(players, list):
+            raise PyRatException("Argument 'players' must be a list")
+        if not all(isinstance(player, Player) for player in players):
+            raise PyRatException("All elements of 'players' must be of type 'pyrat.Player'")
+        if not isinstance(maze, Maze):
+            raise PyRatException("Argument 'maze' must be of type 'pyrat.Maze'")
+        if not isinstance(game_state, GameState):
+            raise PyRatException("Argument 'game_state' must be of type 'pyrat.GameState'")
 
         # Dimensions
         max_weight = max([maze.get_weight(*edge) for edge in maze.get_edges()])
@@ -254,8 +261,9 @@ class ShellRenderingEngine (RenderingEngine):
             The length of the text.
         """
 
-        # Debug
-        assert isinstance(text, str), "Argument 'text' must be a string"
+        # Check validity
+        if not isinstance(text, str):
+            raise PyRatException("Argument 'text' must be a string")
 
         # Return the length of the text without the colorization
         text_length = len(re.sub(r"[\u001B\u009B][\[\]()#;?]*((([a-zA-Z\d]*(;[-a-zA-Z\d\/#&.:=?%@~_]*)*)?\u0007)|((\d{1,4}(?:;\d{0,4})*)?[\dA-PR-TZcf-ntqry=><~]))", "", text))
@@ -282,10 +290,13 @@ class ShellRenderingEngine (RenderingEngine):
             The colorized text.
         """
 
-        # Debug
-        assert isinstance(text, str), "Argument 'text' must be a string"
-        assert isinstance(colorization, str), "Argument 'colorization' must be a string"
-        assert isinstance(alternate_text, (str, type(None))), "Argument 'alternate_text' must be a string or None"
+        # Check validity
+        if not isinstance(text, str):
+            raise PyRatException("Argument 'text' must be a string")
+        if not isinstance(colorization, str):
+            raise PyRatException("Argument 'colorization' must be a string")
+        if not isinstance(alternate_text, (str, type(None))):
+            raise PyRatException("Argument 'alternate_text' must be a string or None")
 
         # If we don't use colors, we return the correct text
         if not self.__use_colors:

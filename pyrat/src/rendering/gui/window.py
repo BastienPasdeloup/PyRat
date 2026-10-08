@@ -39,6 +39,7 @@ from pyrat.src.mazes.maze import Maze
 from pyrat.src.game.game_state import GameState
 from pyrat.src.game.enums import Action
 from pyrat.src.players.player import Player
+from pyrat.src.game.exceptions import PyRatException
 
 ##########################################################################################
 ######################################## CONSTANTS #######################################
@@ -113,17 +114,27 @@ class GameWindow ():
             rendering_speed:    Speed at which the moves are shown, relative to the default one.
         """
 
-        # Debug
-        assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
-        assert isinstance(initial_game_state, GameState), "Argument 'initial_game_state' must be of type 'pyrat.GameState'"
-        assert isinstance(players, list), "Argument 'players' must be a list"
-        assert all(isinstance(player, Player) for player in players), "All elements of 'players' must be of type 'pyrat.Player'"
-        assert isinstance(fullscreen, bool), "Argument 'fullscreen' must be a boolean"
-        assert isinstance(render_simplified, bool), "Argument 'render_simplified' must be a boolean"
-        assert isinstance(trace_length, int), "Argument 'trace_length' must be an integer"
-        assert trace_length >= 0, "Argument 'trace_length' must be non-negative"
-        assert isinstance(rendering_speed, float), "Argument 'rendering_speed' must be a real number"
-        assert rendering_speed > 0.0, "Argument 'rendering_speed' must be positive"
+        # Check validity
+        if not isinstance(maze, Maze):
+            raise PyRatException("Argument 'maze' must be of type 'pyrat.Maze'")
+        if not isinstance(initial_game_state, GameState):
+            raise PyRatException("Argument 'initial_game_state' must be of type 'pyrat.GameState'")
+        if not isinstance(players, list):
+            raise PyRatException("Argument 'players' must be a list")
+        if not all(isinstance(player, Player) for player in players):
+            raise PyRatException("All elements of 'players' must be of type 'pyrat.Player'")
+        if not isinstance(fullscreen, bool):
+            raise PyRatException("Argument 'fullscreen' must be a boolean")
+        if not isinstance(render_simplified, bool):
+            raise PyRatException("Argument 'render_simplified' must be a boolean")
+        if not isinstance(trace_length, int):
+            raise PyRatException("Argument 'trace_length' must be an integer")
+        if not (trace_length >= 0):
+            raise PyRatException("Argument 'trace_length' must be non-negative")
+        if not isinstance(rendering_speed, float):
+            raise PyRatException("Argument 'rendering_speed' must be a real number")
+        if not (rendering_speed > 0.0):
+            raise PyRatException("Argument 'rendering_speed' must be positive")
 
         # Private attributes, describing the game
         self.__maze = maze

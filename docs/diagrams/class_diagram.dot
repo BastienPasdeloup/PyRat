@@ -161,7 +161,13 @@ digraph PyRat {
                     <TR><TD HREF="PyRatException" TITLE="PyRatException"><B>PyRatException</B></TD></TR>
                     <TR><TD><FONT POINT-SIZE="9">inherits from the built-in Exception</FONT></TD></TR>
                 </TABLE></TD></TR>
-                <TR><TD ALIGN="LEFT" BALIGN="LEFT"><FONT COLOR="#555555">raised when a game cannot proceed<BR/>(crash of a player, invalid action, …)</FONT></TD></TR>
+                <TR><TD ALIGN="LEFT" BALIGN="LEFT"><FONT COLOR="#555555">raised by any class of the library<BR/>when it is used incorrectly<BR/>(invalid argument, …)</FONT></TD></TR>
+            </TABLE>>]
+
+        PyRatPlayerException [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
+                <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" HREF="PyRatPlayerException" TITLE="PyRatPlayerException"><B>PyRatPlayerException</B></TD></TR>
+                <TR><TD ALIGN="LEFT" BALIGN="LEFT"><FONT COLOR="#555555">raised when a player causes an error<BR/>(crash, invalid action, …)</FONT></TD></TR>
             </TABLE>>]
     }
 
@@ -279,11 +285,10 @@ digraph PyRat {
         RandomMaze [label=<
             <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
                 <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" CELLPADDING="3"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
-                    <TR><TD><FONT POINT-SIZE="9">«abstract»</FONT></TD></TR>
-                    <TR><TD HREF="RandomMaze" TITLE="RandomMaze"><B><I>RandomMaze</I></B></TD></TR>
+                    <TR><TD HREF="RandomMaze" TITLE="RandomMaze"><B>RandomMaze</B></TD></TR>
+                    <TR><TD><FONT POINT-SIZE="9">a random maze with no holes</FONT></TD></TR>
                 </TABLE></TD></TR>
                 <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
-                    <TR><TD ALIGN="LEFT" HREF="RandomMaze#__init__"># target_nb_vertices : int</TD></TR>
                     <TR><TD ALIGN="LEFT" HREF="RandomMaze#__init__"># wall_percentage : float</TD></TR>
                     <TR><TD ALIGN="LEFT" HREF="RandomMaze#__init__"># mud_percentage : float</TD></TR>
                     <TR><TD ALIGN="LEFT" HREF="RandomMaze#__init__"># mud_range : tuple[int, int]</TD></TR>
@@ -291,7 +296,7 @@ digraph PyRat {
                 </TABLE></TD></TR>
                 <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
                     <TR><TD ALIGN="LEFT" HREF="RandomMaze"># _create_maze()</TD></TR>
-                    <TR><TD ALIGN="LEFT" HREF="RandomMaze"><I># _add_cells()</I></TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="RandomMaze"># _add_cells()</TD></TR>
                     <TR><TD ALIGN="LEFT" HREF="RandomMaze"># _add_walls()</TD></TR>
                     <TR><TD ALIGN="LEFT" HREF="RandomMaze"># _add_mud()</TD></TR>
                 </TABLE></TD></TR>
@@ -323,6 +328,10 @@ digraph PyRat {
             <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
                 <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" HREF="BigHolesRandomMaze" TITLE="BigHolesRandomMaze"><B>BigHolesRandomMaze</B></TD></TR>
                 <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="BigHolesRandomMaze#__init__"># cell_percentage : float</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="BigHolesRandomMaze#__init__"># target_nb_vertices : int</TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
                     <TR><TD ALIGN="LEFT" HREF="BigHolesRandomMaze"># _add_cells()</TD></TR>
                 </TABLE></TD></TR>
             </TABLE>>]
@@ -331,6 +340,10 @@ digraph PyRat {
             <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
                 <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" HREF="UniformHolesRandomMaze" TITLE="UniformHolesRandomMaze"><B>UniformHolesRandomMaze</B></TD></TR>
                 <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="UniformHolesRandomMaze#__init__"># cell_percentage : float</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="UniformHolesRandomMaze#__init__"># target_nb_vertices : int</TD></TR>
+                </TABLE></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
                     <TR><TD ALIGN="LEFT" HREF="UniformHolesRandomMaze"># _add_cells()</TD></TR>
                 </TABLE></TD></TR>
             </TABLE>>]
@@ -338,6 +351,10 @@ digraph PyRat {
         HolesOnSideRandomMaze [label=<
             <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fffaf2" COLOR="#b8761b">
                 <TR><TD BGCOLOR="#f6d9a8" ALIGN="CENTER" HREF="HolesOnSideRandomMaze" TITLE="HolesOnSideRandomMaze"><B>HolesOnSideRandomMaze</B></TD></TR>
+                <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
+                    <TR><TD ALIGN="LEFT" HREF="HolesOnSideRandomMaze#__init__"># cell_percentage : float</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="HolesOnSideRandomMaze#__init__"># target_nb_vertices : int</TD></TR>
+                </TABLE></TD></TR>
                 <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
                     <TR><TD ALIGN="LEFT" HREF="HolesOnSideRandomMaze"># _add_cells()</TD></TR>
                 </TABLE></TD></TR>
@@ -466,6 +483,7 @@ digraph PyRat {
     Maze            -> bus_mazes_trunk
     RandomMaze      -> bus_random_mazes_trunk
     "Graph"         -> Maze [minlen=2]
+    PyRatException  -> PyRatPlayerException [minlen=1]
 
     // Drops
     edge [dir=none, weight=10]

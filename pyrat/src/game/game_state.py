@@ -16,6 +16,13 @@ This game state is then provided to players so that they can make decisions base
 """
 
 ##########################################################################################
+######################################### IMPORTS ########################################
+##########################################################################################
+
+# PyRat imports
+from pyrat.src.game.exceptions import PyRatException
+
+##########################################################################################
 ######################################### CLASSES ########################################
 ##########################################################################################
 
@@ -98,9 +105,11 @@ class GameState ():
             ``True`` if the player is currently crossing mud, ``False`` otherwise.
         """
 
-        # Debug
-        assert isinstance(name, str), "Argument 'name' must be a string"
-        assert name in self.get_players(), "Player '%s' is not in the game" % name
+        # Check validity
+        if not isinstance(name, str):
+            raise PyRatException("Argument 'name' must be a string")
+        if name not in self.get_players():
+            raise PyRatException("Player '%s' is not in the game" % name)
 
         # Get whether the player is currently crossing mud
         in_mud = self.muds[name]["target"] is not None

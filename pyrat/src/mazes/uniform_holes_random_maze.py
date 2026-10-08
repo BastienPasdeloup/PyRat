@@ -18,6 +18,7 @@ It makes sure the maze remains connected.
 
 # PyRat imports
 from pyrat.src.mazes.random_maze import RandomMaze
+from pyrat.src.game.exceptions import PyRatException
 
 ##########################################################################################
 ######################################### CLASSES ########################################
@@ -37,23 +38,32 @@ class UniformHolesRandomMaze (RandomMaze):
     ##################################################################################
 
     def __init__ ( self,
-                   *args:    object,
-                   **kwargs: object
-                 ) ->        None:
+                   cell_percentage: float,
+                   *args:           object,
+                   **kwargs:        object
+                 ) ->               None:
 
         """
-        Initializes a new instance of the class.
-        
+        Initializes a new instance of the class, and generates the maze.
+
         Args:
-            args:   Arguments to pass to the parent constructor.
-            kwargs: Keyword arguments to pass to the parent constructor.
+            cell_percentage: Percentage of cells to be reachable.
+            args:            Arguments to pass to the parent constructor.
+            kwargs:          Keyword arguments to pass to the parent constructor.
         """
+
+        # Check validity
+        if not isinstance(cell_percentage, float):
+            raise PyRatException("Argument 'cell_percentage' must be a real number")
+        if not (0.0 <= cell_percentage <= 100.0):
+            raise PyRatException("Argument 'cell_percentage' must be a percentage")
+
+        # Protected attributes
+        # They must be set before calling the parent constructor, which generates the maze
+        self._cell_percentage = cell_percentage
 
         # Inherit from parent class
         super().__init__(*args, **kwargs)
-        
-        # Generate the maze
-        self._create_maze()
 
     ##################################################################################
     #                                PROTECTED METHODS                               #
@@ -67,18 +77,13 @@ class UniformHolesRandomMaze (RandomMaze):
         It adds cells to the maze by starting from a full maze and removing cells one by one.
         """
 
-        # Initialize maze with all cells
-        for row in range(self.get_height()):
-            for col in range(self.get_width()):
-                self.add_vertex(self.rc_to_i(row, col))
+        # Determine the number of cells to keep
+        self._target_nb_vertices = int(self.get_width() * self.get_height() * self._cell_percentage / 100)
+        if not (self._target_nb_vertices > 1):
+            raise PyRatException("The maze must have at least two vertices")
 
-        # Connect them
-        for row in range(self.get_height()):
-            for col in range(self.get_width()):
-                if row > 0:
-                    self.add_edge(self.rc_to_i(row, col), self.rc_to_i(row - 1, col))
-                if col > 0:
-                    self.add_edge(self.rc_to_i(row, col), self.rc_to_i(row, col - 1))
+        # Start from a full maze, with all cells connected to their neighbors
+        super()._add_cells()
 
         # Remove some vertices until the desired density is reached
         while self.nb_vertices() > self._target_nb_vertices:

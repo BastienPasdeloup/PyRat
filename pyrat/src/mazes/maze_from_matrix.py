@@ -23,6 +23,7 @@ import math
 
 # PyRat imports
 from pyrat.src.mazes.maze import Maze
+from pyrat.src.game.exceptions import PyRatException
 
 ##########################################################################################
 ######################################### CLASSES ########################################
@@ -62,15 +63,23 @@ class MazeFromMatrix (Maze):
         # Inherit from parent class
         super().__init__(*args, **kwargs)
 
-        # Debug
-        assert str(type(description)) in ["<class 'numpy.ndarray'>", "<class 'torch.Tensor'>"], "Argument 'description' must be a numpy.ndarray or a torch.Tensor"
-        assert len(description.shape) == 2, "Argument 'description' must be a 2D matrix"
-        assert description.shape[0] == description.shape[1], "Argument 'description' must be a square matrix"
-        assert description.shape[0] > 1, "The maze must have at least two vertices"
-        assert all(isinstance(weight, int) for weight in description.flatten().tolist()), "All entries of 'description' must be integers"
-        assert (description == description.T).all(), "Argument 'description' must be a symmetric matrix"
-        assert (description >= 0).all(), "All entries of 'description' must be non-negative"
-        assert (description > 0).any(), "The maze must have at least one edge"
+        # Check validity
+        if str(type(description)) not in ["<class 'numpy.ndarray'>", "<class 'torch.Tensor'>"]:
+            raise PyRatException("Argument 'description' must be a numpy.ndarray or a torch.Tensor")
+        if len(description.shape) != 2:
+            raise PyRatException("Argument 'description' must be a 2D matrix")
+        if description.shape[0] != description.shape[1]:
+            raise PyRatException("Argument 'description' must be a square matrix")
+        if not (description.shape[0] > 1):
+            raise PyRatException("The maze must have at least two vertices")
+        if not all(isinstance(weight, int) for weight in description.flatten().tolist()):
+            raise PyRatException("All entries of 'description' must be integers")
+        if not (description == description.T).all():
+            raise PyRatException("Argument 'description' must be a symmetric matrix")
+        if not (description >= 0).all():
+            raise PyRatException("All entries of 'description' must be non-negative")
+        if not (description > 0).any():
+            raise PyRatException("The maze must have at least one edge")
 
         # Private attributes
         self.__description = description

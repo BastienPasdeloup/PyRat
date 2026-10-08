@@ -13,6 +13,8 @@ s~(HREF|URL|headURL|tailURL|labelURL)="GameState#~\1="@DOCS_ROOT@pyrat/GameState
 s~(HREF|URL|headURL|tailURL|labelURL)="GameState"~\1="@DOCS_ROOT@pyrat/GameState.html#pyrat.src.game.game_state.GameState"~g
 s~(HREF|URL|headURL|tailURL|labelURL)="PyRatException#~\1="@DOCS_ROOT@pyrat/PyRatException.html#pyrat.src.game.exceptions.PyRatException.~g
 s~(HREF|URL|headURL|tailURL|labelURL)="PyRatException"~\1="@DOCS_ROOT@pyrat/PyRatException.html#pyrat.src.game.exceptions.PyRatException"~g
+s~(HREF|URL|headURL|tailURL|labelURL)="PyRatPlayerException#~\1="@DOCS_ROOT@pyrat/PyRatPlayerException.html#pyrat.src.game.exceptions.PyRatPlayerException.~g
+s~(HREF|URL|headURL|tailURL|labelURL)="PyRatPlayerException"~\1="@DOCS_ROOT@pyrat/PyRatPlayerException.html#pyrat.src.game.exceptions.PyRatPlayerException"~g
 s~(HREF|URL|headURL|tailURL|labelURL)="Player#~\1="@DOCS_ROOT@pyrat/Player.html#pyrat.src.players.player.Player.~g
 s~(HREF|URL|headURL|tailURL|labelURL)="Player"~\1="@DOCS_ROOT@pyrat/Player.html#pyrat.src.players.player.Player"~g
 s~(HREF|URL|headURL|tailURL|labelURL)="FixedPlayer#~\1="@DOCS_ROOT@pyrat/FixedPlayer.html#pyrat.src.players.fixed_player.FixedPlayer.~g

@@ -19,6 +19,7 @@ Resizing the window therefore only consists in building a new layout, and rebuil
 # PyRat imports
 from pyrat.src.mazes.maze import Maze
 from pyrat.src.game.game_state import GameState
+from pyrat.src.game.exceptions import PyRatException
 
 ##########################################################################################
 ######################################## CONSTANTS #######################################
@@ -68,8 +69,9 @@ def teams_are_named ( initial_game_state: GameState
         ``True`` if the teams should be shown, ``False`` otherwise.
     """
 
-    # Debug
-    assert isinstance(initial_game_state, GameState), "Argument 'initial_game_state' must be of type 'pyrat.GameState'"
+    # Check validity
+    if not isinstance(initial_game_state, GameState):
+        raise PyRatException("Argument 'initial_game_state' must be of type 'pyrat.GameState'")
 
     # A single unnamed team is the case of a game with no notion of team
     teams = list(initial_game_state.teams.keys())
@@ -105,10 +107,13 @@ class Layout ():
             initial_game_state: State of the game before it starts.
         """
 
-        # Debug
-        assert isinstance(window_size, tuple), "Argument 'window_size' must be a tuple"
-        assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
-        assert isinstance(initial_game_state, GameState), "Argument 'initial_game_state' must be of type 'pyrat.GameState'"
+        # Check validity
+        if not isinstance(window_size, tuple):
+            raise PyRatException("Argument 'window_size' must be a tuple")
+        if not isinstance(maze, Maze):
+            raise PyRatException("Argument 'maze' must be of type 'pyrat.Maze'")
+        if not isinstance(initial_game_state, GameState):
+            raise PyRatException("Argument 'initial_game_state' must be of type 'pyrat.GameState'")
 
         # Private attributes
         self.__maze = maze
@@ -181,9 +186,11 @@ class Layout ():
             The coordinates of the top left corner of the cell.
         """
 
-        # Debug
-        assert isinstance(row, int), "Argument 'row' must be an integer"
-        assert isinstance(col, int), "Argument 'col' must be an integer"
+        # Check validity
+        if not isinstance(row, int):
+            raise PyRatException("Argument 'row' must be an integer")
+        if not isinstance(col, int):
+            raise PyRatException("Argument 'col' must be an integer")
 
         # Position in the window
         return self.maze_x_offset + col * self.cell_size, self.maze_y_offset + row * self.cell_size
@@ -204,8 +211,9 @@ class Layout ():
             The coordinates of the center of the cell.
         """
 
-        # Debug
-        assert isinstance(cell, int), "Argument 'cell' must be an integer"
+        # Check validity
+        if not isinstance(cell, int):
+            raise PyRatException("Argument 'cell' must be an integer")
 
         # Half a cell away from the top left corner
         cell_x, cell_y = self.cell_position(*self.__maze.i_to_rc(cell))
@@ -229,9 +237,11 @@ class Layout ():
             The coordinates of the top left corner of the image.
         """
 
-        # Debug
-        assert isinstance(cell, int), "Argument 'cell' must be an integer"
-        assert isinstance(image_size, tuple), "Argument 'image_size' must be a tuple"
+        # Check validity
+        if not isinstance(cell, int):
+            raise PyRatException("Argument 'cell' must be an integer")
+        if not isinstance(image_size, tuple):
+            raise PyRatException("Argument 'image_size' must be a tuple")
 
         # Center the image in the cell
         cell_x, cell_y = self.cell_position(*self.__maze.i_to_rc(cell))

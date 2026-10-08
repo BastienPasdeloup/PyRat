@@ -21,6 +21,7 @@ The default implementation does nothing, but subclasses can override the `render
 from pyrat.src.players.player import Player
 from pyrat.src.mazes.maze import Maze
 from pyrat.src.game.game_state import GameState
+from pyrat.src.game.exceptions import PyRatException
 
 ##########################################################################################
 ######################################### CLASSES ########################################
@@ -51,10 +52,13 @@ class RenderingEngine ():
             render_simplified: Whether to render the simplified version of the game.
         """
 
-        # Debug
-        assert isinstance(render_simplified, bool), "Argument 'render_simplified' must be a boolean"
-        assert isinstance(rendering_speed, float), "Argument 'rendering_speed' must be a real number"
-        assert rendering_speed > 0.0, "Argument 'rendering_speed' must be positive"
+        # Check validity
+        if not isinstance(render_simplified, bool):
+            raise PyRatException("Argument 'render_simplified' must be a boolean")
+        if not isinstance(rendering_speed, float):
+            raise PyRatException("Argument 'rendering_speed' must be a real number")
+        if not (rendering_speed > 0.0):
+            raise PyRatException("Argument 'rendering_speed' must be positive")
 
         # Protected attributes
         self._render_simplified = render_simplified
@@ -92,11 +96,15 @@ class RenderingEngine ():
             game_state: State of the game.
         """
 
-        # Debug
-        assert isinstance(players, list), "Argument 'players' must be a list"
-        assert all(isinstance(player, Player) for player in players), "All elements of 'players' must be of type 'pyrat.Player'"
-        assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
-        assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
+        # Check validity
+        if not isinstance(players, list):
+            raise PyRatException("Argument 'players' must be a list")
+        if not all(isinstance(player, Player) for player in players):
+            raise PyRatException("All elements of 'players' must be of type 'pyrat.Player'")
+        if not isinstance(maze, Maze):
+            raise PyRatException("Argument 'maze' must be of type 'pyrat.Maze'")
+        if not isinstance(game_state, GameState):
+            raise PyRatException("Argument 'game_state' must be of type 'pyrat.GameState'")
 
         # Nothing to do
         pass

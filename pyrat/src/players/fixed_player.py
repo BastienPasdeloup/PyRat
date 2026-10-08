@@ -22,6 +22,7 @@ from pyrat.src.players.player import Player
 from pyrat.src.mazes.maze import Maze
 from pyrat.src.game.game_state import GameState
 from pyrat.src.game.enums import Action
+from pyrat.src.game.exceptions import PyRatException
 
 ##########################################################################################
 ######################################### CLASSES ########################################
@@ -59,9 +60,11 @@ class FixedPlayer (Player):
         # Inherit from parent class
         super().__init__(*args, **kwargs)
 
-        # Debug
-        assert isinstance(actions, list), "Argument 'actions' must be a list"
-        assert all(action in Action for action in actions), "All elements of 'actions' must be of type 'pyrat.Action'"
+        # Check validity
+        if not isinstance(actions, list):
+            raise PyRatException("Argument 'actions' must be a list")
+        if not all(action in Action for action in actions):
+            raise PyRatException("All elements of 'actions' must be of type 'pyrat.Action'")
 
         # Private attributes
         self.__actions = actions

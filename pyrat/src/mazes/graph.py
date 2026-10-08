@@ -34,6 +34,9 @@ try:
 except ImportError:
     pass
 
+# PyRat imports
+from pyrat.src.game.exceptions import PyRatException
+
 ##########################################################################################
 ######################################### CLASSES ########################################
 ##########################################################################################
@@ -112,15 +115,23 @@ class Graph ():
             symmetric: Whether the edge is symmetric (undirected). Defaults to False.
         """
         
-        # Debug
-        assert isinstance(vertex_1, Hashable), "Argument 'vertex_1' must be hashable"
-        assert isinstance(vertex_2, Hashable), "Argument 'vertex_2' must be hashable"
-        assert isinstance(weight, (float, int)), "Argument 'weight' must be a real number"
-        assert isinstance(symmetric, bool), "Argument 'symmetric' must be a boolean"
-        assert vertex_1 in self.__adjacency, "Vertex 1 not in the graph"
-        assert vertex_2 in self.__adjacency, "Vertex 2 not in the graph"
-        assert not self.has_edge(vertex_1, vertex_2), "Edge already exists"
-        assert not (symmetric and self.has_edge(vertex_2, vertex_1)), "Symmetric edge already exists"
+        # Check validity
+        if not isinstance(vertex_1, Hashable):
+            raise PyRatException("Argument 'vertex_1' must be hashable")
+        if not isinstance(vertex_2, Hashable):
+            raise PyRatException("Argument 'vertex_2' must be hashable")
+        if not isinstance(weight, (float, int)):
+            raise PyRatException("Argument 'weight' must be a real number")
+        if not isinstance(symmetric, bool):
+            raise PyRatException("Argument 'symmetric' must be a boolean")
+        if vertex_1 not in self.__adjacency:
+            raise PyRatException("Vertex 1 not in the graph")
+        if vertex_2 not in self.__adjacency:
+            raise PyRatException("Vertex 2 not in the graph")
+        if self.has_edge(vertex_1, vertex_2):
+            raise PyRatException("Edge already exists")
+        if (symmetric and self.has_edge(vertex_2, vertex_1)):
+            raise PyRatException("Symmetric edge already exists")
 
         # Add edge to the adjacency dictionary
         self.__adjacency[vertex_1][vertex_2] = weight
@@ -140,9 +151,11 @@ class Graph ():
             vertex: The vertex to add.
         """
         
-        # Debug
-        assert isinstance(vertex, Hashable), "Argument 'vertex' must be hashable"
-        assert vertex not in self.__adjacency, "Vertex already in the graph"
+        # Check validity
+        if not isinstance(vertex, Hashable):
+            raise PyRatException("Argument 'vertex' must be hashable")
+        if vertex in self.__adjacency:
+            raise PyRatException("Vertex already in the graph")
 
         # Add vertex to the adjacency matrix
         self.__adjacency[vertex] = {}
@@ -174,8 +187,9 @@ class Graph ():
             A ``numpy.ndarray`` representing the adjacency matrix (return type is ``object`` to allow ``numpy`` to be optional).
         """
         
-        # Debug
-        assert "numpy" in globals(), "Numpy is not available"
+        # Check validity
+        if "numpy" not in globals():
+            raise PyRatException("Numpy is not available")
 
         # Create the adjacency matrix
         adjacency_matrix = numpy.zeros((self.nb_vertices(), self.nb_vertices()), dtype=int)
@@ -197,8 +211,9 @@ class Graph ():
             A ``torch.tensor`` representing the adjacency matrix (return type is ``object`` to allow ``torch`` to be optional).
         """
         
-        # Debug
-        assert "torch" in globals(), "Torch is not available"
+        # Check validity
+        if "torch" not in globals():
+            raise PyRatException("Torch is not available")
 
         # Create the adjacency matrix
         adjacency_matrix = torch.zeros((self.nb_vertices(), self.nb_vertices()), dtype=int)
@@ -226,12 +241,17 @@ class Graph ():
             Whether the edge is symmetric.
         """
 
-        # Debug
-        assert isinstance(vertex_1, Hashable), "Argument 'vertex_1' must be hashable"
-        assert isinstance(vertex_2, Hashable), "Argument 'vertex_2' must be hashable"
-        assert vertex_1 in self.__adjacency, "Vertex 1 not in the graph"
-        assert vertex_2 in self.__adjacency, "Vertex 2 not in the graph"
-        assert self.has_edge(vertex_1, vertex_2), "Edge does not exist"
+        # Check validity
+        if not isinstance(vertex_1, Hashable):
+            raise PyRatException("Argument 'vertex_1' must be hashable")
+        if not isinstance(vertex_2, Hashable):
+            raise PyRatException("Argument 'vertex_2' must be hashable")
+        if vertex_1 not in self.__adjacency:
+            raise PyRatException("Vertex 1 not in the graph")
+        if vertex_2 not in self.__adjacency:
+            raise PyRatException("Vertex 2 not in the graph")
+        if not self.has_edge(vertex_1, vertex_2):
+            raise PyRatException("Edge does not exist")
 
         # Check whether the edge is symmetric
         symmetric = self.has_edge(vertex_2, vertex_1)
@@ -273,9 +293,11 @@ class Graph ():
             List of neighbors of the vertex.
         """
         
-        # Debug
-        assert isinstance(vertex, Hashable), "Argument 'vertex' must be hashable"
-        assert vertex in self.__adjacency, "Vertex not in the graph"
+        # Check validity
+        if not isinstance(vertex, Hashable):
+            raise PyRatException("Argument 'vertex' must be hashable")
+        if vertex not in self.__adjacency:
+            raise PyRatException("Vertex not in the graph")
 
         # Get neighbors
         neighbors = list(self.__adjacency[vertex].keys())
@@ -314,12 +336,17 @@ class Graph ():
             Weight of the edge.
         """
         
-        # Debug
-        assert isinstance(vertex_1, Hashable), "Argument 'vertex_1' must be hashable"
-        assert isinstance(vertex_2, Hashable), "Argument 'vertex_2' must be hashable"
-        assert vertex_1 in self.__adjacency, "Vertex 1 not in the graph"
-        assert vertex_2 in self.__adjacency, "Vertex 2 not in the graph"
-        assert self.has_edge(vertex_1, vertex_2), "Edge does not exist"
+        # Check validity
+        if not isinstance(vertex_1, Hashable):
+            raise PyRatException("Argument 'vertex_1' must be hashable")
+        if not isinstance(vertex_2, Hashable):
+            raise PyRatException("Argument 'vertex_2' must be hashable")
+        if vertex_1 not in self.__adjacency:
+            raise PyRatException("Vertex 1 not in the graph")
+        if vertex_2 not in self.__adjacency:
+            raise PyRatException("Vertex 2 not in the graph")
+        if not self.has_edge(vertex_1, vertex_2):
+            raise PyRatException("Edge does not exist")
 
         # Get weight
         weight = self.__adjacency[vertex_1][vertex_2]
@@ -343,11 +370,15 @@ class Graph ():
             Whether an edge exists between the two vertices.
         """
 
-        # Debug
-        assert isinstance(vertex_1, Hashable), "Argument 'vertex_1' must be hashable"
-        assert isinstance(vertex_2, Hashable), "Argument 'vertex_2' must be hashable"
-        assert vertex_1 in self.__adjacency, "Vertex 1 not in the graph"
-        assert vertex_2 in self.__adjacency, "Vertex 2 not in the graph"
+        # Check validity
+        if not isinstance(vertex_1, Hashable):
+            raise PyRatException("Argument 'vertex_1' must be hashable")
+        if not isinstance(vertex_2, Hashable):
+            raise PyRatException("Argument 'vertex_2' must be hashable")
+        if vertex_1 not in self.__adjacency:
+            raise PyRatException("Vertex 1 not in the graph")
+        if vertex_2 not in self.__adjacency:
+            raise PyRatException("Vertex 2 not in the graph")
 
         # Check whether the edge exists
         edge_exists = vertex_2 in self.get_neighbors(vertex_1)
@@ -364,8 +395,9 @@ class Graph ():
             ``True`` if the graph is connected, ``False`` otherwise.
         """
         
-        # Debug
-        assert self.nb_vertices() > 0, "Graph is empty"
+        # Check validity
+        if not (self.nb_vertices() > 0):
+            raise PyRatException("Graph is empty")
 
         # Create a list of visited vertices
         vertices = list(self.get_vertices())
@@ -401,9 +433,11 @@ class Graph ():
             Graph representing the minimum spanning tree.
         """
         
-        # Debug
-        assert random_seed is None or isinstance(random_seed, int), "Argument 'random_seed' must be an integer"
-        assert random_seed is None or 0 <= random_seed < sys.maxsize, "Argument 'random_seed' must be non-negative"
+        # Check validity
+        if not (random_seed is None or isinstance(random_seed, int)):
+            raise PyRatException("Argument 'random_seed' must be an integer")
+        if not (random_seed is None or 0 <= random_seed < sys.maxsize):
+            raise PyRatException("Argument 'random_seed' must be non-negative")
 
         # Initialize a random number generator
         rng = random.Random(random_seed)
@@ -483,14 +517,21 @@ class Graph ():
             symmetric: Whether to also delete the symmetric edge. Defaults to False.
         """
         
-        # Debug
-        assert isinstance(vertex_1, Hashable), "Argument 'vertex_1' must be hashable"
-        assert isinstance(vertex_2, Hashable), "Argument 'vertex_2' must be hashable"
-        assert isinstance(symmetric, bool), "Argument 'symmetric' must be a boolean"
-        assert vertex_1 in self.__adjacency, "Vertex 1 not in the graph"
-        assert vertex_2 in self.__adjacency, "Vertex 2 not in the graph"
-        assert self.has_edge(vertex_1, vertex_2), "Edge does not exist"
-        assert (not symmetric) or (symmetric and self.edge_is_symmetric(vertex_1, vertex_2)), "Symmetric edge does not exist"
+        # Check validity
+        if not isinstance(vertex_1, Hashable):
+            raise PyRatException("Argument 'vertex_1' must be hashable")
+        if not isinstance(vertex_2, Hashable):
+            raise PyRatException("Argument 'vertex_2' must be hashable")
+        if not isinstance(symmetric, bool):
+            raise PyRatException("Argument 'symmetric' must be a boolean")
+        if vertex_1 not in self.__adjacency:
+            raise PyRatException("Vertex 1 not in the graph")
+        if vertex_2 not in self.__adjacency:
+            raise PyRatException("Vertex 2 not in the graph")
+        if not self.has_edge(vertex_1, vertex_2):
+            raise PyRatException("Edge does not exist")
+        if not ((not symmetric) or (symmetric and self.edge_is_symmetric(vertex_1, vertex_2))):
+            raise PyRatException("Symmetric edge does not exist")
 
         # Remove edge and symmetric
         del self.__adjacency[vertex_1][vertex_2]
@@ -511,9 +552,11 @@ class Graph ():
             vertex: Vertex to remove.
         """
         
-        # Debug
-        assert isinstance(vertex, Hashable), "Argument 'vertex' must be hashable"
-        assert vertex in self.__adjacency, "Vertex not in the graph"
+        # Check validity
+        if not isinstance(vertex, Hashable):
+            raise PyRatException("Argument 'vertex' must be hashable")
+        if vertex not in self.__adjacency:
+            raise PyRatException("Vertex not in the graph")
 
         # Remove the vertex and connections to it
         for neighbor in self.__adjacency:

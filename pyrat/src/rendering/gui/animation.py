@@ -23,6 +23,9 @@ On a machine that cannot keep up, images are skipped instead of the animation ta
 import time
 from collections.abc import Iterator
 
+# PyRat imports
+from pyrat.src.game.exceptions import PyRatException
+
 ##########################################################################################
 ######################################## FUNCTIONS #######################################
 ##########################################################################################
@@ -45,11 +48,15 @@ def animation_frames ( duration: float,
         The progress of the animation, between 0 (excluded) and 1 (included), and whether this is the last image.
     """
 
-    # Debug
-    assert isinstance(duration, float), "Argument 'duration' must be a real number"
-    assert isinstance(fps, int), "Argument 'fps' must be an integer"
-    assert duration >= 0.0, "Argument 'duration' must be non-negative"
-    assert fps > 0, "Argument 'fps' must be positive"
+    # Check validity
+    if not isinstance(duration, float):
+        raise PyRatException("Argument 'duration' must be a real number")
+    if not isinstance(fps, int):
+        raise PyRatException("Argument 'fps' must be an integer")
+    if not (duration >= 0.0):
+        raise PyRatException("Argument 'duration' must be non-negative")
+    if not (fps > 0):
+        raise PyRatException("Argument 'fps' must be positive")
 
     # Drawing more images than the screen shows would only waste computation
     nb_frames = max(round(duration * fps), 1)

@@ -2,7 +2,7 @@
 ========
 
 The ``game`` subpackage is what runs a game.
-It contains the class you instantiate to start one, the description of the situation your player is given at each turn, the constants you pass around, and the exception raised when a game cannot go on.
+It contains the class you instantiate to start one, the description of the situation your player is given at each turn, the constants you pass around, and the exceptions raised when something goes wrong.
 
 .. grid:: 1 1 2 2
    :gutter: 2
@@ -21,7 +21,11 @@ It contains the class you instantiate to start one, the description of the situa
 
    .. grid-item-card:: :doc:`PyRatException <../PyRatException>`
 
-      The exception raised when a game cannot proceed, for instance because a player crashed or returned something that is not an action.
+      The exception raised when the library is used incorrectly, for instance with an invalid argument.
+
+   .. grid-item-card:: :doc:`PyRatPlayerException <../PyRatPlayerException>`
+
+      The exception raised when a player causes an error during a game, for instance by crashing or by returning something that is not an action.
 
 .. toctree::
    :maxdepth: 1
@@ -30,3 +34,4 @@ It contains the class you instantiate to start one, the description of the situa
    ../GameState
    ../enums
    ../PyRatException
+   ../PyRatPlayerException

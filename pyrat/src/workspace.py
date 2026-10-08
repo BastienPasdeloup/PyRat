@@ -111,9 +111,11 @@ def init_workspace ( target_directory:  str | None = None,
         PyRatException: If uv cannot be found, if the target directory already contains a project, or if uv fails to prepare the workspace.
     """
 
-    # Debug
-    assert isinstance(target_directory, (str, type(None))), "Argument 'target_directory' must be a string or None"
-    assert isinstance(pyrat_requirement, str), "Argument 'pyrat_requirement' must be a string"
+    # Check validity
+    if not isinstance(target_directory, (str, type(None))):
+        raise PyRatException("Argument 'target_directory' must be a string or None")
+    if not isinstance(pyrat_requirement, str):
+        raise PyRatException("Argument 'pyrat_requirement' must be a string")
 
     # Warn about a uv too old to understand the configuration we write, rather than let it report an unknown field on every command
     _warn_if_uv_is_too_old()
@@ -217,11 +219,15 @@ def _run_uv ( arguments:      list[str],
         PyRatException: If the uv command cannot be found on the system, or if the command fails.
     """
 
-    # Debug
-    assert isinstance(arguments, list), "Argument 'arguments' must be a list"
-    assert all(isinstance(argument, str) for argument in arguments), "Argument 'arguments' must contain only strings"
-    assert isinstance(cwd, (str, type(None))), "Argument 'cwd' must be a string or None"
-    assert isinstance(capture_output, bool), "Argument 'capture_output' must be a boolean"
+    # Check validity
+    if not isinstance(arguments, list):
+        raise PyRatException("Argument 'arguments' must be a list")
+    if not all(isinstance(argument, str) for argument in arguments):
+        raise PyRatException("Argument 'arguments' must contain only strings")
+    if not isinstance(cwd, (str, type(None))):
+        raise PyRatException("Argument 'cwd' must be a string or None")
+    if not isinstance(capture_output, bool):
+        raise PyRatException("Argument 'capture_output' must be a boolean")
 
     # Run the command, letting uv show its progress to the user unless we need its output
     completed_process = subprocess.run([_uv_executable()] + arguments, cwd=cwd, capture_output=capture_output, text=True)
@@ -246,8 +252,9 @@ def _init_git_repository ( target_workspace: str
         target_workspace: The directory of the workspace.
     """
 
-    # Debug
-    assert isinstance(target_workspace, str), "Argument 'target_workspace' must be a string"
+    # Check validity
+    if not isinstance(target_workspace, str):
+        raise PyRatException("Argument 'target_workspace' must be a string")
 
     # Say what to do rather than fail, as versioning the workspace is not what the student asked for
     git_executable = shutil.which("git")

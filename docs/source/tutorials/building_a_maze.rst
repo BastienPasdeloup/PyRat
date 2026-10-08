@@ -72,19 +72,20 @@ Which Class to Use?
 In order to build a maze, the natural choice would be to use the :doc:`Maze </pyrat/Maze>` class, which inherits from the ``Graph`` class.
 However, this class is abstract, meaning that it cannot be instantiated directly.
 Indeed, it is designed to factorize codes that are common to all maze classes, without providing a specific implementation.
-Note that this is also the case for the :doc:`RandomMaze </pyrat/RandomMaze>` class (which inherits from the ``Maze`` class), which groups common elements to all random mazes.
-
 
 To create a maze, you can use one of the concrete classes that inherit from the ``Maze`` class.
 These classes are:
 
+- :doc:`RandomMaze </pyrat/RandomMaze>`: This class generates a rectangular random maze.
 - :doc:`BigHolesRandomMaze </pyrat/BigHolesRandomMaze>`: This class generates a random maze with big holes.
 - :doc:`HolesOnSideRandomMaze </pyrat/HolesOnSideRandomMaze>`: This class generates a random maze with holes on the sides.
 - :doc:`UniformHolesRandomMaze </pyrat/UniformHolesRandomMaze>`: This class generates a random maze with holes placed uniformly at random.
 - :doc:`MazeFromDict </pyrat/MazeFromDict>`: This class generates a maze from a given dictionary ``dict[int, dict[int, int]]``.
 - :doc:`MazeFromMatrix </pyrat/MazeFromMatrix>`: This class generates a maze from a given matrix ``numpy.ndarray`` or ``torch.tensor``.
 
-The first three classes will create a random maze for you, following a specific algorithm.
+The first four classes will create a random maze for you, following a specific algorithm.
+The three classes with holes inherit from ``RandomMaze``, and only differ in the way they choose the cells of the maze.
+They take an additional ``cell_percentage`` argument, which gives the percentage of cells of the grid that are accessible.
 The last two classes will create a maze from a given representation, that you need to provide.
 
 Let's use ``MazeFromDict`` to create a maze from a dictionary representation.
@@ -235,7 +236,7 @@ In the example above, we created a maze from a dictionary representation.
 However, writing the dictionary by hand can be tedious, especially for large mazes.
 In its current state, PyRat does not provide a nice user-friendly way to create a maze from scratch.
 
-However, the ``MazeFromDict`` constructor will crash if your dictionary does not respect the maze properties.
+However, the ``MazeFromDict`` constructor will raise a ``PyRatException`` if your dictionary does not respect the maze properties.
 As an example, let's make the edge between vertices 0 and 1 asymmetric, *i.e.*, 0 cannot reach 1, but 1 can reach 0.
 
 .. code-block:: python
@@ -265,12 +266,10 @@ Running this code will lead to the following error:
 .. code-block:: text
 
     Traceback (most recent call last):
-        File "my_example_game.py", line 19, in <module>
+        File "my_example_game.py", line 20, in <module>
             maze = MazeFromDict(maze_dict)
-                   ^^^^^^^^^^^^^^^^^^^^^^^
-        File "MazeFromDict.py", line 71, in __init__
-            assert all(vertex in description[neighbor] for vertex in description for neighbor in description[vertex]), "The maze must be symmetric"
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    AssertionError: The maze must be symmetric
+        File "maze_from_dict.py", line 79, in __init__
+            raise PyRatException("The maze must be symmetric")
+    pyrat.src.game.exceptions.PyRatException: The maze must be symmetric
 
 To reduce the risk of errors, we advise that you first draw your maze on paper, and then write the dictionary representation by hand.

@@ -70,10 +70,13 @@ class PygameRenderingEngine (RenderingEngine):
         # Inherit from parent class
         super().__init__(*args, **kwargs)
 
-        # Debug
-        assert isinstance(fullscreen, bool), "Argument 'fullscreen' must be a boolean"
-        assert isinstance(trace_length, int), "Argument 'trace_length' must be an integer"
-        assert trace_length >= 0, "Argument 'trace_length' must be positive"
+        # Check validity
+        if not isinstance(fullscreen, bool):
+            raise PyRatException("Argument 'fullscreen' must be a boolean")
+        if not isinstance(trace_length, int):
+            raise PyRatException("Argument 'trace_length' must be an integer")
+        if not (trace_length >= 0):
+            raise PyRatException("Argument 'trace_length' must be positive")
 
         # Private attributes
         self.__fullscreen = fullscreen
@@ -121,11 +124,15 @@ class PygameRenderingEngine (RenderingEngine):
             PyRatException: If the window could not be opened.
         """
 
-        # Debug
-        assert isinstance(players, list), "Argument 'players' must be a list"
-        assert all(isinstance(player, Player) for player in players), "All elements of 'players' must be of type 'pyrat.Player'"
-        assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
-        assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
+        # Check validity
+        if not isinstance(players, list):
+            raise PyRatException("Argument 'players' must be a list")
+        if not all(isinstance(player, Player) for player in players):
+            raise PyRatException("All elements of 'players' must be of type 'pyrat.Player'")
+        if not isinstance(maze, Maze):
+            raise PyRatException("Argument 'maze' must be of type 'pyrat.Maze'")
+        if not isinstance(game_state, GameState):
+            raise PyRatException("Argument 'game_state' must be of type 'pyrat.GameState'")
 
         # Initialize the GUI in a different process at turn 0, and wait for the window to be ready
         # If the window cannot be opened, the process breaks the barrier instead of letting us wait forever

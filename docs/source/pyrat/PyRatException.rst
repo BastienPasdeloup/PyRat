@@ -1,6 +1,5 @@
 PyRatException
 ==============
 
-.. automodule:: pyrat.src.game.exceptions
-   :members:
+.. autoclass:: pyrat.src.game.exceptions.PyRatException
    :show-inheritance:

@@ -28,6 +28,7 @@ import pygame
 
 # PyRat imports
 from pyrat.src.game.enums import Action, PlayerSkin
+from pyrat.src.game.exceptions import PyRatException
 
 ##########################################################################################
 ######################################## CONSTANTS #######################################
@@ -69,8 +70,9 @@ class Assets ():
             rng: Random number generator, used to choose among the available ground tiles.
         """
 
-        # Debug
-        assert isinstance(rng, random.Random), "Argument 'rng' must be of type 'random.Random'"
+        # Check validity
+        if not isinstance(rng, random.Random):
+            raise PyRatException("Argument 'rng' must be of type 'random.Random'")
 
         # Private attributes
         self.__rng = rng
@@ -102,10 +104,13 @@ class Assets ():
             The scaled image.
         """
 
-        # Debug
-        assert isinstance(file_name, str), "Argument 'file_name' must be a string"
-        assert isinstance(target_width_or_max_size, int), "Argument 'target_width_or_max_size' must be an integer"
-        assert isinstance(target_height, (int, type(None))), "Argument 'target_height' must be an integer or None"
+        # Check validity
+        if not isinstance(file_name, str):
+            raise PyRatException("Argument 'file_name' must be a string")
+        if not isinstance(target_width_or_max_size, int):
+            raise PyRatException("Argument 'target_width_or_max_size' must be an integer")
+        if not isinstance(target_height, (int, type(None))):
+            raise PyRatException("Argument 'target_height' must be an integer or None")
 
         # Reuse the image if it was already loaded at that size
         full_path = os.path.join(ASSETS_DIRECTORY, file_name)
@@ -138,8 +143,9 @@ class Assets ():
             The path of the chosen image, relative to the assets directory.
         """
 
-        # Debug
-        assert isinstance(directory_name, str), "Argument 'directory_name' must be a string"
+        # Check validity
+        if not isinstance(directory_name, str):
+            raise PyRatException("Argument 'directory_name' must be a string")
 
         # Choose among the files of the directory
         full_path = os.path.join(ASSETS_DIRECTORY, directory_name)
@@ -168,10 +174,13 @@ class Assets ():
             The rendered text.
         """
 
-        # Debug
-        assert isinstance(text, str), "Argument 'text' must be a string"
-        assert isinstance(target_height, int), "Argument 'target_height' must be an integer"
-        assert isinstance(original_font_size, int), "Argument 'original_font_size' must be an integer"
+        # Check validity
+        if not isinstance(text, str):
+            raise PyRatException("Argument 'text' must be a string")
+        if not isinstance(target_height, int):
+            raise PyRatException("Argument 'target_height' must be an integer")
+        if not isinstance(original_font_size, int):
+            raise PyRatException("Argument 'original_font_size' must be an integer")
 
         # Render then scale, so that the text always has the expected height
         key = (text, target_height, tuple(text_color), original_font_size)
@@ -201,8 +210,9 @@ class Assets ():
             The tinted image.
         """
 
-        # Debug
-        assert isinstance(surface, pygame.Surface), "Argument 'surface' must be of type 'pygame.Surface'"
+        # Check validity
+        if not isinstance(surface, pygame.Surface):
+            raise PyRatException("Argument 'surface' must be of type 'pygame.Surface'")
 
         # Multiply the image by a uniform color
         final_surface = surface.copy()
@@ -233,10 +243,13 @@ class Assets ():
             The image with its border.
         """
 
-        # Debug
-        assert isinstance(surface, pygame.Surface), "Argument 'surface' must be of type 'pygame.Surface'"
-        assert isinstance(border_size, int), "Argument 'border_size' must be an integer"
-        assert isinstance(final_rescale, bool), "Argument 'final_rescale' must be a boolean"
+        # Check validity
+        if not isinstance(surface, pygame.Surface):
+            raise PyRatException("Argument 'surface' must be of type 'pygame.Surface'")
+        if not isinstance(border_size, int):
+            raise PyRatException("Argument 'border_size' must be an integer")
+        if not isinstance(final_rescale, bool):
+            raise PyRatException("Argument 'final_rescale' must be a boolean")
 
         # The border is the silhouette of the image, drawn in the border color, and repeated around the image
         final_surface = pygame.Surface((surface.get_width() + 2 * border_size, surface.get_height() + 2 * border_size)).convert_alpha()
@@ -273,8 +286,9 @@ class Assets ():
             The dominant color of the image.
         """
 
-        # Debug
-        assert isinstance(surface, pygame.Surface), "Argument 'surface' must be of type 'pygame.Surface'"
+        # Check validity
+        if not isinstance(surface, pygame.Surface):
+            raise PyRatException("Argument 'surface' must be of type 'pygame.Surface'")
 
         # The most frequent color is usually the transparent background, in which case we take the next one
         counts = collections.Counter(pygame.surfarray.array2d(surface).flatten().tolist())
@@ -307,10 +321,13 @@ class Assets ():
             The image of the player for each action, ``Action.NOTHING`` being the player facing nowhere.
         """
 
-        # Debug
-        assert isinstance(skin, PlayerSkin), "Argument 'skin' must be of type 'pyrat.PlayerSkin'"
-        assert isinstance(size, int), "Argument 'size' must be an integer"
-        assert isinstance(border_width, int), "Argument 'border_width' must be an integer"
+        # Check validity
+        if not isinstance(skin, PlayerSkin):
+            raise PyRatException("Argument 'skin' must be of type 'pyrat.PlayerSkin'")
+        if not isinstance(size, int):
+            raise PyRatException("Argument 'size' must be an integer")
+        if not isinstance(border_width, int):
+            raise PyRatException("Argument 'border_width' must be an integer")
 
         # One image per direction, bordered if asked
         images = {}
@@ -339,9 +356,11 @@ class Assets ():
             The avatar of the player.
         """
 
-        # Debug
-        assert isinstance(skin, PlayerSkin), "Argument 'skin' must be of type 'pyrat.PlayerSkin'"
-        assert isinstance(size, int), "Argument 'size' must be an integer"
+        # Check validity
+        if not isinstance(skin, PlayerSkin):
+            raise PyRatException("Argument 'skin' must be of type 'pyrat.PlayerSkin'")
+        if not isinstance(size, int):
+            raise PyRatException("Argument 'size' must be an integer")
 
         # The avatar is in the directory of the skin
         return self.image(os.path.join("players", skin.value, "avatar.png"), size)
@@ -360,8 +379,9 @@ class Assets ():
             file_name: Path of the sound, relative to the assets directory.
         """
 
-        # Debug
-        assert isinstance(file_name, str), "Argument 'file_name' must be a string"
+        # Check validity
+        if not isinstance(file_name, str):
+            raise PyRatException("Argument 'file_name' must be a string")
 
         # A missing audio device should not interrupt the game
         sound_file = os.path.join(ASSETS_DIRECTORY, file_name)

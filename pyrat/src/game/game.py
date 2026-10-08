@@ -42,7 +42,7 @@ from pyrat.src.rendering.rendering_engine import RenderingEngine
 from pyrat.src.rendering.shell_rendering_engine import ShellRenderingEngine
 from pyrat.src.rendering.pygame_rendering_engine import PygameRenderingEngine
 from pyrat.src.game.enums import RenderMode, GameMode, Action, StartingLocation, PlayerSkin, RandomMazeAlgorithm
-from pyrat.src.game.exceptions import PyRatException
+from pyrat.src.game.exceptions import PyRatException, PyRatPlayerException
 
 ##########################################################################################
 ######################################### CLASSES ########################################
@@ -160,33 +160,59 @@ class Game ():
             continue_on_error:     If ``True``, continues the game if a player crashes.
         """
         
-        # Debug
-        assert isinstance(random_seed, (int, type(None))), "Argument 'random_seed' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED' is used)"
-        assert isinstance(random_seed_maze, (int, type(None))), "Argument 'random_seed_maze' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED_MAZE' is used)"
-        assert isinstance(random_seed_cheese, (int, type(None))), "Argument 'random_seed_cheese' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED_CHEESE' is used)"
-        assert isinstance(random_seed_players, (int, type(None))), "Argument 'random_seed_players' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED_PLAYERS' is used)"
-        assert random_seed is None or (random_seed is not None and 0 <= random_seed < sys.maxsize), "Argument 'random_seed' should be non-negative"
-        assert random_seed_maze is None or (random_seed_maze is not None and 0 <= random_seed_maze < sys.maxsize), "Argument 'random_seed_maze' should be a positive integer"
-        assert random_seed_cheese is None or (random_seed_cheese is not None and 0 <= random_seed_cheese < sys.maxsize), "Argument 'random_seed_cheese' should be a positive integer"
-        assert random_seed_players is None or (random_seed_players is not None and 0 <= random_seed_players < sys.maxsize), "Argument 'random_seed_players' should be a positive integer"
-        assert random_seed is None or (random_seed is not None and all([param is None for param in [random_seed_maze, random_seed_cheese, random_seed_players]])), "Argument 'random_seed' should be given if and only if no other random seed is given"
-        assert isinstance(render_mode, (RenderMode, type(None))), "Argument 'render_mode' must be of type 'pyrat.RenderMode' or None (if so, default value 'Game.DEFAULT_RENDER_MODE' is used)"
-        assert isinstance(turn_time, (float, type(None))), "Argument 'turn_time' must be a real number or None (if so, default value 'Game.DEFAULT_TURN_TIME' is used)"
-        assert turn_time is None or turn_time >= 0, "Argument 'turn_time' should be non-negative"
-        assert isinstance(preprocessing_time, (float, type(None))), "Argument 'preprocessing_time' must be a real number or None (if so, default value 'Game.DEFAULT_PREPROCESSING_TIME' is used)"
-        assert preprocessing_time is None or preprocessing_time >= 0, "Argument 'preprocessing_time' should be non-negative"
-        assert isinstance(game_mode, (GameMode, type(None))), "Argument 'game_mode' must be of type 'pyrat.GameMode' or None (if so, default value 'Game.DEFAULT_GAME_MODE_SINGLE_TEAM' or 'Game.DEFAULT_GAME_MODE_MULTI_TEAM' is used)"
-        assert isinstance(continue_on_error, (bool, type(None))), "Argument 'continue_on_error' must be a boolean or None (if so, default value 'Game.DEFAULT_CONTINUE_ON_ERROR' is used)"
-        assert not(game_mode == GameMode.SIMULATION and render_mode == RenderMode.GUI), "Cannot render GUI in simulation mode"
-        assert fixed_maze is None or (fixed_maze is not None and all(param is None for param in [random_seed_maze, random_maze_algorithm, maze_width, maze_height, cell_percentage, wall_percentage, mud_percentage, mud_range])), "Argument 'fixed_maze' should be given if and only if no other maze description is given"
-        assert fixed_cheese is None or (fixed_cheese is not None and all(param is None for param in [random_seed_cheese, nb_cheese])), "Argument 'fixed_cheese' should be given if and only if no other cheese description is given"
-        assert game_mode is None or game_mode != GameMode.SIMULATION or (game_mode == GameMode.SIMULATION and all([param is None for param in [render_mode, preprocessing_time, turn_time]])), "Some parameters should be set when running in simulation mode"
-        assert not(render_mode not in [None, RenderMode.GUI] and any([param is not None for param in [trace_length, fullscreen]])), "Some parameters should be set only when rendering in GUI mode"
-        assert not(render_mode not in [RenderMode.ASCII, RenderMode.ANSI] and clear_shell_each_turn is not None), "Parameter 'clear_shell_each_turn' should be set only when rendering in shell mode"
-        assert not(render_mode == RenderMode.NO_RENDERING and rendering_speed is not None), "Parameter 'rendering_speed' should be set only when rendering in GUI or shell mode"
-        assert isinstance(random_maze_algorithm, (RandomMazeAlgorithm, type(None))), "Argument 'random_maze_algorithm' must be of type 'pyrat.RandomMazeAlgorithm' or None (if so, default value 'Game.DEFAULT_RANDOM_MAZE_ALGORITHM' is used)"
-        assert isinstance(save_game, (bool, type(None))), "Argument 'save_game' must be a boolean or None (if so, default value 'Game.DEFAULT_SAVE_GAME' is used)"
-        assert isinstance(save_path, (str, type(None))), "Argument 'save_path' must be a string or None (if so, default value 'Game.DEFAULT_SAVE_PATH' is used)"
+        # Check validity
+        if not isinstance(random_seed, (int, type(None))):
+            raise PyRatException("Argument 'random_seed' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED' is used)")
+        if not isinstance(random_seed_maze, (int, type(None))):
+            raise PyRatException("Argument 'random_seed_maze' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED_MAZE' is used)")
+        if not isinstance(random_seed_cheese, (int, type(None))):
+            raise PyRatException("Argument 'random_seed_cheese' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED_CHEESE' is used)")
+        if not isinstance(random_seed_players, (int, type(None))):
+            raise PyRatException("Argument 'random_seed_players' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED_PLAYERS' is used)")
+        if not (random_seed is None or (random_seed is not None and 0 <= random_seed < sys.maxsize)):
+            raise PyRatException("Argument 'random_seed' should be non-negative")
+        if not (random_seed_maze is None or (random_seed_maze is not None and 0 <= random_seed_maze < sys.maxsize)):
+            raise PyRatException("Argument 'random_seed_maze' should be a positive integer")
+        if not (random_seed_cheese is None or (random_seed_cheese is not None and 0 <= random_seed_cheese < sys.maxsize)):
+            raise PyRatException("Argument 'random_seed_cheese' should be a positive integer")
+        if not (random_seed_players is None or (random_seed_players is not None and 0 <= random_seed_players < sys.maxsize)):
+            raise PyRatException("Argument 'random_seed_players' should be a positive integer")
+        if not (random_seed is None or (random_seed is not None and all([param is None for param in [random_seed_maze, random_seed_cheese, random_seed_players]]))):
+            raise PyRatException("Argument 'random_seed' should be given if and only if no other random seed is given")
+        if not isinstance(render_mode, (RenderMode, type(None))):
+            raise PyRatException("Argument 'render_mode' must be of type 'pyrat.RenderMode' or None (if so, default value 'Game.DEFAULT_RENDER_MODE' is used)")
+        if not isinstance(turn_time, (float, type(None))):
+            raise PyRatException("Argument 'turn_time' must be a real number or None (if so, default value 'Game.DEFAULT_TURN_TIME' is used)")
+        if not (turn_time is None or turn_time >= 0):
+            raise PyRatException("Argument 'turn_time' should be non-negative")
+        if not isinstance(preprocessing_time, (float, type(None))):
+            raise PyRatException("Argument 'preprocessing_time' must be a real number or None (if so, default value 'Game.DEFAULT_PREPROCESSING_TIME' is used)")
+        if not (preprocessing_time is None or preprocessing_time >= 0):
+            raise PyRatException("Argument 'preprocessing_time' should be non-negative")
+        if not isinstance(game_mode, (GameMode, type(None))):
+            raise PyRatException("Argument 'game_mode' must be of type 'pyrat.GameMode' or None (if so, default value 'Game.DEFAULT_GAME_MODE_SINGLE_TEAM' or 'Game.DEFAULT_GAME_MODE_MULTI_TEAM' is used)")
+        if not isinstance(continue_on_error, (bool, type(None))):
+            raise PyRatException("Argument 'continue_on_error' must be a boolean or None (if so, default value 'Game.DEFAULT_CONTINUE_ON_ERROR' is used)")
+        if (game_mode == GameMode.SIMULATION and render_mode == RenderMode.GUI):
+            raise PyRatException("Cannot render GUI in simulation mode")
+        if not (fixed_maze is None or (fixed_maze is not None and all(param is None for param in [random_seed_maze, random_maze_algorithm, maze_width, maze_height, cell_percentage, wall_percentage, mud_percentage, mud_range]))):
+            raise PyRatException("Argument 'fixed_maze' should be given if and only if no other maze description is given")
+        if not (fixed_cheese is None or (fixed_cheese is not None and all(param is None for param in [random_seed_cheese, nb_cheese]))):
+            raise PyRatException("Argument 'fixed_cheese' should be given if and only if no other cheese description is given")
+        if not (game_mode is None or game_mode != GameMode.SIMULATION or (game_mode == GameMode.SIMULATION and all([param is None for param in [render_mode, preprocessing_time, turn_time]]))):
+            raise PyRatException("Some parameters should be set when running in simulation mode")
+        if (render_mode not in [None, RenderMode.GUI] and any([param is not None for param in [trace_length, fullscreen]])):
+            raise PyRatException("Some parameters should be set only when rendering in GUI mode")
+        if (render_mode not in [RenderMode.ASCII, RenderMode.ANSI] and clear_shell_each_turn is not None):
+            raise PyRatException("Parameter 'clear_shell_each_turn' should be set only when rendering in shell mode")
+        if (render_mode == RenderMode.NO_RENDERING and rendering_speed is not None):
+            raise PyRatException("Parameter 'rendering_speed' should be set only when rendering in GUI or shell mode")
+        if not isinstance(random_maze_algorithm, (RandomMazeAlgorithm, type(None))):
+            raise PyRatException("Argument 'random_maze_algorithm' must be of type 'pyrat.RandomMazeAlgorithm' or None (if so, default value 'Game.DEFAULT_RANDOM_MAZE_ALGORITHM' is used)")
+        if not isinstance(save_game, (bool, type(None))):
+            raise PyRatException("Argument 'save_game' must be a boolean or None (if so, default value 'Game.DEFAULT_SAVE_GAME' is used)")
+        if not isinstance(save_path, (str, type(None))):
+            raise PyRatException("Argument 'save_path' must be a string or None (if so, default value 'Game.DEFAULT_SAVE_PATH' is used)")
 
         # Store given parameters or default values
         self.__random_seed = random_seed if random_seed is not None else Game.DEFAULT_RANDOM_SEED
@@ -308,13 +334,19 @@ class Game ():
             location: Initial location of the player (fixed index or value of the ``StartingLocation`` enumeration).
         """
 
-        # Debug
-        assert isinstance(player, Player), "Argument 'player' must be of type 'pyrat.Player'"
-        assert isinstance(team, str), "Argument 'team' must be a string"
-        assert isinstance(location, (StartingLocation, int)), "Argument 'location' must be of type 'pyrat.StartingLocation' or an integer, corresponding to the index of the cell where the player should start"
-        assert location in list(StartingLocation) or (isinstance(location, int) and self.__maze.i_exists(location)), "Argument 'location' must be a valid index of the maze or a value of the 'pyrat.StartingLocation' enumeration"
-        assert player.get_name() not in self.__initial_game_state.player_locations, "Player '%s' was already added to the game" % player.get_name()
-        assert not (location == StartingLocation.SAME and len(self.__players) == 0), "Cannot start player '%s' at the same location as the previous player if no player was added before" % player.get_name()
+        # Check validity
+        if not isinstance(player, Player):
+            raise PyRatException("Argument 'player' must be of type 'pyrat.Player'")
+        if not isinstance(team, str):
+            raise PyRatException("Argument 'team' must be a string")
+        if not isinstance(location, (StartingLocation, int)):
+            raise PyRatException("Argument 'location' must be of type 'pyrat.StartingLocation' or an integer, corresponding to the index of the cell where the player should start")
+        if not (location in list(StartingLocation) or (isinstance(location, int) and self.__maze.i_exists(location))):
+            raise PyRatException("Argument 'location' must be a valid index of the maze or a value of the 'pyrat.StartingLocation' enumeration")
+        if player.get_name() in self.__initial_game_state.player_locations:
+            raise PyRatException("Player '%s' was already added to the game" % player.get_name())
+        if (location == StartingLocation.SAME and len(self.__players) == 0):
+            raise PyRatException("Cannot start player '%s' at the same location as the previous player if no player was added before" % player.get_name())
 
         # Set initial location
         self.__players_asked_location.append(location)
@@ -381,9 +413,11 @@ class Game ():
             same:         If ``True``, keeps the same random seeds as before, otherwise generates new random seeds.
         """
         
-        # Debug
-        assert isinstance(keep_players, bool), "Argument 'keep_players' must be a boolean"
-        assert isinstance(same, bool), "Argument 'same' must be a boolean"
+        # Check validity
+        if not isinstance(keep_players, bool):
+            raise PyRatException("Argument 'keep_players' must be a boolean")
+        if not isinstance(same, bool):
+            raise PyRatException("Argument 'same' must be a boolean")
 
         # Set random seeds for the game
         if not same or self.__game_random_seed_maze is None:
@@ -444,11 +478,17 @@ class Game ():
 
         Returns:
             Game statistics computed during the game.
+
+        Raises:
+            PyRatPlayerException: If a player crashes or returns an invalid action, unless the game was created with ``continue_on_error=True``.
+            PyRatException: If the game cannot be started, for instance if no player was added, or if the graphical interface cannot be opened, or if the game is interrupted by the user (Ctrl+C in the terminal).
         """
         
-        # Debug
-        assert len(self.__players) > 0, "No player was added to the game"
-        assert self.__reset_called, "The game was not reset before starting"
+        # Check validity
+        if not (len(self.__players) > 0):
+            raise PyRatException("No player was added to the game")
+        if not self.__reset_called:
+            raise PyRatException("The game was not reset before starting")
 
         # We catch exceptions that may happen during the game
         try:
@@ -570,8 +610,9 @@ class Game ():
                         players_ready.append(player)
 
                 # Check for errors
-                if any([turn_actions[player.get_name()] == "error" for player in self.__players]) and not self.__continue_on_error:
-                    raise PyRatException("A player has crashed, exiting")
+                crashed_players = [player.get_name() for player in self.__players if turn_actions[player.get_name()] == "error"]
+                if crashed_players and not self.__continue_on_error:
+                    raise PyRatPlayerException("Player(s) %s caused an error, exiting (see the error above)" % ", ".join(crashed_players))
 
                 # We save the turn info if we are not postprocessing
                 if not game_state.game_over():
@@ -604,13 +645,19 @@ class Game ():
                     self.__rendering_engine.render(self.__players, self.__maze, new_game_state)
                     game_state = new_game_state
 
-        # In case of an error, we ignore stats
+        # If the user interrupts the game (Ctrl+C in the terminal), we apply end actions (e.g., closing the window), and report it as a PyRat error
+        # The KeyboardInterrupt is not chained, as it carries no useful information
+        except KeyboardInterrupt:
+            self.__end(True)
+            raise PyRatException("The game was interrupted by the user") from None
+
+        # In case of another error, we apply end actions before letting the error go up to the caller
         except:
-            print(traceback.format_exc(), file=sys.stderr)
-            stats = {}
-        
+            self.__end(True)
+            raise
+
         # Apply end actions before returning
-        self.__end(stats == {})
+        self.__end(False)
         return stats
 
     ##################################################################################
@@ -628,8 +675,9 @@ class Game ():
             game_crashed: Indicates if the game crashed.
         """
 
-        # Debug
-        assert isinstance(game_crashed, bool), "Argument 'game_crashed' must be a boolean"
+        # Check validity
+        if not isinstance(game_crashed, bool):
+            raise PyRatException("Argument 'game_crashed' must be a boolean")
 
         # We save the game if asked
         if self.__save_game and not game_crashed:
@@ -687,11 +735,15 @@ class Game ():
             New game state after the turn.
         """
 
-        # Debug
-        assert isinstance(game_state, GameState), "Argument 'game_state' must be of type 'pyrat.GameState'"
-        assert isinstance(actions, dict), "Argument 'actions' must be a dictionary"
-        assert all(player_name in [player.get_name() for player in self.__players] for player_name in actions), "All players must be in the game"
-        assert all(action in Action for action in actions.values()), "All actions must be of type 'pyrat.Action'"
+        # Check validity
+        if not isinstance(game_state, GameState):
+            raise PyRatException("Argument 'game_state' must be of type 'pyrat.GameState'")
+        if not isinstance(actions, dict):
+            raise PyRatException("Argument 'actions' must be a dictionary")
+        if not all(player_name in [player.get_name() for player in self.__players] for player_name in actions):
+            raise PyRatException("All players must be in the game")
+        if not all(action in Action for action in actions.values()):
+            raise PyRatException("All actions must be of type 'pyrat.Action'")
 
         # Initialize new game state
         new_game_state = copy.deepcopy(game_state)
@@ -754,21 +806,30 @@ class Game ():
             List of indices of cells containing cheese.
         """
         
-        # Debug
-        assert isinstance(available_cells, list), "Argument 'available_cells' must be a list"
-        assert all([isinstance(cell, int) for cell in available_cells]), "All elements of 'available_cells' must be integers"
-        assert all([self.__maze.i_exists(cell) for cell in available_cells]), "All elements of 'available_cells' must be valid indices of the maze"
+        # Check validity
+        if not isinstance(available_cells, list):
+            raise PyRatException("Argument 'available_cells' must be a list")
+        if not all([isinstance(cell, int) for cell in available_cells]):
+            raise PyRatException("All elements of 'available_cells' must be integers")
+        if not all([self.__maze.i_exists(cell) for cell in available_cells]):
+            raise PyRatException("All elements of 'available_cells' must be valid indices of the maze")
 
         # If we ask for a fixed list of cheese, we use it
         if self.__fixed_cheese is not None:
             
-            # Debug
-            assert isinstance(self.__fixed_cheese, list), "Attribute '__fixed_cheese' must be a list"
-            assert all([isinstance(cell, int) for cell in self.__fixed_cheese]), "All elements of '__fixed_cheese' must be integers"
-            assert len(set(self.__fixed_cheese)) == len(self.__fixed_cheese), "All elements of '__fixed_cheese' must be unique"
-            assert len(available_cells) >= len(self.__fixed_cheese), "Not enough available cells to place the fixed cheese"
-            assert all([self.__maze.i_exists(cell) for cell in self.__fixed_cheese]), "All elements of '__fixed_cheese' must be valid indices of the maze"
-            assert all([cell in available_cells for cell in self.__fixed_cheese]), "All elements of '__fixed_cheese' must be in 'available_cells'"
+            # Check validity
+            if not isinstance(self.__fixed_cheese, list):
+                raise PyRatException("Attribute '__fixed_cheese' must be a list")
+            if not all([isinstance(cell, int) for cell in self.__fixed_cheese]):
+                raise PyRatException("All elements of '__fixed_cheese' must be integers")
+            if len(set(self.__fixed_cheese)) != len(self.__fixed_cheese):
+                raise PyRatException("All elements of '__fixed_cheese' must be unique")
+            if not (len(available_cells) >= len(self.__fixed_cheese)):
+                raise PyRatException("Not enough available cells to place the fixed cheese")
+            if not all([self.__maze.i_exists(cell) for cell in self.__fixed_cheese]):
+                raise PyRatException("All elements of '__fixed_cheese' must be valid indices of the maze")
+            if not all([cell in available_cells for cell in self.__fixed_cheese]):
+                raise PyRatException("All elements of '__fixed_cheese' must be in 'available_cells'")
 
             # Place the cheese
             cheese = copy.deepcopy(self.__fixed_cheese)
@@ -776,10 +837,13 @@ class Game ():
         # Otherwise, we place the cheese randomly
         else:
             
-            # Debug
-            assert isinstance(self.__nb_cheese, int), "Attribute '__nb_cheese' must be an integer"
-            assert self.__nb_cheese > 0, "Attribute '__nb_cheese' must be positive"
-            assert len(available_cells) >= self.__nb_cheese, "Not enough available cells to place the cheese"
+            # Check validity
+            if not isinstance(self.__nb_cheese, int):
+                raise PyRatException("Attribute '__nb_cheese' must be an integer")
+            if not (self.__nb_cheese > 0):
+                raise PyRatException("Attribute '__nb_cheese' must be positive")
+            if not (len(available_cells) >= self.__nb_cheese):
+                raise PyRatException("Not enough available cells to place the cheese")
 
             # Place the cheese randomly
             rng = random.Random(self.__game_random_seed_cheese)
@@ -827,18 +891,29 @@ def _player_process_function ( player:                  Player,
         In multiprocessing mode, ``None``.
     """
 
-    # Debug
-    assert isinstance(player, Player), "Argument 'player' must be of type 'pyrat.Player'"
-    assert isinstance(maze, Maze), "Argument 'maze' must be of type 'pyrat.Maze'"
-    assert isinstance(input_queue, (mpmanagers.BaseProxy, type(None))), "Argument 'input_queue' must be of type 'multiprocessing.Queue' or None"
-    assert isinstance(output_queue, (mpmanagers.BaseProxy, type(None))), "Argument 'output_queue' must be of type 'multiprocessing.Queue' or None"
-    assert isinstance(turn_start_synchronizer, (mpmanagers.BarrierProxy, type(None))), "Argument 'turn_start_synchronizer' must be of type 'multiprocessing.Barrier' or None"
-    assert isinstance(turn_timeout_lock, (mpmanagers.AcquirerProxy, type(None))), "Argument 'turn_timeout_lock' must be of type 'multiprocessing.Lock' or None"
-    assert isinstance(turn_end_synchronizer, (mpmanagers.BarrierProxy, type(None))), "Argument 'turn_end_synchronizer' must be of type 'multiprocessing.Barrier' or None"
-    assert isinstance(game_state, (GameState, type(None))), "Argument 'game_state' must be of type 'pyrat.GameState' or None"
-    assert isinstance(final_stats, (dict, type(None))), "Argument 'final_stats' must be of type 'dict' or None"
-    assert final_stats is None or all(isinstance(key, str) for key in final_stats), "Keys of 'final_stats' must be strings"
-    assert (input_queue is None and output_queue is None and turn_start_synchronizer is None and turn_timeout_lock is None and turn_end_synchronizer is None) ^ (game_state is None and final_stats is None), "Some arguments are for multiprocessing mode, and others for sequential mode"
+    # Check validity
+    if not isinstance(player, Player):
+        raise PyRatException("Argument 'player' must be of type 'pyrat.Player'")
+    if not isinstance(maze, Maze):
+        raise PyRatException("Argument 'maze' must be of type 'pyrat.Maze'")
+    if not isinstance(input_queue, (mpmanagers.BaseProxy, type(None))):
+        raise PyRatException("Argument 'input_queue' must be of type 'multiprocessing.Queue' or None")
+    if not isinstance(output_queue, (mpmanagers.BaseProxy, type(None))):
+        raise PyRatException("Argument 'output_queue' must be of type 'multiprocessing.Queue' or None")
+    if not isinstance(turn_start_synchronizer, (mpmanagers.BarrierProxy, type(None))):
+        raise PyRatException("Argument 'turn_start_synchronizer' must be of type 'multiprocessing.Barrier' or None")
+    if not isinstance(turn_timeout_lock, (mpmanagers.AcquirerProxy, type(None))):
+        raise PyRatException("Argument 'turn_timeout_lock' must be of type 'multiprocessing.Lock' or None")
+    if not isinstance(turn_end_synchronizer, (mpmanagers.BarrierProxy, type(None))):
+        raise PyRatException("Argument 'turn_end_synchronizer' must be of type 'multiprocessing.Barrier' or None")
+    if not isinstance(game_state, (GameState, type(None))):
+        raise PyRatException("Argument 'game_state' must be of type 'pyrat.GameState' or None")
+    if not isinstance(final_stats, (dict, type(None))):
+        raise PyRatException("Argument 'final_stats' must be of type 'dict' or None")
+    if not (final_stats is None or all(isinstance(key, str) for key in final_stats)):
+        raise PyRatException("Keys of 'final_stats' must be strings")
+    if not (input_queue is None and output_queue is None and turn_start_synchronizer is None and turn_timeout_lock is None and turn_end_synchronizer is None) ^ (game_state is None and final_stats is None):
+        raise PyRatException("Some arguments are for multiprocessing mode, and others for sequential mode")
     
     # We catch exceptions that may happen during the game
     use_multiprocessing = input_queue is not None
@@ -883,7 +958,7 @@ def _player_process_function ( player:                  Player,
                     else:
                         a = player.turn(maze, game_state)
                         if a not in list(Action):
-                            raise PyRatException("Invalid action %s by player %s" % (str(a), player.get_name()))
+                            raise PyRatPlayerException("Invalid action %s by player %s" % (str(a), player.get_name()))
                         action = a.value
                     
                     # Set end time
@@ -891,7 +966,8 @@ def _player_process_function ( player:                  Player,
                     duration = end_time - start
                         
             # Print error message in case of a crash
-            except:
+            # An interruption by the user (Ctrl+C) is not a crash of the player, so it is not caught here
+            except Exception:
                 print("Player %s has crashed with the following error:" % player.get_name(), file=sys.stderr)
                 print(traceback.format_exc(), file=sys.stderr)
                     
@@ -904,6 +980,13 @@ def _player_process_function ( player:                  Player,
                     break
             else:
                 return action, game_phase, duration
+
+    # If the user interrupts the game (Ctrl+C in the terminal), the game must stop
+    # In sequential mode, we are in the process of the game, so we let the interruption go up to it
+    # In multiprocessing mode, the game process receives the interruption too, so this process can just end
+    except KeyboardInterrupt:
+        if not use_multiprocessing:
+            raise
 
     # Ignore
     except:
@@ -925,9 +1008,11 @@ def _waiter_process_function ( input_queue:             mpmanagers.BaseProxy,
         turn_start_synchronizer: Barrier to synchronize the start of the turn.
     """
 
-    # Debug
-    assert isinstance(input_queue, mpmanagers.BaseProxy), "Argument 'input_queue' must be of type 'multiprocessing.Queue'"
-    assert isinstance(turn_start_synchronizer, mpmanagers.BarrierProxy), "Argument 'turn_start_synchronizer' must be of type 'multiprocessing.Barrier'"
+    # Check validity
+    if not isinstance(input_queue, mpmanagers.BaseProxy):
+        raise PyRatException("Argument 'input_queue' must be of type 'multiprocessing.Queue'")
+    if not isinstance(turn_start_synchronizer, mpmanagers.BarrierProxy):
+        raise PyRatException("Argument 'turn_start_synchronizer' must be of type 'multiprocessing.Barrier'")
 
     # We catch exceptions that may happen during the game
     try:
