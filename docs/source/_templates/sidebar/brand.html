@@ -1,9 +1,11 @@
 {#-
 
 This template replaces the one of the Furo theme that shows the logo and the name of the project at the top of the left sidebar.
-It is the same, followed by a badge showing the latest version of PyRat published on PyPI, which links to its history of releases.
-The badge is served by shields.io, which asks PyPI each time the page is shown, so it stays right between two builds of the documentation.
-If it cannot be loaded, the version the documentation was built for is shown instead, in the same place.
+It is the same, followed by a badge showing the latest version of PyRat, which links to its history of releases on PyPI.
+
+The badge first shows the version the documentation was built for, which is the latest one as soon as the documentation is rebuilt (at each push).
+It then asks PyPI for the latest published version, and shows it instead, so that it stays right between two builds of the documentation.
+PyPI is asked directly rather than through an image service such as shields.io, which keeps its images in cache for hours, and so showed an outdated version after each release.
 
 -#}
 <a class="sidebar-brand{% if logo %} centered{% endif %}" href="{{ pathto(master_doc) }}">
@@ -17,6 +19,17 @@ If it cannot be loaded, the version the documentation was built for is shown ins
   {%- endif %}
 </a>
 <a class="sidebar-version-badge" href="https://pypi.org/project/pyrat-game/#history" title="Latest version of PyRat, on PyPI">
-  <img src="https://img.shields.io/pypi/v/pyrat-game?label=latest%20version&color=e8a33d&logo=pypi&logoColor=white" alt="Latest version on PyPI" height="20" onerror="this.hidden = true; this.nextElementSibling.hidden = false;"/>
-  <span class="sidebar-version-fallback" hidden>version {{ release }}</span>
+  <span class="sidebar-version-label">latest version</span><span class="sidebar-version-value">{{ release }}</span>
 </a>
+<script>
+  // Show the latest version published on PyPI, which may be more recent than the one the documentation was built for
+  // If PyPI cannot be reached, the version the documentation was built for stays
+  fetch("https://pypi.org/pypi/pyrat-game/json")
+    .then(function (response) { return response.ok ? response.json() : null; })
+    .then(function (data) {
+      if (data && data.info && data.info.version) {
+        document.querySelectorAll(".sidebar-version-value").forEach(function (element) { element.textContent = data.info.version; });
+      }
+    })
+    .catch(function () {});
+</script>

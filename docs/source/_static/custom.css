@@ -255,35 +255,34 @@ body[data-theme="dark"] {
 }
 
 /* Badge showing the latest version, right under the name of the project (see _templates/sidebar/brand.html) */
+/* It is drawn like a shields.io badge: a grey label, followed by the version on the color of PyRat */
 .sidebar-version-badge {
     display: flex;
     justify-content: center;
     margin: -0.25rem var(--sidebar-item-spacing-horizontal) 0.75rem;
+    font-size: 0.75rem;
+    line-height: 20px;
     text-decoration: none;
 }
 
-.sidebar-version-badge img {
-    display: block;
-    height: 20px;
-    border-radius: 4px;
-}
-
-.sidebar-version-badge:hover img {
-    filter: brightness(1.08);
-}
-
-/* Shown instead of the badge when it cannot be loaded, and styled like it */
-.sidebar-version-fallback {
-    padding: 0.15em 0.6em;
-    border-radius: 4px;
-    background: var(--pyrat-yellow);
+.sidebar-version-badge > span {
+    padding: 0 0.6em;
     color: #ffffff;
-    font-size: 0.75rem;
+}
+
+.sidebar-version-label {
+    border-radius: 4px 0 0 4px;
+    background: #555555;
+}
+
+.sidebar-version-value {
+    border-radius: 0 4px 4px 0;
+    background: var(--pyrat-yellow);
     font-weight: 700;
 }
 
-.sidebar-version-fallback[hidden] {
-    display: none;
+.sidebar-version-badge:hover > span {
+    filter: brightness(1.08);
 }
 
 /* -------------------------------------------------------------------------- */

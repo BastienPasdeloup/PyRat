@@ -462,6 +462,11 @@ digraph PyRat {
     root -> Game            [style=invis]
     root -> RenderingEngine [style=invis]
 
+    // GameState and the exceptions are drawn on the same row, GameState on the left (an invisible flat edge puts its tail on the left of its head)
+    // The arrows that Player (on the left) sends to GameState then do not cross the arrow that Game sends to PyRatException
+    { rank=same; GameState; PyRatException }
+    GameState -> PyRatException [style=invis]
+
     // Invisible edges, only there to place the enumerations right below the players (on the left, away from the mazes), and the mazes below the game and the rendering
     // Keeping the enumerations close to the players shortens the arrow that goes from Player to Action
     // (without the last one, dot may swap the players and the game, which makes the edge to RenderingEngine go around the players)
