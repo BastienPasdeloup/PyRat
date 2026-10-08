@@ -34,7 +34,7 @@
 - This installation procedure assumes that you have basic knowledge about shell manipulation.
 
 - PyRat uses [uv](https://docs.astral.sh/uv) to manage Python and the libraries it needs. \
-  You do not need to install Python yourself: uv takes care of it, and PyRat workspaces are configured to use Python 3.13 (Python 3.12 is also supported).
+  You do not need to install Python yourself: uv takes care of it, and PyRat workspaces are configured to use Python 3.13 (Python 3.12 is also supported). Python 3.14 and later are not supported, as `pygame` (one of the libraries PyRat needs) cannot be installed with these versions.
 
 - Finally, we will test PyRat installation using Visual Studio Code (VSCode), as this is the main tool we use in the associated course.
   Please make sure it is already installed, or install it from the [official website](https://code.visualstudio.com).
@@ -57,6 +57,10 @@ This is a directory that contains minimal working examples to get started, and i
 To do so, follow these steps:
 1) Open a terminal, and navigate (use the `cd` command) to the directory where you want to create your PyRat workspace.
 2) Run the following command (it is the same on all systems): `uvx --from pyrat-game pyrat-init`.
+
+> [!WARNING]
+> `pygame`, one of the libraries PyRat needs, cannot be installed with Python 3.14 and later. \
+> If the command above fails because only Python 3.14 is available on your machine, ask uv to use Python 3.13 instead (uv downloads it if needed): `uvx --python 3.13 --from pyrat-game pyrat-init`.
 
 You should see something like this:
 ```text
