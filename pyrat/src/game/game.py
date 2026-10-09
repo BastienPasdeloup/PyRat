@@ -555,6 +555,9 @@ class Game ():
             all_action_names = [action.value for action in Action]
             while any(players_running.values()):
 
+                # The phase starts now, so that in sequential mode, the time taken by players counts in the phase duration
+                phase_start = time.perf_counter()
+
                 # We communicate the state of the game to the players not in mud
                 game_phases = {player.get_name(): "none" for player in self.__players}
                 turn_actions = {player.get_name(): "miss" for player in self.__players}
@@ -567,14 +570,15 @@ class Game ():
                     else:
                         turn_actions[ready_player.get_name()], game_phases[ready_player.get_name()], durations[ready_player.get_name()] = _player_process_function(ready_player, maze_per_player[ready_player.get_name()], None, None, None, None, None, player_game_state, final_stats)
                 
-                # In multiprocessing mode, we for everybody to receive data to start
+                # In multiprocessing mode, we wait for everybody to receive data to start, so the phase starts there
                 # In sequential mode, decisions are already received at this point
                 if self.__game_mode in [GameMode.MATCH, GameMode.SYNCHRONOUS]:
                     turn_start_synchronizer.wait()
+                    phase_start = time.perf_counter()
 
-                # Wait a bit
-                sleep_time = self.__preprocessing_time if game_state.turn == 0 else self.__turn_time
-                time.sleep(sleep_time)
+                # Wait for the rest of the phase
+                phase_time = self.__preprocessing_time if game_state.turn == 0 else self.__turn_time
+                time.sleep(max(0.0, phase_time - (time.perf_counter() - phase_start)))
 
                 # In synchronous mode, we wait for everyone
                 if self.__game_mode == GameMode.SYNCHRONOUS:

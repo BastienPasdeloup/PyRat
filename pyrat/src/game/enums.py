@@ -61,7 +61,9 @@ class GameMode (enum.Enum):
                            Contrary to the ``MATCH`` mode, there is no timeout, so players can take as much time as they want to make their decision. \
                            Preprocessing and turn phases are still given a minimum duration, but they can be longer if players take more time to make their decision. \
                            This is useful for debugging, as it allows you to see the game state after each player's decision.
-        * ``SEQUENTIAL``:  All players are asked for a decision, and then actions are applied simultaneously, but there is no multiprocessing (default in single-team games).
+        * ``SEQUENTIAL``:  All players are asked for a decision, and then actions are applied simultaneously, but there is no multiprocessing (default in single-team games). \
+                           Players are asked one after the other, and there is no timeout. \
+                           The preprocessing and turn phases last at least ``preprocessing_time`` and ``turn_time``, including the time taken by players, but can be longer if players take more time.
         * ``SIMULATION``:  The game is run as fast as possible, *i.e.*, there is no rendering, no multiprocessing, and no timeouts. \
                            You should use this mode when running multiple games to collect statistics, as it is the fastest mode.
     """
