@@ -35,9 +35,9 @@ class Random4 (Player):
 
     This player is an improvement of the ``Random3`` player.
     A limitation of ``Random3`` is that it can easily enter its fallback mode when visiting a dead-end.
-    In this case, it may move randomly for a long time before reaching an unvisited cell
-    To improve our algorithm, we are going to create a new maze attribute that is the same as the original maze, but with the dead-end cells removed.
-    Since the maze is only provided at the beginning of the game, we will use the ``preprocessing()`` method to create this new maze.
+    In this case, it may move randomly for a long time before reaching an unvisited cell.
+    To improve our algorithm, we remove the dead-end cells from the maze, and keep the resulting maze in an attribute.
+    Since the maze does not change during the game, this only needs to be done once, in the ``preprocessing()`` method.
     """
 
     ##################################################################################
@@ -175,19 +175,21 @@ class Random4 (Player):
                          ) ->                 Maze:
         
         """
-        This method returns a new maze that contains only the cells that are not dead-ends.
+        This method removes the dead-ends from the maze, and returns it.
         A dead-end is defined as a cell that has only one neighbor and does not contain cheese or the player.
+        The maze is modified in place: no copy is made, and the returned maze is the same object as the one given as argument.
 
         Args:
             maze:              An object representing the maze in which the player plays.
             locations_to_keep: A list of locations to keep in the reduced maze.
 
         Returns:
-            A new maze with only the cells that are not dead-ends.
+            The maze given as argument, from which the dead-ends have been removed.
         """
 
         # Initialize the reduced maze as the original one
-        # We do not need to make a copy of the maze, as the game sends a copy of the maze at each turn.
+        # We do not make a copy, as PyRat gives each player its own copy of the maze once per game
+        # Note that this object is the one passed to preprocessing() and to every turn(), so the maze received in turn() will also be reduced
         updated_maze = maze
         
         # Iteratively remove dead-ends from the maze
