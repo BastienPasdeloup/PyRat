@@ -157,11 +157,12 @@ class RandomMaze (Maze):
 
         """
         This method adds walls to the maze.
-        It uses the minimum spanning tree to determine the maximum number of walls.
+        It uses a random spanning tree to determine the maximum number of walls.
+        All edges have the same weight at this point, so this tree is also a minimum spanning tree.
         """
 
-        # Determine the maximum number of walls by computing the minimum spanning tree
-        mst = self.minimum_spanning_tree(self._rng.randint(0, sys.maxsize))
+        # Determine the maximum number of walls by computing a random spanning tree
+        mst = self.random_spanning_tree(self._rng.randint(0, sys.maxsize))
         target_nb_walls = int((self.nb_edges() - mst.nb_edges()) * self._wall_percentage / 100)
         walls = []
         for vertex, neighbor in self.get_edges():

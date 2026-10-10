@@ -171,7 +171,7 @@ class Random4 (Player):
 
     def remove_dead_ends ( self,
                            maze:              Maze,
-                           locations_to_keep: list[tuple[int, int]]
+                           locations_to_keep: list[int]
                          ) ->                 Maze:
         
         """

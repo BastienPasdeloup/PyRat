@@ -255,10 +255,10 @@ digraph PyRat {
                     <TR><TD ALIGN="LEFT" HREF="Graph#add_edge">+ add_edge(vertex_1, vertex_2, weight, symmetric)</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Graph#nb_edges">+ nb_edges() : int</TD></TR>
                     <TR><TD ALIGN="LEFT" HREF="Graph#remove_edge">+ remove_edge(vertex_1, vertex_2, symmetric)</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Graph#is_connected">+ is_connected() : bool</TD></TR>
                     <TR><TD ALIGN="LEFT" HREF="Graph#has_edge">+ has_edge(vertex_1, vertex_2) : bool</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Graph#minimum_spanning_tree">+ minimum_spanning_tree(random_seed) : Graph</TD></TR>
-                    <TR><TD ALIGN="LEFT" HREF="Graph#edge_is_symmetric">+ edge_is_symmetric(vertex_1, vertex_2) : bool</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Graph#as_dict">+ as_dict() : dict</TD></TR>
-                    <TR><TD ALIGN="LEFT" HREF="Graph#get_weight">+ get_weight(vertex_1, vertex_2) : float | int</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Graph#as_numpy_ndarray">+ as_numpy_ndarray() : numpy.ndarray</TD></TR>
-                    <TR><TD ALIGN="LEFT" HREF="Graph#get_vertices">+ get_vertices() : list[Hashable]</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Graph#as_torch_tensor">+ as_torch_tensor() : torch.Tensor</TD></TR>
-                    <TR><TD ALIGN="LEFT" HREF="Graph#get_edges">+ get_edges() : list[tuple[Hashable, Hashable]]</TD><TD WIDTH="22"></TD><TD></TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Graph#edge_is_symmetric">+ edge_is_symmetric(vertex_1, vertex_2) : bool</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Graph#random_spanning_tree">+ random_spanning_tree(random_seed) : Graph</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Graph#get_weight">+ get_weight(vertex_1, vertex_2) : float | int</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Graph#as_dict">+ as_dict() : dict</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Graph#get_vertices">+ get_vertices() : list[Hashable]</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Graph#as_numpy_ndarray">+ as_numpy_ndarray() : numpy.ndarray</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="Graph#get_edges">+ get_edges() : list[tuple[Hashable, Hashable]]</TD><TD WIDTH="22"></TD><TD ALIGN="LEFT" HREF="Graph#as_torch_tensor">+ as_torch_tensor() : torch.Tensor</TD></TR>
                 </TABLE></TD></TR>
             </TABLE>>]
 

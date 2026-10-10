@@ -19,6 +19,7 @@ These methods allow to add and remove vertices and edges, check for the existenc
 
 # External imports
 from collections.abc import Hashable
+import heapq
 import random
 import sys
 
@@ -424,47 +425,73 @@ class Graph ():
                               ) ->           "Graph":
 
         """
-        Returns the minimum spanning tree of the graph.
+        Returns a minimum spanning tree of the graph, i.e., a spanning tree whose total weight is minimal.
+        It is computed with Prim's algorithm: starting from a vertex, the tree grows by adding the lightest edge between a vertex of the tree and a vertex outside of it.
+        Ties between edges of the same weight are broken randomly, so that different seeds may give different minimum spanning trees.
+        The graph is considered undirected: an edge can link the tree to a new vertex whatever its direction.
+        Each edge of the tree keeps the direction and weight of the edge of the graph it comes from, and is symmetric if the graph also has the reverse edge, with the same weight.
+        To obtain a random spanning tree, without considering weights, see ``random_spanning_tree``.
 
         Args:
             random_seed: Seed for the random number generator.
 
         Returns:
             Graph representing the minimum spanning tree.
+
+        Raises:
+            PyRatException: If the graph is empty or not connected.
         """
-        
+
         # Check validity
         if not (random_seed is None or isinstance(random_seed, int)):
             raise PyRatException("Argument 'random_seed' must be an integer")
         if not (random_seed is None or 0 <= random_seed < sys.maxsize):
             raise PyRatException("Argument 'random_seed' must be non-negative")
+        if self.nb_vertices() == 0:
+            raise PyRatException("Graph is empty")
 
         # Initialize a random number generator
         rng = random.Random(random_seed)
 
-        # Shuffle vertices
-        vertices_to_add = self.get_vertices()
-        rng.shuffle(vertices_to_add)
+        # List the edges incident to each vertex, whatever their direction, as pairs (other end, edge in its original direction)
+        incident = {vertex: [] for vertex in self.get_vertices()}
+        for vertex_1 in self.get_vertices():
+            for vertex_2 in self.get_neighbors(vertex_1):
+                incident[vertex_1].append((vertex_2, (vertex_1, vertex_2)))
+                incident[vertex_2].append((vertex_1, (vertex_1, vertex_2)))
 
         # Create the minimum spanning tree, initialized with a random vertex
         mst = Graph()
-        vertex = vertices_to_add.pop(0)
+        vertex = rng.choice(self.get_vertices())
         mst.add_vertex(vertex)
-        
-        # Add vertices until all are included
-        while vertices_to_add:
-            vertex = vertices_to_add.pop(0)
-            neighbors = self.get_neighbors(vertex)
-            rng.shuffle(neighbors)
-            neighbors_in_mst = [neighbor for neighbor in neighbors if neighbor in mst.get_vertices()]
-            if neighbors_in_mst:
-                neighbor = neighbors_in_mst[0]
-                symmetric = self.edge_is_symmetric(vertex, neighbor)
-                weight = self.get_weight(neighbor, vertex)
-                mst.add_vertex(vertex)
-                mst.add_edge(vertex, neighbor, weight, symmetric)
-            else:
-                vertices_to_add.append(vertex)
+
+        # Edges leaving the tree, sorted by weight, then by a random number to break ties (and a counter, as vertices may not be comparable)
+        candidates = []
+        counter = 0
+        for other_end, edge in incident[vertex]:
+            heapq.heappush(candidates, (self.get_weight(*edge), rng.random(), counter, other_end, edge))
+            counter += 1
+
+        # Add the lightest edge leaving the tree until all vertices are included
+        while mst.nb_vertices() < self.nb_vertices():
+
+            # If no edge leaves the tree, some vertices cannot be reached
+            if not candidates:
+                raise PyRatException("Graph is not connected")
+
+            # Add the new vertex and the edge leading to it
+            weight, _, _, vertex, edge = heapq.heappop(candidates)
+            if vertex in mst.get_vertices():
+                continue
+            mst.add_vertex(vertex)
+            symmetric = self.edge_is_symmetric(*edge) and self.get_weight(edge[1], edge[0]) == weight
+            mst.add_edge(edge[0], edge[1], weight, symmetric)
+
+            # The edges of the new vertex can now leave the tree
+            for other_end, next_edge in incident[vertex]:
+                if other_end not in mst.get_vertices():
+                    heapq.heappush(candidates, (self.get_weight(*next_edge), rng.random(), counter, other_end, next_edge))
+                    counter += 1
 
         # Return the minimum spanning tree
         return mst
@@ -499,6 +526,69 @@ class Graph ():
         # Get the number of vertices
         nb = len(self.__adjacency)
         return nb
+
+    ##################################################################################
+
+    def random_spanning_tree ( self,
+                               random_seed: int | None = None
+                             ) ->           "Graph":
+
+        """
+        Returns a random spanning tree of the graph, without considering the weights of the edges.
+        Vertices are taken in a random order, and each of them is attached to a random neighbor already in the tree.
+        It is used by ``RandomMaze`` to generate mazes, in which all edges have the same weight when the walls are placed.
+        In such a graph, any spanning tree is also a minimum spanning tree.
+        To obtain a spanning tree of minimal weight in a weighted graph, see ``minimum_spanning_tree``.
+
+        Args:
+            random_seed: Seed for the random number generator.
+
+        Returns:
+            Graph representing the random spanning tree.
+
+        Raises:
+            PyRatException: If the graph is empty or not connected.
+        """
+
+        # Check validity
+        if not (random_seed is None or isinstance(random_seed, int)):
+            raise PyRatException("Argument 'random_seed' must be an integer")
+        if not (random_seed is None or 0 <= random_seed < sys.maxsize):
+            raise PyRatException("Argument 'random_seed' must be non-negative")
+        if self.nb_vertices() == 0:
+            raise PyRatException("Graph is empty")
+        if not self.is_connected():
+            raise PyRatException("Graph is not connected")
+
+        # Initialize a random number generator
+        rng = random.Random(random_seed)
+
+        # Shuffle vertices
+        vertices_to_add = self.get_vertices()
+        rng.shuffle(vertices_to_add)
+
+        # Create the spanning tree, initialized with a random vertex
+        tree = Graph()
+        vertex = vertices_to_add.pop(0)
+        tree.add_vertex(vertex)
+
+        # Add vertices until all are included
+        while vertices_to_add:
+            vertex = vertices_to_add.pop(0)
+            neighbors = self.get_neighbors(vertex)
+            rng.shuffle(neighbors)
+            neighbors_in_tree = [neighbor for neighbor in neighbors if neighbor in tree.get_vertices()]
+            if neighbors_in_tree:
+                neighbor = neighbors_in_tree[0]
+                symmetric = self.edge_is_symmetric(vertex, neighbor)
+                weight = self.get_weight(neighbor, vertex)
+                tree.add_vertex(vertex)
+                tree.add_edge(vertex, neighbor, weight, symmetric)
+            else:
+                vertices_to_add.append(vertex)
+
+        # Return the random spanning tree
+        return tree
 
     ##################################################################################
 
