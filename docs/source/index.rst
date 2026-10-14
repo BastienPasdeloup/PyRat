@@ -17,7 +17,7 @@ PyRat Documentation
          <a class="pyrat-button pyrat-button-primary" href="install.html">Get started</a>
          <a class="pyrat-button" href="overview.html">Quick overview</a>
        </div>
-       <p class="pyrat-hero-command"><code>uvx --from pyrat-game pyrat-init</code><span>creates your workspace, with PyRat installed in it</span></p>
+       <p class="pyrat-hero-command"><code>uvx --python 3.13 --from pyrat-game pyrat-init</code><span>creates your workspace, with PyRat installed in it</span></p>
      </div>
    </div>
 
