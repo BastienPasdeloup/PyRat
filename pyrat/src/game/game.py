@@ -161,13 +161,13 @@ class Game ():
         """
         
         # Check validity
-        if not isinstance(random_seed, (int, type(None))):
+        if not (random_seed is None or (isinstance(random_seed, int) and not isinstance(random_seed, bool))):
             raise PyRatException(f"Argument 'random_seed' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED' is used), got {random_seed!r} of type {type(random_seed).__name__}")
-        if not isinstance(random_seed_maze, (int, type(None))):
+        if not (random_seed_maze is None or (isinstance(random_seed_maze, int) and not isinstance(random_seed_maze, bool))):
             raise PyRatException(f"Argument 'random_seed_maze' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED_MAZE' is used), got {random_seed_maze!r} of type {type(random_seed_maze).__name__}")
-        if not isinstance(random_seed_cheese, (int, type(None))):
+        if not (random_seed_cheese is None or (isinstance(random_seed_cheese, int) and not isinstance(random_seed_cheese, bool))):
             raise PyRatException(f"Argument 'random_seed_cheese' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED_CHEESE' is used), got {random_seed_cheese!r} of type {type(random_seed_cheese).__name__}")
-        if not isinstance(random_seed_players, (int, type(None))):
+        if not (random_seed_players is None or (isinstance(random_seed_players, int) and not isinstance(random_seed_players, bool))):
             raise PyRatException(f"Argument 'random_seed_players' must be an integer or None (if so, default value 'Game.DEFAULT_RANDOM_SEED_PLAYERS' is used), got {random_seed_players!r} of type {type(random_seed_players).__name__}")
         if not (random_seed is None or (random_seed is not None and 0 <= random_seed < sys.maxsize)):
             raise PyRatException(f"Argument 'random_seed' should be a non-negative integer smaller than sys.maxsize ({sys.maxsize}), got {random_seed!r}")
@@ -185,10 +185,14 @@ class Game ():
             raise PyRatException(f"Argument 'turn_time' must be a real number of type float or None (if so, default value 'Game.DEFAULT_TURN_TIME' is used), got {turn_time!r} of type {type(turn_time).__name__}")
         if not (turn_time is None or turn_time >= 0):
             raise PyRatException(f"Argument 'turn_time' should be non-negative, got {turn_time!r}")
+        if not (turn_time is None or math.isfinite(turn_time)):
+            raise PyRatException(f"Argument 'turn_time' should be a finite number of seconds, got {turn_time!r}")
         if not isinstance(preprocessing_time, (float, type(None))):
             raise PyRatException(f"Argument 'preprocessing_time' must be a real number of type float or None (if so, default value 'Game.DEFAULT_PREPROCESSING_TIME' is used), got {preprocessing_time!r} of type {type(preprocessing_time).__name__}")
         if not (preprocessing_time is None or preprocessing_time >= 0):
             raise PyRatException(f"Argument 'preprocessing_time' should be non-negative, got {preprocessing_time!r}")
+        if not (preprocessing_time is None or math.isfinite(preprocessing_time)):
+            raise PyRatException(f"Argument 'preprocessing_time' should be a finite number of seconds, got {preprocessing_time!r}")
         if not isinstance(game_mode, (GameMode, type(None))):
             raise PyRatException(f"Argument 'game_mode' must be of type 'pyrat.GameMode' or None (if so, default value 'Game.DEFAULT_GAME_MODE_SINGLE_TEAM' or 'Game.DEFAULT_GAME_MODE_MULTI_TEAM' is used), got {game_mode!r} of type {type(game_mode).__name__}")
         if not isinstance(continue_on_error, (bool, type(None))):
@@ -207,12 +211,28 @@ class Game ():
             raise PyRatException(f"Parameter 'clear_shell_each_turn' should be set only when rendering in shell mode (RenderMode.ASCII or RenderMode.ANSI), got render_mode={render_mode!r} (None means the default 'Game.DEFAULT_RENDER_MODE')")
         if (render_mode == RenderMode.NO_RENDERING and rendering_speed is not None):
             raise PyRatException(f"Parameter 'rendering_speed' should be set only when rendering in GUI or shell mode, got render_mode={render_mode!r}")
+        if not (maze_width is None or (isinstance(maze_width, int) and not isinstance(maze_width, bool))):
+            raise PyRatException(f"Argument 'maze_width' must be an integer or None (if so, default value 'Game.DEFAULT_MAZE_WIDTH' is used), got {maze_width!r} of type {type(maze_width).__name__}")
+        if not (maze_height is None or (isinstance(maze_height, int) and not isinstance(maze_height, bool))):
+            raise PyRatException(f"Argument 'maze_height' must be an integer or None (if so, default value 'Game.DEFAULT_MAZE_HEIGHT' is used), got {maze_height!r} of type {type(maze_height).__name__}")
+        if not (fixed_maze is None or not isinstance(fixed_maze, Maze) or fixed_maze.nb_vertices() > 1):
+            raise PyRatException(f"Argument 'fixed_maze' must have at least two cells, got a maze with {fixed_maze.nb_vertices()} cell(s)")
+        if not isinstance(render_simplified, (bool, type(None))):
+            raise PyRatException(f"Argument 'render_simplified' must be a boolean or None (if so, default value 'Game.DEFAULT_RENDER_SIMPLIFIED' is used), got {render_simplified!r} of type {type(render_simplified).__name__}")
+        if not isinstance(rendering_speed, (float, type(None))):
+            raise PyRatException(f"Argument 'rendering_speed' must be a real number of type float or None (if so, default value 'Game.DEFAULT_RENDERING_SPEED' is used), got {rendering_speed!r} of type {type(rendering_speed).__name__}")
+        if not (trace_length is None or (isinstance(trace_length, int) and not isinstance(trace_length, bool))):
+            raise PyRatException(f"Argument 'trace_length' must be an integer or None (if so, default value 'Game.DEFAULT_TRACE_LENGTH' is used), got {trace_length!r} of type {type(trace_length).__name__}")
+        if not isinstance(fullscreen, (bool, type(None))):
+            raise PyRatException(f"Argument 'fullscreen' must be a boolean or None (if so, default value 'Game.DEFAULT_FULLSCREEN' is used), got {fullscreen!r} of type {type(fullscreen).__name__}")
         if not isinstance(random_maze_algorithm, (RandomMazeAlgorithm, type(None))):
             raise PyRatException(f"Argument 'random_maze_algorithm' must be of type 'pyrat.RandomMazeAlgorithm' or None (if so, default value 'Game.DEFAULT_RANDOM_MAZE_ALGORITHM' is used), got {random_maze_algorithm!r} of type {type(random_maze_algorithm).__name__}")
         if not isinstance(save_game, (bool, type(None))):
             raise PyRatException(f"Argument 'save_game' must be a boolean or None (if so, default value 'Game.DEFAULT_SAVE_GAME' is used), got {save_game!r} of type {type(save_game).__name__}")
         if not isinstance(save_path, (str, type(None))):
             raise PyRatException(f"Argument 'save_path' must be a string or None (if so, default value 'Game.DEFAULT_SAVE_PATH' is used), got {save_path!r} of type {type(save_path).__name__}")
+        if not (save_path is None or not os.path.exists(save_path) or os.path.isdir(save_path)):
+            raise PyRatException(f"Argument 'save_path' must be a directory (created if needed), got {save_path!r}, which is an existing file")
 
         # Store given parameters or default values
         self.__random_seed = random_seed if random_seed is not None else Game.DEFAULT_RANDOM_SEED
@@ -339,7 +359,7 @@ class Game ():
             raise PyRatException(f"Argument 'player' must be of type 'pyrat.Player', got an object of type {type(player).__name__}")
         if not isinstance(team, str):
             raise PyRatException(f"Argument 'team' must be a string, got {team!r} of type {type(team).__name__}")
-        if not isinstance(location, (StartingLocation, int)):
+        if not (isinstance(location, (StartingLocation, int)) and not isinstance(location, bool)):
             raise PyRatException(f"Argument 'location' must be of type 'pyrat.StartingLocation' or an integer, corresponding to the index of the cell where the player should start, got {location!r} of type {type(location).__name__}")
         if not (location in list(StartingLocation) or (isinstance(location, int) and self.__maze.i_exists(location))):
             raise PyRatException(f"Argument 'location' must be a valid index of the maze or a value of the 'pyrat.StartingLocation' enumeration, got {location!r} for player {player.get_name()!r}, which is not a cell of the maze")
@@ -824,8 +844,10 @@ class Game ():
             # Check validity
             if not isinstance(self.__fixed_cheese, list):
                 raise PyRatException(f"Attribute '__fixed_cheese' (argument 'fixed_cheese' of the constructor) must be a list, got an object of type {type(self.__fixed_cheese).__name__}")
-            if not all([isinstance(cell, int) for cell in self.__fixed_cheese]):
-                raise PyRatException(f"All elements of '__fixed_cheese' (argument 'fixed_cheese' of the constructor) must be integers, got element {next(cell for cell in self.__fixed_cheese if not isinstance(cell, int))!r:.100} of type {type(next(cell for cell in self.__fixed_cheese if not isinstance(cell, int))).__name__}")
+            if not all([isinstance(cell, int) and not isinstance(cell, bool) for cell in self.__fixed_cheese]):
+                raise PyRatException(f"All elements of '__fixed_cheese' (argument 'fixed_cheese' of the constructor) must be integers, got element {next(cell for cell in self.__fixed_cheese if not (isinstance(cell, int) and not isinstance(cell, bool)))!r:.100} of type {type(next(cell for cell in self.__fixed_cheese if not (isinstance(cell, int) and not isinstance(cell, bool)))).__name__}")
+            if not (len(self.__fixed_cheese) > 0):
+                raise PyRatException("Attribute '__fixed_cheese' (argument 'fixed_cheese' of the constructor) must contain at least one cell, got an empty list")
             if len(set(self.__fixed_cheese)) != len(self.__fixed_cheese):
                 raise PyRatException(f"All elements of '__fixed_cheese' (argument 'fixed_cheese' of the constructor) must be unique, got duplicated cells {sorted(set(cell for cell in self.__fixed_cheese if self.__fixed_cheese.count(cell) > 1))!r}")
             if not (len(available_cells) >= len(self.__fixed_cheese)):
@@ -842,7 +864,7 @@ class Game ():
         else:
             
             # Check validity
-            if not isinstance(self.__nb_cheese, int):
+            if not (isinstance(self.__nb_cheese, int) and not isinstance(self.__nb_cheese, bool)):
                 raise PyRatException(f"Attribute '__nb_cheese' (argument 'nb_cheese' of the constructor) must be an integer, got {self.__nb_cheese!r} of type {type(self.__nb_cheese).__name__}")
             if not (self.__nb_cheese > 0):
                 raise PyRatException(f"Attribute '__nb_cheese' (argument 'nb_cheese' of the constructor) must be positive, got {self.__nb_cheese!r}")

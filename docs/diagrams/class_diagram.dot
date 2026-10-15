@@ -149,6 +149,7 @@ digraph PyRat {
                 </TABLE></TD></TR>
                 <TR><TD ALIGN="LEFT" CELLPADDING="4"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="1">
                     <TR><TD ALIGN="LEFT" HREF="GameState#get_players">+ get_players() : list[str]</TD></TR>
+                    <TR><TD ALIGN="LEFT" HREF="GameState#get_opponents">+ get_opponents(name) : list[str]</TD></TR>
                     <TR><TD ALIGN="LEFT" HREF="GameState#get_score_per_team">+ get_score_per_team() : dict[str, float]</TD></TR>
                     <TR><TD ALIGN="LEFT" HREF="GameState#is_in_mud">+ is_in_mud(name) : bool</TD></TR>
                     <TR><TD ALIGN="LEFT" HREF="GameState#game_over">+ game_over() : bool</TD></TR>

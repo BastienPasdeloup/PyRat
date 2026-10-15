@@ -63,8 +63,8 @@ class FixedPlayer (Player):
         # Check validity
         if not isinstance(actions, list):
             raise PyRatException(f"Argument 'actions' must be a list, got an object of type {type(actions).__name__}")
-        if not all(action in Action for action in actions):
-            raise PyRatException(f"All elements of 'actions' must be of type 'pyrat.Action', got element {next(action for action in actions if action not in Action)!r}")
+        if not all(isinstance(action, Action) for action in actions):
+            raise PyRatException(f"All elements of 'actions' must be of type 'pyrat.Action', got element {next(action for action in actions if not isinstance(action, Action))!r}")
 
         # Private attributes
         self.__actions = actions
@@ -89,7 +89,14 @@ class FixedPlayer (Player):
 
         Returns:
             One of the possible actions.
+
+        Raises:
+            PyRatException: If all the actions given at initialization have already been performed.
         """
+
+        # Check validity
+        if not (len(self.__actions) > 0):
+            raise PyRatException(f"Player {self.get_name()!r} has no action left: all the actions given at initialization have already been performed")
 
         # Get next action
         action = self.__actions.pop(0)

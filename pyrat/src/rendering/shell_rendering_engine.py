@@ -110,6 +110,10 @@ class ShellRenderingEngine (RenderingEngine):
             raise PyRatException(f"Argument 'maze' must be of type 'pyrat.Maze', got an object of type {type(maze).__name__}")
         if not isinstance(game_state, GameState):
             raise PyRatException(f"Argument 'game_state' must be of type 'pyrat.GameState', got an object of type {type(game_state).__name__}")
+        if not (len(players) > 0):
+            raise PyRatException("Argument 'players' must contain at least one player, got an empty list")
+        if not all(player.get_name() in game_state.player_locations for player in players):
+            raise PyRatException(f"All players must be in the game state, got player {next(player.get_name() for player in players if player.get_name() not in game_state.player_locations)!r}, which is not in 'game_state.player_locations' (players of the game state: {game_state.get_players()!r})")
 
         # Dimensions
         max_weight = max([maze.get_weight(*edge) for edge in maze.get_edges()])

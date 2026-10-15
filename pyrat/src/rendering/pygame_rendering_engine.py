@@ -121,7 +121,7 @@ class PygameRenderingEngine (RenderingEngine):
             game_state: State of the game.
 
         Raises:
-            PyRatException: If the window could not be opened.
+            PyRatException: If no player is given, if a player is not in the game state, or if the window could not be opened.
         """
 
         # Check validity
@@ -133,6 +133,10 @@ class PygameRenderingEngine (RenderingEngine):
             raise PyRatException(f"Argument 'maze' must be of type 'pyrat.Maze', got an object of type {type(maze).__name__}")
         if not isinstance(game_state, GameState):
             raise PyRatException(f"Argument 'game_state' must be of type 'pyrat.GameState', got an object of type {type(game_state).__name__}")
+        if not (len(players) > 0):
+            raise PyRatException("Argument 'players' must contain at least one player, got an empty list")
+        if not all(player.get_name() in game_state.player_locations for player in players):
+            raise PyRatException(f"All players must be in the game state, got player {next(player.get_name() for player in players if player.get_name() not in game_state.player_locations)!r}, which is not in 'game_state.player_locations' (players of the game state: {game_state.get_players()!r})")
 
         # Initialize the GUI in a different process at turn 0, and wait for the window to be ready
         # If the window cannot be opened, the process breaks the barrier instead of letting us wait forever

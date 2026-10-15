@@ -77,9 +77,15 @@ class RandomMaze (Maze):
             raise PyRatException(f"Argument 'wall_percentage' must be a real number of type float (e.g., 50.0 rather than 50), got {wall_percentage!r} of type {type(wall_percentage).__name__}")
         if not isinstance(mud_percentage, float):
             raise PyRatException(f"Argument 'mud_percentage' must be a real number of type float (e.g., 50.0 rather than 50), got {mud_percentage!r} of type {type(mud_percentage).__name__}")
+        if not (0.0 <= wall_percentage <= 100.0):
+            raise PyRatException(f"Argument 'wall_percentage' must be a percentage between 0.0 and 100.0, got {wall_percentage!r}")
+        if not (0.0 <= mud_percentage <= 100.0):
+            raise PyRatException(f"Argument 'mud_percentage' must be a percentage between 0.0 and 100.0, got {mud_percentage!r}")
         if not isinstance(mud_range, (type(None), tuple, list)):
             raise PyRatException(f"Argument 'mud_range' must be a tuple, a list, or None, got {mud_range!r} of type {type(mud_range).__name__}")
-        if not isinstance(random_seed, (int, type(None))):
+        if not (mud_range is None or len(mud_range) == 2):
+            raise PyRatException(f"Argument 'mud_range' must be a pair (min, max), got {mud_range!r} with {len(mud_range)} element(s)")
+        if not (random_seed is None or (isinstance(random_seed, int) and not isinstance(random_seed, bool))):
             raise PyRatException(f"Argument 'random_seed' must be an integer or None, got {random_seed!r} of type {type(random_seed).__name__}")
         if not (random_seed is None or 0 <= random_seed < sys.maxsize):
             raise PyRatException(f"Argument 'random_seed' must be a non-negative integer lower than sys.maxsize, or None, got {random_seed!r}")
@@ -89,10 +95,6 @@ class RandomMaze (Maze):
             raise PyRatException(f"Argument 'mud_range' must be a pair of integers, got {mud_range!r} (first element of type {type(mud_range[0]).__name__})")
         if not (mud_range is None or isinstance(mud_range[1], int)):
             raise PyRatException(f"Argument 'mud_range' must be a pair of integers, got {mud_range!r} (second element of type {type(mud_range[1]).__name__})")
-        if not (0.0 <= wall_percentage <= 100.0):
-            raise PyRatException(f"Argument 'wall_percentage' must be a percentage between 0.0 and 100.0, got {wall_percentage!r}")
-        if not (0.0 <= mud_percentage <= 100.0):
-            raise PyRatException(f"Argument 'mud_percentage' must be a percentage between 0.0 and 100.0, got {mud_percentage!r}")
         if not (mud_range is None or 1 < mud_range[0] <= mud_range[1]):
             raise PyRatException(f"Argument 'mud_range' must be a valid interval (min, max) with 2 <= min <= max, got {mud_range!r}")
 

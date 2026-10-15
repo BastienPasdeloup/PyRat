@@ -164,6 +164,37 @@ class GameState ():
 
     ##################################################################################
 
+    def get_opponents ( self,
+                        name: str
+                      ) ->    list[str]:
+
+        """
+        Returns the names of the opponents of a player, i.e., the players that are not in its team.
+        Players added to the game without a team are all in the default team (named ``""``), so they are not opponents of each other.
+
+        Args:
+            name: Name of the player.
+
+        Returns:
+            List of the names of the players that are not in the team of the given player.
+
+        Raises:
+            PyRatException: If the name is not a string, or not the name of a player in the game.
+        """
+
+        # Check validity
+        if not isinstance(name, str):
+            raise PyRatException(f"Argument 'name' must be a string, got {name!r} of type {type(name).__name__}")
+        if name not in self.get_players():
+            raise PyRatException(f"Player {name!r} is not in the game, expected one of {self.get_players()!r}")
+
+        # Players that are not in the team of the given player
+        my_team = next(members for members in self.teams.values() if name in members)
+        opponents = [player for player in self.get_players() if player not in my_team]
+        return opponents
+
+    ##################################################################################
+
     def get_score_per_team (self) -> dict[str, float]:
         
         """

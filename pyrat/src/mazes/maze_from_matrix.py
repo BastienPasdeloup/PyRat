@@ -72,12 +72,16 @@ class MazeFromMatrix (Maze):
             raise PyRatException(f"Argument 'description' must be a square matrix, got a matrix of shape {tuple(description.shape)}")
         if not (description.shape[0] > 1):
             raise PyRatException(f"The maze must have at least two vertices, got a matrix of shape {tuple(description.shape)}")
-        if not all(isinstance(weight, int) for weight in description.flatten().tolist()):
+        if str(description.dtype) == "object":
+            raise PyRatException("Argument 'description' must be a matrix of integers, got a matrix of dtype object (convert it first, for instance with description.astype(int))")
+        if not all(isinstance(weight, int) and not isinstance(weight, bool) for weight in description.flatten().tolist()):
             raise PyRatException(f"All entries of 'description' must be integers, got a matrix of dtype {description.dtype}")
         if not (description == description.T).all():
             raise PyRatException(f"Argument 'description' must be a symmetric matrix (description[i, j] == description[j, i]), got a non-symmetric matrix of shape {tuple(description.shape)}")
         if not (description >= 0).all():
             raise PyRatException(f"All entries of 'description' must be non-negative, got a matrix of shape {tuple(description.shape)} with negative entries")
+        if not (description.diagonal() == 0).all():
+            raise PyRatException(f"All diagonal entries of 'description' must be 0, as a cell cannot be its own neighbor, got a matrix of shape {tuple(description.shape)} with non-zero diagonal entries")
         if not (description > 0).any():
             raise PyRatException(f"The maze must have at least one edge, got a matrix of shape {tuple(description.shape)} with no positive entry")
 

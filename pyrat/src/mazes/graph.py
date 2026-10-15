@@ -20,6 +20,7 @@ These methods allow to add and remove vertices and edges, check for the existenc
 # External imports
 from collections.abc import Hashable
 import heapq
+import math
 import random
 import sys
 
@@ -119,10 +120,16 @@ class Graph ():
         # Check validity
         if not isinstance(vertex_1, Hashable):
             raise PyRatException(f"Argument 'vertex_1' must be hashable, got a value of type {type(vertex_1).__name__}")
+        if (isinstance(vertex_1, tuple) and not _is_hashable(vertex_1)):
+            raise PyRatException(f"Argument 'vertex_1' must be hashable, got {vertex_1!r}, a tuple containing an unhashable element")
         if not isinstance(vertex_2, Hashable):
             raise PyRatException(f"Argument 'vertex_2' must be hashable, got a value of type {type(vertex_2).__name__}")
-        if not isinstance(weight, (float, int)):
+        if (isinstance(vertex_2, tuple) and not _is_hashable(vertex_2)):
+            raise PyRatException(f"Argument 'vertex_2' must be hashable, got {vertex_2!r}, a tuple containing an unhashable element")
+        if not (isinstance(weight, (float, int)) and not isinstance(weight, bool)):
             raise PyRatException(f"Argument 'weight' must be a real number, got {weight!r} of type {type(weight).__name__}")
+        if (isinstance(weight, float) and math.isnan(weight)):
+            raise PyRatException(f"Argument 'weight' must be a real number, got {weight!r}")
         if not isinstance(symmetric, bool):
             raise PyRatException(f"Argument 'symmetric' must be a boolean, got {symmetric!r} of type {type(symmetric).__name__}")
         if vertex_1 not in self.__adjacency:
@@ -155,6 +162,8 @@ class Graph ():
         # Check validity
         if not isinstance(vertex, Hashable):
             raise PyRatException(f"Argument 'vertex' must be hashable, got a value of type {type(vertex).__name__}")
+        if (isinstance(vertex, tuple) and not _is_hashable(vertex)):
+            raise PyRatException(f"Argument 'vertex' must be hashable, got {vertex!r}, a tuple containing an unhashable element")
         if vertex in self.__adjacency:
             raise PyRatException(f"Cannot add vertex {vertex!r}: it is already in the graph")
 
@@ -191,6 +200,8 @@ class Graph ():
         # Check validity
         if "numpy" not in globals():
             raise PyRatException("Cannot convert the graph to a numpy.ndarray: numpy is not installed (install it with 'pip install numpy')")
+        if not all(not isinstance(weight, float) or weight.is_integer() for neighbors in self.__adjacency.values() for weight in neighbors.values()):
+            raise PyRatException(f"Cannot convert the graph to a numpy.ndarray: the weight of the edge {next(f'from {vertex_1!r} to {vertex_2!r} is {weight!r}' for vertex_1, neighbors in self.__adjacency.items() for vertex_2, weight in neighbors.items() if isinstance(weight, float) and not weight.is_integer())}, which cannot be stored in a matrix of integers")
 
         # Create the adjacency matrix
         adjacency_matrix = numpy.zeros((self.nb_vertices(), self.nb_vertices()), dtype=int)
@@ -215,6 +226,8 @@ class Graph ():
         # Check validity
         if "torch" not in globals():
             raise PyRatException("Cannot convert the graph to a torch.Tensor: torch is not installed (install it with 'pip install torch')")
+        if not all(not isinstance(weight, float) or weight.is_integer() for neighbors in self.__adjacency.values() for weight in neighbors.values()):
+            raise PyRatException(f"Cannot convert the graph to a torch.Tensor: the weight of the edge {next(f'from {vertex_1!r} to {vertex_2!r} is {weight!r}' for vertex_1, neighbors in self.__adjacency.items() for vertex_2, weight in neighbors.items() if isinstance(weight, float) and not weight.is_integer())}, which cannot be stored in a matrix of integers")
 
         # Create the adjacency matrix
         adjacency_matrix = torch.zeros((self.nb_vertices(), self.nb_vertices()), dtype=int)
@@ -245,8 +258,12 @@ class Graph ():
         # Check validity
         if not isinstance(vertex_1, Hashable):
             raise PyRatException(f"Argument 'vertex_1' must be hashable, got a value of type {type(vertex_1).__name__}")
+        if (isinstance(vertex_1, tuple) and not _is_hashable(vertex_1)):
+            raise PyRatException(f"Argument 'vertex_1' must be hashable, got {vertex_1!r}, a tuple containing an unhashable element")
         if not isinstance(vertex_2, Hashable):
             raise PyRatException(f"Argument 'vertex_2' must be hashable, got a value of type {type(vertex_2).__name__}")
+        if (isinstance(vertex_2, tuple) and not _is_hashable(vertex_2)):
+            raise PyRatException(f"Argument 'vertex_2' must be hashable, got {vertex_2!r}, a tuple containing an unhashable element")
         if vertex_1 not in self.__adjacency:
             raise PyRatException(f"Cannot check whether the edge from {vertex_1!r} to {vertex_2!r} is symmetric: vertex {vertex_1!r} is not in the graph")
         if vertex_2 not in self.__adjacency:
@@ -297,6 +314,8 @@ class Graph ():
         # Check validity
         if not isinstance(vertex, Hashable):
             raise PyRatException(f"Argument 'vertex' must be hashable, got a value of type {type(vertex).__name__}")
+        if (isinstance(vertex, tuple) and not _is_hashable(vertex)):
+            raise PyRatException(f"Argument 'vertex' must be hashable, got {vertex!r}, a tuple containing an unhashable element")
         if vertex not in self.__adjacency:
             raise PyRatException(f"Cannot get the neighbors of vertex {vertex!r}: it is not in the graph")
 
@@ -340,8 +359,12 @@ class Graph ():
         # Check validity
         if not isinstance(vertex_1, Hashable):
             raise PyRatException(f"Argument 'vertex_1' must be hashable, got a value of type {type(vertex_1).__name__}")
+        if (isinstance(vertex_1, tuple) and not _is_hashable(vertex_1)):
+            raise PyRatException(f"Argument 'vertex_1' must be hashable, got {vertex_1!r}, a tuple containing an unhashable element")
         if not isinstance(vertex_2, Hashable):
             raise PyRatException(f"Argument 'vertex_2' must be hashable, got a value of type {type(vertex_2).__name__}")
+        if (isinstance(vertex_2, tuple) and not _is_hashable(vertex_2)):
+            raise PyRatException(f"Argument 'vertex_2' must be hashable, got {vertex_2!r}, a tuple containing an unhashable element")
         if vertex_1 not in self.__adjacency:
             raise PyRatException(f"Cannot get the weight of the edge from {vertex_1!r} to {vertex_2!r}: vertex {vertex_1!r} is not in the graph")
         if vertex_2 not in self.__adjacency:
@@ -374,8 +397,12 @@ class Graph ():
         # Check validity
         if not isinstance(vertex_1, Hashable):
             raise PyRatException(f"Argument 'vertex_1' must be hashable, got a value of type {type(vertex_1).__name__}")
+        if (isinstance(vertex_1, tuple) and not _is_hashable(vertex_1)):
+            raise PyRatException(f"Argument 'vertex_1' must be hashable, got {vertex_1!r}, a tuple containing an unhashable element")
         if not isinstance(vertex_2, Hashable):
             raise PyRatException(f"Argument 'vertex_2' must be hashable, got a value of type {type(vertex_2).__name__}")
+        if (isinstance(vertex_2, tuple) and not _is_hashable(vertex_2)):
+            raise PyRatException(f"Argument 'vertex_2' must be hashable, got {vertex_2!r}, a tuple containing an unhashable element")
         if vertex_1 not in self.__adjacency:
             raise PyRatException(f"Cannot check for an edge from {vertex_1!r} to {vertex_2!r}: vertex {vertex_1!r} is not in the graph")
         if vertex_2 not in self.__adjacency:
@@ -391,6 +418,8 @@ class Graph ():
 
         """
         Checks whether the graph is connected using a depth-first search.
+        Edge directions are ignored: the graph is connected if all vertices are linked when edges are followed in both directions (weak connectivity).
+        This is the notion used by ``minimum_spanning_tree`` and ``random_spanning_tree``, and it is the usual connectivity for undirected graphs such as mazes.
 
         Returns:
             ``True`` if the graph is connected, ``False`` otherwise.
@@ -400,16 +429,23 @@ class Graph ():
         if not (self.nb_vertices() > 0):
             raise PyRatException("Cannot check whether the graph is connected: the graph has no vertex")
 
-        # Create a list of visited vertices
+        # Neighbors of each vertex when edge directions are ignored
         vertices = list(self.get_vertices())
-        visited = {vertex: False for vertex in self.__adjacency}
+        undirected_neighbors = {vertex: set() for vertex in vertices}
+        for vertex in vertices:
+            for neighbor in self.get_neighbors(vertex):
+                undirected_neighbors[vertex].add(neighbor)
+                undirected_neighbors[neighbor].add(vertex)
+
+        # Create a list of visited vertices
+        visited = {vertex: False for vertex in vertices}
         visited[vertices[0]] = True
         stack = [vertices[0]]
                 
         # Depth-first search
         while stack:
             vertex = stack.pop()
-            for neighbor in self.get_neighbors(vertex):
+            for neighbor in undirected_neighbors[vertex]:
                 if not visited[neighbor]:
                     visited[neighbor] = True
                     stack.append(neighbor)
@@ -547,7 +583,7 @@ class Graph ():
             Graph representing the random spanning tree.
 
         Raises:
-            PyRatException: If the graph is empty or not connected.
+            PyRatException: If the graph is empty, not undirected (all edges symmetric), or not connected.
         """
 
         # Check validity
@@ -557,6 +593,9 @@ class Graph ():
             raise PyRatException(f"Argument 'random_seed' must be non-negative and lower than sys.maxsize, got {random_seed!r}")
         if self.nb_vertices() == 0:
             raise PyRatException("Cannot compute a random spanning tree: the graph has no vertex")
+        directed_edge = next(((vertex, neighbor) for vertex in self.get_vertices() for neighbor in self.get_neighbors(vertex) if not self.edge_is_symmetric(vertex, neighbor)), None)
+        if directed_edge is not None:
+            raise PyRatException(f"Cannot compute a random spanning tree: the graph must be undirected, got edge {directed_edge[0]!r} -> {directed_edge[1]!r} without the reverse edge (use minimum_spanning_tree for directed graphs)")
         if not self.is_connected():
             raise PyRatException("Cannot compute a random spanning tree: the graph is not connected (see is_connected)")
 
@@ -610,8 +649,12 @@ class Graph ():
         # Check validity
         if not isinstance(vertex_1, Hashable):
             raise PyRatException(f"Argument 'vertex_1' must be hashable, got a value of type {type(vertex_1).__name__}")
+        if (isinstance(vertex_1, tuple) and not _is_hashable(vertex_1)):
+            raise PyRatException(f"Argument 'vertex_1' must be hashable, got {vertex_1!r}, a tuple containing an unhashable element")
         if not isinstance(vertex_2, Hashable):
             raise PyRatException(f"Argument 'vertex_2' must be hashable, got a value of type {type(vertex_2).__name__}")
+        if (isinstance(vertex_2, tuple) and not _is_hashable(vertex_2)):
+            raise PyRatException(f"Argument 'vertex_2' must be hashable, got {vertex_2!r}, a tuple containing an unhashable element")
         if not isinstance(symmetric, bool):
             raise PyRatException(f"Argument 'symmetric' must be a boolean, got {symmetric!r} of type {type(symmetric).__name__}")
         if vertex_1 not in self.__adjacency:
@@ -645,6 +688,8 @@ class Graph ():
         # Check validity
         if not isinstance(vertex, Hashable):
             raise PyRatException(f"Argument 'vertex' must be hashable, got a value of type {type(vertex).__name__}")
+        if (isinstance(vertex, tuple) and not _is_hashable(vertex)):
+            raise PyRatException(f"Argument 'vertex' must be hashable, got {vertex!r}, a tuple containing an unhashable element")
         if vertex not in self.__adjacency:
             raise PyRatException(f"Cannot remove vertex {vertex!r}: it is not in the graph")
 
@@ -654,5 +699,30 @@ class Graph ():
                 del self.__adjacency[neighbor][vertex]
         del self.__adjacency[vertex]
         
+##########################################################################################
+#################################### PRIVATE FUNCTIONS ###################################
+##########################################################################################
+
+def _is_hashable ( value: object
+                 ) ->     bool:
+
+    """
+    Checks whether a value can be hashed, i.e., used as a key of a dictionary.
+    This is more precise than ``isinstance(value, Hashable)``, which accepts tuples containing unhashable elements, such as ``([1],)``.
+
+    Args:
+        value: The value to check.
+
+    Returns:
+        ``True`` if the value can be hashed, ``False`` otherwise.
+    """
+
+    # Try to hash the value
+    try:
+        hash(value)
+    except TypeError:
+        return False
+    return True
+
 ##########################################################################################
 ##########################################################################################

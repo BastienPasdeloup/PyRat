@@ -88,6 +88,8 @@ class Maze (Graph, abc.ABC):
             raise PyRatException(f"Argument 'width' must be positive, got {width!r}")
         if not (height is None or height > 0):
             raise PyRatException(f"Argument 'height' must be positive, got {height!r}")
+        if (width is None) != (height is None):
+            raise PyRatException(f"Arguments 'width' and 'height' must be both given or both None, got width={width!r} and height={height!r}")
         if not ((width is None and height is None) or width * height >= 2):
             raise PyRatException(f"The maze must have at least 2 cells, got width={width!r} and height={height!r}")
 
@@ -146,18 +148,22 @@ class Maze (Graph, abc.ABC):
         """
         
         # Check validity
-        if not isinstance(vertex_1, int):
+        if not (isinstance(vertex_1, int) and not isinstance(vertex_1, bool)):
             raise PyRatException(f"Argument 'vertex_1' must be an integer, got {vertex_1!r} of type {type(vertex_1).__name__}")
-        if not isinstance(vertex_2, int):
+        if not (isinstance(vertex_2, int) and not isinstance(vertex_2, bool)):
             raise PyRatException(f"Argument 'vertex_2' must be an integer, got {vertex_2!r} of type {type(vertex_2).__name__}")
-        if not isinstance(weight, int):
+        if not (isinstance(weight, int) and not isinstance(weight, bool)):
             raise PyRatException(f"Argument 'weight' must be an integer, got {weight!r} of type {type(weight).__name__}")
+        if not (weight > 0):
+            raise PyRatException(f"Argument 'weight' must be positive, as it is the number of turns needed to go from a cell to the other, got {weight!r}")
         if not self.i_exists(vertex_1):
             raise PyRatException(f"Cannot add an edge between cells {vertex_1!r} and {vertex_2!r}: cell {vertex_1!r} is not in the maze")
         if not self.i_exists(vertex_2):
             raise PyRatException(f"Cannot add an edge between cells {vertex_1!r} and {vertex_2!r}: cell {vertex_2!r} is not in the maze")
         if self.coords_difference(vertex_1, vertex_2) not in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
             raise PyRatException(f"Cannot add an edge between cells {vertex_1!r} and {vertex_2!r}: they are not adjacent on the grid (an edge can only link a cell to its north, south, east or west neighbor)")
+        if (self.has_edge(vertex_2, vertex_1) and self.get_weight(vertex_2, vertex_1) != weight):
+            raise PyRatException(f"Cannot add an edge of weight {weight!r} between cells {vertex_1!r} and {vertex_2!r}: they are already linked by an edge of weight {self.get_weight(vertex_2, vertex_1)!r} (remove it first with remove_edge to change its weight)")
 
         # If the symmetric edge already exists, we do not add it
         if self.has_edge(vertex_2, vertex_1):
@@ -183,8 +189,12 @@ class Maze (Graph, abc.ABC):
         """
         
         # Check validity
-        if not isinstance(vertex, int):
+        if not (isinstance(vertex, int) and not isinstance(vertex, bool)):
             raise PyRatException(f"Argument 'vertex' must be an integer, got {vertex!r} of type {type(vertex).__name__}")
+        if not (vertex >= 0):
+            raise PyRatException(f"Argument 'vertex' must be non-negative, as cells are numbered from 0, got {vertex!r}")
+        if not (self._width is None or self._height is None or vertex < self._width * self._height):
+            raise PyRatException(f"Cannot add cell {vertex!r}: it is outside the grid of the maze, of width {self._width} and height {self._height}, whose cells are numbered from 0 to {self._width * self._height - 1}")
 
         # Add vertex to the graph using the parent's method
         super().add_vertex(vertex)
@@ -258,9 +268,9 @@ class Maze (Graph, abc.ABC):
         """
         
         # Check validity
-        if not isinstance(vertex_1, int):
+        if not (isinstance(vertex_1, int) and not isinstance(vertex_1, bool)):
             raise PyRatException(f"Argument 'vertex_1' must be an integer, got {vertex_1!r} of type {type(vertex_1).__name__}")
-        if not isinstance(vertex_2, int):
+        if not (isinstance(vertex_2, int) and not isinstance(vertex_2, bool)):
             raise PyRatException(f"Argument 'vertex_2' must be an integer, got {vertex_2!r} of type {type(vertex_2).__name__}")
         if not self.i_exists(vertex_1):
             raise PyRatException(f"Cannot compute the coordinates difference between cells {vertex_1!r} and {vertex_2!r}: cell {vertex_1!r} is not in the maze")
@@ -331,7 +341,7 @@ class Maze (Graph, abc.ABC):
         """
         
         # Check validity
-        if not isinstance(index, int):
+        if not (isinstance(index, int) and not isinstance(index, bool)):
             raise PyRatException(f"Argument 'index' must be an integer, got {index!r} of type {type(index).__name__}")
 
         # Check if the cell exists
@@ -356,7 +366,7 @@ class Maze (Graph, abc.ABC):
         """
         
         # Check validity
-        if not isinstance(index, int):
+        if not (isinstance(index, int) and not isinstance(index, bool)):
             raise PyRatException(f"Argument 'index' must be an integer, got {index!r} of type {type(index).__name__}")
 
         # Conversion
@@ -383,9 +393,9 @@ class Maze (Graph, abc.ABC):
         """
 
         # Check validity
-        if not isinstance(source, int):
+        if not (isinstance(source, int) and not isinstance(source, bool)):
             raise PyRatException(f"Argument 'source' must be an integer, got {source!r} of type {type(source).__name__}")
-        if not isinstance(target, int):
+        if not (isinstance(target, int) and not isinstance(target, bool)):
             raise PyRatException(f"Argument 'target' must be an integer, got {target!r} of type {type(target).__name__}")
         if not self.i_exists(source):
             raise PyRatException(f"Cannot determine the action to go from cell {source!r} to cell {target!r}: source cell {source!r} is not in the maze")
@@ -429,8 +439,8 @@ class Maze (Graph, abc.ABC):
         # Check validity
         if not isinstance(locations, list):
             raise PyRatException(f"Argument 'locations' must be a list, got a value of type {type(locations).__name__}")
-        if not all(isinstance(location, int) for location in locations):
-            raise PyRatException(f"All elements of 'locations' must be integers, got {next(f'{location!r} of type {type(location).__name__} at index {i}' for i, location in enumerate(locations) if not isinstance(location, int))}")
+        if not all(isinstance(location, int) and not isinstance(location, bool) for location in locations):
+            raise PyRatException(f"All elements of 'locations' must be integers, got {next(f'{location!r} of type {type(location).__name__} at index {i}' for i, location in enumerate(locations) if not (isinstance(location, int) and not isinstance(location, bool)))}")
         if not all(self.i_exists(location) for location in locations):
             raise PyRatException(f"Cannot convert the locations to actions: location {next(f'{location!r} at index {i}' for i, location in enumerate(locations) if not self.i_exists(location))} is not a cell of the maze")
         if None in [self.locations_to_action(locations[i], locations[i+1]) for i in range(len(locations) - 1)]:
@@ -459,9 +469,9 @@ class Maze (Graph, abc.ABC):
         """
         
         # Check validity
-        if not isinstance(row, int):
+        if not (isinstance(row, int) and not isinstance(row, bool)):
             raise PyRatException(f"Argument 'row' must be an integer, got {row!r} of type {type(row).__name__}")
-        if not isinstance(col, int):
+        if not (isinstance(col, int) and not isinstance(col, bool)):
             raise PyRatException(f"Argument 'col' must be an integer, got {col!r} of type {type(col).__name__}")
 
         # Check if the cell exists
@@ -488,9 +498,9 @@ class Maze (Graph, abc.ABC):
         """
         
         # Check validity
-        if not isinstance(row, int):
+        if not (isinstance(row, int) and not isinstance(row, bool)):
             raise PyRatException(f"Argument 'row' must be an integer, got {row!r} of type {type(row).__name__}")
-        if not isinstance(col, int):
+        if not (isinstance(col, int) and not isinstance(col, bool)):
             raise PyRatException(f"Argument 'col' must be an integer, got {col!r} of type {type(col).__name__}")
 
         # Conversion

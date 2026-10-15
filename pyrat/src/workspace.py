@@ -108,7 +108,7 @@ def init_workspace ( target_directory:  str | None = None,
         pyrat_requirement: The requirement to add to the workspace to make the PyRat library available.
 
     Raises:
-        PyRatException: If uv cannot be found, if the target directory already contains a project, or if uv fails to prepare the workspace.
+        PyRatException: If uv cannot be found, if the target directory already contains a project or is a file, or if uv fails to prepare the workspace.
     """
 
     # Check validity
@@ -126,6 +126,13 @@ def init_workspace ( target_directory:  str | None = None,
     target_workspace = os.path.abspath(target_directory)
     if os.path.isfile(os.path.join(target_workspace, "pyproject.toml")):
         raise PyRatException(f"Directory {target_workspace} already contains a project -- Please run 'uv sync' from it to rebuild its virtual environment, or choose another directory to create a new workspace")
+
+    # Refuse a target that is a file, or that is inside a file, as no directory can be created there
+    existing_path = target_workspace
+    while not os.path.exists(existing_path):
+        existing_path = os.path.dirname(existing_path)
+    if not os.path.isdir(existing_path):
+        raise PyRatException(f"Cannot create a workspace in {target_workspace}: {existing_path} is a file, not a directory -- Please choose another directory")
 
     # Copy the programs to start with, which are all the workspace receives from us
     shutil.copytree(TEMPLATE_DIRECTORY, target_workspace, dirs_exist_ok=True, ignore=shutil.ignore_patterns("__pycache__"))
