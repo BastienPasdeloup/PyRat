@@ -57,7 +57,15 @@ class MazeFromDict (Maze):
             description: Fixed maze as a dictionary.
             *args:       Arguments to pass to the parent constructor.
             **kwargs:    Keyword arguments to pass to the parent constructor.
+
+        Raises:
+            PyRatException: If a width or a height is given, as they are inferred from the description.
         """
+
+        # The width and height are inferred from the description, so they must not be given
+        given_dimensions = [f"{key}={kwargs[key]!r}" for key in ("width", "height") if key in kwargs] + [f"{value!r} (positional)" for value in args[:2]]
+        if given_dimensions:
+            raise PyRatException(f"Arguments 'width' and 'height' must not be given to MazeFromDict, as they are inferred from 'description', got {', '.join(given_dimensions)}")
 
         # Inherit from parent class
         super().__init__(*args, **kwargs)
