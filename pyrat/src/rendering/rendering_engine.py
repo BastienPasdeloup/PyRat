@@ -54,11 +54,11 @@ class RenderingEngine ():
 
         # Check validity
         if not isinstance(render_simplified, bool):
-            raise PyRatException("Argument 'render_simplified' must be a boolean")
+            raise PyRatException(f"Argument 'render_simplified' must be a boolean, got {render_simplified!r} of type {type(render_simplified).__name__}")
         if not isinstance(rendering_speed, float):
-            raise PyRatException("Argument 'rendering_speed' must be a real number")
+            raise PyRatException(f"Argument 'rendering_speed' must be a real number, got {rendering_speed!r} of type {type(rendering_speed).__name__}")
         if not (rendering_speed > 0.0):
-            raise PyRatException("Argument 'rendering_speed' must be positive")
+            raise PyRatException(f"Argument 'rendering_speed' must be positive, got {rendering_speed!r}")
 
         # Protected attributes
         self._render_simplified = render_simplified
@@ -98,13 +98,13 @@ class RenderingEngine ():
 
         # Check validity
         if not isinstance(players, list):
-            raise PyRatException("Argument 'players' must be a list")
+            raise PyRatException(f"Argument 'players' must be a list, got an object of type {type(players).__name__}")
         if not all(isinstance(player, Player) for player in players):
-            raise PyRatException("All elements of 'players' must be of type 'pyrat.Player'")
+            raise PyRatException(f"All elements of 'players' must be of type 'pyrat.Player', got an element of type {type(next(player for player in players if not isinstance(player, Player))).__name__}")
         if not isinstance(maze, Maze):
-            raise PyRatException("Argument 'maze' must be of type 'pyrat.Maze'")
+            raise PyRatException(f"Argument 'maze' must be of type 'pyrat.Maze', got an object of type {type(maze).__name__}")
         if not isinstance(game_state, GameState):
-            raise PyRatException("Argument 'game_state' must be of type 'pyrat.GameState'")
+            raise PyRatException(f"Argument 'game_state' must be of type 'pyrat.GameState', got an object of type {type(game_state).__name__}")
 
         # Nothing to do
         pass

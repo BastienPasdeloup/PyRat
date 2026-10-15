@@ -62,9 +62,9 @@ class FixedPlayer (Player):
 
         # Check validity
         if not isinstance(actions, list):
-            raise PyRatException("Argument 'actions' must be a list")
+            raise PyRatException(f"Argument 'actions' must be a list, got an object of type {type(actions).__name__}")
         if not all(action in Action for action in actions):
-            raise PyRatException("All elements of 'actions' must be of type 'pyrat.Action'")
+            raise PyRatException(f"All elements of 'actions' must be of type 'pyrat.Action', got element {next(action for action in actions if action not in Action)!r}")
 
         # Private attributes
         self.__actions = actions

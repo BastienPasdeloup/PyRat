@@ -65,21 +65,21 @@ class MazeFromMatrix (Maze):
 
         # Check validity
         if str(type(description)) not in ["<class 'numpy.ndarray'>", "<class 'torch.Tensor'>"]:
-            raise PyRatException("Argument 'description' must be a numpy.ndarray or a torch.Tensor")
+            raise PyRatException(f"Argument 'description' must be a numpy.ndarray or a torch.Tensor, got a value of type {type(description).__name__}")
         if len(description.shape) != 2:
-            raise PyRatException("Argument 'description' must be a 2D matrix")
+            raise PyRatException(f"Argument 'description' must be a 2D matrix, got an array of shape {tuple(description.shape)}")
         if description.shape[0] != description.shape[1]:
-            raise PyRatException("Argument 'description' must be a square matrix")
+            raise PyRatException(f"Argument 'description' must be a square matrix, got a matrix of shape {tuple(description.shape)}")
         if not (description.shape[0] > 1):
-            raise PyRatException("The maze must have at least two vertices")
+            raise PyRatException(f"The maze must have at least two vertices, got a matrix of shape {tuple(description.shape)}")
         if not all(isinstance(weight, int) for weight in description.flatten().tolist()):
-            raise PyRatException("All entries of 'description' must be integers")
+            raise PyRatException(f"All entries of 'description' must be integers, got a matrix of dtype {description.dtype}")
         if not (description == description.T).all():
-            raise PyRatException("Argument 'description' must be a symmetric matrix")
+            raise PyRatException(f"Argument 'description' must be a symmetric matrix (description[i, j] == description[j, i]), got a non-symmetric matrix of shape {tuple(description.shape)}")
         if not (description >= 0).all():
-            raise PyRatException("All entries of 'description' must be non-negative")
+            raise PyRatException(f"All entries of 'description' must be non-negative, got a matrix of shape {tuple(description.shape)} with negative entries")
         if not (description > 0).any():
-            raise PyRatException("The maze must have at least one edge")
+            raise PyRatException(f"The maze must have at least one edge, got a matrix of shape {tuple(description.shape)} with no positive entry")
 
         # Private attributes
         self.__description = description

@@ -50,13 +50,13 @@ def animation_frames ( duration: float,
 
     # Check validity
     if not isinstance(duration, float):
-        raise PyRatException("Argument 'duration' must be a real number")
+        raise PyRatException(f"Argument 'duration' must be a real number, got {duration!r} of type {type(duration).__name__}")
     if not isinstance(fps, int):
-        raise PyRatException("Argument 'fps' must be an integer")
+        raise PyRatException(f"Argument 'fps' must be an integer, got {fps!r} of type {type(fps).__name__}")
     if not (duration >= 0.0):
-        raise PyRatException("Argument 'duration' must be non-negative")
+        raise PyRatException(f"Argument 'duration' must be non-negative, got {duration!r}")
     if not (fps > 0):
-        raise PyRatException("Argument 'fps' must be positive")
+        raise PyRatException(f"Argument 'fps' must be positive, got {fps!r}")
 
     # Drawing more images than the screen shows would only waste computation
     nb_frames = max(round(duration * fps), 1)

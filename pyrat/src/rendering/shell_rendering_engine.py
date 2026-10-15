@@ -71,9 +71,9 @@ class ShellRenderingEngine (RenderingEngine):
 
         # Check validity
         if not isinstance(use_colors, bool):
-            raise PyRatException("Argument 'use_colors' must be a boolean")
+            raise PyRatException(f"Argument 'use_colors' must be a boolean, got {use_colors!r} of type {type(use_colors).__name__}")
         if not isinstance(clear_each_turn, bool):
-            raise PyRatException("Argument 'clear_each_turn' must be a boolean")
+            raise PyRatException(f"Argument 'clear_each_turn' must be a boolean, got {clear_each_turn!r} of type {type(clear_each_turn).__name__}")
 
         # Private attributes
         self.__use_colors = use_colors
@@ -103,13 +103,13 @@ class ShellRenderingEngine (RenderingEngine):
 
         # Check validity
         if not isinstance(players, list):
-            raise PyRatException("Argument 'players' must be a list")
+            raise PyRatException(f"Argument 'players' must be a list, got an object of type {type(players).__name__}")
         if not all(isinstance(player, Player) for player in players):
-            raise PyRatException("All elements of 'players' must be of type 'pyrat.Player'")
+            raise PyRatException(f"All elements of 'players' must be of type 'pyrat.Player', got an element of type {type(next(player for player in players if not isinstance(player, Player))).__name__}")
         if not isinstance(maze, Maze):
-            raise PyRatException("Argument 'maze' must be of type 'pyrat.Maze'")
+            raise PyRatException(f"Argument 'maze' must be of type 'pyrat.Maze', got an object of type {type(maze).__name__}")
         if not isinstance(game_state, GameState):
-            raise PyRatException("Argument 'game_state' must be of type 'pyrat.GameState'")
+            raise PyRatException(f"Argument 'game_state' must be of type 'pyrat.GameState', got an object of type {type(game_state).__name__}")
 
         # Dimensions
         max_weight = max([maze.get_weight(*edge) for edge in maze.get_edges()])
@@ -263,7 +263,7 @@ class ShellRenderingEngine (RenderingEngine):
 
         # Check validity
         if not isinstance(text, str):
-            raise PyRatException("Argument 'text' must be a string")
+            raise PyRatException(f"Argument 'text' must be a string, got {text!r} of type {type(text).__name__}")
 
         # Return the length of the text without the colorization
         text_length = len(re.sub(r"[\u001B\u009B][\[\]()#;?]*((([a-zA-Z\d]*(;[-a-zA-Z\d\/#&.:=?%@~_]*)*)?\u0007)|((\d{1,4}(?:;\d{0,4})*)?[\dA-PR-TZcf-ntqry=><~]))", "", text))
@@ -292,11 +292,11 @@ class ShellRenderingEngine (RenderingEngine):
 
         # Check validity
         if not isinstance(text, str):
-            raise PyRatException("Argument 'text' must be a string")
+            raise PyRatException(f"Argument 'text' must be a string, got {text!r} of type {type(text).__name__}")
         if not isinstance(colorization, str):
-            raise PyRatException("Argument 'colorization' must be a string")
+            raise PyRatException(f"Argument 'colorization' must be a string, got {colorization!r} of type {type(colorization).__name__}")
         if not isinstance(alternate_text, (str, type(None))):
-            raise PyRatException("Argument 'alternate_text' must be a string or None")
+            raise PyRatException(f"Argument 'alternate_text' must be a string or None, got {alternate_text!r} of type {type(alternate_text).__name__}")
 
         # If we don't use colors, we return the correct text
         if not self.__use_colors:

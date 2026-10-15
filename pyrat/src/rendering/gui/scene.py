@@ -55,7 +55,7 @@ def choose_team_colors ( initial_game_state: GameState
 
     # Check validity
     if not isinstance(initial_game_state, GameState):
-        raise PyRatException("Argument 'initial_game_state' must be of type 'pyrat.GameState'")
+        raise PyRatException(f"Argument 'initial_game_state' must be of type 'pyrat.GameState', got an object of type {type(initial_game_state).__name__}")
 
     # Distinct colors only make sense when teams are shown
     teams = list(initial_game_state.teams.keys())
@@ -98,11 +98,11 @@ class MazeDecor ():
 
         # Check validity
         if not isinstance(maze, Maze):
-            raise PyRatException("Argument 'maze' must be of type 'pyrat.Maze'")
+            raise PyRatException(f"Argument 'maze' must be of type 'pyrat.Maze', got an object of type {type(maze).__name__}")
         if not isinstance(assets, Assets):
-            raise PyRatException("Argument 'assets' must be of type 'Assets'")
+            raise PyRatException(f"Argument 'assets' must be of type 'Assets', got an object of type {type(assets).__name__}")
         if not isinstance(rng, random.Random):
-            raise PyRatException("Argument 'rng' must be of type 'random.Random'")
+            raise PyRatException(f"Argument 'rng' must be of type 'random.Random', got an object of type {type(rng).__name__}")
 
         # One tile, one rotation and one flip per existing cell
         self.tiles = {}
@@ -155,25 +155,25 @@ class Scene ():
 
         # Check validity
         if not isinstance(assets, Assets):
-            raise PyRatException("Argument 'assets' must be of type 'Assets'")
+            raise PyRatException(f"Argument 'assets' must be of type 'Assets', got an object of type {type(assets).__name__}")
         if not isinstance(layout, Layout):
-            raise PyRatException("Argument 'layout' must be of type 'Layout'")
+            raise PyRatException(f"Argument 'layout' must be of type 'Layout', got an object of type {type(layout).__name__}")
         if not isinstance(maze, Maze):
-            raise PyRatException("Argument 'maze' must be of type 'pyrat.Maze'")
+            raise PyRatException(f"Argument 'maze' must be of type 'pyrat.Maze', got an object of type {type(maze).__name__}")
         if not isinstance(initial_game_state, GameState):
-            raise PyRatException("Argument 'initial_game_state' must be of type 'pyrat.GameState'")
+            raise PyRatException(f"Argument 'initial_game_state' must be of type 'pyrat.GameState', got an object of type {type(initial_game_state).__name__}")
         if not isinstance(players, list):
-            raise PyRatException("Argument 'players' must be a list")
+            raise PyRatException(f"Argument 'players' must be a list, got an object of type {type(players).__name__}")
         if not all(isinstance(player, Player) for player in players):
-            raise PyRatException("All elements of 'players' must be of type 'pyrat.Player'")
+            raise PyRatException(f"All elements of 'players' must be of type 'pyrat.Player', got an element of type {type(next(player for player in players if not isinstance(player, Player))).__name__}")
         if not isinstance(team_colors, dict):
-            raise PyRatException("Argument 'team_colors' must be a dictionary")
+            raise PyRatException(f"Argument 'team_colors' must be a dictionary, got an object of type {type(team_colors).__name__}")
         if not isinstance(decor, MazeDecor):
-            raise PyRatException("Argument 'decor' must be of type 'MazeDecor'")
+            raise PyRatException(f"Argument 'decor' must be of type 'MazeDecor', got an object of type {type(decor).__name__}")
         if not isinstance(render_simplified, bool):
-            raise PyRatException("Argument 'render_simplified' must be a boolean")
+            raise PyRatException(f"Argument 'render_simplified' must be a boolean, got {render_simplified!r} of type {type(render_simplified).__name__}")
         if not isinstance(trace_colors, (dict, type(None))):
-            raise PyRatException("Argument 'trace_colors' must be a dictionary or None")
+            raise PyRatException(f"Argument 'trace_colors' must be a dictionary or None, got an object of type {type(trace_colors).__name__}")
 
         # Private attributes
         self.__assets = assets

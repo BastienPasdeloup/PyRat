@@ -54,9 +54,9 @@ class UniformHolesRandomMaze (RandomMaze):
 
         # Check validity
         if not isinstance(cell_percentage, float):
-            raise PyRatException("Argument 'cell_percentage' must be a real number")
+            raise PyRatException(f"Argument 'cell_percentage' must be a real number of type float (e.g., 50.0 rather than 50), got {cell_percentage!r} of type {type(cell_percentage).__name__}")
         if not (0.0 <= cell_percentage <= 100.0):
-            raise PyRatException("Argument 'cell_percentage' must be a percentage")
+            raise PyRatException(f"Argument 'cell_percentage' must be a percentage between 0.0 and 100.0, got {cell_percentage!r}")
 
         # Protected attributes
         # They must be set before calling the parent constructor, which generates the maze
@@ -80,7 +80,7 @@ class UniformHolesRandomMaze (RandomMaze):
         # Determine the number of cells to keep
         self._target_nb_vertices = int(self.get_width() * self.get_height() * self._cell_percentage / 100)
         if not (self._target_nb_vertices > 1):
-            raise PyRatException("The maze must have at least two vertices")
+            raise PyRatException(f"The maze must have at least two vertices, got {self._target_nb_vertices!r} cell(s) to keep ({self._cell_percentage!r}% of a {self.get_width()}x{self.get_height()} grid): increase 'cell_percentage' or the maze size")
 
         # Start from a full maze, with all cells connected to their neighbors
         super()._add_cells()

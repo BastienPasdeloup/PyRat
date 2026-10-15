@@ -72,11 +72,11 @@ class PygameRenderingEngine (RenderingEngine):
 
         # Check validity
         if not isinstance(fullscreen, bool):
-            raise PyRatException("Argument 'fullscreen' must be a boolean")
+            raise PyRatException(f"Argument 'fullscreen' must be a boolean, got {fullscreen!r} of type {type(fullscreen).__name__}")
         if not isinstance(trace_length, int):
-            raise PyRatException("Argument 'trace_length' must be an integer")
+            raise PyRatException(f"Argument 'trace_length' must be an integer, got {trace_length!r} of type {type(trace_length).__name__}")
         if not (trace_length >= 0):
-            raise PyRatException("Argument 'trace_length' must be positive")
+            raise PyRatException(f"Argument 'trace_length' must be non-negative, got {trace_length!r}")
 
         # Private attributes
         self.__fullscreen = fullscreen
@@ -126,13 +126,13 @@ class PygameRenderingEngine (RenderingEngine):
 
         # Check validity
         if not isinstance(players, list):
-            raise PyRatException("Argument 'players' must be a list")
+            raise PyRatException(f"Argument 'players' must be a list, got an object of type {type(players).__name__}")
         if not all(isinstance(player, Player) for player in players):
-            raise PyRatException("All elements of 'players' must be of type 'pyrat.Player'")
+            raise PyRatException(f"All elements of 'players' must be of type 'pyrat.Player', got an element of type {type(next(player for player in players if not isinstance(player, Player))).__name__}")
         if not isinstance(maze, Maze):
-            raise PyRatException("Argument 'maze' must be of type 'pyrat.Maze'")
+            raise PyRatException(f"Argument 'maze' must be of type 'pyrat.Maze', got an object of type {type(maze).__name__}")
         if not isinstance(game_state, GameState):
-            raise PyRatException("Argument 'game_state' must be of type 'pyrat.GameState'")
+            raise PyRatException(f"Argument 'game_state' must be of type 'pyrat.GameState', got an object of type {type(game_state).__name__}")
 
         # Initialize the GUI in a different process at turn 0, and wait for the window to be ready
         # If the window cannot be opened, the process breaks the barrier instead of letting us wait forever
@@ -145,7 +145,7 @@ class PygameRenderingEngine (RenderingEngine):
             try:
                 gui_initialized_synchronizer.wait()
             except threading.BrokenBarrierError:
-                raise PyRatException("The graphical interface could not be started, see the error above")
+                raise PyRatException("The graphical interface could not be started, see the error reported above by the PyRat window, or render the game in the terminal with render_mode=RenderMode.ANSI")
 
         # At each turn, send current info to the process
         else:

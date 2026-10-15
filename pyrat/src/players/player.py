@@ -64,9 +64,9 @@ class Player (abc.ABC):
 
         # Check validity
         if not isinstance(name, (str, type(None))):
-            raise PyRatException("Argument 'name' must be a string or None (if None, we take the name of the class)")
+            raise PyRatException(f"Argument 'name' must be a string or None (if None, we take the name of the class), got {name!r} of type {type(name).__name__}")
         if not isinstance(skin, PlayerSkin):
-            raise PyRatException("Argument 'skin' must be of type 'pyrat.PlayerSkin'")
+            raise PyRatException(f"Argument 'skin' must be of type 'pyrat.PlayerSkin', got {skin!r} of type {type(skin).__name__}")
 
         # Private attributes
         self.__name = name if name is not None else self.__class__.__name__
@@ -123,13 +123,13 @@ class Player (abc.ABC):
 
         # Check validity
         if not isinstance(maze, Maze):
-            raise PyRatException("Argument 'maze' must be of type 'pyrat.Maze'")
+            raise PyRatException(f"Argument 'maze' must be of type 'pyrat.Maze', got an object of type {type(maze).__name__}")
         if not isinstance(game_state, GameState):
-            raise PyRatException("Argument 'game_state' must be of type 'pyrat.GameState'")
+            raise PyRatException(f"Argument 'game_state' must be of type 'pyrat.GameState', got an object of type {type(game_state).__name__}")
         if not isinstance(stats, dict):
-            raise PyRatException("Argument 'stats' must be a dictionary")
+            raise PyRatException(f"Argument 'stats' must be a dictionary, got an object of type {type(stats).__name__}")
         if not all(isinstance(key, str) for key in stats.keys()):
-            raise PyRatException("All keys of 'stats' must be strings")
+            raise PyRatException(f"All keys of 'stats' must be strings, got key {next(key for key in stats.keys() if not isinstance(key, str))!r}")
 
         # By default, this method does nothing unless implemented in the child classes
         pass
@@ -154,9 +154,9 @@ class Player (abc.ABC):
 
         # Check validity
         if not isinstance(maze, Maze):
-            raise PyRatException("Argument 'maze' must be of type 'pyrat.Maze'")
+            raise PyRatException(f"Argument 'maze' must be of type 'pyrat.Maze', got an object of type {type(maze).__name__}")
         if not isinstance(game_state, GameState):
-            raise PyRatException("Argument 'game_state' must be of type 'pyrat.GameState'")
+            raise PyRatException(f"Argument 'game_state' must be of type 'pyrat.GameState', got an object of type {type(game_state).__name__}")
 
         # By default, this method does nothing unless implemented in the child classes
         pass
@@ -190,13 +190,13 @@ class Player (abc.ABC):
 
         # Check validity
         if not isinstance(maze, Maze):
-            raise PyRatException("Argument 'maze' must be of type 'pyrat.Maze'")
+            raise PyRatException(f"Argument 'maze' must be of type 'pyrat.Maze', got an object of type {type(maze).__name__}")
         if not isinstance(game_state, GameState):
-            raise PyRatException("Argument 'game_state' must be of type 'pyrat.GameState'")
+            raise PyRatException(f"Argument 'game_state' must be of type 'pyrat.GameState', got an object of type {type(game_state).__name__}")
 
         # This method must be implemented in the child classes
         # By default we raise an error
-        raise NotImplementedError("This method must be implemented in the child classes.")
+        raise NotImplementedError(f"{type(self).__name__} must redefine method 'turn'")
 
 ##########################################################################################
 ##########################################################################################

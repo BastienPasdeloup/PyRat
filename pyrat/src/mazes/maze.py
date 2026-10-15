@@ -81,15 +81,15 @@ class Maze (Graph, abc.ABC):
         
         # Check validity
         if not isinstance(width, (int, type(None))):
-            raise PyRatException("Argument 'width' must be an integer or None")
+            raise PyRatException(f"Argument 'width' must be an integer or None, got {width!r} of type {type(width).__name__}")
         if not isinstance(height, (int, type(None))):
-            raise PyRatException("Argument 'height' must be an integer or None")
+            raise PyRatException(f"Argument 'height' must be an integer or None, got {height!r} of type {type(height).__name__}")
         if not (width is None or width > 0):
-            raise PyRatException("Width must be positive")
+            raise PyRatException(f"Argument 'width' must be positive, got {width!r}")
         if not (height is None or height > 0):
-            raise PyRatException("Height must be positive")
+            raise PyRatException(f"Argument 'height' must be positive, got {height!r}")
         if not ((width is None and height is None) or width * height >= 2):
-            raise PyRatException("The maze must have at least 2 cells")
+            raise PyRatException(f"The maze must have at least 2 cells, got width={width!r} and height={height!r}")
 
         # Protected attributes
         self._width = width
@@ -147,17 +147,17 @@ class Maze (Graph, abc.ABC):
         
         # Check validity
         if not isinstance(vertex_1, int):
-            raise PyRatException("Argument 'vertex_1' must be an integer")
+            raise PyRatException(f"Argument 'vertex_1' must be an integer, got {vertex_1!r} of type {type(vertex_1).__name__}")
         if not isinstance(vertex_2, int):
-            raise PyRatException("Argument 'vertex_2' must be an integer")
+            raise PyRatException(f"Argument 'vertex_2' must be an integer, got {vertex_2!r} of type {type(vertex_2).__name__}")
         if not isinstance(weight, int):
-            raise PyRatException("Argument 'weight' must be an integer")
+            raise PyRatException(f"Argument 'weight' must be an integer, got {weight!r} of type {type(weight).__name__}")
         if not self.i_exists(vertex_1):
-            raise PyRatException("Vertex 1 is not in the maze")
+            raise PyRatException(f"Cannot add an edge between cells {vertex_1!r} and {vertex_2!r}: cell {vertex_1!r} is not in the maze")
         if not self.i_exists(vertex_2):
-            raise PyRatException("Vertex 2 is not in the maze")
+            raise PyRatException(f"Cannot add an edge between cells {vertex_1!r} and {vertex_2!r}: cell {vertex_2!r} is not in the maze")
         if self.coords_difference(vertex_1, vertex_2) not in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
-            raise PyRatException("Vertices are not adjacent")
+            raise PyRatException(f"Cannot add an edge between cells {vertex_1!r} and {vertex_2!r}: they are not adjacent on the grid (an edge can only link a cell to its north, south, east or west neighbor)")
 
         # If the symmetric edge already exists, we do not add it
         if self.has_edge(vertex_2, vertex_1):
@@ -184,7 +184,7 @@ class Maze (Graph, abc.ABC):
         
         # Check validity
         if not isinstance(vertex, int):
-            raise PyRatException("Argument 'vertex' must be an integer")
+            raise PyRatException(f"Argument 'vertex' must be an integer, got {vertex!r} of type {type(vertex).__name__}")
 
         # Add vertex to the graph using the parent's method
         super().add_vertex(vertex)
@@ -205,7 +205,7 @@ class Maze (Graph, abc.ABC):
         
         # Check validity
         if "numpy" not in globals():
-            raise PyRatException("Numpy is not available")
+            raise PyRatException("Cannot convert the maze to a numpy.ndarray: numpy is not installed (install it with 'pip install numpy')")
 
         # Create the adjacency matrix
         adjacency_matrix = numpy.zeros((self.get_width() * self.get_height(), self.get_width() * self.get_height()), dtype=int)
@@ -230,7 +230,7 @@ class Maze (Graph, abc.ABC):
         
         # Check validity
         if "torch" not in globals():
-            raise PyRatException("Torch is not available")
+            raise PyRatException("Cannot convert the maze to a torch.Tensor: torch is not installed (install it with 'pip install torch')")
 
         # Create the adjacency matrix
         adjacency_matrix = torch.zeros((self.get_width() * self.get_height(), self.get_width() * self.get_height()), dtype=torch.int)
@@ -259,13 +259,13 @@ class Maze (Graph, abc.ABC):
         
         # Check validity
         if not isinstance(vertex_1, int):
-            raise PyRatException("Argument 'vertex_1' must be an integer")
+            raise PyRatException(f"Argument 'vertex_1' must be an integer, got {vertex_1!r} of type {type(vertex_1).__name__}")
         if not isinstance(vertex_2, int):
-            raise PyRatException("Argument 'vertex_2' must be an integer")
+            raise PyRatException(f"Argument 'vertex_2' must be an integer, got {vertex_2!r} of type {type(vertex_2).__name__}")
         if not self.i_exists(vertex_1):
-            raise PyRatException("Vertex 1 is not in the maze")
+            raise PyRatException(f"Cannot compute the coordinates difference between cells {vertex_1!r} and {vertex_2!r}: cell {vertex_1!r} is not in the maze")
         if not self.i_exists(vertex_2):
-            raise PyRatException("Vertex 2 is not in the maze")
+            raise PyRatException(f"Cannot compute the coordinates difference between cells {vertex_1!r} and {vertex_2!r}: cell {vertex_2!r} is not in the maze")
 
         # Get coordinates
         row_1, col_1 = self.i_to_rc(vertex_1)
@@ -290,7 +290,7 @@ class Maze (Graph, abc.ABC):
 
         # Check validity
         if not isinstance(self._height, int):
-            raise PyRatException("Height has not yet been set or inferred")
+            raise PyRatException(f"Cannot get the height of the maze: it has not been set or inferred yet (current value {self._height!r})")
 
         # Return the attribute
         return self._height
@@ -309,7 +309,7 @@ class Maze (Graph, abc.ABC):
 
         # Check validity
         if not isinstance(self._width, int):
-            raise PyRatException("Width has not yet been set or inferred")
+            raise PyRatException(f"Cannot get the width of the maze: it has not been set or inferred yet (current value {self._width!r})")
 
         # Return the attribute
         return self._width
@@ -332,7 +332,7 @@ class Maze (Graph, abc.ABC):
         
         # Check validity
         if not isinstance(index, int):
-            raise PyRatException("Argument 'index' must be an integer")
+            raise PyRatException(f"Argument 'index' must be an integer, got {index!r} of type {type(index).__name__}")
 
         # Check if the cell exists
         exists = index in self.get_vertices()
@@ -357,7 +357,7 @@ class Maze (Graph, abc.ABC):
         
         # Check validity
         if not isinstance(index, int):
-            raise PyRatException("Argument 'index' must be an integer")
+            raise PyRatException(f"Argument 'index' must be an integer, got {index!r} of type {type(index).__name__}")
 
         # Conversion
         row = index // self.get_width()
@@ -384,13 +384,13 @@ class Maze (Graph, abc.ABC):
 
         # Check validity
         if not isinstance(source, int):
-            raise PyRatException("Argument 'source' must be an integer")
+            raise PyRatException(f"Argument 'source' must be an integer, got {source!r} of type {type(source).__name__}")
         if not isinstance(target, int):
-            raise PyRatException("Argument 'target' must be an integer")
+            raise PyRatException(f"Argument 'target' must be an integer, got {target!r} of type {type(target).__name__}")
         if not self.i_exists(source):
-            raise PyRatException("Source is not in the maze")
+            raise PyRatException(f"Cannot determine the action to go from cell {source!r} to cell {target!r}: source cell {source!r} is not in the maze")
         if not self.i_exists(target):
-            raise PyRatException("Target is not in the maze")
+            raise PyRatException(f"Cannot determine the action to go from cell {source!r} to cell {target!r}: target cell {target!r} is not in the maze")
 
         # Get the coordinates difference
         difference = self.coords_difference(source, target)
@@ -428,13 +428,13 @@ class Maze (Graph, abc.ABC):
 
         # Check validity
         if not isinstance(locations, list):
-            raise PyRatException("Argument 'locations' must be a list")
+            raise PyRatException(f"Argument 'locations' must be a list, got a value of type {type(locations).__name__}")
         if not all(isinstance(location, int) for location in locations):
-            raise PyRatException("All elements of 'locations' must be integers")
+            raise PyRatException(f"All elements of 'locations' must be integers, got {next(f'{location!r} of type {type(location).__name__} at index {i}' for i, location in enumerate(locations) if not isinstance(location, int))}")
         if not all(self.i_exists(location) for location in locations):
-            raise PyRatException("Some locations are not in the maze")
+            raise PyRatException(f"Cannot convert the locations to actions: location {next(f'{location!r} at index {i}' for i, location in enumerate(locations) if not self.i_exists(location))} is not a cell of the maze")
         if None in [self.locations_to_action(locations[i], locations[i+1]) for i in range(len(locations) - 1)]:
-            raise PyRatException("Some moves are impossible")
+            raise PyRatException(f"Cannot convert the locations to actions: the move from cell {next(f'{locations[i]!r} to cell {locations[i + 1]!r} (indices {i} and {i + 1})' for i in range(len(locations) - 1) if self.locations_to_action(locations[i], locations[i + 1]) is None)} is impossible, as these cells are not adjacent on the grid")
 
         # Get the actions
         actions = [self.locations_to_action(locations[i], locations[i+1]) for i in range(len(locations) - 1)]
@@ -460,9 +460,9 @@ class Maze (Graph, abc.ABC):
         
         # Check validity
         if not isinstance(row, int):
-            raise PyRatException("Argument 'row' must be an integer")
+            raise PyRatException(f"Argument 'row' must be an integer, got {row!r} of type {type(row).__name__}")
         if not isinstance(col, int):
-            raise PyRatException("Argument 'col' must be an integer")
+            raise PyRatException(f"Argument 'col' must be an integer, got {col!r} of type {type(col).__name__}")
 
         # Check if the cell exists
         exists = 0 <= row < self.get_height() and 0 <= col < self.get_width() and self.rc_to_i(row, col) in self.get_vertices()
@@ -489,9 +489,9 @@ class Maze (Graph, abc.ABC):
         
         # Check validity
         if not isinstance(row, int):
-            raise PyRatException("Argument 'row' must be an integer")
+            raise PyRatException(f"Argument 'row' must be an integer, got {row!r} of type {type(row).__name__}")
         if not isinstance(col, int):
-            raise PyRatException("Argument 'col' must be an integer")
+            raise PyRatException(f"Argument 'col' must be an integer, got {col!r} of type {type(col).__name__}")
 
         # Conversion
         index = row * self.get_width() + col
@@ -516,7 +516,7 @@ class Maze (Graph, abc.ABC):
 
         # This method must be implemented in the child classes
         # By default we raise an error
-        raise NotImplementedError("This method must be implemented in the child classes.")
+        raise NotImplementedError(f"Method '_create_maze' is abstract in Maze and must be implemented in the child class {type(self).__name__}")
 
 ##########################################################################################
 ##########################################################################################

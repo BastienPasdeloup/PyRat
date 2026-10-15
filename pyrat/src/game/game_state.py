@@ -107,9 +107,9 @@ class GameState ():
 
         # Check validity
         if not isinstance(name, str):
-            raise PyRatException("Argument 'name' must be a string")
+            raise PyRatException(f"Argument 'name' must be a string, got {name!r} of type {type(name).__name__}")
         if name not in self.get_players():
-            raise PyRatException("Player '%s' is not in the game" % name)
+            raise PyRatException(f"Player {name!r} is not in the game, expected one of {self.get_players()!r}")
 
         # Get whether the player is currently crossing mud
         in_mud = self.muds[name]["target"] is not None
