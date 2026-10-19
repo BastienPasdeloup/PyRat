@@ -18,8 +18,11 @@ The window itself is built and run by the ``gui`` package, in a separate process
 ##########################################################################################
 
 # External imports
+import ast
+import inspect
 import multiprocessing
 import threading
+import tokenize
 
 # PyRat imports
 from pyrat.src.rendering.rendering_engine import RenderingEngine
@@ -77,6 +80,9 @@ class PygameRenderingEngine (RenderingEngine):
             raise PyRatException(f"Argument 'trace_length' must be an integer, got {trace_length!r} of type {type(trace_length).__name__}")
         if not (trace_length >= 0):
             raise PyRatException(f"Argument 'trace_length' must be non-negative, got {trace_length!r}")
+
+        # The window is opened in another process, which needs the game to be created from a block 'if __name__ == "__main__":'
+        _check_main_guard()
 
         # Private attributes
         self.__fullscreen = fullscreen
@@ -154,6 +160,64 @@ class PygameRenderingEngine (RenderingEngine):
         # At each turn, send current info to the process
         else:
             self.__gui_queue.put(game_state)
+
+##########################################################################################
+######################################## FUNCTIONS #######################################
+##########################################################################################
+
+def _check_main_guard () -> None:
+
+    """
+    Checks that the script running the game creates it from a block ``if __name__ == "__main__":``.
+    The window is opened in another process, and on some systems (Windows, macOS), this process starts by executing the main script again.
+    Outside of such a block, the script would then create a new game in this process, which fails with an error that is hard to understand, and leaves the game waiting for a window that never opens.
+    The block is required on all systems, so that a script working on one system also works on the others.
+    Nothing is checked when there is no script to execute again (interactive session, ``python -c``), or when Python does not execute it again (module ``__main__`` of a package run with ``python -m``).
+    It is defined outside of the class as it does not depend on it.
+
+    Raises:
+        PyRatException: If the game is created by the main script outside of a block ``if __name__ == "__main__":``.
+    """
+
+    # Find the code of the main script that is being executed, which is the outermost one executed at the level of a module and named as the main module
+    # When the main script is executed again by another process, it is named "__mp_main__", and this means that it is not protected by the block
+    main_frame = None
+    frame = inspect.currentframe()
+    while frame is not None:
+        if frame.f_code.co_name == "<module>" and frame.f_globals.get("__name__") in ("__main__", "__mp_main__"):
+            main_frame = frame
+        frame = frame.f_back
+    if main_frame is None or main_frame.f_lineno is None:
+        return
+    script_path = main_frame.f_code.co_filename
+    line_number = main_frame.f_lineno
+    error_message = f"The game must be created from a block 'if __name__ == \"__main__\":' of the script that runs it, which is not the case at line {line_number} of {script_path} -- The window of the game is opened in another process, which executes the script again on some systems (Windows, macOS), so please move the code that creates and starts the game into such a block, as in 'games/sample_game.py'"
+    if main_frame.f_globals.get("__name__") == "__mp_main__":
+        raise PyRatException(error_message)
+
+    # Python does not execute again the module "__main__" of a package run with "python -m"
+    main_spec = main_frame.f_globals.get("__spec__")
+    if main_spec is not None and (main_spec.name == "__main__" or main_spec.name.endswith(".__main__")):
+        return
+
+    # Read the script, unless it has no file (interactive session, "python -c")
+    try:
+        with tokenize.open(script_path) as script_file:
+            script_tree = ast.parse(script_file.read(), filename=script_path)
+    except (OSError, SyntaxError, ValueError):
+        return
+
+    # Look for a block 'if __name__ == "__main__":' containing the line being executed
+    for node in ast.walk(script_tree):
+        if isinstance(node, ast.If) and isinstance(node.test, ast.Compare) and len(node.test.ops) == 1 and isinstance(node.test.ops[0], ast.Eq):
+            compared = [node.test.left, node.test.comparators[0]]
+            compares_name = any(isinstance(element, ast.Name) and element.id == "__name__" for element in compared)
+            compares_main = any(isinstance(element, ast.Constant) and element.value == "__main__" for element in compared)
+            if compares_name and compares_main and node.body[0].lineno <= line_number <= node.body[-1].end_lineno:
+                return
+
+    # The game is created outside of the block
+    raise PyRatException(error_message)
 
 ##########################################################################################
 ##########################################################################################

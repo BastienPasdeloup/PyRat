@@ -1290,12 +1290,14 @@ The saved file contains a Python tuple ``(maze_dict, cheese_list)`` with the maz
     import ast
     from pyrat import Game
 
-    # Load the maze and cheese from saved file
-    with open("pyrat_maze.py", "r") as f:
-        maze_dict, cheese_list = ast.literal_eval(f.read())
+    if __name__ == "__main__":
 
-    # Create a game with the custom maze and cheese
-    game = Game(fixed_maze=maze_dict, fixed_cheese=cheese_list)
+        # Load the maze and cheese from saved file
+        with open("pyrat_maze.py", "r") as f:
+            maze_dict, cheese_list = ast.literal_eval(f.read())
+
+        # Create a game with the custom maze and cheese
+        game = Game(fixed_maze=maze_dict, fixed_cheese=cheese_list)
 
 You can also create a ``MazeFromDict`` object if you prefer.
 This has the advantages of validating the maze structure and providing additional methods.
@@ -1306,15 +1308,17 @@ This has the advantages of validating the maze structure and providing additiona
     import ast
     from pyrat import Game, MazeFromDict
 
-    # Load the maze and cheese from saved file
-    with open("pyrat_maze.py", "r") as f:
-        maze_dict, cheese_list = ast.literal_eval(f.read())
+    if __name__ == "__main__":
 
-    # Create a MazeFromDict object
-    maze = MazeFromDict(maze_dict)
+        # Load the maze and cheese from saved file
+        with open("pyrat_maze.py", "r") as f:
+            maze_dict, cheese_list = ast.literal_eval(f.read())
 
-    # Create a game with the maze object and cheese
-    game = Game(fixed_maze=maze, fixed_cheese=cheese_list)
+        # Create a MazeFromDict object
+        maze = MazeFromDict(maze_dict)
+
+        # Create a game with the maze object and cheese
+        game = Game(fixed_maze=maze, fixed_cheese=cheese_list)
 
 **Remarks:**
 

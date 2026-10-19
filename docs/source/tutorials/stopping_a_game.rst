@@ -19,12 +19,14 @@ Your program can catch it, for instance to skip that game and go on with the nex
 
     from pyrat import Game, PyRatPlayerException
 
-    game = Game()
-    game.add_player(MyPlayer())
-    try:
-        stats = game.start()
-    except PyRatPlayerException as error:
-        print("A player caused an error:", error)
+    if __name__ == "__main__":
+
+        game = Game()
+        game.add_player(MyPlayer())
+        try:
+            stats = game.start()
+        except PyRatPlayerException as error:
+            print("A player caused an error:", error)
 
 However, if you want to let the game run even in the event of a player error, you can set the ``continue_on_error`` parameter to ``True`` when creating the game instance.
 This is particularly useful when running matches with multiple players, as it does not penalize other players.

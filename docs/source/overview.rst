@@ -118,31 +118,40 @@ In the game script, you create your game by instantiating a :doc:`Game <pyrat/Ga
 Then, you create instances of your player classes and add them to the game.
 Finally, you can start the game loop where players take turns to make moves until the game ends.
 
+.. warning::
+
+   The code that creates and starts the game must be placed in a block ``if __name__ == "__main__":``, as in the example below.
+   The window of the game is opened in another process, which executes your script again on some systems (Windows, macOS).
+   Without this block, that process would create a new game in turn, and fail.
+   PyRat therefore raises a ``PyRatException`` when a game with a window is created outside of such a block, on all systems, so that a script working on one system also works on the others.
+
 .. code-block:: python
 
-    # First, let's customize the game elements
-    # This is done by setting the arguments of the Game class when instantiating it
-    # In Python, we can also create a dictionary `d` with these arguments and pass it to the Game class using `game = Game(**d)`
-    # This can be convenient for code organization and readability
-    game_config = {"mud_percentage": 20.0,
-                   "cell_percentage": 80.0,
-                   "wall_percentage": 60.0,
-                   "maze_width": 13,
-                   "maze_height": 10,
-                   "nb_cheese": 5}
+    if __name__ == "__main__":
 
-    # Instantiate a game with specified arguments
-    game = Game(**game_config)
+        # First, let's customize the game elements
+        # This is done by setting the arguments of the Game class when instantiating it
+        # In Python, we can also create a dictionary `d` with these arguments and pass it to the Game class using `game = Game(**d)`
+        # This can be convenient for code organization and readability
+        game_config = {"mud_percentage": 20.0,
+                       "cell_percentage": 80.0,
+                       "wall_percentage": 60.0,
+                       "maze_width": 13,
+                       "maze_height": 10,
+                       "nb_cheese": 5}
 
-    # Instantiate players with different skins, and add them to the game in distinct teams
-    player_1 = Random2(skin=PlayerSkin.RAT)
-    player_2 = Random3(skin=PlayerSkin.PYTHON)
-    game.add_player(player_1, team="Team Ratz")
-    game.add_player(player_2, team="Team Pythonz")
+        # Instantiate a game with specified arguments
+        game = Game(**game_config)
 
-    # Start the game
-    stats = game.start()
-    pprint.pprint(stats)
+        # Instantiate players with different skins, and add them to the game in distinct teams
+        player_1 = Random2(skin=PlayerSkin.RAT)
+        player_2 = Random3(skin=PlayerSkin.PYTHON)
+        game.add_player(player_1, team="Team Ratz")
+        game.add_player(player_2, team="Team Pythonz")
+
+        # Start the game
+        stats = game.start()
+        pprint.pprint(stats)
 
 You can also build more complex game scripts, for instance by running multiple games in a loop to gather statistics.
 This can be helpful to compare multiple algorithms for a same objective, or to test the robustness of a player against different mazes.

@@ -152,32 +152,34 @@ Let's extend the code above with this script:
     from pyrat import Game, MazeFromDict
     from players.random1 import Random1
 
-    # Define the maze as a dictionary
-    maze_dict = {
-        0: {1: 1, 4: 1},
-        1: {0: 1, 2: 1, 5: 1},
-        2: {1: 1, 6: 5},
-        4: {0: 1, 5: 1},
-        5: {1: 1, 4: 1, 6: 1, 9: 1},
-        6: {2: 5, 5: 1, 7: 1, 10: 1},
-        7: {6: 1, 11: 1},
-        9: {5: 1, 10: 1},
-        10: {6: 1, 9: 1, 11: 1},
-        11: {7: 1, 10: 1}
-    }
+    if __name__ == "__main__":
 
-    # Create the maze
-    maze = MazeFromDict(maze_dict)
+        # Define the maze as a dictionary
+        maze_dict = {
+            0: {1: 1, 4: 1},
+            1: {0: 1, 2: 1, 5: 1},
+            2: {1: 1, 6: 5},
+            4: {0: 1, 5: 1},
+            5: {1: 1, 4: 1, 6: 1, 9: 1},
+            6: {2: 5, 5: 1, 7: 1, 10: 1},
+            7: {6: 1, 11: 1},
+            9: {5: 1, 10: 1},
+            10: {6: 1, 9: 1, 11: 1},
+            11: {7: 1, 10: 1}
+        }
 
-    # Create the game with the fixed maze and one cheese
-    game = Game(fixed_maze=maze, nb_cheese=1)
+        # Create the maze
+        maze = MazeFromDict(maze_dict)
 
-    # Register a player
-    player = Random1()
-    game.add_player(player)
+        # Create the game with the fixed maze and one cheese
+        game = Game(fixed_maze=maze, nb_cheese=1)
 
-    # Start the game
-    game.start()
+        # Register a player
+        player = Random1()
+        game.add_player(player)
+
+        # Start the game
+        game.start()
 
 When you run this code, it will create a game with the specified maze and one piece of cheese, placed at a random location.
 Here is what our maze looks like:
@@ -202,32 +204,34 @@ For instance, let's say you want to place the cheese pieces at vertices 1 and 5,
     from pyrat import Game, MazeFromDict
     from players.random1 import Random1
 
-    # Define the maze as a dictionary
-    maze_dict = {
-        0: {1: 1, 4: 1},
-        1: {0: 1, 2: 1, 5: 1},
-        2: {1: 1, 6: 5},
-        4: {0: 1, 5: 1},
-        5: {1: 1, 4: 1, 6: 1, 9: 1},
-        6: {2: 5, 5: 1, 7: 1, 10: 1},
-        7: {6: 1, 11: 1},
-        9: {5: 1, 10: 1},
-        10: {6: 1, 9: 1, 11: 1},
-        11: {7: 1, 10: 1}
-    }
+    if __name__ == "__main__":
 
-    # Create the maze
-    maze = MazeFromDict(maze_dict)
+        # Define the maze as a dictionary
+        maze_dict = {
+            0: {1: 1, 4: 1},
+            1: {0: 1, 2: 1, 5: 1},
+            2: {1: 1, 6: 5},
+            4: {0: 1, 5: 1},
+            5: {1: 1, 4: 1, 6: 1, 9: 1},
+            6: {2: 5, 5: 1, 7: 1, 10: 1},
+            7: {6: 1, 11: 1},
+            9: {5: 1, 10: 1},
+            10: {6: 1, 9: 1, 11: 1},
+            11: {7: 1, 10: 1}
+        }
 
-    # Create the game with the fixed maze and fixed cheese
-    game = Game(fixed_maze=maze, fixed_cheese=[1, 5])
+        # Create the maze
+        maze = MazeFromDict(maze_dict)
 
-    # Register a player
-    player = Random1()
-    game.add_player(player)
+        # Create the game with the fixed maze and fixed cheese
+        game = Game(fixed_maze=maze, fixed_cheese=[1, 5])
 
-    # Start the game
-    game.start()
+        # Register a player
+        player = Random1()
+        game.add_player(player)
+
+        # Start the game
+        game.start()
 
 Does it Always Work?
 ^^^^^^^^^^^^^^^^^^^^

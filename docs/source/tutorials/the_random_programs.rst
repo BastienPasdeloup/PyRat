@@ -189,16 +189,18 @@ Let's do that for the sake of this tutorial.
        from pyrat import Game
        from players.random1 import Random1
 
-       # Instantiate a game with a few arguments
-       game = Game(maze_width=15, maze_height=13, nb_cheese=1)
+       if __name__ == "__main__":
 
-       # Instantiate the player
-       # If we do not specify a name, the player will be named "Random1"
-       player = Random1()
-       game.add_player(player)
+           # Instantiate a game with a few arguments
+           game = Game(maze_width=15, maze_height=13, nb_cheese=1)
 
-       # Start the game
-       stats = game.start()
+           # Instantiate the player
+           # If we do not specify a name, the player will be named "Random1"
+           player = Random1()
+           game.add_player(player)
+
+           # Start the game
+           stats = game.start()
 
 3. Finally, run the script from your VSCode workspace.
    You should see a window opening with the player moving randomly in the maze.
@@ -289,16 +291,18 @@ Here is the complete code of the game script:
     from pyrat import Game
     from players.random2 import Random2
 
-    # Instantiate a game with a few arguments
-    game = Game(maze_width=15, maze_height=13, nb_cheese=1)
+    if __name__ == "__main__":
 
-    # Instantiate the player
-    # If we do not specify a name, the player will be named "Random2"
-    player = Random2()
-    game.add_player(player)
+        # Instantiate a game with a few arguments
+        game = Game(maze_width=15, maze_height=13, nb_cheese=1)
 
-    # Start the game
-    stats = game.start()
+        # Instantiate the player
+        # If we do not specify a name, the player will be named "Random2"
+        player = Random2()
+        game.add_player(player)
+
+        # Start the game
+        stats = game.start()
 
 Running this script will open a window with the player moving randomly in the maze, but without hitting walls or returning actions that do nothing.
 
@@ -440,16 +444,18 @@ Here is the complete code of the game script:
     from pyrat import Game
     from players.random3 import Random3
 
-    # Instantiate a game with a few arguments
-    game = Game(maze_width=15, maze_height=13, nb_cheese=1)
+    if __name__ == "__main__":
 
-    # Instantiate the player
-    # If we do not specify a name, the player will be named "Random3"
-    player = Random3()
-    game.add_player(player)
+        # Instantiate a game with a few arguments
+        game = Game(maze_width=15, maze_height=13, nb_cheese=1)
 
-    # Start the game
-    stats = game.start()
+        # Instantiate the player
+        # If we do not specify a name, the player will be named "Random3"
+        player = Random3()
+        game.add_player(player)
+
+        # Start the game
+        stats = game.start()
 
 Running this script will open a window with the player moving randomly in the maze, but you will see it explores the maze more intelligently, avoiding walls and trying to visit unvisited cells.
 
@@ -585,16 +591,18 @@ Let's also reduce a bit the number of cells to have more dead-ends in the maze, 
     from pyrat import Game
     from players.random4 import Random4
 
-    # Instantiate a game with a few arguments
-    game = Game(maze_width=15, maze_height=13, nb_cheese=1, cell_percentage=70.0)
+    if __name__ == "__main__":
 
-    # Instantiate the player
-    # If we do not specify a name, the player will be named "Random4"
-    player = Random4()
-    game.add_player(player)
+        # Instantiate a game with a few arguments
+        game = Game(maze_width=15, maze_height=13, nb_cheese=1, cell_percentage=70.0)
 
-    # Start the game
-    stats = game.start()
+        # Instantiate the player
+        # If we do not specify a name, the player will be named "Random4"
+        player = Random4()
+        game.add_player(player)
+
+        # Start the game
+        stats = game.start()
 
 Running this script will open a window with the player moving randomly in the maze, but you will see it will avoid dead-ends.
 
@@ -631,48 +639,50 @@ You can save it in a file called ``evaluate_random_players.py`` in the ``games``
     from players.random3 import Random3
     from players.random4 import Random4
 
-    # Determines how many games will be played for each player
-    nb_games = 1000
+    if __name__ == "__main__":
 
-    # Customize the game elements
-    game_config = {"mud_percentage": 0.0,
-                "nb_cheese": 1,
-                "game_mode": GameMode.SIMULATION}
+        # Determines how many games will be played for each player
+        nb_games = 1000
 
-    # Run the games for each player class
-    players = [Random1(), Random2(), Random3(), Random4()]
-    results = {player.get_name(): [] for player in players}
-    for player in players:
-        for seed in tqdm.tqdm(range(nb_games), desc=player.get_name()):
+        # Customize the game elements
+        game_config = {"mud_percentage": 0.0,
+                    "nb_cheese": 1,
+                    "game_mode": GameMode.SIMULATION}
 
-            # Make the game with given seed
-            game = Game(random_seed=seed, **game_config)
-            game.add_player(player)
-            stats = game.start()
+        # Run the games for each player class
+        players = [Random1(), Random2(), Random3(), Random4()]
+        results = {player.get_name(): [] for player in players}
+        for player in players:
+            for seed in tqdm.tqdm(range(nb_games), desc=player.get_name()):
+
+                # Make the game with given seed
+                game = Game(random_seed=seed, **game_config)
+                game.add_player(player)
+                stats = game.start()
             
-            # Store the number of turns needed
-            results[player.get_name()].append(stats["turns"])
+                # Store the number of turns needed
+                results[player.get_name()].append(stats["turns"])
 
-    # Visualization of cumulative curves of numbers of turns taken per program
-    max_turn = max([max(results[player]) for player in results])
-    pyplot.figure(figsize=(10, 5))
-    for player in results:
-        turns = [0] + sorted(results[player]) + [max_turn]
-        games_completed_per_turn = [len([turn for turn in results[player] if turn <= t]) * 100.0 / nb_games for t in turns]
-        pyplot.plot(turns, games_completed_per_turn, label=player)
-    pyplot.title("Comparison of turns needed to complete all %d games" % (nb_games))
-    pyplot.xlabel("Turns per game")
-    pyplot.ylabel("% of games completed")
-    pyplot.xscale("log")
-    pyplot.legend()
-    pyplot.savefig("turns_comparison.png")
+        # Visualization of cumulative curves of numbers of turns taken per program
+        max_turn = max([max(results[player]) for player in results])
+        pyplot.figure(figsize=(10, 5))
+        for player in results:
+            turns = [0] + sorted(results[player]) + [max_turn]
+            games_completed_per_turn = [len([turn for turn in results[player] if turn <= t]) * 100.0 / nb_games for t in turns]
+            pyplot.plot(turns, games_completed_per_turn, label=player)
+        pyplot.title("Comparison of turns needed to complete all %d games" % (nb_games))
+        pyplot.xlabel("Turns per game")
+        pyplot.ylabel("% of games completed")
+        pyplot.xscale("log")
+        pyplot.legend()
+        pyplot.savefig("turns_comparison.png")
 
-    # Formal statistics to check if these curves are statistically significant
-    for i, player_1 in enumerate(results):
-        for j, player_2 in enumerate(results):
-            if j > i:
-                test_result = scstats.mannwhitneyu(results[player_1], results[player_2], alternative="two-sided")
-                print("Mann-Whitney U test between turns of program '%s' and of program '%s':" % (player_1, player_2), test_result)
+        # Formal statistics to check if these curves are statistically significant
+        for i, player_1 in enumerate(results):
+            for j, player_2 in enumerate(results):
+                if j > i:
+                    test_result = scstats.mannwhitneyu(results[player_1], results[player_2], alternative="two-sided")
+                    print("Mann-Whitney U test between turns of program '%s' and of program '%s':" % (player_1, player_2), test_result)
 
 Running this script will produce a plot showing the cumulative curves of the number of turns needed to complete all games for each player.
 The more the curve is to the left, the better the player is.
