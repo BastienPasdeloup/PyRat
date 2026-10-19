@@ -43,6 +43,7 @@ from pyrat.src.rendering.shell_rendering_engine import ShellRenderingEngine
 from pyrat.src.rendering.pygame_rendering_engine import PygameRenderingEngine
 from pyrat.src.game.enums import RenderMode, GameMode, Action, StartingLocation, PlayerSkin, RandomMazeAlgorithm
 from pyrat.src.game.exceptions import PyRatException, PyRatPlayerException
+from pyrat.src.game.main_guard import check_main_guard
 
 ##########################################################################################
 ######################################### CLASSES ########################################
@@ -501,7 +502,7 @@ class Game ():
 
         Raises:
             PyRatPlayerException: If a player crashes or returns an invalid action, unless the game was created with ``continue_on_error=True``.
-            PyRatException: If the game cannot be started, for instance if no player was added, or if the graphical interface cannot be opened, or if the game is interrupted by the user (Ctrl+C in the terminal).
+            PyRatException: If the game cannot be started, for instance if no player was added, if a game whose players run in their own processes (``MATCH`` and ``SYNCHRONOUS`` modes) is not started from a block ``if __name__ == "__main__":``, if the graphical interface cannot be opened, or if the game is interrupted by the user (Ctrl+C in the terminal).
         """
         
         # Check validity
@@ -516,6 +517,10 @@ class Game ():
             # Set the game mode if needed
             if self.__game_mode is None:
                 self.__game_mode = Game.DEFAULT_GAME_MODE_SINGLE_TEAM if len(self.__initial_game_state.teams) == 1 else Game.DEFAULT_GAME_MODE_MULTI_TEAM
+
+            # In multiprocessing mode, players run in other processes, which need the game to be started from a block 'if __name__ == "__main__":'
+            if self.__game_mode in [GameMode.MATCH, GameMode.SYNCHRONOUS]:
+                check_main_guard(f"In game mode {self.__game_mode.name}, each player plays in its own process")
 
             # Mark the game as not reset
             self.__reset_called = False

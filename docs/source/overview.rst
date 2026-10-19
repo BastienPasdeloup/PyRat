@@ -121,9 +121,9 @@ Finally, you can start the game loop where players take turns to make moves unti
 .. warning::
 
    The code that creates and starts the game must be placed in a block ``if __name__ == "__main__":``, as in the example below.
-   The window of the game is opened in another process, which executes your script again on some systems (Windows, macOS).
+   The window of the game, as well as each player in the ``MATCH`` and ``SYNCHRONOUS`` game modes (``MATCH`` being the default as soon as there are several teams), runs in another process, which executes your script again on some systems (Windows, macOS).
    Without this block, that process would create a new game in turn, and fail.
-   PyRat therefore raises a ``PyRatException`` when a game with a window is created outside of such a block, on all systems, so that a script working on one system also works on the others.
+   PyRat therefore raises a ``PyRatException`` when such a game is created or started outside of this block, on all systems, so that a script working on one system also works on the others.
 
 .. code-block:: python
 
