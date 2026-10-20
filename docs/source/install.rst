@@ -123,13 +123,12 @@ Here is what this directory contains:
 
 .. important::
 
-   The command installs your workspace in its own virtual environment, which adds it to the directories Python imports from.
+   PyRat installs a small file in the virtual environment of your workspace, which adds your workspace to the directories Python imports from.
    This is what allows a script in ``games`` to import a player from ``players``, as in ``from players.random1 import Random1``.
    Any directory you add to your workspace is importable the same way, with nothing to declare.
 
-   The location of your workspace is recorded twice: once by uv, as for any installed project, and once by a file PyRat installs in your virtual environment, which finds your workspace from that environment rather than writing its path down.
-   The second one is what lets you rename or move your workspace with no command to run afterwards.
-   Neither of them puts anything in your workspace, which holds nothing but your programs and the files uv needs.
+   This file finds your workspace from the virtual environment it contains, rather than writing its path down, so you can rename or move your workspace with no command to run afterwards.
+   It puts nothing in your workspace, which holds nothing but your programs and the files uv needs.
 
 Step 3 -- Check your installation
 ---------------------------------

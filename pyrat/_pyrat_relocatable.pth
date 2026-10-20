@@ -7,6 +7,5 @@
 # Every directory of the workspace is importable that way, including those created later.
 # The workspace is deduced from the virtual environment it contains, rather than written down here,
 # so renaming or moving a workspace changes nothing and there is no command to run afterwards.
-# Installing the workspace also records its location the usual way, which covers the rarer setups
-# in which the virtual environment is kept outside of it. Either way is enough on its own.
+# This file is the only thing that makes the workspace importable, as the workspace is not installed itself.
 import os, sys; os.path.dirname(sys.prefix) in sys.path or sys.path.append(os.path.dirname(sys.prefix))

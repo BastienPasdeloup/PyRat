@@ -58,9 +58,8 @@ WORKSPACE_DESCRIPTION = "Workspace for the PyRat software"
 TEMPLATE_DIRECTORY = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "workspace")
 
 # Description of the project written in every new workspace, which is what uv reads to prepare it
-# The workspace is a uv project that installs itself, and "dev-mode-dirs" is what records where it is, as for any project installed in editable mode
-# PyRat completes this with the path file it installs in the virtual environment, which finds the workspace on its own and thus survives a rename or a move
-# Neither of them lists the directories of the workspace, so the ones the student creates later are importable without any new declaration
+# The workspace is not installed itself ("package = false"): the path file that PyRat installs in the virtual environment is what makes it importable
+# That file finds the workspace from the virtual environment it contains, so it survives a rename or a move, and it lists no directory, so the ones the student creates later are importable too
 PYPROJECT_TEMPLATE = '''\
 [project]
 name = "pyrat-workspace"
@@ -69,16 +68,8 @@ description = "{description}"
 requires-python = "{python_version}"
 dependencies = ["{pyrat_requirement}"]
 
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-[tool.hatch.build.targets.wheel]
-bypass-selection = true
-dev-mode-dirs = ["."]
-
 [tool.uv]
-package = true
+package = false
 preview-features = ["{relocatable_feature}"]
 '''
 
@@ -93,13 +84,12 @@ def init_workspace ( target_directory:  str | None = None,
     """
     Creates a student workspace, as a `uv <https://docs.astral.sh/uv>`_ project in which the PyRat library is available.
     The workspace receives a few programs to start with, in a ``players`` directory and a ``games`` directory, and a description of the project telling uv what to install.
-    Then ``uv sync`` gives it a virtual environment containing PyRat and the workspace itself.
+    Then ``uv sync`` gives it a virtual environment containing PyRat.
 
-    Installing the workspace adds it to the directories Python imports from, which is what makes every one of its directories importable, as in ``from players.random1 import Random1``.
+    PyRat installs a path file in that virtual environment, which adds the workspace to the directories Python imports from, and makes every one of its directories importable, as in ``from players.random1 import Random1``.
     Nothing lists those directories, so the ones the student creates later are importable as well, with nothing to declare.
-    This is recorded in two complementary ways: where the workspace is, as for any project installed in editable mode, and a path file that PyRat installs in the virtual environment, which finds the workspace from that environment instead.
-    The latter is what keeps a renamed or moved workspace working with no command to run, while the former covers the rarer setups in which the virtual environment is kept outside the workspace.
-    Neither of them puts anything in the workspace itself, which contains nothing but the programs of the student and the files uv needs.
+    The file finds the workspace from the virtual environment it contains rather than writing its path down, so a renamed or moved workspace keeps working with no command to run.
+    It puts nothing in the workspace itself, which contains nothing but the programs of the student and the files uv needs.
 
     Nothing else is ever needed from PyRat: a workspace describes everything it needs, so ``uv sync`` is what rebuilds it, whether it was just cloned or its virtual environment was damaged.
 
@@ -137,7 +127,7 @@ def init_workspace ( target_directory:  str | None = None,
     # Copy the programs to start with, which are all the workspace receives from us
     shutil.copytree(TEMPLATE_DIRECTORY, target_workspace, dirs_exist_ok=True, ignore=shutil.ignore_patterns("__pycache__"))
 
-    # Describe the project, which is what tells uv the Python version to use, the libraries to install, and how to install the workspace itself
+    # Describe the project, which is what tells uv the Python version to use and the libraries to install
     with open(os.path.join(target_workspace, "pyproject.toml"), "w", encoding="utf-8") as f:
         f.write(PYPROJECT_TEMPLATE.format(description=WORKSPACE_DESCRIPTION,
                                           python_version=PYTHON_VERSION,
