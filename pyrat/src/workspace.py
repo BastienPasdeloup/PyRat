@@ -34,8 +34,12 @@ from pyrat.src.game.exceptions import PyRatException
 ######################################## CONSTANTS #######################################
 ##########################################################################################
 
-# Python version used by the workspaces, as written in the "requires-python" field of their description
-PYTHON_VERSION = ">=3.12,<3.14"
+# Python versions accepted by the workspaces, as written in the "requires-python" field of their description
+# These are all the versions for which PyRat and the libraries it needs can be installed
+PYTHON_VERSIONS = ">=3.10,<3.16"
+
+# File in which a workspace records the Python version it uses, which uv reads before choosing an interpreter
+PYTHON_VERSION_FILE = ".python-version"
 
 # Requirement added to the dependencies of the workspaces to make the PyRat library available
 PYRAT_REQUIREMENT = "pyrat-game"
@@ -84,6 +88,7 @@ def init_workspace ( target_directory:  str | None = None,
     """
     Creates a student workspace, as a `uv <https://docs.astral.sh/uv>`_ project in which the PyRat library is available.
     The workspace receives a few programs to start with, in a ``players`` directory and a ``games`` directory, and a description of the project telling uv what to install.
+    It also records the Python version running this function, so that it keeps using it even if a more recent one is installed later, and so that all the members of a group who share it use the same one.
     Then ``uv sync`` gives it a virtual environment containing PyRat.
 
     PyRat installs a path file in that virtual environment, which adds the workspace to the directories Python imports from, and makes every one of its directories importable, as in ``from players.random1 import Random1``.
@@ -130,10 +135,17 @@ def init_workspace ( target_directory:  str | None = None,
     # Describe the project, which is what tells uv the Python version to use and the libraries to install
     with open(os.path.join(target_workspace, "pyproject.toml"), "w", encoding="utf-8") as f:
         f.write(PYPROJECT_TEMPLATE.format(description=WORKSPACE_DESCRIPTION,
-                                          python_version=PYTHON_VERSION,
+                                          python_version=PYTHON_VERSIONS,
                                           pyrat_requirement=pyrat_requirement,
                                           relocatable_feature=RELOCATABLE_FEATURE))
-    print(f"Workspace created in {target_workspace}, as a uv project using Python {PYTHON_VERSION}", file=sys.stderr)
+
+    # Record the Python version running this command, which is the one the student asked for when running it
+    # Without this file, uv would choose the most recent version installed on the machine, which may not be the one asked for
+    # The file is versioned with the workspace, so that all the members of a group who share it use the same version
+    python_version = f"{sys.version_info.major}.{sys.version_info.minor}"
+    with open(os.path.join(target_workspace, PYTHON_VERSION_FILE), "w", encoding="utf-8") as f:
+        f.write(python_version + "\n")
+    print(f"Workspace created in {target_workspace}, as a uv project using Python {python_version}", file=sys.stderr)
 
     # Give the workspace a repository of its own, so that the commits made from it do not go to a repository that happens to contain it
     _init_git_repository(target_workspace)

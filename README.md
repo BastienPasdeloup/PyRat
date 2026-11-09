@@ -56,20 +56,22 @@ We are now going to create a workspace for PyRat. \
 This is a directory that contains minimal working examples to get started, and in which PyRat is installed. \
 To do so, follow these steps:
 1) Open a terminal, and navigate (use the `cd` command) to the directory where you want to create your PyRat workspace.
-2) Run the following command (it is the same on all systems): `uvx --python 3.13 --from pyrat-game pyrat-init`.
+2) Run the following command (it is the same on all systems): `uvx --python 3.14 --from pyrat-game pyrat-init`.
 
 > [!NOTE]
-> PyRat cannot be used with Python 3.14 and later, as `pygame` (one of the libraries PyRat needs) cannot be installed with these versions. \
-> This is why the command above asks uv to use Python 3.13.
+> PyRat works with Python 3.10 to 3.15. \
+> The command above asks uv to use Python 3.14, as some libraries you may want to add to your workspace later ([OR-Tools](https://developers.google.com/optimization) for instance) are not available yet for Python 3.15. \
+> You can ask for another version by changing the number in the command. \
+> Your workspace records this version in its `.python-version` file, and keeps using it even if you install a more recent one later.
 
 You should see something like this:
 ```text
-Workspace created in /path/to/pyrat_workspace, as a uv project using Python >=3.12,<3.14
+Workspace created in /path/to/pyrat_workspace, as a uv project using Python 3.14
 Git repository created for the workspace
-Using CPython 3.13.13
+Using CPython 3.14.7
 Creating virtual environment at: .venv
-Resolved 20 packages in 178ms
-Installed 19 packages in 45ms
+Resolved 30 packages in 178ms
+Installed 17 packages in 45ms
 Virtual environment created, with PyRat installed in it
 Your workspace is ready! You can now start coding your players and run games.
 To run a game, go to the workspace using 'cd pyrat_workspace', then use for instance 'uv run games/sample_game.py'.
@@ -77,7 +79,7 @@ To run a game, go to the workspace using 'cd pyrat_workspace', then use for inst
 
 You should have a new directory called `pyrat_workspace` in the directory where you ran the command. \
 It contains a `players` directory and a `games` directory, which is where your own programs live. \
-If you prefer another name for the workspace, pass it to the command, as in `uvx --python 3.13 --from pyrat-game pyrat-init my_project`.
+If you prefer another name for the workspace, pass it to the command, as in `uvx --python 3.14 --from pyrat-game pyrat-init my_project`.
 
 # Check your installation
 

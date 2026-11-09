@@ -15,7 +15,7 @@ If you are in a hurry, and already have `uv <https://docs.astral.sh/uv>`_ instal
 
 .. code-block:: shell
 
-   uvx --python 3.13 --from pyrat-game pyrat-init
+   uvx --python 3.14 --from pyrat-game pyrat-init
    cd pyrat_workspace
    uv run games/sample_game.py
 
@@ -27,7 +27,7 @@ Prerequisites
 - This installation procedure assumes that you have basic knowledge about shell manipulation.
 
 - PyRat uses `uv <https://docs.astral.sh/uv>`_ to manage Python and the libraries it needs.
-  You do not need to install Python yourself: uv takes care of it, and downloads the version PyRat needs if your machine does not have it.
+  You do not need to install Python yourself: uv takes care of it, and downloads the version you ask for if your machine does not have it.
 
 - Finally, we will test PyRat installation using Visual Studio Code (VSCode), as this is the main tool we use in the associated course.
   Please make sure it is already installed, or install it from the `official website <https://code.visualstudio.com>`_.
@@ -81,23 +81,27 @@ This is a directory that contains minimal working examples to get started, and i
 
    .. code-block:: shell
 
-      uvx --python 3.13 --from pyrat-game pyrat-init
+      uvx --python 3.14 --from pyrat-game pyrat-init
 
 .. note::
 
-   PyRat cannot be used with Python 3.14 and later, as ``pygame`` (one of the libraries PyRat needs) cannot be installed with these versions.
-   This is why the command above asks uv to use Python 3.13.
+   PyRat works with Python 3.10 to 3.15.
+   The command above asks uv to use Python 3.14, as some libraries you may want to add to your workspace later (`OR-Tools <https://developers.google.com/optimization>`_ for instance) are not available yet for Python 3.15.
+   You can ask for another version by changing the number in the command.
+
+   Your workspace records this version in its ``.python-version`` file, and keeps using it even if you install a more recent one later.
+   This file is versioned with your programs, so that everyone working on the workspace uses the same version.
 
 You should see something like this:
 
 .. code-block:: text
 
-   Workspace created in /path/to/pyrat_workspace, as a uv project using Python >=3.12,<3.14
+   Workspace created in /path/to/pyrat_workspace, as a uv project using Python 3.14
    Git repository created for the workspace
-   Using CPython 3.13.13
+   Using CPython 3.14.7
    Creating virtual environment at: .venv
-   Resolved 20 packages in 178ms
-   Installed 19 packages in 45ms
+   Resolved 30 packages in 178ms
+   Installed 17 packages in 45ms
    Virtual environment created, with PyRat installed in it
    Your workspace is ready! You can now start coding your players and run games.
    To run a game, go to the workspace using 'cd pyrat_workspace', then use for instance 'uv run games/sample_game.py'.
@@ -106,7 +110,7 @@ You should have a new directory called ``pyrat_workspace`` in the directory wher
 
 .. tip::
 
-   If you prefer another name, pass it to the command, as in ``uvx --python 3.13 --from pyrat-game pyrat-init my_project``.
+   If you prefer another name, pass it to the command, as in ``uvx --python 3.14 --from pyrat-game pyrat-init my_project``.
 
 Here is what this directory contains:
 
@@ -118,6 +122,7 @@ Here is what this directory contains:
    |_ .venv                   # The virtual environment of the workspace, created by uv
    |_ pyproject.toml          # The description of your project and of the libraries it needs
    |_ uv.lock                 # The exact versions of the installed libraries
+   |_ .python-version         # The version of Python used by the workspace
    |_ README.md               # A description of the workspace
    |_ .gitignore              # The files that Git should ignore
 
@@ -202,6 +207,22 @@ Troubleshooting
 
    Check also that you are running your program with the interpreter of your workspace, which is the one in its ``.venv`` directory.
    In VSCode, this is the interpreter you select for the directory you opened.
+
+.. dropdown:: A library cannot be installed in my workspace
+   :icon: alert
+
+   Some libraries are not available for every version of Python, in particular for the most recent ones.
+   In that case, ``uv add`` explains which versions of Python the library supports, and leaves your workspace unchanged.
+
+   Ask your workspace to use one of these versions, then add the library again, as in:
+
+   .. code-block:: shell
+
+      uv python pin 3.14
+      uv add ortools
+
+   This updates the ``.python-version`` file of your workspace, and rebuilds its virtual environment with this version.
+   Commit this file, so that everyone working on the workspace uses the same version.
 
 .. dropdown:: The ``uv`` command is not found
    :icon: alert
