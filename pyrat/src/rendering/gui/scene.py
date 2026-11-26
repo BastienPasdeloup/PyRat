@@ -629,15 +629,15 @@ class Scene ():
             pygame.draw.rect(team_background, layout_module.BACKGROUND_COLOR, pygame.Rect(0, 0, layout.avatars_area_width, layout.avatars_area_height))
             pygame.draw.rect(team_background, self.__team_colors[team], pygame.Rect(0, 0, layout.avatars_area_width, layout.avatars_area_height), layout_module.AVATARS_AREA_BORDER, layout_module.AVATARS_AREA_ANGLE)
             team_background_x = layout.avatars_x_offset
-            team_background_y = (1 + i) * layout.maze_y_offset + i * layout.avatars_area_height if len(initial_game_state.teams) > 1 else (layout.window_height - layout.avatars_area_height) // 2
+            team_background_y = layout.maze_y_offset + i * (layout.avatars_area_spacing + layout.avatars_area_height) if len(initial_game_state.teams) > 1 else (layout.window_height - layout.avatars_area_height) // 2
             self.background.blit(team_background, (team_background_x, team_background_y))
             self.__medal_locations[team] = (team_background_x + layout.avatars_area_width, team_background_y)
 
             # Name of the team, shrunk if it does not fit in the box
             team_text = assets.text(team, max(team_text_size, 1), self.__team_colors[team])
             if team_text.get_width() > layout.avatars_area_width - 2 * padding:
-                ratio = (layout.avatars_area_width - 2 * padding) / team_text.get_width()
-                team_text = pygame.transform.scale(team_text, (int(team_text.get_width() * ratio), int(team_text.get_height() * ratio)))
+                ratio = max(layout.avatars_area_width - 2 * padding, 1) / team_text.get_width()
+                team_text = pygame.transform.scale(team_text, (max(int(team_text.get_width() * ratio), 1), max(int(team_text.get_height() * ratio), 1)))
             if layout.teams_enabled:
                 team_text_x = layout.avatars_x_offset + (layout.avatars_area_width - team_text.get_width()) // 2
                 team_text_y = team_background_y + padding + (team_text_size - team_text.get_height()) // 2
@@ -659,9 +659,9 @@ class Scene ():
                 centers.append(player_x + player_avatar.get_width() // 2)
                 player_x += player_avatar.get_width() + layout.player_avatar_horizontal_padding
             if avatar_area.get_width() > layout.avatars_area_width - 2 * padding:
-                ratio = (layout.avatars_area_width - 2 * padding) / avatar_area.get_width()
+                ratio = max(layout.avatars_area_width - 2 * padding, 1) / avatar_area.get_width()
                 centers = [center * ratio for center in centers]
-                avatar_area = pygame.transform.scale(avatar_area, (int(avatar_area.get_width() * ratio), int(avatar_area.get_height() * ratio)))
+                avatar_area = pygame.transform.scale(avatar_area, (max(int(avatar_area.get_width() * ratio), 1), max(int(avatar_area.get_height() * ratio), 1)))
             avatar_area_x = layout.avatars_x_offset + (layout.avatars_area_width - avatar_area.get_width()) // 2
             avatar_area_y = team_background_y + 2 * padding + team_text_size + (layout.player_avatar_size - avatar_area.get_height()) // 2
             self.background.blit(avatar_area, (avatar_area_x, avatar_area_y))

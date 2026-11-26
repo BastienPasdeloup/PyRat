@@ -51,6 +51,9 @@ MAIN_IMAGE_BORDER_SIZE = 1
 MIN_WINDOW_WIDTH = 480
 MIN_WINDOW_HEIGHT = 360
 
+# Smallest width of the scores area, in number of paddings: one on each side, and at least as much room for its content, which is shrunk to fit
+MIN_AVATARS_AREA_PADDINGS = 3
+
 ##########################################################################################
 ######################################## FUNCTIONS #######################################
 ##########################################################################################
@@ -123,43 +126,53 @@ class Layout ():
         self.window_height = max(int(window_size[1]), MIN_WINDOW_HEIGHT)
 
         # The maze occupies most of the window, the scores area being on its left
-        self.cell_size = max(int(min(self.window_width / maze.get_width(), self.window_height / maze.get_height()) * 0.9), 1)
-        self.game_area_width = self.cell_size * maze.get_width()
-        self.game_area_height = self.cell_size * maze.get_height()
-        self.maze_x_offset = int((self.window_width - self.game_area_width) * 0.9)
-        self.maze_y_offset = (self.window_height - self.game_area_height) // 2
-
-        # Elements drawn inside a cell
-        self.wall_size = max(self.cell_size // 7, 1)
-        self.trace_size = max(self.wall_size // 2, 1)
-        self.cell_text_offset = int(self.cell_size * 0.1)
-        self.text_size = max(int(self.cell_size * 0.17), 1)
-        self.cheese_size = max(int(self.cell_size * 0.4), 1)
-        self.player_size = max(int(self.cell_size * 0.5), 1)
-        self.flag_size = max(int(self.cell_size * 0.4), 1)
-        self.flag_x_offset = int(self.cell_size * 0.2)
-        self.flag_x_next_offset = int(self.cell_size * 0.07)
-        self.flag_y_offset = int(self.cell_size * 0.3)
-
-        # Scores area, on the left of the maze
+        # In a window that is nearly square or taller than wide, the maze would leave no room for the scores area, so its cells are shrunk until the area is wider than its paddings
         nb_teams = len(initial_game_state.teams)
-        self.avatars_x_offset = self.window_width - self.maze_x_offset - self.game_area_width
-        self.avatars_area_width = self.maze_x_offset - 2 * self.avatars_x_offset
-        self.avatars_area_height = min(self.game_area_height // 2, (self.game_area_height - (nb_teams - 1) * self.maze_y_offset) // nb_teams)
-
-        # Teams are named only when there are several of them, which changes how the scores area is filled
         self.teams_enabled = teams_are_named(initial_game_state)
-        if self.teams_enabled:
-            self.avatars_area_padding = max(self.avatars_area_height // 13, 1)
-            self.team_text_size = self.avatars_area_padding * 3
-        else:
-            self.avatars_area_padding = max(self.avatars_area_height // 12, 1)
-            self.team_text_size = 0
-            self.avatars_area_height -= self.avatars_area_padding * 3
-        self.player_avatar_size = self.avatars_area_padding * 3
-        self.player_avatar_horizontal_padding = self.avatars_area_padding * 4
-        self.player_name_text_size = self.avatars_area_padding
-        self.cheese_score_size = self.avatars_area_padding
+        self.cell_size = max(int(min(self.window_width / maze.get_width(), self.window_height / maze.get_height()) * 0.9), 1)
+        while True:
+            # Size of the maze for this size of cells, and its position in the window
+            self.game_area_width = self.cell_size * maze.get_width()
+            self.game_area_height = self.cell_size * maze.get_height()
+            self.maze_x_offset = int((self.window_width - self.game_area_width) * 0.9)
+            self.maze_y_offset = (self.window_height - self.game_area_height) // 2
+
+            # Elements drawn inside a cell
+            self.wall_size = max(self.cell_size // 7, 1)
+            self.trace_size = max(self.wall_size // 2, 1)
+            self.cell_text_offset = int(self.cell_size * 0.1)
+            self.text_size = max(int(self.cell_size * 0.17), 1)
+            self.cheese_size = max(int(self.cell_size * 0.4), 1)
+            self.player_size = max(int(self.cell_size * 0.5), 1)
+            self.flag_size = max(int(self.cell_size * 0.4), 1)
+            self.flag_x_offset = int(self.cell_size * 0.2)
+            self.flag_x_next_offset = int(self.cell_size * 0.07)
+            self.flag_y_offset = int(self.cell_size * 0.3)
+
+            # Scores area, on the left of the maze
+            self.avatars_x_offset = self.window_width - self.maze_x_offset - self.game_area_width
+            self.avatars_area_width = self.maze_x_offset - 2 * self.avatars_x_offset
+            # The boxes of the teams are separated by the margin above the maze, but by less in a window much taller than the maze, where this margin is large
+            self.avatars_area_spacing = min(self.maze_y_offset, self.game_area_height // (2 * nb_teams))
+            self.avatars_area_height = min(self.game_area_height // 2, (self.game_area_height - (nb_teams - 1) * self.avatars_area_spacing) // nb_teams)
+
+            # Teams are named only when there are several of them, which changes how the scores area is filled
+            if self.teams_enabled:
+                self.avatars_area_padding = max(self.avatars_area_height // 13, 1)
+                self.team_text_size = self.avatars_area_padding * 3
+            else:
+                self.avatars_area_padding = max(self.avatars_area_height // 12, 1)
+                self.team_text_size = 0
+                self.avatars_area_height -= self.avatars_area_padding * 3
+            self.player_avatar_size = self.avatars_area_padding * 3
+            self.player_avatar_horizontal_padding = self.avatars_area_padding * 4
+            self.player_name_text_size = self.avatars_area_padding
+            self.cheese_score_size = self.avatars_area_padding
+
+            # Stop once the scores area is wide enough, or when the cells cannot be smaller
+            if self.avatars_area_width >= MIN_AVATARS_AREA_PADDINGS * self.avatars_area_padding or self.cell_size == 1:
+                break
+            self.cell_size -= 1
 
         # Images shown over the maze, when the game starts and when it ends
         self.medal_size = max(min(self.avatars_x_offset, self.maze_y_offset) * 2, 1)
